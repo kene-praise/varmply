@@ -1,6 +1,5 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { ArrowRight, Zap } from 'lucide-react';
@@ -8,9 +7,9 @@ import CampaignMockup from './UIComponents/CampaignMockup';
 
 export default function HeroSection() {
   return (
-    <section className="relative flex min-h-screen items-center overflow-hidden bg-[#F7F7F9]">
+    <section className="relative overflow-hidden bg-[#F7F7F9] py-24">
       {/* Background blobs */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -33,7 +32,7 @@ export default function HeroSection() {
         />
       </div>
 
-      <div className="mx-auto w-full max-w-6xl px-6 py-12 sm:py-16">
+      <div className="relative z-10 mx-auto w-full max-w-6xl px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           {/* Left column */}
           <div>
