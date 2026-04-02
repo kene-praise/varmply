@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import BrandLogo from '@/components/BrandLogo';
 
 /** Lucide dropped brand icons; inline SVGs keep recognizable social marks */
 function SocialX({ className }: { className?: string }) {
@@ -40,12 +41,8 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           {/* Col 1: Logo + tagline + socials */}
           <div className="lg:col-span-1">
-            <Link href="/" className="flex items-center gap-2.5 mb-4">
-              <div className="relative w-7 h-7">
-                <div className="absolute w-4.5 h-4.5 rounded-full bg-[#7C5CFC] opacity-80 top-0 left-0" style={{width:'18px',height:'18px'}} />
-                <div className="absolute w-4.5 h-4.5 rounded-full bg-[#A78BFA] opacity-80 bottom-0 right-0" style={{width:'18px',height:'18px'}} />
-              </div>
-              <span className="font-bold text-lg tracking-tight">VARMPLY</span>
+            <Link href="/" className="mb-4 inline-flex items-center" aria-label="Varmply home">
+              <BrandLogo className="h-11 w-auto opacity-95 hover:opacity-100 sm:h-12" />
             </Link>
             <p className="text-[#8888AA] text-sm leading-relaxed mb-6">
               The creator-sponsor platform built for structured campaigns, verified performance, and transparent payouts.

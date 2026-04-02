@@ -33,7 +33,7 @@ export default function HeroSection() {
         />
       </div>
 
-      <div className="mx-auto w-full max-w-6xl px-6 py-16 sm:py-20">
+      <div className="mx-auto w-full max-w-6xl px-6 py-12 sm:py-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           {/* Left column */}
           <div>

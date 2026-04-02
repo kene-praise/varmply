@@ -186,8 +186,8 @@ export default function CreatorsPage() {
               </motion.span>
               <motion.h1
                 variants={fadeUp}
-                className="text-[#0F0F1A] font-extrabold mb-5"
-                style={{ fontSize: 'clamp(36px, 5vw, 60px)', lineHeight: 1.1 }}
+                className="mb-5 text-[#0F0F1A] font-extrabold leading-[1.12]"
+                style={{ fontSize: 'clamp(32px, 4vw, 48px)', fontWeight: 800 }}
               >
                 Structured paid campaigns for{' '}
                 <span className="gradient-text">serious creators.</span>

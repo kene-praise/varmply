@@ -30,6 +30,7 @@
 }
 
 @theme inline {
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
   --font-jakarta: 'Plus Jakarta Sans', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 }
@@ -45,12 +46,17 @@ html {
 body {
   background: var(--bg-subtle);
   color: var(--text-primary);
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
   font-size: 16px;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+}
+
+/* Headlines — keep Plus Jakarta for display contrast with Inter body */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Plus Jakarta Sans', ui-sans-serif, sans-serif;
 }
 
 .font-mono {
