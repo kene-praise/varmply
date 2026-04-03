@@ -8,108 +8,112 @@ import AnalyticsMockup from './UIComponents/AnalyticsMockup';
 
 export default function BentoGrid() {
   return (
-    <section className="bg-[#F7F7F9] py-24">
+    <section className="bg-white py-20">
       <div className="max-w-6xl mx-auto px-6">
+
+        {/* Header */}
         <motion.div
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
           viewport={viewportOptions}
-          className="text-center mb-16"
+          className="mb-10"
         >
-          <motion.p variants={fadeUp} className="tag mb-4" style={{ color: '#7C5CFC', background: '#EDE9FF', margin: '0 auto 16px' }}>
+          <motion.p variants={fadeUp} className="tag mb-3" style={{ color: '#7C3BED', background: '#EDE9FF' }}>
             Platform Preview
           </motion.p>
           <motion.h2
             variants={fadeUp}
-            className="text-[#0F0F1A] font-bold mb-4"
-            style={{ fontSize: 'clamp(32px, 4vw, 48px)', lineHeight: 1.15 }}
+            className="font-bold"
+            style={{ fontSize: 'clamp(28px, 3.5vw, 44px)', lineHeight: 1.15, color: '#0F0A2E' }}
           >
-            Real product.{' '}
-            <span className="gradient-text">No fake dashboards.</span>
+            Real product. No fake dashboards.
           </motion.h2>
-          <motion.p variants={fadeUp} className="text-[#4A4A6A] text-lg max-w-xl mx-auto">
-            Every screen you see here is a real part of the platform. What you join is what you see.
-          </motion.p>
         </motion.div>
 
-        {/* Bento grid */}
+        {/* Color card grid */}
         <motion.div
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
           viewport={viewportOptions}
-          className="grid grid-cols-1 lg:grid-cols-3 gap-5"
+          className="grid grid-cols-1 lg:grid-cols-3 gap-4"
         >
-          {/* Campaign marketplace — tall left */}
+
+          {/* Campaign — tall left, purple */}
           <motion.div
             variants={fadeUp}
-            className="lg:col-span-1 lg:row-span-2 flex flex-col rounded-2xl border border-[#E4E4EC] bg-white p-6 card-hover"
-            style={{ minHeight: '480px' }}
+            className="lg:col-span-1 lg:row-span-2 relative overflow-hidden flex flex-col"
+            style={{ background: '#7C3BED', borderRadius: '2rem', minHeight: '520px' }}
           >
-            <div className="mb-4">
-              <span className="tag text-xs" style={{ color: '#7C5CFC', background: '#EDE9FF' }}>
-                Campaign Marketplace
+            <div className="p-8 pb-0 flex-1">
+              <span className="inline-flex items-center text-xs font-semibold px-3 py-1 rounded-full mb-5 uppercase tracking-wider"
+                style={{ background: 'rgba(255,255,255,0.15)', color: 'white', letterSpacing: '0.05em' }}>
+                Marketplace
               </span>
-              <h3 className="text-xl font-bold text-[#0F0F1A] mt-2 mb-1">
-                Browse & apply with one click
-              </h3>
-              <p className="text-sm text-[#4A4A6A]">
-                Filter by niche, eligibility, and payout. Apply in seconds.
-              </p>
+              <h3 className="text-white font-bold text-2xl mb-2 leading-tight">Browse &amp; apply in one click</h3>
+              <p className="text-white/70 text-sm leading-relaxed">Filter by niche, eligibility, and payout.</p>
             </div>
-            <div className="flex-1 flex items-center justify-center overflow-hidden">
-              <div className="scale-90 origin-top">
+            {/* Mockup — flush to bottom */}
+            <div className="mt-auto px-4 overflow-hidden" style={{ paddingBottom: 0 }}>
+              <div className="scale-90 origin-bottom">
                 <CampaignMockup />
               </div>
             </div>
+            <div className="absolute -bottom-16 -right-16 w-56 h-56 rounded-full pointer-events-none"
+              style={{ background: 'rgba(255,255,255,0.05)' }} />
           </motion.div>
 
-          {/* Wallet UI — top right */}
+          {/* Wallet — top right, emerald */}
           <motion.div
             variants={fadeUp}
-            className="lg:col-span-2 flex flex-col rounded-2xl border border-[#E4E4EC] bg-white p-6 card-hover"
+            className="lg:col-span-2 relative overflow-hidden flex flex-col"
+            style={{ background: '#059669', borderRadius: '2rem', minHeight: '240px' }}
           >
-            <div className="mb-4">
-              <span className="tag text-xs" style={{ color: '#16A34A', background: '#F0FDF4' }}>
-                Wallet & Payouts
+            <div className="p-8 pb-0 flex-none">
+              <span className="inline-flex items-center text-xs font-semibold px-3 py-1 rounded-full mb-4 uppercase tracking-wider"
+                style={{ background: 'rgba(255,255,255,0.15)', color: 'white', letterSpacing: '0.05em' }}>
+                Wallet &amp; Payouts
               </span>
-              <h3 className="text-xl font-bold text-[#0F0F1A] mt-2 mb-1">
-                Your earnings, always visible
-              </h3>
-              <p className="text-sm text-[#4A4A6A]">
-                Real-time balance, transaction history, and payout status in one place.
-              </p>
+              <h3 className="text-white font-bold text-2xl mb-1 leading-tight">Your earnings, always visible</h3>
+              <p className="text-white/70 text-sm">Real-time balance, transaction history, payout status.</p>
             </div>
-            <div className="flex items-center justify-center overflow-hidden">
-              <div className="scale-90 origin-top">
+            <div className="mt-auto px-6 overflow-hidden">
+              <div className="scale-90 origin-bottom">
                 <WalletMockup />
               </div>
             </div>
+            <div className="absolute -top-10 -right-10 w-40 h-40 rounded-full pointer-events-none"
+              style={{ background: 'rgba(255,255,255,0.06)' }} />
           </motion.div>
 
-          {/* Analytics — bottom right */}
+          {/* Analytics — bottom right, dark navy */}
           <motion.div
             variants={fadeUp}
-            className="lg:col-span-2 flex flex-col rounded-2xl border border-[#E4E4EC] bg-white p-6 card-hover"
+            className="lg:col-span-2 relative overflow-hidden flex flex-col"
+            style={{ background: '#0F0A2E', borderRadius: '2rem', minHeight: '240px' }}
           >
-            <div className="mb-4">
-              <span className="tag text-xs" style={{ color: '#D97706', background: '#FFFBEB' }}>
+            <div className="p-8 pb-0 flex-none">
+              <span className="inline-flex items-center text-xs font-semibold px-3 py-1 rounded-full mb-4 uppercase tracking-wider"
+                style={{ background: 'rgba(255,255,255,0.1)', color: 'rgba(255,255,255,0.8)', letterSpacing: '0.05em' }}>
                 Analytics
               </span>
-              <h3 className="text-xl font-bold text-[#0F0F1A] mt-2 mb-1">
-                Performance, automatically tracked
-              </h3>
-              <p className="text-sm text-[#4A4A6A]">
-                Engagement, impressions, and reach — captured without lifting a finger.
-              </p>
+              <h3 className="text-white font-bold text-2xl mb-1 leading-tight">Performance, automatically tracked</h3>
+              <p className="text-white/55 text-sm">Engagement, impressions, reach — no lifting a finger.</p>
             </div>
-            <div className="flex items-center justify-center overflow-hidden">
-              <div className="scale-90 origin-top">
+            <div className="mt-auto px-6 overflow-hidden">
+              <div className="scale-90 origin-bottom">
                 <AnalyticsMockup />
               </div>
             </div>
+            {/* Dot grid texture */}
+            <div className="absolute inset-0 pointer-events-none"
+              style={{
+                backgroundImage: 'radial-gradient(rgba(255,255,255,0.06) 1px, transparent 1px)',
+                backgroundSize: '28px 28px',
+              }} />
           </motion.div>
+
         </motion.div>
       </div>
     </section>

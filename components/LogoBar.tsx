@@ -6,7 +6,7 @@ const logos = ['Paystack', 'PiggyVest', 'Flutterwave', 'Cowrywise', 'Carbon'];
 
 export default function LogoBar() {
   return (
-    <section style={{ background: 'var(--bg-subtle)', borderTop: '1px solid var(--border-subtle)', borderBottom: '1px solid var(--border-subtle)' }}>
+    <section style={{ background: 'white', borderTop: '1px solid #EBEBF0', borderBottom: '1px solid #EBEBF0' }}>
       <div className="max-w-6xl mx-auto px-6 py-10">
         <motion.p
           initial={{ opacity: 0 }}
@@ -31,7 +31,7 @@ export default function LogoBar() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.08 }}
-              className="text-lg font-bold text-[#D1D1DE] hover:text-[#7C5CFC] transition-colors duration-300 cursor-default select-none tracking-tight"
+              className="text-lg font-bold text-[#D1D1DE] hover:text-[#7C3BED] transition-colors duration-300 cursor-default select-none tracking-tight"
             >
               {logo}
             </motion.span>

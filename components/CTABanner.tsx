@@ -14,70 +14,81 @@ interface CTABannerProps {
 
 export default function CTABanner({
   headline = 'Ready to get started?',
-  subtext = 'Join thousands of creators and brands already building on Varmply.',
+  subtext = 'Join creators and brands already building on Varmply.',
   cta1 = { label: 'Join as Creator', href: '/creators' },
   cta2 = { label: 'Launch a Campaign', href: '/sponsors' },
 }: CTABannerProps) {
   return (
-    <section
-      className="py-24 relative overflow-hidden"
-      style={{ background: 'linear-gradient(135deg, #7C5CFC 0%, #5B3FE4 100%)' }}
-    >
-      {/* Background decoration */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div
-          className="absolute -top-20 -right-20 w-96 h-96 rounded-full"
-          style={{
-            background: 'radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 65%)',
-          }}
-        />
-        <div
-          className="absolute -bottom-20 -left-20 w-80 h-80 rounded-full"
-          style={{
-            background: 'radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 65%)',
-          }}
-        />
-        {/* Grid dots */}
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: 'radial-gradient(rgba(255,255,255,0.08) 1px, transparent 1px)',
-            backgroundSize: '32px 32px',
-          }}
-        />
-      </div>
-
-      <div className="max-w-6xl mx-auto px-6 relative text-center">
+    <section className="bg-white py-8 pb-20">
+      <div className="max-w-6xl mx-auto px-6">
+        {/* Dark navy floating card — matches StatsSection card */}
         <motion.div
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
           viewport={viewportOptions}
+          className="relative overflow-hidden text-center"
+          style={{
+            background: '#0F0A2E',
+            borderRadius: '2rem',
+            padding: 'clamp(3rem, 6vw, 5rem) clamp(2rem, 5vw, 4rem)',
+          }}
         >
-          <motion.h2
-            variants={fadeUp}
-            className="text-white font-bold mb-4"
-            style={{ fontSize: 'clamp(36px, 5vw, 56px)', lineHeight: 1.1 }}
-          >
-            {headline}
-          </motion.h2>
-          <motion.p variants={fadeUp} className="text-white/75 text-lg mb-10 max-w-xl mx-auto">
-            {subtext}
-          </motion.p>
-          <motion.div variants={fadeUp} className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href={cta1.href}
-              className="inline-flex items-center gap-2 rounded-full border border-[#E8E4FF] bg-white px-7 py-3.5 font-semibold text-[#7C5CFC] transition-all duration-200 hover:bg-white/90"
+          {/* Dot grid */}
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              backgroundImage: 'radial-gradient(rgba(255,255,255,0.06) 1px, transparent 1px)',
+              backgroundSize: '28px 28px',
+            }}
+          />
+          {/* Purple glow top-right */}
+          <div
+            className="absolute -top-24 -right-24 w-80 h-80 rounded-full pointer-events-none"
+            style={{ background: 'radial-gradient(circle, rgba(124,59,237,0.3) 0%, transparent 70%)' }}
+          />
+          {/* Emerald glow bottom-left */}
+          <div
+            className="absolute -bottom-20 -left-20 w-64 h-64 rounded-full pointer-events-none"
+            style={{ background: 'radial-gradient(circle, rgba(5,150,105,0.18) 0%, transparent 70%)' }}
+          />
+
+          <div className="relative">
+            <motion.h2
+              variants={fadeUp}
+              className="text-white font-bold mb-4"
+              style={{ fontSize: 'clamp(32px, 4.5vw, 54px)', lineHeight: 1.1 }}
             >
-              {cta1.label} <ArrowRight size={16} />
-            </Link>
-            <Link
-              href={cta2.href}
-              className="inline-flex items-center gap-2 rounded-full border border-white/35 bg-white/15 px-7 py-3.5 font-semibold text-white transition-all duration-200 hover:bg-white/25"
+              {headline}
+            </motion.h2>
+            <motion.p
+              variants={fadeUp}
+              className="mb-10 mx-auto"
+              style={{ color: 'rgba(255,255,255,0.6)', fontSize: '1.125rem', maxWidth: '440px' }}
             >
-              {cta2.label}
-            </Link>
-          </motion.div>
+              {subtext}
+            </motion.p>
+            <motion.div variants={fadeUp} className="flex flex-col sm:flex-row gap-3 justify-center">
+              <Link
+                href={cta1.href}
+                className="inline-flex items-center gap-2 rounded-full font-semibold text-sm px-8 py-3.5 transition-all hover:opacity-90"
+                style={{ background: 'white', color: '#7C3BED' }}
+              >
+                {cta1.label} <ArrowRight size={15} />
+              </Link>
+              <Link
+                href={cta2.href}
+                className="inline-flex items-center gap-2 rounded-full font-semibold text-sm px-8 py-3.5 transition-all"
+                style={{
+                  background: 'rgba(255,255,255,0.1)',
+                  border: '1px solid rgba(255,255,255,0.2)',
+                  color: 'white',
+                }}
+              >
+                {cta2.label}
+              </Link>
+            </motion.div>
+          </div>
         </motion.div>
       </div>
     </section>

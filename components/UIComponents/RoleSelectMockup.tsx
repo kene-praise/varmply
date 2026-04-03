@@ -19,10 +19,10 @@ export default function RoleSelectMockup() {
         <p className="text-xs text-[#8888AA] mb-4">You can switch later if needed.</p>
         <div className="flex flex-col gap-3">
           <div
-            className="rounded-xl p-4 border-2 border-[#7C5CFC] bg-[#EDE9FF] cursor-pointer"
+            className="rounded-xl p-4 border-2 border-[#7C3BED] bg-[#EDE9FF] cursor-pointer"
           >
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-xl bg-[#7C5CFC] flex items-center justify-center">
+              <div className="w-9 h-9 rounded-xl bg-[#7C3BED] flex items-center justify-center">
                 <Star size={16} className="text-white" />
               </div>
               <div>
@@ -49,7 +49,7 @@ export default function RoleSelectMockup() {
           Continue →
         </button>
         <p className="text-center text-xs text-[#8888AA] mt-3">
-          Already have an account? <span className="text-[#7C5CFC] font-medium cursor-pointer">Sign in</span>
+          Already have an account? <span className="text-[#7C3BED] font-medium cursor-pointer">Sign in</span>
         </p>
       </div>
     </div>

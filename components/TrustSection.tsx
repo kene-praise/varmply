@@ -10,83 +10,89 @@ const pillars = [
     title: 'Escrow-First',
     description:
       "Sponsor budgets are locked before campaigns go live. Creators know funds exist. Sponsors know they won't pay for poor performance.",
-    color: '#7C5CFC',
-    bg: '#EDE9FF',
+    iconBg: '#EDE9FF',
+    iconColor: '#7C3BED',
   },
   {
     icon: CheckSquare,
     title: 'Automated Validation',
     description:
       'Content submissions are checked against requirements programmatically. No favoritism, no manual reviews, no disputes about who did what.',
-    color: '#16A34A',
-    bg: '#F0FDF4',
+    iconBg: '#DCFCE7',
+    iconColor: '#16A34A',
   },
   {
     icon: AlignLeft,
     title: 'Transparent Rules',
     description:
-      'Every campaign shows its full brief publicly. Eligibility criteria, deliverables, and payout amounts are visible before you ever apply.',
-    color: '#D97706',
-    bg: '#FFFBEB',
+      'Every campaign shows its full brief publicly. Eligibility criteria, deliverables, and payout amounts visible before you ever apply.',
+    iconBg: '#FEF3C7',
+    iconColor: '#D97706',
   },
 ];
 
 export default function TrustSection() {
   return (
-    <section className="bg-[#F7F7F9] py-24">
+    <section className="bg-white py-20">
       <div className="max-w-6xl mx-auto px-6">
+
+        {/* Header */}
         <motion.div
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
           viewport={viewportOptions}
-          className="text-center mb-16"
+          className="mb-10"
         >
-          <motion.p variants={fadeUp} className="tag mb-4" style={{ color: '#7C5CFC', background: '#EDE9FF', margin: '0 auto 16px' }}>
+          <motion.p variants={fadeUp} className="tag mb-3" style={{ color: '#7C3BED', background: '#EDE9FF' }}>
             Why Trust Varmply
           </motion.p>
           <motion.h2
             variants={fadeUp}
-            className="text-[#0F0F1A] font-bold mb-4"
-            style={{ fontSize: 'clamp(32px, 4vw, 48px)', lineHeight: 1.15 }}
+            className="font-bold"
+            style={{ fontSize: 'clamp(28px, 3.5vw, 44px)', lineHeight: 1.15, color: '#0F0A2E' }}
           >
-            Built around{' '}
-            <span className="gradient-text">accountability.</span>
+            Built around accountability.
           </motion.h2>
-          <motion.p variants={fadeUp} className="text-[#4A4A6A] text-lg max-w-2xl mx-auto">
-            Three principles that make Varmply different from every other creator platform.
-          </motion.p>
         </motion.div>
 
+        {/* Light gray cards — PocketApp sub-card style */}
         <motion.div
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
           viewport={viewportOptions}
-          className="grid grid-cols-1 md:grid-cols-3 gap-6"
+          className="grid grid-cols-1 md:grid-cols-3 gap-4"
         >
           {pillars.map((p, i) => (
             <motion.div
               key={i}
               variants={fadeUp}
-              className="relative bg-white rounded-2xl p-8 border border-[#E4E4EC] card-hover"
+              className="flex flex-col"
+              style={{
+                background: '#F4F3F5',
+                borderRadius: '2rem',
+                padding: '2.25rem',
+                minHeight: '280px',
+              }}
             >
-              {/* Icon badge */}
+              {/* Icon */}
               <div
-                className="w-14 h-14 rounded-2xl flex items-center justify-center mb-6"
-                style={{ background: p.bg }}
+                className="w-14 h-14 rounded-2xl flex items-center justify-center mb-6 flex-shrink-0"
+                style={{ background: p.iconBg }}
               >
-                <p.icon size={26} style={{ color: p.color }} />
+                <p.icon size={26} style={{ color: p.iconColor }} />
               </div>
 
-              <h3 className="text-xl font-bold text-[#0F0F1A] mb-3">{p.title}</h3>
-              <p className="text-[#4A4A6A] leading-relaxed">{p.description}</p>
-
-              {/* Subtle accent line */}
-              <div
-                className="absolute top-0 left-8 right-8 h-0.5 rounded-b-full"
-                style={{ background: `linear-gradient(90deg, transparent, ${p.color}40, transparent)` }}
-              />
+              <h3
+                className="font-bold mb-3 leading-tight"
+                style={{ fontSize: '1.25rem', color: '#0F0A2E' }}
+              >
+                {p.title}
+              </h3>
+              <p className="text-base leading-relaxed" style={{ color: '#4A4A6A' }}>
+                {p.description}
+              </p>
             </motion.div>
           ))}
         </motion.div>

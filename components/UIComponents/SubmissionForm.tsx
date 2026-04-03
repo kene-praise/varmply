@@ -17,7 +17,7 @@ export default function SubmissionForm() {
       <div className="p-4">
         <div className="flex items-center gap-2 mb-3">
           <div className="w-8 h-8 rounded-lg bg-[#EDE9FF] flex items-center justify-center">
-            <span className="text-[10px] font-bold text-[#7C5CFC]">P</span>
+            <span className="text-[10px] font-bold text-[#7C3BED]">P</span>
           </div>
           <div>
             <p className="text-sm font-semibold text-[#0F0F1A]">Paystack Q1 Campaign</p>
@@ -42,7 +42,7 @@ export default function SubmissionForm() {
               Screenshot
             </label>
             <div
-              className="border-2 border-dashed border-[#E4E4EC] rounded-lg p-3 flex flex-col items-center gap-1 cursor-pointer hover:border-[#7C5CFC] hover:bg-[#EDE9FF]/30 transition-all"
+              className="border-2 border-dashed border-[#E4E4EC] rounded-lg p-3 flex flex-col items-center gap-1 cursor-pointer hover:border-[#7C3BED] hover:bg-[#EDE9FF]/30 transition-all"
             >
               <Image size={16} className="text-[#8888AA]" />
               <p className="text-[10px] text-[#8888AA]">Drop or click to upload</p>

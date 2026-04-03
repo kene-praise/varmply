@@ -23,7 +23,7 @@ export default function FAQAccordion({ items }: FAQAccordionProps) {
           key={i}
           className="bg-white rounded-2xl border transition-all duration-200"
           style={{
-            borderColor: openIndex === i ? '#7C5CFC' : '#E4E4EC',
+            borderColor: openIndex === i ? '#7C3BED' : '#E4E4EC',
           }}
         >
           <button
@@ -39,7 +39,7 @@ export default function FAQAccordion({ items }: FAQAccordionProps) {
             <div
               className="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-200"
               style={{
-                background: openIndex === i ? '#7C5CFC' : '#F0F0F4',
+                background: openIndex === i ? '#7C3BED' : '#F0F0F4',
                 color: openIndex === i ? 'white' : '#8888AA',
               }}
             >
