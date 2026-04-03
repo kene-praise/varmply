@@ -34,7 +34,7 @@ export default function AnalyticsMockup() {
               <p className="text-[9px] text-[#8888AA] mb-0.5 font-medium uppercase tracking-wide">{stat.label}</p>
               <p
                 className="text-base font-bold text-[#0F0F1A]"
-                style={{ fontFamily: 'JetBrains Mono, monospace' }}
+                style={{ fontFamily: 'Inter, sans-serif' }}
               >
                 {stat.value}
               </p>
@@ -53,7 +53,7 @@ export default function AnalyticsMockup() {
                   key={t}
                   className="rounded-full px-2 py-0.5 text-[9px]"
                   style={{
-                    background: i === 1 ? '#7C5CFC' : 'transparent',
+                    background: i === 1 ? '#7C3BED' : 'transparent',
                     color: i === 1 ? 'white' : '#8888AA',
                     fontWeight: i === 1 ? 600 : 400,
                   }}
@@ -66,15 +66,15 @@ export default function AnalyticsMockup() {
           <svg viewBox="0 0 280 100" className="w-full h-20" preserveAspectRatio="none">
             <defs>
               <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#7C5CFC" stopOpacity="0.2" />
-                <stop offset="100%" stopColor="#7C5CFC" stopOpacity="0" />
+                <stop offset="0%" stopColor="#7C3BED" stopOpacity="0.2" />
+                <stop offset="100%" stopColor="#7C3BED" stopOpacity="0" />
               </linearGradient>
             </defs>
             <path d={areaD} fill="url(#chartGrad)" />
-            <path d={pathD} fill="none" stroke="#7C5CFC" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            <path d={pathD} fill="none" stroke="#7C3BED" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
             {/* dots */}
             {points.map((p, i) => (
-              <circle key={i} cx={p[0]} cy={p[1]} r="3" fill="#7C5CFC" />
+              <circle key={i} cx={p[0]} cy={p[1]} r="3" fill="#7C3BED" />
             ))}
           </svg>
         </div>
@@ -82,7 +82,7 @@ export default function AnalyticsMockup() {
         {/* Campaign list */}
         <div className="flex flex-col gap-1.5">
           {[
-            { name: 'Paystack Q1', progress: 85, color: '#7C5CFC' },
+            { name: 'Paystack Q1', progress: 85, color: '#7C3BED' },
             { name: 'PiggyVest Feb', progress: 100, color: '#16A34A' },
           ].map((c, i) => (
             <div key={i} className="flex items-center gap-2">
@@ -93,7 +93,7 @@ export default function AnalyticsMockup() {
                   style={{ width: `${c.progress}%`, background: c.color }}
                 />
               </div>
-              <span className="text-[10px] font-semibold" style={{ color: c.color, fontFamily: 'JetBrains Mono, monospace' }}>
+              <span className="text-[10px] font-semibold" style={{ color: c.color, fontFamily: 'Inter, sans-serif' }}>
                 {c.progress}%
               </span>
             </div>

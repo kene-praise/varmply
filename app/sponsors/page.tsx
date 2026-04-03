@@ -89,7 +89,7 @@ const performanceCampaigns = [
   {
     name: 'PiggyVest February Drive',
     status: 'Completed',
-    statusColor: '#7C5CFC',
+    statusColor: '#7C3BED',
     statusBg: '#EDE9FF',
     budget: '₦280,000',
     spent: '₦280,000',
@@ -185,7 +185,7 @@ export default function SponsorsPage() {
         <div
           className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full pointer-events-none"
           style={{
-            background: 'radial-gradient(circle, rgba(124,92,252,0.08) 0%, transparent 70%)',
+            background: 'radial-gradient(circle, rgba(124,59,237,0.08) 0%, transparent 70%)',
             filter: 'blur(60px)',
             transform: 'translate(30%, -30%)',
           }}
@@ -218,7 +218,7 @@ export default function SponsorsPage() {
 
               <motion.div variants={fadeUp} className="mt-8 flex flex-wrap gap-4">
                 {[
-                  { label: 'Escrow-protected budget', color: '#7C5CFC', bg: '#EDE9FF' },
+                  { label: 'Escrow-protected budget', color: '#7C3BED', bg: '#EDE9FF' },
                   { label: 'Auto-validated submissions', color: '#16A34A', bg: '#F0FDF4' },
                   { label: 'Pay for results only', color: '#D97706', bg: '#FFFBEB' },
                 ].map((b, i) => (
@@ -261,7 +261,7 @@ export default function SponsorsPage() {
             viewport={viewportOptions}
             className="text-center mb-16"
           >
-            <motion.p variants={fadeUp} className="tag mb-4" style={{ color: '#7C5CFC', background: '#EDE9FF', margin: '0 auto 16px' }}>
+            <motion.p variants={fadeUp} className="tag mb-4" style={{ color: '#7C3BED', background: '#EDE9FF', margin: '0 auto 16px' }}>
               Process
             </motion.p>
             <motion.h2
@@ -294,16 +294,16 @@ export default function SponsorsPage() {
                       className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4"
                       style={{ background: '#EDE9FF' }}
                     >
-                      <step.icon size={28} className="text-[#7C5CFC]" />
+                      <step.icon size={28} className="text-[#7C3BED]" />
                     </div>
-                    <p className="text-5xl font-extrabold" style={{ fontFamily: 'JetBrains Mono', color: 'rgba(124,92,252,0.15)' }}>
+                    <p className="text-5xl font-extrabold" style={{ fontFamily: 'Inter, sans-serif', color: 'rgba(124,59,237,0.15)' }}>
                       {step.step}
                     </p>
                   </div>
                 </motion.div>
 
                 <motion.div variants={step.image === 'right' ? fadeLeft : fadeRight}>
-                  <div className="text-xs font-bold mb-3" style={{ color: '#7C5CFC', fontFamily: 'JetBrains Mono, monospace' }}>
+                  <div className="text-xs font-bold mb-3" style={{ color: '#7C3BED', fontFamily: 'Inter, sans-serif' }}>
                     Step {step.step}
                   </div>
                   <h3
@@ -338,7 +338,7 @@ export default function SponsorsPage() {
 
             {/* Right: feature callouts that reveal one by one */}
             <div>
-              <p className="tag mb-6 inline-flex" style={{ color: '#7C5CFC', background: '#EDE9FF' }}>
+              <p className="tag mb-6 inline-flex" style={{ color: '#7C3BED', background: '#EDE9FF' }}>
                 Analytics Dashboard
               </p>
               <AnimatePresence mode="wait">
@@ -355,7 +355,7 @@ export default function SponsorsPage() {
                       style={{ background: '#EDE9FF' }}
                     >
                       {AnalyticsFeatureIcon && (
-                        <AnalyticsFeatureIcon size={22} className="text-[#7C5CFC]" />
+                        <AnalyticsFeatureIcon size={22} className="text-[#7C3BED]" />
                       )}
                     </div>
                     <h2
@@ -379,7 +379,7 @@ export default function SponsorsPage() {
                     className="h-1.5 rounded-full transition-all duration-300"
                     style={{
                       width: i === activeFeature ? '48px' : '24px',
-                      background: i === activeFeature ? '#7C5CFC' : '#E4E4EC',
+                      background: i === activeFeature ? '#7C3BED' : '#E4E4EC',
                     }}
                   />
                 ))}
@@ -400,7 +400,7 @@ export default function SponsorsPage() {
             viewport={viewportOptions}
             className="text-center mb-12"
           >
-            <motion.p variants={fadeUp} className="tag mb-4" style={{ color: '#7C5CFC', background: '#EDE9FF', margin: '0 auto 16px' }}>
+            <motion.p variants={fadeUp} className="tag mb-4" style={{ color: '#7C3BED', background: '#EDE9FF', margin: '0 auto 16px' }}>
               Escrow System
             </motion.p>
             <motion.h2
@@ -427,7 +427,7 @@ export default function SponsorsPage() {
                 icon: Lock,
                 title: 'Locked Upfront',
                 description: 'Budget is placed in escrow when your campaign activates. It cannot be released until performance is verified.',
-                color: '#7C5CFC',
+                color: '#7C3BED',
                 bg: '#EDE9FF',
               },
               {
@@ -475,7 +475,7 @@ export default function SponsorsPage() {
             </motion.p>
             <motion.div variants={fadeUp} className="flex flex-col md:flex-row items-center justify-center gap-3">
               {[
-                { label: 'Sponsor Wallet', color: '#7C5CFC', bg: '#EDE9FF' },
+                { label: 'Sponsor Wallet', color: '#7C3BED', bg: '#EDE9FF' },
                 { label: 'Escrow', color: '#D97706', bg: '#FFFBEB' },
                 { label: 'Validation', color: '#8888AA', bg: '#F0F0F4' },
                 { label: 'Creator Wallet', color: '#16A34A', bg: '#F0FDF4' },
@@ -527,7 +527,7 @@ export default function SponsorsPage() {
             viewport={viewportOptions}
             className="text-center mb-12"
           >
-            <motion.p variants={fadeUp} className="tag mb-4" style={{ color: '#7C5CFC', background: '#EDE9FF', margin: '0 auto 16px' }}>
+            <motion.p variants={fadeUp} className="tag mb-4" style={{ color: '#7C3BED', background: '#EDE9FF', margin: '0 auto 16px' }}>
               Live Performance
             </motion.p>
             <motion.h2
@@ -565,8 +565,8 @@ export default function SponsorsPage() {
                 {/* Budget bar */}
                 <div className="mb-4">
                   <div className="flex justify-between text-xs text-[#8888AA] mb-1.5">
-                    <span style={{ fontFamily: 'JetBrains Mono, monospace' }}>{c.spent}</span>
-                    <span style={{ fontFamily: 'JetBrains Mono, monospace' }}>{c.budget}</span>
+                    <span style={{ fontFamily: 'Inter, sans-serif' }}>{c.spent}</span>
+                    <span style={{ fontFamily: 'Inter, sans-serif' }}>{c.budget}</span>
                   </div>
                   <div className="bg-[#E4E4EC] rounded-full h-2 overflow-hidden">
                     <div
@@ -574,7 +574,7 @@ export default function SponsorsPage() {
                       style={{
                         width: `${c.progress}%`,
                         background: c.status === 'Completed'
-                          ? 'linear-gradient(90deg, #7C5CFC, #A78BFA)'
+                          ? 'linear-gradient(90deg, #7C3BED, #A78BFA)'
                           : 'linear-gradient(90deg, #16A34A, #4ADE80)',
                       }}
                     />
@@ -590,7 +590,7 @@ export default function SponsorsPage() {
                     { label: 'Eng. Rate', value: c.engRate },
                   ].map((s, j) => (
                     <div key={j} className="bg-[#F7F7F9] rounded-lg p-2 text-center">
-                      <p className="text-sm font-bold text-[#0F0F1A]" style={{ fontFamily: 'JetBrains Mono, monospace' }}>
+                      <p className="text-sm font-bold text-[#0F0F1A]" style={{ fontFamily: 'Inter, sans-serif' }}>
                         {s.value}
                       </p>
                       <p className="text-[9px] text-[#8888AA] mt-0.5">{s.label}</p>
@@ -613,7 +613,7 @@ export default function SponsorsPage() {
             viewport={viewportOptions}
             className="text-center mb-12"
           >
-            <motion.p variants={fadeUp} className="tag mb-4" style={{ color: '#7C5CFC', background: '#EDE9FF', margin: '0 auto 16px' }}>
+            <motion.p variants={fadeUp} className="tag mb-4" style={{ color: '#7C3BED', background: '#EDE9FF', margin: '0 auto 16px' }}>
               FAQ
             </motion.p>
             <motion.h2

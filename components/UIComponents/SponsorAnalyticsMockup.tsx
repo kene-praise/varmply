@@ -34,7 +34,7 @@ export default function SponsorAnalyticsMockup() {
                 key={t}
                 className="rounded-full px-2.5 py-1 text-[10px] font-semibold transition-all"
                 style={{
-                  background: i === 1 ? '#7C5CFC' : '#F0F0F4',
+                  background: i === 1 ? '#7C3BED' : '#F0F0F4',
                   color: i === 1 ? 'white' : '#8888AA',
                 }}
               >
@@ -47,7 +47,7 @@ export default function SponsorAnalyticsMockup() {
         {/* Stats row */}
         <div className="grid grid-cols-4 gap-2 mb-4">
           {[
-            { label: 'Total Reach', value: '148K', icon: Eye, color: '#7C5CFC', bg: '#EDE9FF' },
+            { label: 'Total Reach', value: '148K', icon: Eye, color: '#7C3BED', bg: '#EDE9FF' },
             { label: 'Creators', value: '18', icon: Users, color: '#16A34A', bg: '#F0FDF4' },
             { label: 'Engagement', value: '8.4%', icon: TrendingUp, color: '#D97706', bg: '#FFFBEB' },
             { label: 'Spent', value: '₦450K', icon: DollarSign, color: '#DC2626', bg: '#FEF2F2' },
@@ -56,7 +56,7 @@ export default function SponsorAnalyticsMockup() {
               <div className="w-6 h-6 rounded-md flex items-center justify-center mb-1.5" style={{ background: s.bg }}>
                 <s.icon size={11} style={{ color: s.color }} />
               </div>
-              <p className="text-sm font-bold text-[#0F0F1A] leading-none mb-0.5" style={{ fontFamily: 'JetBrains Mono, monospace' }}>
+              <p className="text-sm font-bold text-[#0F0F1A] leading-none mb-0.5" style={{ fontFamily: 'Inter, sans-serif' }}>
                 {s.value}
               </p>
               <p className="text-[9px] text-[#8888AA]">{s.label}</p>
@@ -70,14 +70,14 @@ export default function SponsorAnalyticsMockup() {
           <svg viewBox="0 0 280 80" className="w-full h-20" preserveAspectRatio="none">
             <defs>
               <linearGradient id="sponsGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#7C5CFC" stopOpacity="0.25" />
-                <stop offset="100%" stopColor="#7C5CFC" stopOpacity="0" />
+                <stop offset="0%" stopColor="#7C3BED" stopOpacity="0.25" />
+                <stop offset="100%" stopColor="#7C3BED" stopOpacity="0" />
               </linearGradient>
             </defs>
             <path d={areaD} fill="url(#sponsGrad)" />
-            <path d={pathD} fill="none" stroke="#7C5CFC" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            <path d={pathD} fill="none" stroke="#7C3BED" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
             {chartPoints.map((p, i) => (
-              <circle key={i} cx={p[0]} cy={p[1]} r="3" fill="#7C5CFC" />
+              <circle key={i} cx={p[0]} cy={p[1]} r="3" fill="#7C3BED" />
             ))}
           </svg>
         </div>
@@ -92,7 +92,7 @@ export default function SponsorAnalyticsMockup() {
               { name: '@financeNG', reach: '31K', eng: '11.2%', status: 'tracking', payout: '₦25,000' },
             ].map((c, i) => (
               <div key={i} className="flex items-center gap-3 py-1.5 border-b border-[#F0F0F4] last:border-0">
-                <div className="w-7 h-7 rounded-full bg-gradient-to-br from-[#7C5CFC] to-[#A78BFA] flex items-center justify-center text-[10px] font-bold text-white">
+                <div className="w-7 h-7 rounded-full bg-gradient-to-br from-[#7C3BED] to-[#A78BFA] flex items-center justify-center text-[10px] font-bold text-white">
                   {c.name[1].toUpperCase()}
                 </div>
                 <div className="flex-1">
@@ -102,13 +102,13 @@ export default function SponsorAnalyticsMockup() {
                 <span
                   className="text-[9px] font-semibold px-2 py-0.5 rounded-full"
                   style={{
-                    color: c.status === 'completed' ? '#16A34A' : '#7C5CFC',
+                    color: c.status === 'completed' ? '#16A34A' : '#7C3BED',
                     background: c.status === 'completed' ? '#F0FDF4' : '#EDE9FF',
                   }}
                 >
                   {c.status}
                 </span>
-                <span className="text-xs font-semibold text-[#0F0F1A]" style={{ fontFamily: 'JetBrains Mono, monospace' }}>
+                <span className="text-xs font-semibold text-[#0F0F1A]" style={{ fontFamily: 'Inter, sans-serif' }}>
                   {c.payout}
                 </span>
               </div>

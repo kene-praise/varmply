@@ -97,15 +97,23 @@ export default function HowItWorks() {
     <section
       id="how-it-works"
       ref={sectionRef}
-      className="bg-[#F7F7F9] overflow-hidden"
-      style={{ height: '100vh' }}
+      className="overflow-hidden"
+      style={{ height: '100vh', background: '#0F0A2E' }}
     >
-      <div ref={containerRef} className="max-w-6xl mx-auto px-6 h-full flex items-center">
+      {/* Dot grid texture */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage: 'radial-gradient(rgba(255,255,255,0.04) 1px, transparent 1px)',
+          backgroundSize: '28px 28px',
+        }}
+      />
+      <div ref={containerRef} className="max-w-6xl mx-auto px-6 h-full flex items-center relative">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center w-full">
           {/* Left: step content */}
           <div className="relative">
             {/* Section label */}
-            <div className="tag mb-6" style={{ color: '#7C5CFC', background: '#EDE9FF' }}>
+            <div className="tag mb-6" style={{ color: '#C4B5FD', background: 'rgba(124,59,237,0.25)' }}>
               How It Works
             </div>
 
@@ -121,21 +129,21 @@ export default function HowItWorks() {
                   <span
                     className="text-5xl font-extrabold"
                     style={{
-                      fontFamily: 'JetBrains Mono, monospace',
-                      color: 'rgba(124,92,252,0.2)',
+                      fontFamily: 'Inter, sans-serif',
+                      color: 'rgba(196,181,253,0.25)',
                     }}
                   >
                     {steps[activeStep].number}
                   </span>
-                  <span className="text-xs font-semibold text-[#8888AA]">/ 05</span>
+                  <span className="text-xs font-semibold" style={{ color: 'rgba(255,255,255,0.35)' }}>/ 05</span>
                 </div>
                 <h2
-                  className="font-bold text-[#0F0F1A] mb-4"
+                  className="font-bold text-white mb-4"
                   style={{ fontSize: 'clamp(28px, 3vw, 40px)', lineHeight: 1.2 }}
                 >
                   {steps[activeStep].title}
                 </h2>
-                <p className="text-[#4A4A6A] text-lg leading-relaxed">
+                <p className="text-lg leading-relaxed" style={{ color: 'rgba(255,255,255,0.6)' }}>
                   {steps[activeStep].description}
                 </p>
               </motion.div>
@@ -155,16 +163,16 @@ export default function HowItWorks() {
                   style={{
                     width: i === activeStep ? 10 : 8,
                     height: i === activeStep ? 10 : 8,
-                    background: i <= activeStep ? '#7C5CFC' : '#D1D1DE',
+                    background: i <= activeStep ? '#A78BFA' : 'rgba(255,255,255,0.2)',
                     transform: i === activeStep ? 'scale(1.25)' : 'scale(1)',
-                    outline: i === activeStep ? '2px solid rgba(124, 92, 252, 0.35)' : 'none',
+                    outline: i === activeStep ? '2px solid rgba(167,139,250,0.4)' : 'none',
                     outlineOffset: 3,
                   }}
                 />
               ))}
             </div>
 
-            <p className="text-xs text-[#8888AA] mt-4">Scroll to continue</p>
+            <p className="text-xs mt-4" style={{ color: 'rgba(255,255,255,0.3)' }}>Scroll to continue</p>
           </div>
 
           {/* Right: mockup */}

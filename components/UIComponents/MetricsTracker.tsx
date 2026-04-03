@@ -29,11 +29,11 @@ export default function MetricsTracker() {
         <div className="mb-4">
           <div className="flex justify-between text-[10px] text-[#8888AA] mb-1">
             <span>Campaign goal</span>
-            <span className="font-semibold text-[#7C5CFC]">67% reached</span>
+            <span className="font-semibold text-[#7C3BED]">67% reached</span>
           </div>
           <div className="bg-[#E4E4EC] rounded-full h-2">
             <div
-              className="h-full rounded-full bg-gradient-to-r from-[#7C5CFC] to-[#A78BFA]"
+              className="h-full rounded-full bg-gradient-to-r from-[#7C3BED] to-[#A78BFA]"
               style={{ width: '67%' }}
             />
           </div>
@@ -42,7 +42,7 @@ export default function MetricsTracker() {
         {/* Metrics */}
         <div className="grid grid-cols-2 gap-2 mb-3">
           {[
-            { label: 'Views', value: '24.5K', icon: Eye, color: '#7C5CFC', bg: '#EDE9FF' },
+            { label: 'Views', value: '24.5K', icon: Eye, color: '#7C3BED', bg: '#EDE9FF' },
             { label: 'Engagements', value: '3.2K', icon: Heart, color: '#DC2626', bg: '#FEF2F2' },
             { label: 'Comments', value: '412', icon: MessageCircle, color: '#16A34A', bg: '#F0FDF4' },
             { label: 'Rate', value: '13.1%', icon: TrendingUp, color: '#D97706', bg: '#FFFBEB' },
@@ -54,7 +54,7 @@ export default function MetricsTracker() {
               >
                 <m.icon size={12} style={{ color: m.color }} />
               </div>
-              <p className="text-base font-bold text-[#0F0F1A]" style={{ fontFamily: 'JetBrains Mono, monospace' }}>
+              <p className="text-base font-bold text-[#0F0F1A]" style={{ fontFamily: 'Inter, sans-serif' }}>
                 {m.value}
               </p>
               <p className="text-[9px] text-[#8888AA] font-medium uppercase tracking-wide">{m.label}</p>
@@ -65,7 +65,7 @@ export default function MetricsTracker() {
         {/* Payout info */}
         <div className="bg-[#EDE9FF] rounded-lg px-3 py-2 flex items-center justify-between">
           <span className="text-xs text-[#4A4A6A]">Projected payout</span>
-          <span className="text-sm font-bold text-[#7C5CFC]" style={{ fontFamily: 'JetBrains Mono, monospace' }}>
+          <span className="text-sm font-bold text-[#7C3BED]" style={{ fontFamily: 'Inter, sans-serif' }}>
             ₦16,750
           </span>
         </div>

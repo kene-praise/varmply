@@ -70,7 +70,7 @@ export default function CampaignMockup() {
                   </div>
                   <span
                     className="text-lg font-semibold"
-                    style={{ fontFamily: 'JetBrains Mono, monospace', color: '#0F0F1A' }}
+                    style={{ fontFamily: 'Inter, sans-serif', color: '#0F0F1A' }}
                   >
                     {c.amount}
                   </span>

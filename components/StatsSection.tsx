@@ -30,7 +30,7 @@ export default function StatsSection() {
 
         const st = ScrollTrigger.create({
           trigger: el,
-          start: 'top 80%',
+          start: 'top 85%',
           once: true,
           onEnter: () => {
             gsap.fromTo(
@@ -40,7 +40,7 @@ export default function StatsSection() {
                 textContent: stat.numeric,
                 duration: 1.5,
                 ease: 'power2.out',
-                delay: i * 0.2,
+                delay: i * 0.15,
                 snap: { textContent: stat.numeric < 10 ? 0.1 : 1 },
                 onUpdate() {
                   const v = parseFloat(el.textContent || '0');
@@ -76,75 +76,68 @@ export default function StatsSection() {
   }, []);
 
   return (
-    <section
-      className="py-24 relative overflow-hidden"
-      style={{ background: 'linear-gradient(135deg, #7C5CFC 0%, #5B3FE4 100%)' }}
-    >
-      {/* Background decoration */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div
-          className="absolute top-0 right-0 w-96 h-96 rounded-full"
-          style={{
-            background: 'radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%)',
-            transform: 'translate(30%, -30%)',
-          }}
-        />
-        <div
-          className="absolute bottom-0 left-0 w-72 h-72 rounded-full"
-          style={{
-            background: 'radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%)',
-            transform: 'translate(-30%, 30%)',
-          }}
-        />
-      </div>
-
-      <div className="max-w-6xl mx-auto px-6 relative">
+    <section className="bg-white py-8">
+      <div className="max-w-6xl mx-auto px-6">
+        {/* Dark navy floating card — PocketApp footer-banner style */}
         <motion.div
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
           viewport={viewportOptions}
-          className="text-center mb-16"
+          className="relative overflow-hidden"
+          style={{
+            background: '#0F0A2E',
+            borderRadius: '2rem',
+            padding: 'clamp(2.5rem, 5vw, 4rem)',
+          }}
         >
-          <motion.h2
-            variants={fadeUp}
-            className="text-white font-bold mb-3"
-            style={{ fontSize: 'clamp(32px, 4vw, 48px)' }}
-          >
-            The numbers speak for themselves.
-          </motion.h2>
-          <motion.p variants={fadeUp} className="text-white/70 text-lg">
-            Real outcomes from real campaigns on Varmply.
-          </motion.p>
-        </motion.div>
+          {/* Dot grid texture */}
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              backgroundImage: 'radial-gradient(rgba(255,255,255,0.06) 1px, transparent 1px)',
+              backgroundSize: '28px 28px',
+            }}
+          />
+          {/* Glow blobs */}
+          <div className="absolute -top-20 -right-20 w-72 h-72 rounded-full pointer-events-none"
+            style={{ background: 'radial-gradient(circle, rgba(124,59,237,0.25) 0%, transparent 70%)' }} />
+          <div className="absolute -bottom-16 -left-16 w-56 h-56 rounded-full pointer-events-none"
+            style={{ background: 'radial-gradient(circle, rgba(5,150,105,0.2) 0%, transparent 70%)' }} />
 
-        <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={viewportOptions}
-          className="grid grid-cols-2 lg:grid-cols-4 gap-8"
-        >
-          {stats.map((stat, i) => (
-            <motion.div
-              key={i}
-              variants={fadeUp}
-              className="text-center"
-            >
-              <span
-                ref={(el) => { refs.current[i] = el; }}
-                className="block font-bold text-white mb-2"
-                style={{
-                  fontSize: 'clamp(40px, 5vw, 56px)',
-                  fontFamily: 'JetBrains Mono, monospace',
-                  lineHeight: 1,
-                }}
+          <div className="relative">
+            <motion.div variants={fadeUp} className="text-center mb-12">
+              <h2
+                className="text-white font-bold"
+                style={{ fontSize: 'clamp(28px, 3.5vw, 42px)', lineHeight: 1.2 }}
               >
-                {stat.value}
-              </span>
-              <span className="text-white/70 text-sm font-medium">{stat.label}</span>
+                The numbers speak for themselves.
+              </h2>
+              <p className="text-white/55 mt-2">Real outcomes from real campaigns on Varmply.</p>
             </motion.div>
-          ))}
+
+            <motion.div
+              variants={staggerContainer}
+              className="grid grid-cols-2 lg:grid-cols-4 gap-8"
+            >
+              {stats.map((stat, i) => (
+                <motion.div key={i} variants={fadeUp} className="text-center">
+                  <span
+                    ref={(el) => { refs.current[i] = el; }}
+                    className="block font-bold text-white mb-1.5"
+                    style={{
+                      fontSize: 'clamp(36px, 4.5vw, 52px)',
+                      fontFamily: 'Inter, sans-serif',
+                      lineHeight: 1,
+                    }}
+                  >
+                    {stat.value}
+                  </span>
+                  <span className="text-white/50 text-sm font-medium">{stat.label}</span>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
         </motion.div>
       </div>
     </section>
