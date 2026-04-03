@@ -1,7 +1,7 @@
 'use client';
 
-import { Clock, Users, ArrowRight } from 'lucide-react';
-import Link from 'next/link';
+import Image from 'next/image';
+import { BarChart2, ArrowRight } from 'lucide-react';
 
 type Status = 'eligible' | 'not-eligible' | 'joined' | 'closed';
 
@@ -13,14 +13,17 @@ interface CampaignCardProps {
   deadline: string;
   applicants: number;
   description: string;
-  requirements?: string[];
+  engagement?: string;
+  budgetTotal?: string;
+  progressPct?: number;
+  imageSeed?: string;
 }
 
 const statusConfig: Record<Status, { label: string; color: string; bg: string }> = {
-  eligible: { label: 'Eligible', color: '#16A34A', bg: '#F0FDF4' },
-  'not-eligible': { label: 'Not Eligible', color: '#DC2626', bg: '#FEF2F2' },
-  joined: { label: 'Joined', color: '#7C5CFC', bg: '#EDE9FF' },
-  closed: { label: 'Closed', color: '#8888AA', bg: '#F0F0F4' },
+  eligible:     { label: 'Eligible',     color: '#16A34A', bg: '#DCFCE7' },
+  'not-eligible':{ label: 'Not Eligible', color: '#DC2626', bg: '#FEE2E2' },
+  joined:       { label: 'Tracking',     color: '#0EA5E9', bg: '#E0F2FE' },
+  closed:       { label: 'Closed',       color: '#8888AA', bg: '#F0F0F4' },
 };
 
 export default function CampaignCard({
@@ -30,68 +33,99 @@ export default function CampaignCard({
   status,
   deadline,
   applicants,
-  description,
+  engagement = '240K',
+  budgetTotal,
+  progressPct = 71,
+  imageSeed,
 }: CampaignCardProps) {
   const s = statusConfig[status];
+  const seed = imageSeed ?? brand.toLowerCase().replace(/\s+/g, '');
 
   return (
-    <div className="card-hover bg-white rounded-2xl p-6 border border-[#E4E4EC] flex flex-col">
-      {/* Header */}
-      <div className="flex items-start justify-between mb-3">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-[#EDE9FF] flex items-center justify-center">
-            <span className="text-sm font-bold text-[#7C5CFC]">{brand[0]}</span>
+    <div className="bg-white rounded-3xl overflow-hidden flex flex-col" style={{ border: '1px solid #EBEBF0', boxShadow: '0 2px 12px rgba(0,0,0,0.06)' }}>
+
+      {/* Campaign image */}
+      <div className="relative w-full overflow-hidden" style={{ height: '160px' }}>
+        <Image
+          src={`https://picsum.photos/seed/${seed}/400/200`}
+          alt={brand}
+          fill
+          className="object-cover"
+        />
+        {/* Status badge floats over image */}
+        <div className="absolute top-3 left-3">
+          <span
+            className="text-xs font-semibold px-2.5 py-1 rounded-full"
+            style={{ color: s.color, background: s.bg }}
+          >
+            {s.label}
+          </span>
+        </div>
+      </div>
+
+      {/* Card body */}
+      <div className="p-4 flex flex-col flex-1">
+
+        {/* Brand + category */}
+        <p className="font-bold text-[#0F0A2E] text-base leading-tight mb-0.5">{brand}</p>
+        <p className="text-xs text-[#8888AA] mb-3">{category}</p>
+
+        {/* Metric tiles */}
+        <div className="grid grid-cols-2 gap-2 mb-4">
+          <div className="rounded-xl p-3" style={{ background: '#F3EEFF' }}>
+            <p className="text-[10px] font-semibold text-[#7C3BED] mb-1 uppercase tracking-wider">Engagement</p>
+            <p className="text-lg font-bold text-[#7C3BED] leading-none">{engagement}</p>
           </div>
-          <div>
-            <p className="font-semibold text-[#0F0F1A] text-sm">{brand}</p>
-            <p className="text-xs text-[#8888AA]">{category}</p>
+          <div className="rounded-xl p-3" style={{ background: '#DCFCE7' }}>
+            <p className="text-[10px] font-semibold text-[#16A34A] mb-1 uppercase tracking-wider">Payout</p>
+            <p className="text-lg font-bold text-[#16A34A] leading-none">{amount}</p>
           </div>
         </div>
-        <span
-          className="text-[11px] font-semibold px-2.5 py-1 rounded-full whitespace-nowrap"
-          style={{ color: s.color, background: s.bg }}
+
+        {/* Stats */}
+        <div className="flex items-center justify-between text-xs text-[#4A4A6A] mb-2">
+          <span>Campaign ends in</span>
+          <span className="font-bold text-[#0F0A2E]">{deadline}</span>
+        </div>
+        {budgetTotal && (
+          <div className="flex items-center justify-between text-xs text-[#4A4A6A] mb-3">
+            <span>Campaign Budget</span>
+            <span className="font-bold text-[#0F0A2E]">{budgetTotal}</span>
+          </div>
+        )}
+
+        {/* Progress bar */}
+        <div className="mb-1">
+          <div className="flex items-center justify-between text-[10px] text-[#8888AA] mb-1.5">
+            <span>Progress</span>
+            <span>{progressPct}% filled</span>
+          </div>
+          <div className="h-1.5 rounded-full bg-[#F0F0F4] overflow-hidden">
+            <div
+              className="h-full rounded-full"
+              style={{ width: `${Math.min(progressPct, 100)}%`, background: '#7C3BED' }}
+            />
+          </div>
+        </div>
+
+        {/* Spacer */}
+        <div className="flex-1" />
+
+        {/* CTA */}
+        <button
+          className="mt-4 w-full flex items-center justify-center gap-2 py-2.5 rounded-2xl text-sm font-semibold transition-all"
+          style={
+            status === 'eligible' || status === 'joined'
+              ? { background: '#F3EEFF', color: '#7C3BED' }
+              : { background: '#F4F3F5', color: '#8888AA', cursor: 'not-allowed' }
+          }
+          disabled={status === 'not-eligible' || status === 'closed'}
         >
-          {s.label}
-        </span>
+          <BarChart2 size={14} />
+          {status === 'eligible' ? 'Apply Now' : status === 'joined' ? 'View Stats' : status === 'not-eligible' ? 'Not Eligible' : 'Closed'}
+          {(status === 'eligible' || status === 'joined') && <ArrowRight size={13} />}
+        </button>
       </div>
-
-      {/* Amount */}
-      <p
-        className="text-2xl font-bold text-[#0F0F1A] mb-2"
-        style={{ fontFamily: 'JetBrains Mono, monospace' }}
-      >
-        {amount}
-      </p>
-
-      {/* Description */}
-      <p className="text-sm text-[#4A4A6A] leading-relaxed mb-4 flex-1">{description}</p>
-
-      {/* Meta */}
-      <div className="flex items-center gap-4 text-xs text-[#8888AA] mb-4">
-        <span className="flex items-center gap-1.5">
-          <Clock size={12} /> {deadline}
-        </span>
-        <span className="flex items-center gap-1.5">
-          <Users size={12} /> {applicants} applied
-        </span>
-      </div>
-
-      {/* CTA */}
-      <Link
-        href="/creators"
-        className={`flex items-center justify-center gap-2 rounded-full py-2.5 text-sm font-semibold transition-all duration-200 ${
-          status === 'eligible'
-            ? 'bg-[#7C5CFC] text-white hover:bg-[#6748E8]'
-            : status === 'joined'
-            ? 'bg-[#EDE9FF] text-[#7C5CFC] hover:bg-[#DDD6FE]'
-            : status === 'not-eligible'
-            ? 'bg-[#F7F7F9] text-[#8888AA] cursor-not-allowed'
-            : 'bg-[#F7F7F9] text-[#8888AA] cursor-not-allowed'
-        }`}
-      >
-        {status === 'eligible' ? 'Apply Now' : status === 'joined' ? 'View Submission' : status === 'not-eligible' ? 'Not Eligible' : 'Closed'}
-        {(status === 'eligible' || status === 'joined') && <ArrowRight size={14} />}
-      </Link>
     </div>
   );
 }

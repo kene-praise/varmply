@@ -2,206 +2,257 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { ArrowRight, Zap } from 'lucide-react';
-import CampaignMockup from './UIComponents/CampaignMockup';
+import dynamic from 'next/dynamic';
+import { ArrowRight, CheckCircle, Zap, Sparkles } from 'lucide-react';
 
+const HeroBackground3D = dynamic(() => import('./HeroBackground3D'), { ssr: false });
+
+/* ─────────────────────────────────────────
+   Character-split headline — Jeton style
+──────────────────────────────────────────*/
+function SplitLine({
+  text,
+  delay = 0,
+  className = '',
+}: {
+  text: string;
+  delay?: number;
+  className?: string;
+}) {
+  return (
+    <span className={`block ${className}`} aria-label={text}>
+      {text.split('').map((char, i) => (
+        <span
+          key={i}
+          style={{ display: 'inline-block', overflow: 'hidden', verticalAlign: 'bottom', lineHeight: 1.08 }}
+        >
+          <motion.span
+            initial={{ y: '110%' }}
+            animate={{ y: '0%' }}
+            transition={{
+              duration: 0.85,
+              delay: delay + i * 0.026,
+              ease: [0.16, 1, 0.3, 1],
+            }}
+            style={{ display: 'inline-block' }}
+          >
+            {char === ' ' ? '\u00A0' : char}
+          </motion.span>
+        </span>
+      ))}
+    </span>
+  );
+}
+
+/* ─────────────────────────────────────────
+   Floating product moment cards — PocketApp style
+──────────────────────────────────────────*/
+function FloatCard({
+  delay,
+  floatOffset = 0,
+  children,
+}: {
+  delay: number;
+  floatOffset?: number;
+  children: React.ReactNode;
+}) {
+  return (
+    <motion.div
+      className="rounded-2xl px-4 py-3.5 text-left flex-shrink-0"
+      style={{
+        background: 'rgba(255,255,255,0.10)',
+        border: '1px solid rgba(255,255,255,0.18)',
+        backdropFilter: 'blur(20px)',
+        WebkitBackdropFilter: 'blur(20px)',
+        boxShadow: '0 8px 32px rgba(0,0,0,0.2)',
+      }}
+      initial={{ opacity: 0, y: 24 }}
+      animate={{ opacity: 1, y: [24, floatOffset, floatOffset + 6, floatOffset] }}
+      transition={{
+        opacity: { duration: 0.5, delay },
+        y: {
+          times: [0, 0.2, 0.6, 1],
+          duration: 5 + floatOffset * 0.3,
+          delay,
+          repeat: Infinity,
+          ease: 'easeInOut',
+        },
+      }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+/* ─────────────────────────────────────────
+   Hero
+──────────────────────────────────────────*/
 export default function HeroSection() {
   return (
-    <section className="relative overflow-hidden bg-[#F7F7F9] py-24">
-      {/* Background blobs */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.5, delay: 1.5 }}
-          className="absolute -top-32 -right-32 w-[600px] h-[600px] rounded-full"
-          style={{
-            background: 'radial-gradient(circle, rgba(124,92,252,0.12) 0%, transparent 70%)',
-            filter: 'blur(40px)',
-          }}
-        />
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.5, delay: 1.7 }}
-          className="absolute bottom-0 -left-32 w-[500px] h-[500px] rounded-full"
-          style={{
-            background: 'radial-gradient(circle, rgba(124,92,252,0.08) 0%, transparent 70%)',
-            filter: 'blur(60px)',
-          }}
-        />
-      </div>
+    <section className="relative overflow-hidden min-h-[100dvh] flex items-center -mt-16">
 
-      <div className="relative z-10 mx-auto w-full max-w-6xl px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          {/* Left column */}
-          <div>
-            {/* Label pill */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mb-6"
+      {/* ── Three.js 3D background ── */}
+      <HeroBackground3D />
+
+      {/* ── Radial vignette — opens around centre text ── */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            'radial-gradient(ellipse 70% 80% at 38% 50%, transparent 25%, rgba(10,2,40,0.45) 100%)',
+        }}
+      />
+
+      {/* ── Bottom fade ── */}
+      <div
+        className="absolute bottom-0 inset-x-0 h-40 pointer-events-none"
+        style={{ background: 'linear-gradient(to bottom, transparent, rgba(10,2,40,0.6))' }}
+      />
+
+      {/* ── Content — centred column ── */}
+      <div className="relative z-10 w-full max-w-3xl mx-auto px-6 text-center">
+        <div className="flex flex-col items-center justify-center min-h-[100dvh] py-32">
+
+          {/* Live pill */}
+          <motion.div
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-10"
+            style={{
+              background: 'rgba(255,255,255,0.12)',
+              border: '1px solid rgba(255,255,255,0.25)',
+              backdropFilter: 'blur(12px)',
+              WebkitBackdropFilter: 'blur(12px)',
+            }}
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+            <span className="text-xs font-semibold text-white tracking-wide">
+              Live Platform — Open Signups
+            </span>
+          </motion.div>
+
+          {/* Headline */}
+          <h1
+            className="text-white font-extrabold tracking-tight mb-7"
+            style={{ fontSize: 'clamp(46px, 6vw, 88px)', lineHeight: 1.05 }}
+          >
+            <SplitLine text="Campaigns that" delay={0.55} />
+            <SplitLine text="actually perform." delay={0.72} />
+          </h1>
+
+          {/* Subtext */}
+          <motion.p
+            className="leading-relaxed mb-10 mx-auto"
+            style={{
+              fontSize: 'clamp(16px, 1.3vw, 19px)',
+              maxWidth: '500px',
+              color: 'rgba(255,255,255,0.68)',
+            }}
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 1.45, ease: [0.16, 1, 0.3, 1] }}
+          >
+            Structured campaigns, verified metrics, and escrow payouts —
+            connecting creators and sponsors across Nigeria.
+          </motion.p>
+
+          {/* CTAs */}
+          <motion.div
+            className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-12"
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.65, delay: 1.65, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <Link
+              href="/creators"
+              className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full font-semibold text-sm transition-all hover:scale-[1.02] active:scale-[0.98]"
               style={{
-                background: 'var(--status-purple-bg)',
-                border: '1px solid rgba(124,92,252,0.2)',
+                background: 'white',
+                color: '#7C3BED',
+                boxShadow: '0 4px 24px rgba(0,0,0,0.22)',
               }}
             >
-              <span className="w-1.5 h-1.5 rounded-full bg-[#7C5CFC] animate-pulse" />
-              <span className="text-xs font-semibold text-[#7C5CFC]">Live Platform — Open Signups</span>
-            </motion.div>
-
-            {/* Headline */}
-            <div className="mb-6">
-              <motion.h1
-                initial={{ opacity: 0, y: 28 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                className="text-[#0F0F1A] leading-[1.1] font-extrabold"
-                style={{ fontSize: 'clamp(32px, 4vw, 48px)', fontWeight: 800 }}
-              >
-                Where Creators
-              </motion.h1>
-              <motion.h1
-                initial={{ opacity: 0, y: 28 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.55, ease: [0.16, 1, 0.3, 1] }}
-                className="leading-[1.12] font-extrabold"
-                style={{ fontSize: 'clamp(32px, 4vw, 48px)', fontWeight: 800 }}
-              >
-                <span className="gradient-text">and Sponsors</span>
-              </motion.h1>
-              <motion.h1
-                initial={{ opacity: 0, y: 28 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                className="text-[#0F0F1A] leading-[1.12] font-extrabold"
-                style={{ fontSize: 'clamp(32px, 4vw, 48px)', fontWeight: 800 }}
-              >
-                Build Together.
-              </motion.h1>
-            </div>
-
-            {/* Subtext */}
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.75, ease: [0.16, 1, 0.3, 1] }}
-              className="text-[#4A4A6A] text-base sm:text-lg leading-relaxed mb-8 max-w-xl"
+              Join as Creator <ArrowRight size={15} />
+            </Link>
+            <Link
+              href="/sponsors"
+              className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full font-semibold text-sm text-white transition-all hover:bg-white/20"
+              style={{
+                background: 'rgba(255,255,255,0.12)',
+                border: '1px solid rgba(255,255,255,0.28)',
+                backdropFilter: 'blur(12px)',
+                WebkitBackdropFilter: 'blur(12px)',
+              }}
             >
-              No scattered DMs. No vague agreements. Structured campaigns, verified performance, transparent payments — for everyone.
-            </motion.p>
+              Run a Campaign
+            </Link>
+          </motion.div>
 
-            {/* CTAs */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.9, ease: [0.16, 1, 0.3, 1] }}
-              className="flex flex-col sm:flex-row gap-3 mb-10"
-            >
-              <Link href="/creators" className="btn-primary text-sm">
-                Join as Creator <ArrowRight size={16} />
-              </Link>
-              <Link href="/sponsors" className="btn-ghost text-sm">
-                Run a Campaign
-              </Link>
-            </motion.div>
+          {/* ── Floating product moment cards — PocketApp style ── */}
+          <motion.div
+            className="flex flex-col sm:flex-row items-center justify-center gap-3 w-full mb-10"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.4, delay: 2.1 }}
+          >
 
-            {/* Social proof */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 1.1 }}
-              className="flex items-center gap-3"
-            >
-              <div className="flex -space-x-2">
-                {['#7C5CFC', '#A78BFA', '#6748E8', '#5B3FE4', '#C4B5FD'].map((color, i) => (
-                  <div
-                    key={i}
-                    className="w-8 h-8 rounded-full border-2 border-white"
-                    style={{ background: color }}
-                  />
-                ))}
+            {/* Card 1 — live campaign */}
+            <FloatCard delay={2.1} floatOffset={-6}>
+              <div className="flex items-center gap-1.5 mb-2">
+                <Zap size={11} className="text-[#FBBF24]" />
+                <span className="text-[10px] font-semibold text-[#FBBF24] uppercase tracking-wider">Campaign live</span>
               </div>
-              <p className="text-sm text-[#4A4A6A]">
-                Trusted by creators and brands across{' '}
-                <span className="font-semibold text-[#0F0F1A]">Nigeria.</span>
-              </p>
-            </motion.div>
-          </div>
+              <p className="text-white text-sm font-semibold leading-tight mb-2">Skincare by Zara</p>
+              <div className="w-full h-1 rounded-full bg-white/15 overflow-hidden mb-1.5">
+                <div className="h-full rounded-full bg-[#FBBF24]" style={{ width: '127%', maxWidth: '100%' }} />
+              </div>
+              <p className="text-white/50 text-[11px]">₦450K goal · <span className="text-white/80">127% funded</span></p>
+            </FloatCard>
 
-          {/* Right column — floating mockup */}
-          <div className="relative flex justify-center lg:justify-end">
-            <motion.div
-              initial={{ opacity: 0, x: 60, y: 20 }}
-              animate={{ opacity: 1, x: 0, y: 0 }}
-              transition={{ duration: 0.8, delay: 1.1, ease: [0.16, 1, 0.3, 1] }}
-              className="relative"
-            >
-              {/* Floating mockup */}
-              <motion.div
-                animate={{ y: [0, -12, 0] }}
-                transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-              >
-                <CampaignMockup />
-              </motion.div>
+            {/* Card 2 — payout sent */}
+            <FloatCard delay={2.25} floatOffset={0}>
+              <div className="flex items-center gap-1.5 mb-2">
+                <CheckCircle size={11} className="text-[#34D399]" />
+                <span className="text-[10px] font-semibold text-[#34D399] uppercase tracking-wider">Payout sent</span>
+              </div>
+              <p className="text-white text-sm font-semibold leading-tight">Amara K.</p>
+              <p className="text-white/80 text-sm font-bold mt-0.5">₦85,000</p>
+              <p className="text-white/40 text-[11px] mt-1">2 mins ago · escrow released</p>
+            </FloatCard>
 
-              {/* Floating badges */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: 1.4 }}
-                className="absolute -top-4 -left-8 bg-white rounded-xl px-3 py-2 flex items-center gap-2"
-                style={{ border: '1px solid #E4E4EC' }}
-              >
-                <div className="w-7 h-7 rounded-lg bg-[#EDE9FF] flex items-center justify-center">
-                  <Zap size={13} className="text-[#7C5CFC]" />
-                </div>
-                <div>
-                  <p className="text-[10px] text-[#8888AA]">Distributed</p>
-                  <p className="text-sm font-bold text-[#0F0F1A]" style={{ fontFamily: 'JetBrains Mono, monospace' }}>
-                    ₦ 2.4M
-                  </p>
-                </div>
-              </motion.div>
+            {/* Card 3 — new match */}
+            <FloatCard delay={2.4} floatOffset={-4}>
+              <div className="flex items-center gap-1.5 mb-2">
+                <Sparkles size={11} className="text-[#A78BFA]" />
+                <span className="text-[10px] font-semibold text-[#A78BFA] uppercase tracking-wider">New match</span>
+              </div>
+              <p className="text-white text-sm font-semibold leading-tight mb-0.5">TechBrand NG</p>
+              <p className="text-white/55 text-[11px]">Tech &amp; Lifestyle</p>
+              <p className="text-white/80 text-[11px] font-semibold mt-1">Up to ₦200,000</p>
+            </FloatCard>
 
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: 1.6 }}
-                className="absolute -bottom-4 -left-12 bg-white rounded-xl px-3 py-2 flex items-center gap-2"
-                style={{ border: '1px solid #E4E4EC' }}
-              >
-                <div className="w-7 h-7 rounded-full bg-[#F0FDF4] flex items-center justify-center">
-                  <span className="text-sm">👥</span>
-                </div>
-                <div>
-                  <p className="text-[10px] text-[#8888AA]">Active creators</p>
-                  <p className="text-sm font-bold text-[#0F0F1A]" style={{ fontFamily: 'JetBrains Mono, monospace' }}>
-                    847+
-                  </p>
-                </div>
-              </motion.div>
+          </motion.div>
 
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: 1.5 }}
-                className="absolute top-1/3 -right-10 bg-white rounded-xl px-3 py-2 flex items-center gap-2"
-                style={{ border: '1px solid #E4E4EC' }}
-              >
-                <div className="w-7 h-7 rounded-lg bg-[#FFFBEB] flex items-center justify-center">
-                  <span className="text-sm">📢</span>
-                </div>
-                <div>
-                  <p className="text-[10px] text-[#8888AA]">Live campaigns</p>
-                  <p className="text-sm font-bold text-[#0F0F1A]" style={{ fontFamily: 'JetBrains Mono, monospace' }}>
-                    24
-                  </p>
-                </div>
-              </motion.div>
-            </motion.div>
-          </div>
+          {/* Trust strip */}
+          <motion.div
+            className="flex items-center justify-center gap-6 flex-wrap"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.7, delay: 2.7 }}
+          >
+            {[
+              { value: '₦2.4M', label: 'distributed' },
+              { value: '847+', label: 'active creators' },
+              { value: '98%', label: 'on-time payouts' },
+            ].map(({ value, label }) => (
+              <div key={label} className="flex items-center gap-2">
+                <span className="text-white font-bold text-sm">{value}</span>
+                <span className="text-white/45 text-xs">{label}</span>
+              </div>
+            ))}
+          </motion.div>
+
         </div>
       </div>
     </section>

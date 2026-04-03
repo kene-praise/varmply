@@ -19,7 +19,7 @@ const campaigns: CampaignItem[] = [
 const statusConfig = {
   eligible: { label: 'Eligible', color: '#16A34A', bg: '#F0FDF4' },
   'not-eligible': { label: 'Not Eligible', color: '#DC2626', bg: '#FEF2F2' },
-  joined: { label: 'Joined', color: '#7C5CFC', bg: '#EDE9FF' },
+  joined: { label: 'Joined', color: '#7C3BED', bg: '#EDE9FF' },
   closed: { label: 'Closed', color: '#8888AA', bg: '#F0F0F4' },
 };
 
@@ -64,12 +64,12 @@ export default function CampaignMockup() {
                 <div>
                   <div className="flex items-center gap-2 mb-0.5">
                     <div className="w-6 h-6 rounded-md bg-[#EDE9FF] flex items-center justify-center">
-                      <span className="text-[8px] font-bold text-[#7C5CFC]">{c.brand[0]}</span>
+                      <span className="text-[8px] font-bold text-[#7C3BED]">{c.brand[0]}</span>
                     </div>
                     <span className="text-sm font-semibold text-[#0F0F1A]">{c.brand}</span>
                   </div>
                   <span
-                    className="font-mono text-lg font-semibold"
+                    className="text-lg font-semibold"
                     style={{ fontFamily: 'JetBrains Mono, monospace', color: '#0F0F1A' }}
                   >
                     {c.amount}
