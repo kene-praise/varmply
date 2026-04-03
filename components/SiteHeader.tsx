@@ -9,11 +9,18 @@ import BrandLogo from '@/components/BrandLogo';
 
 export default function SiteHeader() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
 
   useEffect(() => {
     setMobileOpen(false);
   }, [pathname]);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   const navLinks = [
     { href: '/#how-it-works', label: 'How It Works' },
@@ -21,11 +28,18 @@ export default function SiteHeader() {
   ];
 
   return (
-    <header className="relative z-40 bg-[#F7F7F9]">
+    <header
+      className={clsx(
+        'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
+        scrolled
+          ? 'bg-white/80 backdrop-blur-xl border-b border-black/[0.06]'
+          : 'bg-transparent'
+      )}
+    >
       <div className="relative mx-auto flex min-h-16 max-w-6xl items-center justify-between px-6 py-2 md:min-h-[4.25rem] md:py-2.5">
         <div className="flex flex-1 items-center justify-start">
           <Link href="/" className="flex items-center" aria-label="Varmply home">
-            <BrandLogo className="h-10 w-auto sm:h-12" priority />
+            <BrandLogo className="h-10 w-auto sm:h-12" priority white={!scrolled} />
           </Link>
         </div>
 
@@ -39,9 +53,9 @@ export default function SiteHeader() {
               href={link.href}
               className={clsx(
                 'rounded-full px-4 py-2 text-sm font-medium transition-all duration-200',
-                pathname === link.href
-                  ? 'bg-[#EDE9FF] text-[#7C5CFC]'
-                  : 'text-[#4A4A6A] hover:bg-[#F0F0F4] hover:text-[#0F0F1A]'
+                scrolled
+                  ? 'text-[#0F0F1A]/70 hover:bg-black/5 hover:text-[#0F0F1A]'
+                  : 'text-white/80 hover:bg-white/10 hover:text-white'
               )}
             >
               {link.label}
@@ -51,17 +65,39 @@ export default function SiteHeader() {
 
         <div className="flex flex-1 items-center justify-end gap-2 md:gap-3">
           <div className="hidden items-center gap-3 md:flex">
-            <Link href="#" className="btn-ghost !py-2 !px-4 text-sm">
+            <Link
+              href="#"
+              className={clsx(
+                'rounded-full px-5 py-2 text-sm font-semibold transition-all',
+                scrolled
+                  ? 'text-[#0F0F1A]/70 hover:bg-black/5 hover:text-[#0F0F1A]'
+                  : 'text-white/80 hover:bg-white/10 hover:text-white'
+              )}
+            >
               Sign In
             </Link>
-            <Link href="#" className="btn-primary !py-2 !px-4 text-sm">
+            <Link
+              href="#"
+              className={clsx(
+                'rounded-full px-5 py-2 text-sm font-semibold transition-all',
+                scrolled
+                  ? 'bg-[#7C3BED] text-white hover:bg-[#6B28D9]'
+                  : 'bg-white text-[#7C3BED] hover:bg-white/90'
+              )}
+              style={{ boxShadow: scrolled ? '0 2px 12px rgba(124,59,237,0.3)' : '0 2px 12px rgba(0,0,0,0.15)' }}
+            >
               Get Started →
             </Link>
           </div>
 
           <button
             type="button"
-            className="rounded-full p-2 text-[#4A4A6A] transition-colors hover:bg-[#F0F0F4] md:hidden"
+            className={clsx(
+              'rounded-full p-2 transition-colors md:hidden',
+              scrolled
+                ? 'text-[#0F0F1A]/70 hover:bg-black/5 hover:text-[#0F0F1A]'
+                : 'text-white/70 hover:bg-white/10 hover:text-white'
+            )}
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Toggle menu"
             aria-expanded={mobileOpen}
@@ -72,22 +108,46 @@ export default function SiteHeader() {
       </div>
 
       {mobileOpen && (
-        <div className="bg-[#F7F7F9] md:hidden">
+        <div className={clsx(
+          'backdrop-blur-xl md:hidden border-t',
+          scrolled
+            ? 'bg-white/90 border-black/[0.06]'
+            : 'bg-[rgba(10,2,40,0.92)] border-white/10'
+        )}>
           <div className="flex flex-col gap-1 px-6 py-4">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="rounded-full px-4 py-3 text-sm font-medium text-[#4A4A6A] transition-all hover:bg-[#F0F0F4] hover:text-[#0F0F1A]"
+                className={clsx(
+                  'rounded-full px-4 py-3 text-sm font-medium transition-all',
+                  scrolled
+                    ? 'text-[#0F0F1A]/70 hover:bg-black/5 hover:text-[#0F0F1A]'
+                    : 'text-white/70 hover:bg-white/10 hover:text-white'
+                )}
               >
                 {link.label}
               </Link>
             ))}
-            <div className="mt-3 flex flex-col gap-2 border-t border-[#E4E4EC] pt-3">
-              <Link href="#" className="btn-ghost !py-2.5 !px-4 text-center text-sm">
+            <div className={clsx('mt-3 flex flex-col gap-2 border-t pt-3', scrolled ? 'border-black/[0.06]' : 'border-white/10')}>
+              <Link
+                href="#"
+                className={clsx(
+                  'rounded-full px-4 py-2.5 text-center text-sm font-semibold transition-all',
+                  scrolled
+                    ? 'text-[#0F0F1A]/70 hover:bg-black/5'
+                    : 'text-white/80 hover:bg-white/10 hover:text-white'
+                )}
+              >
                 Sign In
               </Link>
-              <Link href="#" className="btn-primary !py-2.5 !px-4 text-center text-sm">
+              <Link
+                href="#"
+                className={clsx(
+                  'rounded-full px-4 py-2.5 text-center text-sm font-semibold',
+                  scrolled ? 'bg-[#7C3BED] text-white' : 'bg-white text-[#7C3BED]'
+                )}
+              >
                 Get Started →
               </Link>
             </div>
