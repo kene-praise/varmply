@@ -12,6 +12,9 @@ export default function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
 
+  const isDarkHero = pathname === '/' || pathname === '/creators' || pathname === '/sponsors';
+  const isLightHeader = scrolled || !isDarkHero;
+
   useEffect(() => {
     setMobileOpen(false);
   }, [pathname]);
@@ -30,7 +33,7 @@ export default function SiteHeader() {
   return (
     <header
       className={clsx(
-        'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
+        'absolute top-0 left-0 right-0 z-50 transition-all duration-300',
         scrolled
           ? 'bg-white/80 backdrop-blur-xl border-b border-black/[0.06]'
           : 'bg-transparent'
@@ -39,7 +42,7 @@ export default function SiteHeader() {
       <div className="relative mx-auto flex min-h-16 max-w-6xl items-center justify-between px-6 py-2 md:min-h-[4.25rem] md:py-2.5">
         <div className="flex flex-1 items-center justify-start">
           <Link href="/" className="flex items-center" aria-label="Varmply home">
-            <BrandLogo className="h-10 w-auto sm:h-12" priority white={!scrolled} />
+            <BrandLogo className="h-10 w-auto sm:h-12" priority white={!isLightHeader} />
           </Link>
         </div>
 
@@ -53,7 +56,7 @@ export default function SiteHeader() {
               href={link.href}
               className={clsx(
                 'rounded-full px-4 py-2 text-sm font-medium transition-all duration-200',
-                scrolled
+                isLightHeader
                   ? 'text-[#0F0F1A]/70 hover:bg-black/5 hover:text-[#0F0F1A]'
                   : 'text-white/80 hover:bg-white/10 hover:text-white'
               )}
@@ -69,7 +72,7 @@ export default function SiteHeader() {
               href="#"
               className={clsx(
                 'rounded-full px-5 py-2 text-sm font-semibold transition-all',
-                scrolled
+                isLightHeader
                   ? 'text-[#0F0F1A]/70 hover:bg-black/5 hover:text-[#0F0F1A]'
                   : 'text-white/80 hover:bg-white/10 hover:text-white'
               )}
@@ -80,11 +83,11 @@ export default function SiteHeader() {
               href="#"
               className={clsx(
                 'rounded-full px-5 py-2 text-sm font-semibold transition-all',
-                scrolled
+                isLightHeader
                   ? 'bg-[#7C3BED] text-white hover:bg-[#6B28D9]'
-                  : 'bg-white text-[#7C3BED] hover:bg-white/90'
+                  : 'bg-white text-[#0F0F1A] hover:bg-white/90'
               )}
-              style={{ boxShadow: scrolled ? '0 2px 12px rgba(124,59,237,0.3)' : '0 2px 12px rgba(0,0,0,0.15)' }}
+              style={{ boxShadow: isLightHeader ? '0 2px 12px rgba(124,59,237,0.3)' : '0 2px 12px rgba(0,0,0,0.15)' }}
             >
               Get Started →
             </Link>
@@ -94,7 +97,7 @@ export default function SiteHeader() {
             type="button"
             className={clsx(
               'rounded-full p-2 transition-colors md:hidden',
-              scrolled
+              isLightHeader
                 ? 'text-[#0F0F1A]/70 hover:bg-black/5 hover:text-[#0F0F1A]'
                 : 'text-white/70 hover:bg-white/10 hover:text-white'
             )}
@@ -110,7 +113,7 @@ export default function SiteHeader() {
       {mobileOpen && (
         <div className={clsx(
           'backdrop-blur-xl md:hidden border-t',
-          scrolled
+          isLightHeader
             ? 'bg-white/90 border-black/[0.06]'
             : 'bg-[rgba(10,2,40,0.92)] border-white/10'
         )}>
@@ -121,7 +124,7 @@ export default function SiteHeader() {
                 href={link.href}
                 className={clsx(
                   'rounded-full px-4 py-3 text-sm font-medium transition-all',
-                  scrolled
+                  isLightHeader
                     ? 'text-[#0F0F1A]/70 hover:bg-black/5 hover:text-[#0F0F1A]'
                     : 'text-white/70 hover:bg-white/10 hover:text-white'
                 )}
@@ -129,12 +132,12 @@ export default function SiteHeader() {
                 {link.label}
               </Link>
             ))}
-            <div className={clsx('mt-3 flex flex-col gap-2 border-t pt-3', scrolled ? 'border-black/[0.06]' : 'border-white/10')}>
+            <div className={clsx('mt-3 flex flex-col gap-2 border-t pt-3', isLightHeader ? 'border-black/[0.06]' : 'border-white/10')}>
               <Link
                 href="#"
                 className={clsx(
                   'rounded-full px-4 py-2.5 text-center text-sm font-semibold transition-all',
-                  scrolled
+                  isLightHeader
                     ? 'text-[#0F0F1A]/70 hover:bg-black/5'
                     : 'text-white/80 hover:bg-white/10 hover:text-white'
                 )}
@@ -145,7 +148,7 @@ export default function SiteHeader() {
                 href="#"
                 className={clsx(
                   'rounded-full px-4 py-2.5 text-center text-sm font-semibold',
-                  scrolled ? 'bg-[#7C3BED] text-white' : 'bg-white text-[#7C3BED]'
+                  isLightHeader ? 'bg-[#7C3BED] text-white' : 'bg-white text-[#0F0F1A]'
                 )}
               >
                 Get Started →

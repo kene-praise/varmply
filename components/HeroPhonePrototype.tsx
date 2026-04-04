@@ -12,22 +12,22 @@ function StatusBar() {
       <div className="flex items-center gap-1">
         {/* Signal bars */}
         <svg width="16" height="10" viewBox="0 0 16 10" fill="currentColor">
-          <rect x="0" y="5" width="3" height="5" rx="0.5" opacity="0.4"/>
-          <rect x="4.5" y="3.5" width="3" height="6.5" rx="0.5" opacity="0.7"/>
-          <rect x="9" y="1.5" width="3" height="8.5" rx="0.5"/>
-          <rect x="13.5" y="0" width="2.5" height="10" rx="0.5"/>
+          <rect x="0" y="5" width="3" height="5" rx="0.5" opacity="0.4" />
+          <rect x="4.5" y="3.5" width="3" height="6.5" rx="0.5" opacity="0.7" />
+          <rect x="9" y="1.5" width="3" height="8.5" rx="0.5" />
+          <rect x="13.5" y="0" width="2.5" height="10" rx="0.5" />
         </svg>
         {/* Wifi */}
         <svg width="13" height="10" viewBox="0 0 13 10" fill="currentColor">
-          <path d="M6.5 6.5a1.5 1.5 0 110 3 1.5 1.5 0 010-3z"/>
-          <path d="M3.8 4.3a3.8 3.8 0 015.4 0l1.2-1.2A5.5 5.5 0 006.5 1a5.5 5.5 0 00-3.9 2.1l1.2 1.2z" opacity="0.6"/>
-          <path d="M1 1.5A8.2 8.2 0 0112 1.5L13 .5A9.5 9.5 0 000 .5l1 1z" opacity="0.3"/>
+          <path d="M6.5 6.5a1.5 1.5 0 110 3 1.5 1.5 0 010-3z" />
+          <path d="M3.8 4.3a3.8 3.8 0 015.4 0l1.2-1.2A5.5 5.5 0 006.5 1a5.5 5.5 0 00-3.9 2.1l1.2 1.2z" opacity="0.6" />
+          <path d="M1 1.5A8.2 8.2 0 0112 1.5L13 .5A9.5 9.5 0 000 .5l1 1z" opacity="0.3" />
         </svg>
         {/* Battery */}
         <svg width="24" height="11" viewBox="0 0 24 11" fill="none">
-          <rect x="0.5" y="0.5" width="20" height="10" rx="2.5" stroke="black" strokeOpacity="0.35"/>
-          <rect x="1.5" y="1.5" width="15" height="8" rx="2" fill="black"/>
-          <path d="M22 3.5v4c.8-.3 1.5-1 1.5-2S22.8 3.8 22 3.5z" fill="black" fillOpacity="0.4"/>
+          <rect x="0.5" y="0.5" width="20" height="10" rx="2.5" stroke="black" strokeOpacity="0.35" />
+          <rect x="1.5" y="1.5" width="15" height="8" rx="2" fill="black" />
+          <path d="M22 3.5v4c.8-.3 1.5-1 1.5-2S22.8 3.8 22 3.5z" fill="black" fillOpacity="0.4" />
         </svg>
       </div>
     </div>
@@ -42,7 +42,7 @@ function NavBar({ onBack }: { onBack?: boolean }) {
         <span style={{ fontSize: 14, fontWeight: 700, color: '#1c2024' }}>Varmply</span>
       </div>
       <svg width="18" height="13" viewBox="0 0 18 13" fill="none">
-        <path d="M0 1h18M0 6.5h18M0 12h18" stroke="#1c2024" strokeWidth="1.6" strokeLinecap="round"/>
+        <path d="M0 1h18M0 6.5h18M0 12h18" stroke="#1c2024" strokeWidth="1.6" strokeLinecap="round" />
       </svg>
     </div>
   );
@@ -102,7 +102,7 @@ function MarketplaceScreen() {
         <div className="grid grid-cols-2 gap-2.5">
           {[
             { title: 'Jazzy Song', artist: 'Ayra Starr', budget: '₦120,000', img: '/mockups/art-cover-3.png', avatar: '/mockups/avatar-1.png' },
-            { title: 'Ozeba',      artist: 'Rema',       budget: '₦135,000', img: '/mockups/art-cover-4.png', avatar: '/mockups/avatar-2.png' },
+            { title: 'Ozeba', artist: 'Rema', budget: '₦135,000', img: '/mockups/art-cover-4.png', avatar: '/mockups/avatar-2.png' },
           ].map((c) => (
             <div key={c.title} style={{ background: 'white', border: '1px solid #f0f0f0', borderRadius: 12, overflow: 'hidden' }}>
               {/* Cover */}
@@ -166,7 +166,7 @@ function ViewCampaignScreen() {
         {/* Back link */}
         <div className="flex items-center gap-1" style={{ marginBottom: 8 }}>
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-            <path d="M9 11L5 7l4-4" stroke="#646464" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M9 11L5 7l4-4" stroke="#646464" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
           <span style={{ fontSize: 10, color: '#646464' }}>Back</span>
         </div>
@@ -194,11 +194,11 @@ function ViewCampaignScreen() {
           <div style={{ background: 'white', border: '1px solid #f0f0f0', borderRadius: 9, padding: '10px 10px' }}>
             {/* Detail rows */}
             {[
-              { label: 'Campaign status',    value: null, badge: { text: 'Open', color: '#00713f', bg: 'rgba(0,164,51,0.1)' } },
+              { label: 'Campaign status', value: null, badge: { text: 'Open', color: '#00713f', bg: 'rgba(0,164,51,0.1)' } },
               { label: 'Submission deadline', value: '30th Jan, 2025' },
-              { label: 'Creator Slots',       value: '35' },
-              { label: 'Base Payout Rate',    value: '₦5 per engagement' },
-              { label: 'Competition level',   value: null, badge: { text: 'Moderate', color: '#ab6400', bg: 'rgba(255,222,0,0.2)' } },
+              { label: 'Creator Slots', value: '35' },
+              { label: 'Base Payout Rate', value: '₦5 per engagement' },
+              { label: 'Competition level', value: null, badge: { text: 'Moderate', color: '#ab6400', bg: 'rgba(255,222,0,0.2)' } },
             ].map(({ label, value, badge }) => (
               <div key={label} className="flex items-center justify-between" style={{ marginBottom: 7 }}>
                 <span style={{ fontSize: 9.5, color: '#838383' }}>{label}</span>
@@ -245,12 +245,12 @@ function ViewCampaignScreen() {
 // ── Screen 3: Campaign Overview ───────────────────────────────────────────────
 function CampaignOverviewScreen() {
   const stats = [
-    { label: 'Budget',      value: '₦500K' },
-    { label: 'Spent',       value: '₦320K' },
-    { label: 'Creators',    value: '24' },
+    { label: 'Budget', value: '₦500K' },
+    { label: 'Spent', value: '₦320K' },
+    { label: 'Creators', value: '24' },
     { label: 'Submissions', value: '67' },
-    { label: 'Approved',    value: '42' },
-    { label: 'Reach',       value: '890K' },
+    { label: 'Approved', value: '42' },
+    { label: 'Reach', value: '890K' },
   ];
 
   return (
@@ -266,7 +266,7 @@ function CampaignOverviewScreen() {
           <div className="flex items-center gap-1.5" style={{ marginBottom: 3 }}>
             <div style={{ background: '#22c55e', borderRadius: 3, padding: '1px 5px', fontSize: 7, fontWeight: 600, color: 'white' }}>Sharing</div>
             <div style={{ border: '0.8px solid rgba(255,255,255,0.5)', borderRadius: 3, padding: '1px 5px', fontSize: 7, color: 'white', display: 'flex', alignItems: 'center', gap: 3 }}>
-              <svg width="8" height="8" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="5" stroke="white" strokeWidth="2"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" stroke="white" strokeWidth="2"/></svg>
+              <svg width="8" height="8" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="5" stroke="white" strokeWidth="2" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" stroke="white" strokeWidth="2" /></svg>
               Instagram
             </div>
           </div>
@@ -311,10 +311,10 @@ function CampaignOverviewScreen() {
           <p style={{ fontSize: 10.5, fontWeight: 600, color: '#101828', marginBottom: 8 }}>Budget Breakdown</p>
           {[
             { label: 'Total Budget', value: '₦500,000', bold: false },
-            { label: 'Spent',        value: '₦320,000', bold: false },
-            { label: 'Remaining',    value: '₦180,000', bold: true, green: true },
-            { label: 'Payout/Post',  value: '₦15,000',  bold: false },
-            { label: 'Slots',        value: '24/40 filled', bold: false },
+            { label: 'Spent', value: '₦320,000', bold: false },
+            { label: 'Remaining', value: '₦180,000', bold: true, green: true },
+            { label: 'Payout/Post', value: '₦15,000', bold: false },
+            { label: 'Slots', value: '24/40 filled', bold: false },
           ].map(({ label, value, bold, green }) => (
             <div key={label} className="flex items-center justify-between" style={{ marginBottom: 4 }}>
               <span style={{ fontSize: 9, color: '#838383' }}>{label}</span>
@@ -335,9 +335,9 @@ function CampaignOverviewScreen() {
 // ── Screen 4: Campaign Creators ───────────────────────────────────────────────
 function CreatorsScreen() {
   const creators = [
-    { name: 'Banky W',    avatar: '/mockups/avatar-3.png', earned: '₦45,250', followers: '120K', reach: '80K', posts: 3 },
+    { name: 'Banky W', avatar: '/mockups/avatar-3.png', earned: '₦45,250', followers: '120K', reach: '80K', posts: 3 },
     { name: 'Ayra Starr', avatar: '/mockups/avatar-1.png', earned: '₦45,250', followers: '120K', reach: '80K', posts: 3 },
-    { name: 'Rema',       avatar: '/mockups/avatar-2.png', earned: '₦45,250', followers: '20K',  reach: '10K', posts: 3 },
+    { name: 'Rema', avatar: '/mockups/avatar-2.png', earned: '₦45,250', followers: '20K', reach: '10K', posts: 3 },
   ];
 
   return (
@@ -353,7 +353,7 @@ function CreatorsScreen() {
           <div className="flex items-center gap-1.5" style={{ marginBottom: 3 }}>
             <div style={{ background: '#22c55e', borderRadius: 3, padding: '1px 5px', fontSize: 7, fontWeight: 600, color: 'white' }}>Sharing</div>
             <div style={{ border: '0.8px solid rgba(255,255,255,0.5)', borderRadius: 3, padding: '1px 5px', fontSize: 7, color: 'white', display: 'flex', alignItems: 'center', gap: 3 }}>
-              <svg width="8" height="8" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="5" stroke="white" strokeWidth="2"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" stroke="white" strokeWidth="2"/></svg>
+              <svg width="8" height="8" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="5" stroke="white" strokeWidth="2" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" stroke="white" strokeWidth="2" /></svg>
               Instagram
             </div>
           </div>

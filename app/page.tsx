@@ -11,6 +11,7 @@ import {
   ArrowRight, CheckCircle, Shield, Wallet,
   BarChart2, Zap, Users, Star, Lock, AlignLeft, CheckSquare,
 } from 'lucide-react';
+import { BrowserChrome, DashboardSkeleton, CreateCampaignSkeleton } from '@/components/MockupSkeletons';
 
 // ─── Shared helpers ───────────────────────────────────────────────────────────
 
@@ -31,20 +32,6 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
     <span className="inline-block rounded-full px-3.5 py-1 text-xs font-semibold uppercase tracking-widest mb-4" style={{ background: '#EDE9FF', color: '#7C3BED' }}>
       {children}
     </span>
-  );
-}
-
-function BrowserChrome({ url }: { url: string }) {
-  return (
-    <div className="flex items-center gap-2 px-3 py-2 shrink-0" style={{ background: '#F5F5F7', borderBottom: '1px solid #E0E0E4' }}>
-      <div className="flex gap-1">
-        <span className="block w-2 h-2 rounded-full bg-[#FF5F56]" />
-        <span className="block w-2 h-2 rounded-full bg-[#FFBD2E]" />
-        <span className="block w-2 h-2 rounded-full bg-[#27C93F]" />
-      </div>
-      <div className="flex-1 bg-white rounded-full px-2.5 py-0.5 text-[9px] text-[#ABABAB] border border-[#EBEBEB] truncate text-center">{url}</div>
-      <div className="w-8" />
-    </div>
   );
 }
 
@@ -73,18 +60,20 @@ function BentoFeature() {
 
         <motion.div
           variants={stagger} initial="hidden" whileInView="visible" viewport={vp}
-          className="grid grid-cols-3 gap-4"
+          className="grid grid-cols-1 md:grid-cols-3 gap-4"
         >
           {/* Purple hero — My Campaigns browser */}
           <motion.div variants={fadeUp}
-            className="relative overflow-hidden rounded-3xl col-span-2"
+            className="relative overflow-hidden rounded-3xl col-span-1 md:col-span-2"
             style={{ background: '#7C3BED', height: 440 }}
           >
             <p className="absolute z-20 top-7 left-7 text-[10px] font-semibold text-white/50 uppercase tracking-widest">Campaign Management</p>
             <p className="absolute z-20 top-[46px] left-7 text-xl font-bold text-white leading-tight mt-0.5">My campaigns</p>
             <div className="absolute rounded-xl overflow-hidden" style={{ top: 108, left: 36, right: -80, boxShadow: '0 20px 60px rgba(0,0,0,0.45)' }}>
               <BrowserChrome url="app.varmply.com/campaigns" />
-              <Image src="/mockups/my-campaigns.png" alt="" width={1512} height={1023} style={{ width: '100%', height: 'auto', display: 'block' }} />
+              <div style={{ transform: 'scale(0.85)', transformOrigin: 'top left', width: '117%' }}>
+                <DashboardSkeleton />
+              </div>
             </div>
           </motion.div>
 
@@ -121,8 +110,10 @@ function BentoFeature() {
             <p className="absolute z-20 top-[46px] left-6 text-lg font-bold text-white leading-snug mt-0.5">Create a campaign<br />in minutes</p>
             <div className="absolute rounded-xl overflow-hidden" style={{ top: 116, left: -100, width: 480, boxShadow: '0 20px 60px rgba(0,0,0,0.45)' }}>
               <BrowserChrome url="app.varmply.com/campaigns/create" />
-              <div className="relative overflow-hidden" style={{ height: 300 }}>
-                <Image src="/mockups/create-campaign.png" alt="" width={756} height={574} style={{ position: 'absolute', top: -60, left: 0 }} />
+              <div className="relative overflow-hidden bg-white" style={{ height: 300 }}>
+                <div style={{ transform: 'scale(0.9)', transformOrigin: 'top left', width: '110%' }}>
+                  <CreateCampaignSkeleton />
+                </div>
               </div>
             </div>
           </motion.div>
@@ -134,8 +125,10 @@ function BentoFeature() {
           >
             <div className="absolute rounded-xl overflow-hidden" style={{ top: -22, left: 14, width: 380, boxShadow: '0 20px 60px rgba(0,0,0,0.45)' }}>
               <BrowserChrome url="app.varmply.com/campaigns/create" />
-              <div className="relative overflow-hidden" style={{ height: 240 }}>
-                <Image src="/mockups/create-campaign.png" alt="" width={756} height={574} style={{ position: 'absolute', top: 0, left: 0 }} />
+              <div className="relative overflow-hidden bg-white" style={{ height: 240 }}>
+                <div style={{ transform: 'scale(0.8)', transformOrigin: 'top left', width: '125%' }}>
+                  <CreateCampaignSkeleton />
+                </div>
               </div>
             </div>
             <p className="absolute z-20 bottom-6 left-6 text-[10px] font-semibold text-white/50 uppercase tracking-widest">Clear requirements</p>
@@ -174,11 +167,11 @@ function BentoFeature() {
 
 function PhoneShowcase() {
   return (
-    <section className="py-24 overflow-hidden" style={{ background: '#07071A' }}>
-      <div className="max-w-6xl mx-auto px-6">
+    <section className="overflow-hidden h-auto md:h-[660px] pb-16 md:pb-0" style={{ background: '#07071A' }}>
+      <div className="max-w-6xl mx-auto px-6 pt-16">
         <motion.div
           variants={stagger} initial="hidden" whileInView="visible" viewport={vp}
-          className="mb-14 text-center"
+          className="mb-10 text-center"
         >
           <motion.div variants={fadeUp}>
             <span className="inline-block rounded-full px-3.5 py-1 text-xs font-semibold uppercase tracking-widest mb-4" style={{ background: 'rgba(124,59,237,0.20)', color: '#A78BFA' }}>
@@ -195,7 +188,7 @@ function PhoneShowcase() {
 
         <motion.div
           variants={stagger} initial="hidden" whileInView="visible" viewport={vp}
-          className="grid grid-cols-3 gap-4"
+          className="grid grid-cols-1 sm:grid-cols-3 gap-4"
         >
           {/* Purple — creator earnings */}
           <motion.div variants={fadeUp}
@@ -382,11 +375,11 @@ function CreatorReel() {
         {/* Bento grid — col 1 spans 2 rows, cols 2+3 each have 2 stacked cards */}
         <motion.div
           variants={stagger} initial="hidden" whileInView="visible" viewport={vp}
-          className="grid gap-4 mb-12"
-          style={{ gridTemplateColumns: '1fr 1fr 1fr', gridTemplateRows: '220px 220px' }}
+          className="grid gap-4 mb-12 grid-cols-1 md:grid-cols-3"
+          style={{ gridTemplateRows: undefined }}
         >
           {/* Card 1 — tall featured, spans 2 rows */}
-          <motion.div variants={fadeUp} className="relative overflow-hidden rounded-3xl" style={{ gridRow: 'span 2' }}>
+          <motion.div variants={fadeUp} className="relative overflow-hidden rounded-3xl h-[440px] md:row-span-2 md:h-auto" style={{ minHeight: 220 }}>
             <Image src="/mockups/art-cover-3.png" alt="Jazzy Song campaign" fill className="object-cover" sizes="33vw" />
             <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 50%)' }} />
             <div className="absolute bottom-5 left-5 right-5">
@@ -403,7 +396,7 @@ function CreatorReel() {
           </motion.div>
 
           {/* Card 2 — Rema / Ozeba */}
-          <motion.div variants={fadeUp} className="relative overflow-hidden rounded-3xl">
+          <motion.div variants={fadeUp} className="relative overflow-hidden rounded-3xl h-[220px]">
             <Image src="/mockups/art-cover-4.png" alt="Ozeba campaign" fill className="object-cover" sizes="33vw" />
             <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.70) 0%, transparent 55%)' }} />
             <div className="absolute bottom-4 left-4 right-4">
@@ -417,7 +410,7 @@ function CreatorReel() {
           </motion.div>
 
           {/* Card 3 — Davido / With You */}
-          <motion.div variants={fadeUp} className="relative overflow-hidden rounded-3xl">
+          <motion.div variants={fadeUp} className="relative overflow-hidden rounded-3xl h-[220px]">
             <Image src="/mockups/davido-cover.png" alt="With You Album campaign" fill className="object-cover object-top" sizes="33vw" />
             <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.70) 0%, transparent 55%)' }} />
             <div className="absolute bottom-4 left-4 right-4">
@@ -432,7 +425,7 @@ function CreatorReel() {
 
           {/* Card 4 — dark stat */}
           <motion.div variants={fadeUp}
-            className="relative overflow-hidden rounded-3xl p-6"
+            className="relative overflow-hidden rounded-3xl p-6 h-[220px]"
             style={{ background: '#0D0D2B' }}
           >
             <div className="pointer-events-none absolute inset-0" style={{ backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px)', backgroundSize: '18px 18px' }} />
@@ -446,7 +439,7 @@ function CreatorReel() {
 
           {/* Card 5 — green stat */}
           <motion.div variants={fadeUp}
-            className="relative overflow-hidden rounded-3xl p-6"
+            className="relative overflow-hidden rounded-3xl p-6 h-[220px]"
             style={{ background: '#00A050' }}
           >
             <div className="pointer-events-none absolute inset-0" style={{ backgroundImage: 'repeating-linear-gradient(45deg, rgba(255,255,255,0.10) 0, rgba(255,255,255,0.10) 1px, transparent 0, transparent 50%)', backgroundSize: '10px 10px' }} />
@@ -463,229 +456,7 @@ function CreatorReel() {
   );
 }
 
-// ─── 4. Web Mockup Section ────────────────────────────────────────────────────
-
-// Skeleton primitive — light lavender-gray blocks
-function Sk({ w, h = 10, r = 5, style }: { w?: string | number; h?: number; r?: number; style?: React.CSSProperties }) {
-  return <div style={{ width: w, height: h, borderRadius: r, background: '#EAEAF0', flexShrink: 0, ...style }} />;
-}
-
-// ── Dashboard skeleton: sidebar + stat cards + table ──────────────────────────
-function DashboardSkeleton() {
-  return (
-    <div className="animate-pulse" style={{ display: 'flex', background: '#FAFAFA', minHeight: 220 }}>
-      {/* Sidebar */}
-      <div style={{ width: 76, background: '#F3F3F8', padding: '14px 10px', display: 'flex', flexDirection: 'column', gap: 10, flexShrink: 0, borderRight: '1px solid #EBEBF2' }}>
-        <Sk w={40} h={18} r={6} style={{ marginBottom: 6 }} />
-        {[0,1,2,3,4].map(i => <Sk key={i} w="100%" h={26} r={7} />)}
-      </div>
-      {/* Main */}
-      <div style={{ flex: 1, padding: '14px 16px' }}>
-        {/* Topbar */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 14 }}>
-          <Sk w={130} h={14} r={4} />
-          <div style={{ display: 'flex', gap: 6 }}>
-            <Sk w={64} h={24} r={20} />
-            <Sk w={64} h={24} r={20} />
-            <Sk w={28} h={28} r={28} />
-          </div>
-        </div>
-        {/* Stat cards */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 8, marginBottom: 14 }}>
-          {[0,1,2,3].map(i => (
-            <div key={i} style={{ background: 'white', borderRadius: 10, padding: '10px 12px', border: '1px solid #EBEBF2' }}>
-              <Sk w="55%" h={8} r={3} style={{ marginBottom: 8 }} />
-              <Sk w="75%" h={20} r={4} style={{ marginBottom: 6 }} />
-              <Sk w="40%" h={7} r={3} />
-            </div>
-          ))}
-        </div>
-        {/* Table */}
-        <div style={{ background: 'white', borderRadius: 10, border: '1px solid #EBEBF2', overflow: 'hidden' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr 0.8fr', gap: 10, padding: '8px 14px', background: '#F7F7FA', borderBottom: '1px solid #EBEBF2' }}>
-            {[100,60,60,60,50].map((w,i) => <Sk key={i} w={w} h={7} r={3} />)}
-          </div>
-          {[0,1,2,3].map(row => (
-            <div key={row} style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr 0.8fr', gap: 10, padding: '9px 14px', borderBottom: '1px solid #F2F2F7', alignItems: 'center' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                <Sk w={28} h={28} r={7} />
-                <div>
-                  <Sk w={90} h={8} r={3} style={{ marginBottom: 5 }} />
-                  <Sk w={60} h={6} r={3} />
-                </div>
-              </div>
-              <Sk w={52} h={20} r={20} />
-              <Sk w={44} h={8} r={3} />
-              <Sk w={50} h={8} r={3} />
-              <Sk w={36} h={22} r={6} />
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// ── Create campaign form skeleton ─────────────────────────────────────────────
-function CreateCampaignSkeleton() {
-  return (
-    <div className="animate-pulse" style={{ display: 'flex', background: '#FAFAFA', minHeight: 200 }}>
-      {/* Sidebar */}
-      <div style={{ width: 68, background: '#F3F3F8', padding: '10px 8px', display: 'flex', flexDirection: 'column', gap: 10, flexShrink: 0, borderRight: '1px solid #EBEBF2' }}>
-        <Sk w={36} h={16} r={5} style={{ marginBottom: 8 }} />
-        {[0,1,2,3].map(i => <Sk key={i} w="100%" h={26} r={7} />)}
-      </div>
-      {/* Form */}
-      <div style={{ flex: 1, padding: '12px 14px' }}>
-        {/* Step tabs */}
-        <div style={{ display: 'flex', gap: 6, marginBottom: 14 }}>
-          {[0,1,2,3].map(i => <Sk key={i} w={70} h={7} r={3} style={{ background: i === 0 ? '#C4B5FD' : '#EAEAF0' }} />)}
-        </div>
-        {/* Section heading */}
-        <Sk w={140} h={13} r={4} style={{ marginBottom: 4 }} />
-        <Sk w={200} h={8} r={3} style={{ marginBottom: 14 }} />
-        {/* Fields */}
-        {['Campaign Name *','Description *'].map((_, i) => (
-          <div key={i} style={{ marginBottom: 12 }}>
-            <Sk w={100} h={8} r={3} style={{ marginBottom: 5 }} />
-            <Sk w="100%" h={i === 1 ? 52 : 30} r={7} />
-          </div>
-        ))}
-      </div>
-      {/* Preview panel */}
-      <div style={{ width: 120, background: '#F0F0F8', padding: '12px 10px', flexShrink: 0, borderLeft: '1px solid #EBEBF2' }}>
-        <Sk w={80} h={8} r={3} style={{ marginBottom: 10 }} />
-        <Sk w="100%" h={72} r={10} style={{ marginBottom: 10 }} />
-        <Sk w="100%" h={8} r={3} style={{ marginBottom: 6 }} />
-        <Sk w="80%" h={8} r={3} style={{ marginBottom: 6 }} />
-        <Sk w="60%" h={8} r={3} style={{ marginBottom: 12 }} />
-        <div style={{ display: 'flex', gap: 5 }}>
-          <Sk w="50%" h={22} r={6} />
-          <Sk w="50%" h={22} r={6} />
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// ── Marketplace skeleton ───────────────────────────────────────────────────────
-function MarketplaceSkeleton() {
-  return (
-    <div className="animate-pulse" style={{ background: '#FAFAFA', padding: '14px' }}>
-      {/* Search + filter */}
-      <div style={{ display: 'flex', gap: 8, marginBottom: 14, alignItems: 'center' }}>
-        <Sk w="100%" h={30} r={20} />
-        <Sk w={30} h={30} r={30} />
-        <Sk w={72} h={30} r={20} />
-      </div>
-      {/* Filter chips */}
-      <div style={{ display: 'flex', gap: 6, marginBottom: 14 }}>
-        {[80,64,72,56].map((w,i) => <Sk key={i} w={w} h={24} r={20} style={{ background: i === 0 ? '#C4B5FD' : '#EAEAF0' }} />)}
-      </div>
-      {/* Campaign cards */}
-      {[0,1,2].map(i => (
-        <div key={i} style={{ display: 'flex', gap: 12, background: 'white', borderRadius: 12, padding: '10px 12px', border: '1px solid #EBEBF2', marginBottom: 8, alignItems: 'center' }}>
-          <Sk w={52} h={52} r={10} />
-          <div style={{ flex: 1 }}>
-            <Sk w="55%" h={10} r={3} style={{ marginBottom: 6 }} />
-            <Sk w="35%" h={7} r={3} style={{ marginBottom: 8 }} />
-            <div style={{ display: 'flex', gap: 6 }}>
-              <Sk w={52} h={20} r={20} />
-              <Sk w={52} h={20} r={20} />
-              <Sk w={44} h={20} r={20} />
-            </div>
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 6 }}>
-            <Sk w={64} h={12} r={3} />
-            <Sk w={72} h={28} r={8} />
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-function WebMockup() {
-  return (
-    <section className="py-24" style={{ background: '#F7F7F9' }}>
-      <div className="max-w-6xl mx-auto px-6">
-        <motion.div
-          variants={stagger} initial="hidden" whileInView="visible" viewport={vp}
-          className="mb-12"
-        >
-          <motion.div variants={fadeUp}><SectionLabel>Web platform</SectionLabel></motion.div>
-          <motion.h2 variants={fadeUp} className="font-bold text-[#0F0F1A]" style={{ fontSize: 'clamp(28px, 3.5vw, 48px)', lineHeight: 1.1, maxWidth: 560 }}>
-            The sponsor experience, built for results.
-          </motion.h2>
-          <motion.p variants={fadeUp} className="mt-3 text-base text-[#4A4A6A]" style={{ maxWidth: 440 }}>
-            Full campaign management, creator tracking, and spend analytics — all in one dashboard.
-          </motion.p>
-        </motion.div>
-
-        {/* Full browser frame */}
-        <motion.div
-          initial={{ opacity: 0, y: 32 }} whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          viewport={vp}
-          className="mb-4 overflow-hidden rounded-2xl"
-          style={{ boxShadow: '0 4px 24px rgba(0,0,0,0.09), 0 1px 4px rgba(0,0,0,0.05)', border: '1px solid #E4E4EC' }}
-        >
-          <BrowserChrome url="app.varmply.com/campaigns" />
-          <DashboardSkeleton />
-        </motion.div>
-
-        {/* 3-card bento below */}
-        <motion.div
-          variants={stagger} initial="hidden" whileInView="visible" viewport={vp}
-          className="grid grid-cols-2 gap-4 mt-4"
-        >
-          {/* Purple clip — full width hero */}
-          <motion.div variants={fadeUp}
-            className="relative overflow-hidden rounded-3xl col-span-2"
-            style={{ background: '#7C3BED', height: 400, boxShadow: '0 4px 20px rgba(0,0,0,0.10), 0 1px 4px rgba(0,0,0,0.06)' }}
-          >
-            <p className="absolute z-20 top-7 left-7 text-[10px] font-semibold text-white/50 uppercase tracking-widest">Campaign overview</p>
-            <p className="absolute z-20 top-[46px] left-7 text-xl font-bold text-white leading-tight mt-0.5">Track all active campaigns</p>
-            <div className="absolute rounded-xl overflow-hidden" style={{ top: 100, left: 36, right: -80, boxShadow: '0 16px 48px rgba(0,0,0,0.36)' }}>
-              <BrowserChrome url="app.varmply.com/campaigns" />
-              <DashboardSkeleton />
-            </div>
-          </motion.div>
-
-          {/* Rose clip */}
-          <motion.div variants={fadeUp}
-            className="relative overflow-hidden rounded-3xl"
-            style={{ background: '#E11D48', height: 340, boxShadow: '0 4px 20px rgba(0,0,0,0.10), 0 1px 4px rgba(0,0,0,0.06)' }}
-          >
-            <div className="absolute rounded-xl overflow-hidden" style={{ top: -22, left: 18, width: 540, boxShadow: '0 16px 48px rgba(0,0,0,0.36)' }}>
-              <BrowserChrome url="app.varmply.com/campaigns/create" />
-              <div style={{ overflow: 'hidden', height: 240 }}>
-                <CreateCampaignSkeleton />
-              </div>
-            </div>
-            <p className="absolute z-20 bottom-6 left-6 text-[10px] font-semibold text-white/50 uppercase tracking-widest">Sponsor Tools</p>
-            <p className="absolute z-20 bottom-[38px] left-6 text-lg font-bold text-white leading-tight mb-0.5">Create a campaign</p>
-          </motion.div>
-
-          {/* Amber clip */}
-          <motion.div variants={fadeUp}
-            className="relative overflow-hidden rounded-3xl"
-            style={{ background: '#D97706', height: 340, boxShadow: '0 4px 20px rgba(0,0,0,0.10), 0 1px 4px rgba(0,0,0,0.06)' }}
-          >
-            <p className="absolute z-20 top-7 left-6 text-[10px] font-semibold text-white/50 uppercase tracking-widest">Creator Marketplace</p>
-            <p className="absolute z-20 top-[46px] left-6 text-lg font-bold text-white leading-tight mt-0.5">Browse open campaigns</p>
-            <div className="absolute rounded-xl overflow-hidden" style={{ top: 108, left: -40, width: 520, boxShadow: '0 16px 48px rgba(0,0,0,0.36)' }}>
-              <BrowserChrome url="app.varmply.com/marketplace" />
-              <div style={{ overflow: 'hidden', height: 300 }}>
-                <MarketplaceSkeleton />
-              </div>
-            </div>
-          </motion.div>
-        </motion.div>
-      </div>
-    </section>
-  );
-}
+// WebMockup section removed and transferred to app/sponsors/page.tsx
 
 // ─── 5. Trust Pillars ─────────────────────────────────────────────────────────
 
@@ -745,10 +516,11 @@ function TrustPillars() {
             <motion.div key={i} variants={fadeUp}
               className="relative flex flex-col overflow-hidden"
               style={{
-                background: p.bg,
+                background: 'rgba(255, 255, 255, 0.03)',
+                backdropFilter: 'blur(16px)',
+                WebkitBackdropFilter: 'blur(16px)',
                 borderRadius: '1.75rem',
-                border: '1px solid rgba(255,255,255,0.06)',
-                borderTop: `3px solid ${p.accent}`,
+                border: '1px solid rgba(255, 255, 255, 0.08)',
                 padding: '2.25rem',
                 minHeight: 300,
               }}
@@ -871,14 +643,14 @@ function Testimonials() {
 
 function HomeCTA() {
   return (
-    <section className="pt-24 pb-0" style={{ background: '#F7F7F9' }}>
+    <section className="pt-24 pb-0" style={{ background: '#FFFFFF' }}>
       <div className="max-w-6xl mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           viewport={vp}
-          className="relative overflow-hidden rounded-3xl px-12 py-20 text-center"
+          className="relative overflow-hidden rounded-3xl px-6 py-14 sm:px-12 sm:py-20 text-center"
           style={{ background: '#7C3BED' }}
         >
           {/* Diagonal slash pattern */}
@@ -933,7 +705,7 @@ export default function HomePage() {
       <BentoFeature />
       <PhoneShowcase />
       <CreatorReel />
-      <WebMockup />
+      {/* WebMockup moved to Sponsors Page */}
       <TrustPillars />
       <Testimonials />
       <HomeCTA />

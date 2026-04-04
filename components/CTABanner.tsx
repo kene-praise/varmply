@@ -10,14 +10,33 @@ interface CTABannerProps {
   subtext?: string;
   cta1?: { label: string; href: string };
   cta2?: { label: string; href: string };
+  theme?: 'purple' | 'green' | 'blue';
 }
+
+const themeStyles = {
+  purple: {
+    bg: '#7C3BED',
+    text: '#7C3BED',
+  },
+  green: {
+    bg: '#00A050',
+    text: '#00A050',
+  },
+  blue: {
+    bg: '#2563EB',
+    text: '#2563EB',
+  },
+};
 
 export default function CTABanner({
   headline = 'Ready to get started?',
   subtext = 'Join creators and brands already building on Varmply.',
   cta1 = { label: 'Join as Creator', href: '/creators' },
   cta2 = { label: 'Launch a Campaign', href: '/sponsors' },
+  theme = 'purple',
 }: CTABannerProps) {
+  const currentTheme = themeStyles[theme] || themeStyles.purple;
+
   return (
     <section className="bg-white py-8 pb-20">
       <div className="max-w-6xl mx-auto px-6">
@@ -29,28 +48,32 @@ export default function CTABanner({
           viewport={viewportOptions}
           className="relative overflow-hidden text-center"
           style={{
-            background: '#0F0A2E',
+            background: currentTheme.bg,
             borderRadius: '2rem',
             padding: 'clamp(3rem, 6vw, 5rem) clamp(2rem, 5vw, 4rem)',
           }}
         >
-          {/* Dot grid */}
+          {/* Pattern overlay — diagonal + dot grid on all themes */}
           <div
             className="absolute inset-0 pointer-events-none"
             style={{
-              backgroundImage: 'radial-gradient(rgba(255,255,255,0.06) 1px, transparent 1px)',
-              backgroundSize: '28px 28px',
+              backgroundImage: `
+                repeating-linear-gradient(45deg, rgba(255,255,255,0.06) 0, rgba(255,255,255,0.06) 1px, transparent 0, transparent 50%),
+                radial-gradient(rgba(255,255,255,0.07) 1px, transparent 1px)
+              `,
+              backgroundSize: '14px 14px, 28px 28px',
             }}
           />
-          {/* Purple glow top-right */}
-          <div
-            className="absolute -top-24 -right-24 w-80 h-80 rounded-full pointer-events-none"
-            style={{ background: 'radial-gradient(circle, rgba(124,59,237,0.3) 0%, transparent 70%)' }}
-          />
-          {/* Emerald glow bottom-left */}
+          {/* Ambient glow top-right */}
+          {theme !== 'green' && (
+            <div
+              className="absolute -top-24 -right-24 w-80 h-80 rounded-full pointer-events-none"
+              style={{ background: theme === 'blue' ? 'radial-gradient(circle, rgba(147,197,253,0.25) 0%, transparent 70%)' : 'radial-gradient(circle, rgba(124,59,237,0.3) 0%, transparent 70%)' }}
+            />
+          )}
           <div
             className="absolute -bottom-20 -left-20 w-64 h-64 rounded-full pointer-events-none"
-            style={{ background: 'radial-gradient(circle, rgba(5,150,105,0.18) 0%, transparent 70%)' }}
+            style={{ background: 'radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%)' }}
           />
 
           <div className="relative">
@@ -72,7 +95,7 @@ export default function CTABanner({
               <Link
                 href={cta1.href}
                 className="inline-flex items-center gap-2 rounded-full font-semibold text-sm px-8 py-3.5 transition-all hover:opacity-90"
-                style={{ background: 'white', color: '#7C3BED' }}
+                style={{ background: 'white', color: currentTheme.text }}
               >
                 {cta1.label} <ArrowRight size={15} />
               </Link>

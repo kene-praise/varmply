@@ -37,28 +37,28 @@ function RevealLine({
 function TikTokIcon({ size = 12 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="white">
-      <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V9a8.17 8.17 0 0 0 4.78 1.52V7.06a4.85 4.85 0 0 1-1.01-.37z"/>
+      <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V9a8.17 8.17 0 0 0 4.78 1.52V7.06a4.85 4.85 0 0 1-1.01-.37z" />
     </svg>
   );
 }
 function InstagramIcon({ size = 12 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="#E1306C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+      <rect x="2" y="2" width="20" height="20" rx="5" ry="5" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
     </svg>
   );
 }
 function YoutubeIcon({ size = 12 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="#FF0000">
-      <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="white"/>
+      <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z" /><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="white" />
     </svg>
   );
 }
 function XIcon({ size = 12 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="white">
-      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
     </svg>
   );
 }
@@ -142,9 +142,9 @@ function CreatorScreen() {
           Active campaigns
         </p>
         {[
-          { brand: 'Paystack',  task: 'Instagram post',  reward: '₦25,000', color: '#7C3BED' },
-          { brand: 'PiggyVest', task: 'TikTok video',    reward: '₦18,000', color: '#00A050' },
-          { brand: 'Cowrywise', task: 'Twitter thread',  reward: '₦8,000',  color: '#2563EB' },
+          { brand: 'Paystack', task: 'Instagram post', reward: '₦25,000', color: '#7C3BED' },
+          { brand: 'PiggyVest', task: 'TikTok video', reward: '₦18,000', color: '#00A050' },
+          { brand: 'Cowrywise', task: 'Twitter thread', reward: '₦8,000', color: '#2563EB' },
         ].map((c, i) => (
           <div
             key={i}
@@ -177,7 +177,7 @@ function CreatorScreen() {
 export default function HeroSection() {
   return (
     <section
-      className="relative -mt-16 overflow-hidden"
+      className="relative overflow-hidden"
       style={{ minHeight: '100dvh', background: '#7433FF' }}
     >
       {/* Background 3D layer — icons fan out behind the glass box */}
@@ -301,9 +301,9 @@ export default function HeroSection() {
             transition={{ duration: 0.8, delay: 1.7 }}
           >
             {[
-              { value: '₦2.4M',  label: 'distributed' },
-              { value: '847+',   label: 'active creators' },
-              { value: '98%',    label: 'on-time payouts' },
+              { value: '₦2.4M', label: 'distributed' },
+              { value: '847+', label: 'active creators' },
+              { value: '98%', label: 'on-time payouts' },
             ].map(({ value, label }) => (
               <div key={label} className="flex flex-col gap-0.5">
                 <span className="text-white font-bold text-base leading-tight">{value}</span>

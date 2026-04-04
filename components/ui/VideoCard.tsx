@@ -20,17 +20,17 @@ interface FloatingChipProps {
 }
 
 const chipPositions = {
-  'top-left':     'top-3 left-3',
-  'top-right':    'top-3 right-3',
-  'bottom-left':  'bottom-3 left-3',
+  'top-left': 'top-3 left-3',
+  'top-right': 'top-3 right-3',
+  'bottom-left': 'bottom-3 left-3',
   'bottom-right': 'bottom-3 right-3',
 };
 
 const chipVariants = {
-  dark:   { background: 'rgba(7,7,26,0.80)',  color: 'rgba(255,255,255,0.90)', backdropFilter: 'blur(8px)' },
-  light:  { background: 'rgba(255,255,255,0.90)', color: '#0F0F1A', backdropFilter: 'blur(8px)' },
+  dark: { background: 'rgba(7,7,26,0.80)', color: 'rgba(255,255,255,0.90)', backdropFilter: 'blur(8px)' },
+  light: { background: 'rgba(255,255,255,0.90)', color: '#0F0F1A', backdropFilter: 'blur(8px)' },
   accent: { background: '#7C3BED', color: '#FFFFFF', backdropFilter: 'none' },
-  green:  { background: '#00A050', color: '#FFFFFF', backdropFilter: 'none' },
+  green: { background: '#00A050', color: '#FFFFFF', backdropFilter: 'none' },
 };
 
 export function FloatingChip({
@@ -55,7 +55,7 @@ export function FloatingChip({
 
 // ── VideoCard ─────────────────────────────────────────────────────────────────
 
-type AspectRatio = '16/9' | '9/16' | '4/5' | '1/1' | '3/2';
+type AspectRatio = '16/9' | '9/16' | '4/5' | '1/1' | '3/2' | '3/4';
 
 interface VideoCardProps {
   // Pass either src (video) or imageSrc (static)
@@ -87,9 +87,10 @@ interface VideoCardProps {
 const aspectRatioMap: Record<AspectRatio, string> = {
   '16/9': 'aspect-video',
   '9/16': 'aspect-[9/16]',
-  '4/5':  'aspect-[4/5]',
-  '1/1':  'aspect-square',
-  '3/2':  'aspect-[3/2]',
+  '4/5': 'aspect-[4/5]',
+  '1/1': 'aspect-square',
+  '3/2': 'aspect-[3/2]',
+  '3/4': 'aspect-[3/4]',
 };
 
 export function VideoCard({
@@ -260,11 +261,11 @@ export function MediaGrid({
   return (
     <div className={clsx('grid grid-cols-3', gapClass, className)}>
       <div className={clsx('col-span-2', isRight && 'order-last')}>
-        <VideoCard {...featured} surface={surface} aspectRatio="4/5" hoverable />
+        <VideoCard {...featured} surface={surface} aspectRatio="3/4" hoverable />
       </div>
       <div className={clsx('flex flex-col', gapClass)}>
         {rest.slice(0, 2).map((item, i) => (
-          <VideoCard key={i} {...item} surface={surface} aspectRatio="1/1" hoverable />
+          <VideoCard key={i} {...item} surface={surface} aspectRatio="1/1" hoverable className="flex-1" />
         ))}
       </div>
     </div>

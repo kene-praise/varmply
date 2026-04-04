@@ -37,7 +37,7 @@ const variantStyles: Record<ButtonVariant, string> = {
   ].join(' '),
 
   'on-dark': [
-    'bg-white text-[var(--accent)]',
+    'bg-white text-[#0F0F1A]',
     'hover:bg-white/90',
     'shadow-[0_2px_12px_rgba(0,0,0,0.15)]',
   ].join(' '),
