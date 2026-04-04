@@ -3,18 +3,26 @@
 /* Fonts load via <link> in app/layout.tsx — @import url() cannot follow Tailwind’s expanded CSS */
 
 :root {
+  /* ── Light surfaces ── */
   --bg-base: #FFFFFF;
   --bg-subtle: #F7F7F9;
   --bg-muted: #F0F0F4;
   --border-subtle: #E4E4EC;
   --border-default: #D1D1DE;
+
+  /* ── Brand accent ── */
   --accent: #7C3BED;
   --accent-light: #EDE9FF;
   --accent-hover: #6B28D9;
+  --accent-soft: #9D6FF5;
   --accent-glow: rgba(124, 59, 237, 0.12);
+
+  /* ── Text ── */
   --text-primary: #0F0F1A;
   --text-secondary: #4A4A6A;
   --text-muted: #8888AA;
+
+  /* ── Status / semantic ── */
   --status-green: #16A34A;
   --status-green-bg: #F0FDF4;
   --status-amber: #D97706;
@@ -22,16 +30,96 @@
   --status-red: #DC2626;
   --status-red-bg: #FEF2F2;
   --status-purple-bg: #EDE9FF;
+
+  /* ── Money / earnings ── */
+  --money-green: #00C566;
+  --money-green-hover: #00A855;
+  --money-green-bg: #E6FFF4;
+  --money-green-dark: #002E18;
+  --shadow-green: 0 8px 32px rgba(0,197,102,0.22);
+
+  /* ── Dark surfaces ── */
+  --bg-dark: #07071A;
+  --bg-dark-card: #0D0D2B;
+  --bg-dark-raised: #13132E;
+  --border-dark: rgba(255,255,255,0.10);
+  --border-dark-subtle: rgba(255,255,255,0.06);
+  --text-on-dark: rgba(255,255,255,0.92);
+  --text-on-dark-muted: rgba(255,255,255,0.60);
+  --text-on-dark-faint: rgba(255,255,255,0.35);
+
+  /* ── Bento card palette — vibrant solid backgrounds (pocketapp-inspired) ── */
+  --bento-purple-bg: #7C3BED;
+  --bento-purple-accent: #FFFFFF;
+  --bento-purple-border: rgba(255,255,255,0.18);
+  --bento-green-bg: #00A050;
+  --bento-green-accent: #FFFFFF;
+  --bento-green-border: rgba(255,255,255,0.18);
+  --bento-amber-bg: #D97706;
+  --bento-amber-accent: #FFFFFF;
+  --bento-amber-border: rgba(255,255,255,0.18);
+  --bento-blue-bg: #2563EB;
+  --bento-blue-accent: #FFFFFF;
+  --bento-blue-border: rgba(255,255,255,0.18);
+  --bento-rose-bg: #E11D48;
+  --bento-rose-accent: #FFFFFF;
+  --bento-rose-border: rgba(255,255,255,0.18);
+
+  /* ── Partyverse-inspired accents ── */
+  --highlight: #85ED91;          /* neon lime — tags, success callouts */
+  --highlight-dark: #1A3D1F;     /* dark surface version */
+  --accent-orange: #FF662E;      /* energetic secondary */
+  --accent-orange-hover: #EB521A;
+  --accent-orange-bg: #FFF0EB;
+
+  /* ── Radius scale ── */
+  /* Rule: nothing exceeds 20px. Scale by nesting depth:
+     xs/sm → inline elements, chips, tiny badges
+     md     → buttons, inputs, small cards
+     lg     → inner cards, nested surfaces
+     xl     → outermost cards, page-level tiles (max 20px) */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+  --radius-2xl: 20px;   /* alias — nothing exceeds xl */
+  --radius-full: 9999px;
+
+  /* ── Shadows ── */
   --shadow-sm: 0 2px 8px rgba(15,15,26,0.06), 0 1px 2px rgba(15,15,26,0.04);
   --shadow-md: 0 8px 24px rgba(15,15,26,0.08), 0 2px 6px rgba(15,15,26,0.04);
   --shadow-lg: 0 16px 48px rgba(15,15,26,0.10), 0 4px 12px rgba(15,15,26,0.05);
   --shadow-xl: 0 24px 64px rgba(15,15,26,0.12), 0 8px 24px rgba(15,15,26,0.06);
-  --shadow-purple: 0 8px 32px rgba(124,59,237,0.20);
+  --shadow-purple: 0 8px 32px rgba(124,59,237,0.22);
+  --shadow-dark: 0 24px 64px rgba(0,0,0,0.40), 0 8px 24px rgba(0,0,0,0.25);
 }
 
 @theme inline {
   --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
+
+  /* Colors → Tailwind utilities (bg-accent, text-accent, etc.) */
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-light: var(--accent-light);
+  --color-bg-base: var(--bg-base);
+  --color-bg-subtle: var(--bg-subtle);
+  --color-bg-muted: var(--bg-muted);
+  --color-bg-dark: var(--bg-dark);
+  --color-bg-dark-card: var(--bg-dark-card);
+  --color-bg-dark-raised: var(--bg-dark-raised);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  --color-border-subtle: var(--border-subtle);
+  --color-border-default: var(--border-default);
+  --color-money-green: var(--money-green);
+  --color-money-green-bg: var(--money-green-bg);
+  --color-status-green: var(--status-green);
+  --color-status-amber: var(--status-amber);
+  --color-status-red: var(--status-red);
 }
 
 *, *::before, *::after {
@@ -175,7 +263,7 @@ h1, h2, h3, h4, h5, h6 {
   to { height: 100%; }
 }
 
-/* Ticker marquee */
+/* Ticker marquee — horizontal */
 @keyframes marquee {
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
@@ -183,6 +271,56 @@ h1, h2, h3, h4, h5, h6 {
 .animate-marquee {
   animation: marquee 32s linear infinite;
   will-change: transform;
+}
+
+/* Vertical marquee — partyverse testimonial scroll */
+@keyframes marquee-y {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-50%); }
+}
+.animate-marquee-y {
+  animation: marquee-y 24s linear infinite;
+  will-change: transform;
+}
+.animate-marquee-y-slow {
+  animation: marquee-y 36s linear infinite;
+  will-change: transform;
+}
+
+/* Noise grain texture — partyverse style */
+.noise-overlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  opacity: 0.045;
+  mix-blend-mode: overlay;
+}
+
+/* Gradient card overlay — partyverse depth technique */
+.card-depth-overlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.22) 100%);
+}
+
+/* Organic tilt utilities */
+.tilt-left  { transform: rotate(-2deg); }
+.tilt-right { transform: rotate(2deg); }
+.tilt-micro { transform: rotate(-0.8deg); }
+
+/* Hover lift — partyverse style */
+.hover-lift {
+  transition: transform 0.35s cubic-bezier(.3,1,.7,1), box-shadow 0.35s cubic-bezier(.3,1,.7,1);
+}
+.hover-lift:hover {
+  transform: translateY(-4px);
+  filter: brightness(1.04);
 }
 
 /* Radix Accordion */

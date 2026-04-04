@@ -1,0 +1,586 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - navigation [ref=e6] [cursor=pointer]:
+      - link "Headshot of *Designer Name* Joseph Alexander" [ref=e8]:
+        - /url: ./
+        - img "Headshot of *Designer Name*" [ref=e12]
+        - paragraph [ref=e14]: Joseph Alexander
+      - generic [ref=e17]:
+        - paragraph [ref=e19]:
+          - link "Work" [ref=e20]:
+            - /url: ./projects
+        - paragraph [ref=e22]:
+          - link "Services" [ref=e23]:
+            - /url: ./#services
+        - paragraph [ref=e25]:
+          - link "Pricing" [ref=e26]:
+            - /url: ./#pricing
+        - paragraph [ref=e28]:
+          - link "Blog" [ref=e29]:
+            - /url: ./blog
+        - button "Contact Form" [ref=e31]:
+          - paragraph [ref=e34]: Contact
+    - generic [ref=e35]:
+      - generic [ref=e36]:
+        - generic [ref=e37]:
+          - generic [ref=e38]:
+            - paragraph [ref=e46]: Available for August'25
+            - generic [ref=e47]:
+              - heading "Design that delivers results." [level=1] [ref=e49]:
+                - generic [ref=e50]:
+                  - generic [ref=e51]: Design
+                  - generic [ref=e52]: that
+                - generic [ref=e53]:
+                  - generic [ref=e54]: delivers
+                  - generic [ref=e55]: results.
+              - paragraph [ref=e57]:
+                - strong [ref=e58]: Strategic design that drives growth, not just looks good.
+                - text: I create everything your brand needs to attract customers and turn them into sales.
+          - link "Button" [ref=e61] [cursor=pointer]:
+            - /url: https://cal.com
+            - generic [ref=e62]:
+              - img "Headshot of *Designer Name*" [ref=e66]
+              - button "Open" [ref=e68]
+              - paragraph [ref=e73]: You
+            - generic:
+              - paragraph: Book a call with me
+        - generic [ref=e75]:
+          - generic "View my testimonials" [ref=e77]:
+            - paragraph [ref=e107]: 99+ Happy clients
+          - group [ref=e113]:
+            - listitem [ref=e114]:
+              - img [ref=e118]
+            - listitem [ref=e120]:
+              - img [ref=e124]
+            - listitem [ref=e126]:
+              - img [ref=e130]
+            - listitem [ref=e132]:
+              - img [ref=e136]
+            - listitem [ref=e138]:
+              - img [ref=e142]
+            - listitem [ref=e144]:
+              - img [ref=e148]
+            - listitem [ref=e150]:
+              - img [ref=e154]
+            - listitem [ref=e156]:
+              - img [ref=e160]
+            - listitem [ref=e162]:
+              - img [ref=e166]
+            - listitem [ref=e168]:
+              - img [ref=e172]
+            - listitem [ref=e174]:
+              - img [ref=e178]
+            - listitem [ref=e180]:
+              - img [ref=e184]
+      - main [ref=e186]:
+        - generic [ref=e188]:
+          - heading "Latest Projects" [level=2] [ref=e192]:
+            - generic [ref=e193]: Latest
+            - generic [ref=e194]: Projects
+          - generic [ref=e195]:
+            - generic [ref=e196]:
+              - link "Kora Consulting Site View Project" [ref=e201]:
+                - /url: ./projects/essentia
+                - generic [ref=e205]:
+                  - generic [ref=e206]:
+                    - paragraph [ref=e208]: Kora
+                    - paragraph [ref=e210]: Consulting Site
+                  - paragraph [ref=e217]: View Project
+              - link "KYMA AI Agency View Project" [ref=e222]:
+                - /url: ./projects/quantum
+                - generic [ref=e226]:
+                  - generic [ref=e227]:
+                    - paragraph [ref=e229]: KYMA
+                    - paragraph [ref=e231]: AI Agency
+                  - paragraph [ref=e238]: View Project
+            - generic [ref=e239]:
+              - link "Mugen Design studio View Project" [ref=e244]:
+                - /url: ./projects/orbital
+                - generic [ref=e248]:
+                  - generic [ref=e249]:
+                    - paragraph [ref=e251]: Mugen
+                    - paragraph [ref=e253]: Design studio
+                  - paragraph [ref=e260]: View Project
+              - link "Axiom Ecommerce Site View Project" [ref=e265]:
+                - /url: ./projects/axiom
+                - generic [ref=e269]:
+                  - generic [ref=e270]:
+                    - paragraph [ref=e272]: Axiom
+                    - paragraph [ref=e274]: Ecommerce Site
+                  - paragraph [ref=e281]: View Project
+          - link "View all my projects" [ref=e283] [cursor=pointer]:
+            - /url: ./projects
+            - paragraph [ref=e286]: View all my projects
+        - generic [ref=e295]:
+          - paragraph [ref=e298]:
+            - text: "\"Working with Joseph felt like having a seasoned design partner"
+            - strong [ref=e299]: who truly understood our vision for KYMA
+            - text: and brought it to life in ways we hadn't even imagined."
+          - generic [ref=e304]:
+            - paragraph [ref=e306]: Thomas Weber
+            - paragraph [ref=e308]: Co-founder of KYMA
+        - generic [ref=e310]:
+          - generic [ref=e311]:
+            - heading "Services that supercharge your business." [level=2] [ref=e313]:
+              - generic [ref=e314]:
+                - generic [ref=e315]: Services
+                - generic [ref=e316]: that
+              - generic [ref=e317]: supercharge
+              - generic [ref=e318]: your
+              - generic [ref=e319]: business.
+            - generic [ref=e320]:
+              - paragraph [ref=e322]: My tech stack
+              - generic [ref=e323]:
+                - generic [ref=e325]:
+                  - generic:
+                    - generic:
+                      - paragraph: Figma
+                - generic [ref=e329]:
+                  - generic:
+                    - generic:
+                      - paragraph: Framer
+                - generic [ref=e333]:
+                  - generic:
+                    - generic:
+                      - paragraph: Webflow
+                - generic [ref=e337]:
+                  - generic:
+                    - generic:
+                      - paragraph: Rive
+                - generic [ref=e341]:
+                  - generic:
+                    - generic:
+                      - paragraph: Blender
+                - generic [ref=e345]:
+                  - generic:
+                    - generic:
+                      - paragraph: Trello
+                - generic [ref=e349]:
+                  - generic:
+                    - generic:
+                      - paragraph: ChatGPT
+                - generic [ref=e353]:
+                  - generic:
+                    - generic:
+                      - paragraph: Claude
+          - generic [ref=e356]:
+            - paragraph [ref=e362]: Framer Development
+            - paragraph [ref=e368]: Brand Design
+            - paragraph [ref=e374]: Web Apps
+            - paragraph [ref=e380]: Landing Pages
+            - paragraph [ref=e386]: Motion Graphics
+            - paragraph [ref=e392]: 3D Design
+            - paragraph [ref=e398]: UX / UI Consultation
+        - generic [ref=e400]:
+          - heading "Designing experiences that solve real problems." [level=2] [ref=e402]:
+            - generic [ref=e403]:
+              - generic [ref=e404]: Designing
+              - generic [ref=e405]: experiences
+            - generic [ref=e406]: that
+            - generic [ref=e407]: solve
+            - generic [ref=e408]: real
+            - generic [ref=e409]: problems.
+          - generic [ref=e410]:
+            - generic [ref=e411]:
+              - generic [ref=e412]:
+                - generic [ref=e417]:
+                  - link "X / Twitter Link" [ref=e418] [cursor=pointer]:
+                    - /url: https://x.com/JosephAlexWeb
+                    - paragraph [ref=e421]: 1,214
+                  - link "Threads Link" [ref=e422] [cursor=pointer]:
+                    - /url: https://www.instagram.com
+                  - link "Dribbble Link" [ref=e424] [cursor=pointer]:
+                    - /url: https://dribbble.com/
+                  - link "Behance Link" [ref=e426] [cursor=pointer]:
+                    - /url: https://www.behance.net/
+                  - link "Linkedin Link" [ref=e428] [cursor=pointer]:
+                    - /url: https://www.linkedin.com/
+                - generic [ref=e430]:
+                  - paragraph [ref=e432]: Joseph Alexander
+                  - paragraph [ref=e434]: Full-stack Designer
+              - generic [ref=e435]:
+                - paragraph [ref=e437]: My work history
+                - generic [ref=e440] [cursor=pointer]:
+                  - generic [ref=e441]:
+                    - generic [ref=e444]:
+                      - generic [ref=e445]:
+                        - paragraph [ref=e447]: KYMA
+                        - paragraph [ref=e449]: Full-Stack Designer
+                      - paragraph [ref=e451]: 2012-2024
+                    - generic [ref=e454]:
+                      - generic [ref=e455]:
+                        - paragraph [ref=e457]: Mugen
+                        - paragraph [ref=e459]: Staff Product Designer
+                      - paragraph [ref=e461]: 2020-2022
+                    - generic [ref=e464]:
+                      - generic [ref=e465]:
+                        - paragraph [ref=e467]: Axiom
+                        - paragraph [ref=e469]: Designer
+                      - paragraph [ref=e471]: 2016-2020
+                  - paragraph [ref=e474]: Show all
+            - generic [ref=e476]:
+              - generic [ref=e477]:
+                - paragraph [ref=e478]:
+                  - strong [ref=e479]: I love turning ideas into something real through design.
+                  - text: What started as a hobby turned into a career when I discovered how design can make things both look great and work better.
+                - paragraph [ref=e480]:
+                  - strong [ref=e481]: I focus on creating user interfaces that serve a real purpose
+                  - text: – making sure they're not just pretty, but actually solve problems. Whether I'm working on a mobile app or a website, my goal is to make something that feels natural and easy to use.
+                - paragraph [ref=e482]:
+                  - strong [ref=e483]: I'm a bit of a perfectionist when it comes to the small stuff,
+                  - text: but I think that's what makes good design great. This attention to detail helps me build strong relationships with clients, as they know I'll put the same care into their project that they would.
+              - img [ref=e486]
+        - generic [ref=e489]:
+          - generic [ref=e490]:
+            - heading "Simple pricing. Standout designs." [level=2] [ref=e492]:
+              - generic [ref=e493]:
+                - generic [ref=e494]: Simple
+                - generic [ref=e495]: pricing.
+              - generic [ref=e496]: Standout
+              - generic [ref=e497]: designs.
+            - paragraph [ref=e499]:
+              - strong [ref=e500]: Clear costs, no hidden fees.
+              - generic [ref=e501]:
+                - strong
+                - text: Select from monthly subscriptions or individual project rates.
+          - generic [ref=e502]:
+            - generic [ref=e503]:
+              - generic [ref=e507]:
+                - paragraph [ref=e511]:
+                  - strong [ref=e512]: Subscribe
+                - paragraph [ref=e514]: Subscribe via stripe & start requesting through my trello board.
+              - generic [ref=e518]:
+                - paragraph [ref=e522]:
+                  - strong [ref=e523]: Request
+                - paragraph [ref=e525]: Request whatever service I offer, from branding to web design.
+              - generic [ref=e529]:
+                - paragraph [ref=e533]:
+                  - strong [ref=e534]: Receive
+                - paragraph [ref=e536]: Receive your design within 48 hours on average.
+            - generic [ref=e537]:
+              - generic [ref=e538]:
+                - generic [ref=e539]:
+                  - generic [ref=e540]:
+                    - generic [ref=e541]:
+                      - paragraph [ref=e545]: Pause or cancel anytime
+                      - paragraph [ref=e548]: Subscription design services for brands who move fast.
+                    - img "Lightning Bolt" [ref=e551]
+                  - paragraph [ref=e559]: Slots available
+                  - generic [ref=e560]:
+                    - heading "Hire me today" [level=3] [ref=e562]
+                    - paragraph [ref=e564]: Skip the agency markup and work directly with an experienced designer.
+                - generic [ref=e565]:
+                  - generic [ref=e566]:
+                    - generic [ref=e567]:
+                      - heading "Unlimited Design" [level=3] [ref=e569]
+                      - paragraph [ref=e571]: One flat monthly rate for unlimited design requests. Ideal for ongoing design requirements.
+                    - generic [ref=e573]:
+                      - paragraph [ref=e575]: $8,000
+                      - paragraph [ref=e577]: / month
+                    - generic [ref=e578]:
+                      - paragraph [ref=e584]: No contracts or commitments
+                      - paragraph [ref=e590]: Pause or cancel anytime
+                      - paragraph [ref=e596]: Multiple Brands
+                      - paragraph [ref=e602]: Unlimited requests
+                      - paragraph [ref=e608]: Avg 48 hour turnaround
+                      - paragraph [ref=e614]: Framer development
+                  - generic [ref=e615]:
+                    - link "Button" [ref=e618] [cursor=pointer]:
+                      - /url: https://stripe.com
+                      - paragraph [ref=e622]: Get Started
+                    - img [ref=e625]
+              - generic [ref=e628]:
+                - heading "Single Project" [level=3] [ref=e631]
+                - generic [ref=e632]:
+                  - paragraph [ref=e634]: Comprehensive design services for any project scope. Ideal for one-time design needs or individual tasks.
+                  - generic [ref=e635]:
+                    - paragraph [ref=e641]: Clearly defined scope
+                    - paragraph [ref=e647]: Fixed timeline
+                    - paragraph [ref=e653]: 3 revision rounds
+                    - paragraph [ref=e659]: Milestone updates
+                  - button "Contact Form" [ref=e662] [cursor=pointer]:
+                    - paragraph [ref=e666]: Get quote
+        - generic [ref=e668]:
+          - paragraph [ref=e671]:
+            - text: Trusted by
+            - strong [ref=e673]: many
+          - group [ref=e678]:
+            - listitem [ref=e679]:
+              - img [ref=e683]
+            - listitem [ref=e685]:
+              - img [ref=e689]
+            - listitem [ref=e691]:
+              - img [ref=e695]
+            - listitem [ref=e697]:
+              - img [ref=e701]
+            - listitem [ref=e703]:
+              - img [ref=e707]
+            - listitem [ref=e709]:
+              - img [ref=e713]
+        - generic [ref=e716]:
+          - generic [ref=e717]:
+            - heading "Hear from what my clients have to say." [level=2] [ref=e719]:
+              - generic [ref=e720]:
+                - generic [ref=e721]: Hear
+                - generic [ref=e722]: from
+                - generic [ref=e723]: what
+                - generic [ref=e724]: my
+              - generic [ref=e725]: clients
+              - generic [ref=e726]: have
+              - generic [ref=e727]: to
+              - generic [ref=e728]: say.
+            - generic "View my testimonials" [ref=e730]:
+              - paragraph [ref=e760]: 99+ Happy clients
+          - generic [ref=e761]:
+            - generic [ref=e765]:
+              - generic [ref=e766]:
+                - img [ref=e769]
+                - paragraph [ref=e772]:
+                  - text: The new UI design
+                  - strong [ref=e773]: cut our customer support tickets in half.
+                  - text: It's been a game-changer for us.
+              - generic [ref=e778]:
+                - paragraph [ref=e780]: Martina Martinez
+                - paragraph [ref=e782]: Customer Manager at SupportEase
+            - generic [ref=e786]:
+              - generic [ref=e787]:
+                - img [ref=e790]
+                - paragraph [ref=e793]:
+                  - text: Working with Joseph felt like having a seasoned design partner
+                  - strong [ref=e794]: who truly understood our vision for Zazzle
+                  - text: and brought it to life in ways we hadn't even imagined.
+              - generic [ref=e799]:
+                - paragraph [ref=e801]: Thomas Weber
+                - paragraph [ref=e803]: Co-founder of KYMA
+            - generic [ref=e807]:
+              - generic [ref=e808]:
+                - img [ref=e811]
+                - paragraph [ref=e814]:
+                  - text: Our website
+                  - strong [ref=e815]: conversion rate improved significantly
+                  - text: thanks to Joseph's expertise.
+              - generic [ref=e820]:
+                - paragraph [ref=e822]: Ben Harper
+                - paragraph [ref=e824]: CTO of Nexus
+            - generic [ref=e828]:
+              - generic [ref=e829]:
+                - img [ref=e832]
+                - paragraph [ref=e835]: Joseph's design approach brought clarity to our complex data visualizations. Our users are thrilled!
+              - generic [ref=e840]:
+                - paragraph [ref=e842]: Michael Wong
+                - paragraph [ref=e844]: Data Scientist at DataSphere
+            - generic [ref=e848]:
+              - generic [ref=e849]:
+                - img [ref=e852]
+                - paragraph [ref=e855]:
+                  - text: The rebranding exceeded our expectations.
+                  - strong [ref=e856]: It's given us a competitive edge in our industry.
+              - generic [ref=e861]:
+                - paragraph [ref=e863]: Natalie Rivera
+                - paragraph [ref=e865]: Brand Manager at UnityBrands
+            - generic [ref=e869]:
+              - generic [ref=e870]:
+                - img [ref=e873]
+                - paragraph [ref=e876]:
+                  - text: The redesign transformed our brand image.
+                  - strong [ref=e877]: We've seen a 30% increase in engagement
+                  - text: since launch.
+              - generic [ref=e882]:
+                - paragraph [ref=e884]: Emma Kraft
+                - paragraph [ref=e886]: CMO of TechVista
+        - generic [ref=e888]:
+          - generic [ref=e889]:
+            - heading "Your questions answered." [level=2] [ref=e892]:
+              - generic [ref=e893]: Your
+              - generic [ref=e894]: questions
+              - generic [ref=e896]: answered.
+            - generic [ref=e897]:
+              - generic [ref=e900] [cursor=pointer]:
+                - generic [ref=e901]:
+                  - paragraph [ref=e903]: "01"
+                  - paragraph [ref=e905]:
+                    - strong [ref=e906]: How long does a typical project take to complete?
+                  - button "Close" [ref=e908]
+                - paragraph [ref=e913]: Project timelines vary based on complexity. A simple project might take 2-3 weeks, while more comprehensive designs can take 1-2 months. I will provide a specific estimate after our initial consultation.
+              - generic [ref=e916] [cursor=pointer]:
+                - generic [ref=e917]:
+                  - paragraph [ref=e919]: "02"
+                  - paragraph [ref=e921]:
+                    - strong [ref=e922]: Can you work with my existing brand and designs?
+                  - button "Open" [ref=e924]
+                - paragraph [ref=e929]: Absolutely! I'm experienced in working with established brands. I will ensure all new designs align perfectly with your existing brand identity and style.
+              - generic [ref=e932] [cursor=pointer]:
+                - generic [ref=e933]:
+                  - paragraph [ref=e935]: "03"
+                  - paragraph [ref=e937]:
+                    - strong [ref=e938]: What makes your design process unique?
+                  - button "Open" [ref=e940]
+                - paragraph [ref=e945]: My process stands out due to our collaborative approach. I involve you at every stage, ensuring the final product truly reflects your vision while benefiting from my expertise.
+              - generic [ref=e948] [cursor=pointer]:
+                - generic [ref=e949]:
+                  - paragraph [ref=e951]: "04"
+                  - paragraph [ref=e953]:
+                    - strong [ref=e954]: Do you offer ongoing support after the project is completed?
+                  - button "Open" [ref=e956]
+                - paragraph [ref=e961]: Yes, I provide post-project support. This includes minor adjustments and answering questions about your new designs for up to 30 days after delivery. If there's a need for longer support, we can discuss a retainer.
+              - generic [ref=e964] [cursor=pointer]:
+                - generic [ref=e965]:
+                  - paragraph [ref=e967]: "05"
+                  - paragraph [ref=e969]:
+                    - strong [ref=e970]: How do you handle confidentiality and intellectual property rights?
+                  - button "Open" [ref=e972]
+                - paragraph [ref=e977]: I take confidentiality seriously. All client information and project details are kept strictly confidential. Upon project completion, you'll own full intellectual property rights to the final designs.
+          - generic [ref=e978]:
+            - generic [ref=e979]:
+              - img "Headshot of *Designer Name*" [ref=e983]
+              - generic [ref=e984]:
+                - heading "Still not sure? Book a free discovery call." [level=3] [ref=e987]:
+                  - text: Still not sure?
+                  - text: Book a free discovery call.
+                - paragraph [ref=e990]: Learn more about how I work and how I can help you and your business take the next step.
+            - generic [ref=e991]:
+              - link "Button" [ref=e994] [cursor=pointer]:
+                - /url: https://cal.com
+                - paragraph [ref=e998]: Schedule Now
+              - img [ref=e1001]
+        - generic [ref=e1004]:
+          - generic [ref=e1005]:
+            - heading "From my blog, design insights." [level=2] [ref=e1007]:
+              - generic [ref=e1008]:
+                - generic [ref=e1009]: From
+                - generic [ref=e1010]: my
+                - generic [ref=e1011]: blog,
+              - generic [ref=e1012]: design
+              - generic [ref=e1013]: insights.
+            - link "View All" [ref=e1015] [cursor=pointer]:
+              - /url: ./blog
+              - paragraph [ref=e1018]: View All
+          - generic [ref=e1023]:
+            - link "How designers and developers can actually collaborate. Mar 6, 2025 By Joseph Alexander Discover proven strategies to bridge the designer-developer gap. Learn how top teams eliminate handoff friction and ship better products faster through true collaboration." [ref=e1026] [cursor=pointer]:
+              - /url: ./blog/how-designers-and-developers-can-actually-collaborate
+              - generic [ref=e1031]:
+                - generic [ref=e1032]:
+                  - heading "How designers and developers can actually collaborate." [level=2] [ref=e1034]
+                  - generic [ref=e1035]:
+                    - paragraph [ref=e1037]:
+                      - time [ref=e1038]: Mar 6, 2025
+                    - paragraph [ref=e1040]: By Joseph Alexander
+                - paragraph [ref=e1042]: Discover proven strategies to bridge the designer-developer gap. Learn how top teams eliminate handoff friction and ship better products faster through true collaboration.
+            - link "Why faster isn't always better. Apr 22, 2025 By Joseph Alexander" [ref=e1045] [cursor=pointer]:
+              - /url: ./blog/why-faster-isn-t-always-better
+              - generic [ref=e1051]:
+                - heading "Why faster isn't always better." [level=3] [ref=e1053]
+                - generic [ref=e1054]:
+                  - paragraph [ref=e1056]:
+                    - time [ref=e1057]: Apr 22, 2025
+                  - paragraph [ref=e1059]: By Joseph Alexander
+            - link "Designing for human connection. Apr 1, 2025 By Joseph Alexander" [ref=e1062] [cursor=pointer]:
+              - /url: ./blog/designing-for-human-connection
+              - generic [ref=e1068]:
+                - heading "Designing for human connection." [level=3] [ref=e1070]
+                - generic [ref=e1071]:
+                  - paragraph [ref=e1073]:
+                    - time [ref=e1074]: Apr 1, 2025
+                  - paragraph [ref=e1076]: By Joseph Alexander
+      - navigation [ref=e1079]:
+        - generic:
+          - generic:
+            - paragraph: Speak to me
+          - generic:
+            - paragraph: Email or book a call
+        - generic [ref=e1080]:
+          - button "Contact Form" [ref=e1081] [cursor=pointer]:
+            - paragraph [ref=e1084]: Contact
+          - link "Book a call" [ref=e1085] [cursor=pointer]:
+            - /url: https://cal.com
+            - paragraph [ref=e1088]: Book a call
+    - contentinfo [ref=e1091]:
+      - generic [ref=e1092]:
+        - generic [ref=e1093]:
+          - generic [ref=e1094]:
+            - generic [ref=e1095]:
+              - paragraph [ref=e1097]: Lets
+              - generic [ref=e1099]:
+                - paragraph [ref=e1101]: design
+                - paragraph [ref=e1103]: build
+                - paragraph [ref=e1105]: create
+            - paragraph [ref=e1107]: incredible work together.
+          - generic [ref=e1108]:
+            - generic [ref=e1109]:
+              - paragraph [ref=e1111]: Email
+              - paragraph [ref=e1113]:
+                - link "joseph@launchnow.design" [ref=e1114] [cursor=pointer]:
+                  - /url: mailto:joseph@launchnow.design
+            - generic [ref=e1115]:
+              - paragraph [ref=e1117]: Call Me
+              - paragraph [ref=e1119]:
+                - link "Book Now" [ref=e1120] [cursor=pointer]:
+                  - /url: https://cal.com
+            - generic [ref=e1121]:
+              - paragraph [ref=e1123]: Social
+              - generic [ref=e1125]:
+                - link "X / Twitter Link" [ref=e1126] [cursor=pointer]:
+                  - /url: https://x.com/JosephAlexWeb
+                  - paragraph [ref=e1129]: 1,214
+                - link "Threads Link" [ref=e1130] [cursor=pointer]:
+                  - /url: https://www.instagram.com
+                - link "Dribbble Link" [ref=e1132] [cursor=pointer]:
+                  - /url: https://dribbble.com/
+                - link "Behance Link" [ref=e1134] [cursor=pointer]:
+                  - /url: https://www.behance.net/
+                - link "Linkedin Link" [ref=e1136] [cursor=pointer]:
+                  - /url: https://www.linkedin.com/
+        - generic [ref=e1139]:
+          - generic [ref=e1140]:
+            - generic [ref=e1141]:
+              - paragraph [ref=e1143]: Menu
+              - generic [ref=e1144]:
+                - paragraph [ref=e1146]:
+                  - link "Work" [ref=e1147] [cursor=pointer]:
+                    - /url: ./projects
+                - paragraph [ref=e1149]:
+                  - link "Services" [ref=e1150] [cursor=pointer]:
+                    - /url: ./#services
+                - paragraph [ref=e1152]:
+                  - link "Pricing" [ref=e1153] [cursor=pointer]:
+                    - /url: ./#pricing
+                - paragraph [ref=e1155]:
+                  - link "Blog" [ref=e1156] [cursor=pointer]:
+                    - /url: ./blog
+            - generic [ref=e1157]:
+              - paragraph [ref=e1159]: Legal
+              - generic [ref=e1160]:
+                - paragraph [ref=e1162]:
+                  - link "Terms of service" [ref=e1163] [cursor=pointer]:
+                    - /url: ./terms
+                - paragraph [ref=e1165]:
+                  - link "Privacy Policy" [ref=e1166] [cursor=pointer]:
+                    - /url: ./privacy-policy
+          - generic [ref=e1168]: © 2026 Joseph Alexander
+        - generic [ref=e1169]:
+          - img:
+            - generic:
+              - paragraph: JOSEPH
+    - link "Get Template All Access" [ref=e1171] [cursor=pointer]:
+      - /url: https://buy.polar.sh/polar_cl_ljlxX8jU13bsSgK9Ugat8aATcidET8nK9lGXU4ALT95?utm_medium=buybutton
+      - generic [ref=e1172]:
+        - paragraph [ref=e1174]: Get Template
+        - paragraph [ref=e1176]: All Access
+      - img [ref=e1184]
+    - generic [ref=e1190] [cursor=pointer]:
+      - link [ref=e1191]:
+        - /url: https://kyma.framer.ai?utm_source=launchfolio
+      - generic:
+        - generic:
+          - paragraph: KYMA
+        - generic:
+          - paragraph: New Release
+  - link "Create a free website with Framer, the website builder loved by startups, designers and agencies." [ref=e1193] [cursor=pointer]:
+    - /url: https://www.framer.com
+    - paragraph [ref=e1198]: Create a free website with Framer, the website builder loved by startups, designers and agencies.
+  - img [ref=e1200]
+  - img [ref=e1204]
+  - img [ref=e1213]
+  - img [ref=e1219]
+  - img [ref=e1224]
+  - img [ref=e1228]

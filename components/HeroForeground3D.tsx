@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 
 /* ─────────────────────────────────────────
-   Geometry factories
+   Geometry factories (same as background)
 ──────────────────────────────────────────*/
 function makeHeartGeom(): THREE.ExtrudeGeometry {
   const s = 0.58;
@@ -71,14 +71,12 @@ function makeCommentTailGeom(): THREE.ExtrudeGeometry {
 
 /* ─────────────────────────────────────────
    Orbit definitions.
-   Each icon follows a closed elliptical path.
-   cx/cy = orbit centre  rx/ry = radii
-   phase = starting angle offset (radians)
-   speed = angular velocity (rad/s)
-   tilt  = orbit plane tilt — makes z vary so
-           icons swing toward/away from camera.
-           Front of orbit (high z) = clear of box.
-           Back of orbit (low z) = inside box = blurred.
+   These icons orbit at higher z (4–6) so they
+   appear IN FRONT of the glass box (z-25 canvas).
+   Phase-shifted from background so foreground
+   icons are on the opposite side of the loop —
+   together they look like a continuous orbit
+   wrapping around the box.
 ──────────────────────────────────────────*/
 type OrbitDef = {
   type: 'heart' | 'plane' | 'comment';
@@ -87,25 +85,25 @@ type OrbitDef = {
   rx: number; ry: number; rz: number;
   speed: number;
   phase: number;
-  spinX: number; spinY: number; // rotation delta per frame
+  spinX: number; spinY: number;
 };
 
 const ORBITS: OrbitDef[] = [
-  // Heart — large horizontal ellipse crossing left edge of box
-  { type: 'heart',   color: '#FF3CAC', cx: 4.8, cy:  0.8, cz: 1.2, rx: 3.0, ry: 1.6, rz: 1.4, speed: 0.22, phase: 0.00, spinX: 0.004, spinY: 0.007 },
-  // Plane — tall vertical ellipse in upper box
-  { type: 'plane',   color: '#22D3EE', cx: 6.2, cy:  1.8, cz: 1.0, rx: 1.6, ry: 2.8, rz: 1.0, speed: 0.28, phase: 1.05, spinX: 0.006, spinY: 0.005 },
-  // Comment — diagonal-ish orbit in the centre
-  { type: 'comment', color: '#FBBF24', cx: 5.6, cy: -0.4, cz: 0.8, rx: 2.4, ry: 2.0, rz: 1.2, speed: 0.18, phase: 2.09, spinX: 0.003, spinY: 0.008 },
-  // Heart — lower region wide orbit
-  { type: 'heart',   color: '#FF6B6B', cx: 7.2, cy: -2.0, cz: 0.6, rx: 2.8, ry: 1.4, rz: 0.8, speed: 0.24, phase: 3.14, spinX: 0.005, spinY: 0.006 },
-  // Plane — right-side orbit
-  { type: 'plane',   color: '#38BDF8', cx: 8.4, cy:  0.6, cz: 1.0, rx: 1.8, ry: 2.2, rz: 1.0, speed: 0.32, phase: 4.19, spinX: 0.007, spinY: 0.004 },
-  // Comment — upper-right orbit
-  { type: 'comment', color: '#A78BFA', cx: 6.8, cy:  3.0, cz: 0.7, rx: 2.2, ry: 1.6, rz: 0.9, speed: 0.20, phase: 5.24, spinX: 0.004, spinY: 0.009 },
+  // Heart — phase offset by π from background heart 1 — opposite side of loop
+  { type: 'heart',   color: '#FF2D78', cx: 4.8, cy:  0.8, cz: 4.8, rx: 3.0, ry: 1.6, rz: 1.2, speed: 0.22, phase: 0.00 + Math.PI, spinX: 0.004, spinY: 0.007 },
+  // Plane — offset from background plane 1
+  { type: 'plane',   color: '#67E8F9', cx: 6.2, cy:  1.8, cz: 5.0, rx: 1.6, ry: 2.8, rz: 1.0, speed: 0.28, phase: 1.05 + Math.PI, spinX: 0.006, spinY: 0.005 },
+  // Comment — offset from background comment 1
+  { type: 'comment', color: '#38BDF8', cx: 5.6, cy: -0.4, cz: 4.6, rx: 2.4, ry: 2.0, rz: 1.0, speed: 0.18, phase: 2.09 + Math.PI, spinX: 0.003, spinY: 0.008 },
+  // Heart — offset from background heart 2
+  { type: 'heart',   color: '#FF3CAC', cx: 7.2, cy: -2.0, cz: 5.2, rx: 2.8, ry: 1.4, rz: 0.8, speed: 0.24, phase: 3.14 + Math.PI, spinX: 0.005, spinY: 0.006 },
+  // Plane — offset from background plane 2
+  { type: 'plane',   color: '#06B6D4', cx: 8.4, cy:  0.6, cz: 4.8, rx: 1.8, ry: 2.2, rz: 1.0, speed: 0.32, phase: 4.19 + Math.PI, spinX: 0.007, spinY: 0.004 },
+  // Comment — offset from background comment 2
+  { type: 'comment', color: '#FBBF24', cx: 6.8, cy:  3.0, cz: 5.0, rx: 2.2, ry: 1.6, rz: 0.9, speed: 0.20, phase: 5.24 + Math.PI, spinX: 0.004, spinY: 0.009 },
 ];
 
-export default function HeroBackground3D() {
+export default function HeroForeground3D() {
   const mountRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -115,16 +113,15 @@ export default function HeroBackground3D() {
     const w = el.clientWidth, h = el.clientHeight;
 
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color('#7433FF');
-
     const camera = new THREE.PerspectiveCamera(58, w / h, 0.1, 100);
     camera.position.set(-3, 0, 13);
     camera.lookAt(0, 0, 0);
 
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setSize(w, h);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.outputColorSpace = THREE.SRGBColorSpace;
+    renderer.setClearColor(0x000000, 0);
     el.appendChild(renderer.domElement);
 
     scene.add(new THREE.AmbientLight(0xffffff, 1.4));
@@ -134,8 +131,6 @@ export default function HeroBackground3D() {
     fill.position.set(-8, 2, 6); scene.add(fill);
     const rim = new THREE.DirectionalLight(0xff80ff, 1.8);
     rim.position.set(2, -4, -8); scene.add(rim);
-    const kicker = new THREE.DirectionalLight(0xfff0e0, 2.2);
-    kicker.position.set(-3, 10, 4); scene.add(kicker);
 
     const heartGeom   = makeHeartGeom();
     const planeGeom   = makePlaneGeom();
@@ -152,7 +147,7 @@ export default function HeroBackground3D() {
       });
 
       const group = new THREE.Group();
-      group.scale.set(0.5, 0.5, 0.5);
+      group.scale.set(0.52, 0.52, 0.52);
 
       if (def.type === 'heart') {
         const mesh = new THREE.Mesh(heartGeom, mat);
@@ -184,14 +179,10 @@ export default function HeroBackground3D() {
 
       groups.forEach(({ group, def }) => {
         const a = t * def.speed + def.phase;
-        // Elliptical orbit in XY, with rz driving z so the icon swings
-        // toward camera on one side (appears above/outside box) and
-        // away on the other (dips behind the glass)
         group.position.x = def.cx + def.rx * Math.cos(a);
         group.position.y = def.cy + def.ry * Math.sin(a);
-        group.position.z = def.cz + def.rz * Math.sin(a); // tilted orbit gives z depth
+        group.position.z = def.cz + def.rz * Math.sin(a);
 
-        // Continuous slow tumble
         group.rotation.x += def.spinX;
         group.rotation.y += def.spinY;
       });
@@ -218,5 +209,11 @@ export default function HeroBackground3D() {
     };
   }, []);
 
-  return <div ref={mountRef} className="absolute inset-0" />;
+  return (
+    <div
+      ref={mountRef}
+      className="absolute inset-0 pointer-events-none"
+      style={{ zIndex: 25 }}
+    />
+  );
 }
