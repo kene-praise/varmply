@@ -9,21 +9,14 @@ import BrandLogo from '@/components/BrandLogo';
 
 export default function SiteHeader() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
 
   const isDarkHero = pathname === '/' || pathname === '/creators' || pathname === '/sponsors';
-  const isLightHeader = scrolled || !isDarkHero;
+  const isLightHeader = !isDarkHero;
 
   useEffect(() => {
     setMobileOpen(false);
   }, [pathname]);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
 
   const navLinks = [
     { href: '/#how-it-works', label: 'How It Works' },
@@ -31,14 +24,7 @@ export default function SiteHeader() {
   ];
 
   return (
-    <header
-      className={clsx(
-        'absolute top-0 left-0 right-0 z-50 transition-all duration-300',
-        scrolled
-          ? 'bg-white/80 backdrop-blur-xl border-b border-black/[0.06]'
-          : 'bg-transparent'
-      )}
-    >
+    <header className="fixed top-0 left-0 right-0 z-50 bg-transparent">
       <div className="relative mx-auto flex min-h-16 max-w-6xl items-center justify-between px-6 py-2 md:min-h-[4.25rem] md:py-2.5">
         <div className="flex flex-1 items-center justify-start">
           <Link href="/" className="flex items-center" aria-label="Varmply home">
