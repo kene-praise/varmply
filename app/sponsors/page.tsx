@@ -15,6 +15,7 @@ import { Card } from '@/components/ui/Card';
 import { SectionHeading, SectionLabel } from '@/components/ui/Section';
 import { StatusBadge } from '@/components/ui/Badge';
 import { colors } from '@/lib/tokens';
+import { LiquidGlass } from '@/components/ui/LiquidGlass';
 
 // --- Mobile skeletons for how-it-works ---
 function MobileCampaignSkeleton() {
@@ -262,7 +263,8 @@ export default function SponsorsPage() {
     <div className="bg-white overflow-hidden">
 
       {/* 1. HERO */}
-      <section className="relative flex flex-col justify-center overflow-hidden bg-[#2563EB] pt-32 pb-24" style={{ minHeight: '100dvh' }}>
+      <section className="relative flex flex-col justify-center overflow-hidden bg-[#2563EB] pt-32 pb-24 cursor-none" style={{ minHeight: '100dvh' }}>
+        <LiquidGlass width={140} height={140} borderRadius={70} blur={2} tintOpacity={0.15} />
         {/* Grid pattern */}
         <div className="absolute inset-0 pointer-events-none" style={{
           backgroundImage: 'linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)',

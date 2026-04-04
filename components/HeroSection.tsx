@@ -6,6 +6,7 @@ import dynamic from 'next/dynamic';
 import { ArrowRight } from 'lucide-react';
 import { PhoneFrame } from '@/components/ui/PhoneFrame';
 import HeroPhonePrototype from './HeroPhonePrototype';
+import { LiquidGlass } from '@/components/ui/LiquidGlass';
 
 const HeroBackground3D = dynamic(() => import('./HeroBackground3D'), { ssr: false });
 const HeroForeground3D = dynamic(() => import('./HeroForeground3D'), { ssr: false });
@@ -177,9 +178,10 @@ function CreatorScreen() {
 export default function HeroSection() {
   return (
     <section
-      className="relative overflow-hidden"
+      className="relative overflow-hidden cursor-none"
       style={{ minHeight: '100dvh', background: '#7433FF' }}
     >
+      <LiquidGlass width={140} height={140} borderRadius={70} blur={2} tintOpacity={0.15} />
       {/* Background 3D layer — icons fan out behind the glass box */}
       <HeroBackground3D />
       {/* Foreground 3D layer — transparent canvas, icons pass IN FRONT of box */}

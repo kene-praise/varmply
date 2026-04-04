@@ -16,6 +16,7 @@ import CTABanner from '@/components/CTABanner';
 import { PhoneFrame } from '@/components/ui/PhoneFrame';
 import { BrowserChrome } from '@/components/MockupSkeletons';
 import { colors } from '@/lib/tokens';
+import { LiquidGlass } from '@/components/ui/LiquidGlass';
 
 // --- Data ---
 const tickerItems = [
@@ -212,7 +213,8 @@ export default function CreatorsPage() {
     <div className="bg-white overflow-hidden">
 
       {/* 1. HERO SECTION */}
-      <section className="relative overflow-hidden" style={{ minHeight: '100dvh', background: colors.bento.green.bg }}>
+      <section className="relative overflow-hidden cursor-none" style={{ minHeight: '100dvh', background: colors.bento.green.bg }}>
+        <LiquidGlass width={140} height={140} borderRadius={70} blur={2} tintOpacity={0.15} />
         <CreatorBalloons3D />
         {/* Subtle grid pattern for creators */}
         <div className="absolute inset-0 pointer-events-none" style={{
