@@ -12,7 +12,6 @@ import { SectionLabel, SectionHeading } from '@/components/ui/Section';
 import { VideoCard, MediaGrid, FloatingChip } from '@/components/ui/VideoCard';
 import FAQAccordion from '@/components/FAQAccordion';
 import WalletMockup from '@/components/UIComponents/WalletMockup';
-import CTABanner from '@/components/CTABanner';
 import { PhoneFrame } from '@/components/ui/PhoneFrame';
 import { BrowserChrome } from '@/components/MockupSkeletons';
 import { colors } from '@/lib/tokens';
@@ -412,14 +411,6 @@ export default function CreatorsPage() {
         </div>
       </section>
 
-      {/* 8. CTA BANNER */}
-      <CTABanner
-        headline="Ready to turn your audience into structured income?"
-        subtext="Free to sign up. Paid to perform. Join Nigerian creators already earning on Varmply."
-        cta1={{ label: 'Create Creator Account →', href: '#' }}
-        cta2={{ label: 'Browse Campaigns', href: '#marketplace' }}
-        theme="green"
-      />
     </div>
   );
 }

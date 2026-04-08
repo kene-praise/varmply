@@ -4,7 +4,6 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { ArrowRight, CheckCircle, Lock, RotateCcw, BarChart2, Users, Shield } from 'lucide-react';
 import FAQAccordion from '@/components/FAQAccordion';
-import CTABanner from '@/components/CTABanner';
 import { BrowserChrome, DashboardSkeleton } from '@/components/MockupSkeletons';
 import { VideoCard } from '@/components/ui/VideoCard';
 import { PhoneFrame } from '@/components/ui/PhoneFrame';
@@ -960,15 +959,6 @@ export default function SponsorsPage() {
         </div>
       </section>
 
-      {/* 8. CTA ──────────────────────────────────────────────────────────────── */}
-      <CTABanner
-        label="Launch your first campaign"
-        headline="Ready to run campaigns that actually perform?"
-        subtext="Set your rules, protect your budget, and only pay for verified results. Varmply handles the rest."
-        cta1={{ label: 'Launch a Campaign', href: '#' }}
-        cta2={{ label: 'See How It Works', href: '#how-it-works' }}
-        theme="blue"
-      />
     </div>
   );
 }

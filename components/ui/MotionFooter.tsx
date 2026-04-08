@@ -7,6 +7,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { usePathname } from "next/navigation";
 
 // Register ScrollTrigger safely for React
 if (typeof window !== "undefined") {
@@ -194,19 +195,62 @@ const MagneticButton = React.forwardRef<HTMLElement, MagneticButtonProps>(
 MagneticButton.displayName = "MagneticButton";
 
 // -------------------------------------------------------------------------
-// 3. MAIN COMPONENT
+// 3. PER-PAGE CONFIG
 // -------------------------------------------------------------------------
-const MarqueeItem = () => (
-    <div className="flex items-center space-x-12 px-6">
-        <span>Accountability Redefined</span> <span className="text-primary/60">✦</span>
-        <span>Transparent Tracking</span> <span className="text-secondary/60">✦</span>
-        <span>12-Step Progress</span> <span className="text-primary/60">✦</span>
-        <span>Sponsor Connection</span> <span className="text-secondary/60">✦</span>
-        <span>Absolute Privacy</span> <span className="text-primary/60">✦</span>
-    </div>
-);
+
+const pageConfigs = {
+    '/': {
+        bg: '#6406cf',
+        headline: "Join Nigeria's most\nstructured creator marketplace.",
+        subtext: "No scattered DMs. No vague agreements. Structured campaigns, verified performance, transparent payments.",
+        cta1: { label: 'Run a Campaign', href: '/sponsors' },
+        cta2: { label: 'Join as Creator', href: '/creators' },
+        marquee: ['Accountability Redefined', 'Transparent Tracking', 'Verified Performance', 'Sponsor Connection', 'Escrow Protected'],
+        pattern: null,
+    },
+    '/sponsors': {
+        bg: '#1A40B8',
+        headline: "Run campaigns\nwith full accountability.",
+        subtext: "Set your rules, protect your budget, and pay for verified results only. Varmply handles the rest.",
+        cta1: { label: 'Launch a Campaign', href: '#' },
+        cta2: { label: 'See How It Works', href: '#how-it-works' },
+        marquee: ['Escrow Protected Budget', 'Auto-Validated Submissions', 'Pay for Results Only', '₦1.13M Managed', '44 Active Creators'],
+        pattern: 'linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px)',
+        patternSize: '48px 48px',
+    },
+    '/creators': {
+        bg: '#006B35',
+        headline: "Start earning from\nstructured campaigns.",
+        subtext: "Apply to campaigns you qualify for, deliver the work, get paid automatically. No chasing required.",
+        cta1: { label: 'Create Creator Account', href: '#' },
+        cta2: { label: 'Browse Campaigns', href: '#campaigns' },
+        marquee: ['847+ Active Creators', '₦2.4M Distributed', '98% On-time Payouts', '0 Hidden Terms', 'Verified Automatically'],
+        pattern: 'repeating-linear-gradient(180deg, rgba(255,255,255,0.04) 0px, rgba(255,255,255,0.04) 1px, transparent 1px, transparent 28px)',
+        patternSize: undefined,
+    },
+};
+
+// -------------------------------------------------------------------------
+// 4. MAIN COMPONENT
+// -------------------------------------------------------------------------
+
+function MarqueeTrack({ items }: { items: string[] }) {
+    return (
+        <div className="flex items-center space-x-12 px-6">
+            {items.map((item, i) => (
+                <React.Fragment key={i}>
+                    <span>{item}</span>
+                    {i < items.length - 1 && <span style={{ opacity: 0.4 }}>✦</span>}
+                </React.Fragment>
+            ))}
+        </div>
+    );
+}
 
 export function MotionFooter() {
+    const pathname = usePathname();
+    const config = pageConfigs[pathname as keyof typeof pageConfigs] ?? pageConfigs['/'];
+
     const wrapperRef = useRef<HTMLDivElement>(null);
     const giantTextRef = useRef<HTMLDivElement>(null);
     const headingRef = useRef<HTMLDivElement>(null);
@@ -279,13 +323,23 @@ export function MotionFooter() {
                 {/* The actual footer stays fixed to the viewport underneath everything */}
                 <footer
                     className="fixed bottom-0 left-0 flex h-screen w-full flex-col justify-between overflow-hidden cinematic-footer-wrapper"
-                    style={{ background: '#6406cfff', color: '#FFFFFF' }}
+                    style={{ background: config.bg, color: '#FFFFFF' }}
                 >
                     {/* Ambient aurora glow */}
                     <div className="footer-aurora absolute left-1/2 top-1/2 h-[60vh] w-[80vw] -translate-x-1/2 -translate-y-1/2 animate-footer-breathe rounded-[50%] blur-[80px] pointer-events-none z-0" />
 
-                    {/* Hero matched rings with original cross grids */}
+                    {/* Base dot grid */}
                     <div className="footer-bg-grid absolute inset-0 z-0 pointer-events-none opacity-40" />
+
+                    {/* Per-page pattern overlay */}
+                    {config.pattern && (
+                        <div className="absolute inset-0 z-0 pointer-events-none" style={{
+                            backgroundImage: config.pattern,
+                            backgroundSize: config.patternSize,
+                        }} />
+                    )}
+
+                    {/* Rings */}
                     <div
                         className="pointer-events-none absolute z-0"
                         style={{
@@ -319,45 +373,45 @@ export function MotionFooter() {
                         style={{ borderTop: '1px solid rgba(255,255,255,0.15)', borderBottom: '1px solid rgba(255,255,255,0.15)', background: 'rgba(255,255,255,0.06)' }}
                     >
                         <div className="flex w-max animate-footer-scroll-marquee text-xs md:text-sm font-bold tracking-[0.3em] footer-marquee-text uppercase">
-                            <MarqueeItem />
-                            <MarqueeItem />
+                            <MarqueeTrack items={config.marquee} />
+                            <MarqueeTrack items={config.marquee} />
                         </div>
                     </div>
 
                     {/* 2. Main center content */}
                     <div className="relative z-10 flex flex-1 flex-col items-center justify-center px-6 mt-20 w-full max-w-5xl mx-auto">
                         <div ref={headingRef} className="flex flex-col items-center mb-12">
-
                             <h2
                                 className="text-4xl md:text-5xl lg:text-7xl font-black footer-text-glow tracking-tighter mb-6 text-center max-w-4xl"
                                 style={{ lineHeight: 1.05 }}
                             >
-                                Join Nigeria's most structured
-                                creator marketplace.
+                                {config.headline.split('\n').map((line, i, arr) => (
+                                    <React.Fragment key={i}>
+                                        {line}{i < arr.length - 1 && <br />}
+                                    </React.Fragment>
+                                ))}
                             </h2>
-
                             <p className="text-center text-sm md:text-base max-w-xl" style={{ color: 'rgba(255,255,255,0.6)' }}>
-                                No scattered DMs. No vague agreements. Structured campaigns, verified performance, transparent payments.
+                                {config.subtext}
                             </p>
                         </div>
 
                         <div ref={linksRef} className="flex flex-col items-center gap-6 w-full">
-                            {/* Primary CTA pills */}
                             <div className="flex flex-wrap justify-center gap-4 w-full">
                                 <MagneticButton
                                     as={Link}
-                                    href="/sponsors"
+                                    href={config.cta1.href}
                                     className="footer-glass-pill px-10 py-5 rounded-full font-bold text-sm md:text-base flex items-center gap-3 group"
                                 >
-                                    Run a Campaign <ArrowRight className="w-5 h-5 opacity-50 group-hover:opacity-100 transition-opacity" />
+                                    {config.cta1.label} <ArrowRight className="w-5 h-5 opacity-50 group-hover:opacity-100 transition-opacity" />
                                 </MagneticButton>
 
                                 <MagneticButton
                                     as={Link}
-                                    href="/creators"
+                                    href={config.cta2.href}
                                     className="footer-glass-pill px-10 py-5 rounded-full font-bold text-sm md:text-base flex items-center gap-3 group"
                                 >
-                                    Join as Creator
+                                    {config.cta2.label}
                                 </MagneticButton>
                             </div>
                         </div>
@@ -365,7 +419,6 @@ export function MotionFooter() {
 
                     {/* 3. Bottom bar */}
                     <div className="relative z-20 w-full pb-8 px-6 md:px-12 flex flex-row items-center justify-between gap-6">
-
                         <div className="text-[10px] md:text-xs font-semibold tracking-widest uppercase" style={{ color: 'rgba(255,255,255,0.30)' }}>
                             © 2026 Varmply. All rights reserved.
                         </div>
@@ -380,7 +433,6 @@ export function MotionFooter() {
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
                             </svg>
                         </MagneticButton>
-
                     </div>
                 </footer>
             </div>
