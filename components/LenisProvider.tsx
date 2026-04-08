@@ -2,6 +2,12 @@
 
 import { useEffect, useRef } from 'react';
 import Lenis from '@studio-freight/lenis';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 export default function LenisProvider({ children }: { children: React.ReactNode }) {
   const lenisRef = useRef<Lenis | null>(null);
@@ -16,6 +22,9 @@ export default function LenisProvider({ children }: { children: React.ReactNode 
 
     lenisRef.current = lenis;
 
+    // Sync Lenis scroll position into GSAP ScrollTrigger on every scroll event
+    lenis.on('scroll', ScrollTrigger.update);
+
     let rafId: number;
 
     function raf(time: number) {
@@ -25,10 +34,10 @@ export default function LenisProvider({ children }: { children: React.ReactNode 
 
     rafId = requestAnimationFrame(raf);
 
-    // Expose lenis globally for GSAP ScrollTrigger
     (window as unknown as Record<string, unknown>).lenis = lenis;
 
     return () => {
+      lenis.off('scroll', ScrollTrigger.update);
       cancelAnimationFrame(rafId);
       lenis.destroy();
     };

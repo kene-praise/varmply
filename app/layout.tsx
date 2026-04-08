@@ -39,7 +39,7 @@ export default function RootLayout({
         <SiteHeader />
         <LenisProvider>
           <NavigationScrollGuard />
-          <main className="pb-24 sm:pb-28">{children}</main>
+          <main>{children}</main>
           <AudienceSwitcher />
           <Footer />
         </LenisProvider>

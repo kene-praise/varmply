@@ -24,11 +24,23 @@ export default function SiteHeader() {
   ];
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-transparent">
+    <header className={clsx(
+      'w-full z-50',
+      // Desktop: absolute overlay over hero, scrolls away with page
+      'md:absolute md:top-0 md:left-0 md:right-0 md:bg-transparent',
+      // Mobile: solid fill in normal flow
+      isLightHeader ? 'bg-white' : 'bg-[#07071A]',
+    )}>
       <div className="relative mx-auto flex min-h-16 max-w-6xl items-center justify-between px-6 py-2 md:min-h-[4.25rem] md:py-2.5">
         <div className="flex flex-1 items-center justify-start">
-          <Link href="/" className="flex items-center" aria-label="Varmply home">
-            <BrandLogo className="h-10 w-auto sm:h-12" priority white={!isLightHeader} />
+          <Link href="/" className="flex items-center gap-1" aria-label="Varmply home">
+            <BrandLogo className="h-9 w-auto md:h-13" priority white={!isLightHeader} />
+            <span className={clsx(
+              'text-[17px] md:text-[24px] font-black tracking-tight',
+              isLightHeader ? 'text-[#0F0F1A]' : 'text-white'
+            )}>
+              Varmply
+            </span>
           </Link>
         </div>
 
