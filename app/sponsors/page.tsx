@@ -467,8 +467,8 @@ export default function SponsorsPage() {
                 stats: [{ val: '₦0', label: 'Surprises' }, { val: 'Real-time', label: 'Tracking' }],
               },
             ].map((f, i) => (
-              <motion.div key={i} variants={fadeUp}>
-                <div className="relative overflow-hidden rounded-[28px] flex flex-col"
+              <motion.div key={i} variants={fadeUp} className="h-full">
+                <div className="relative overflow-hidden rounded-[28px] flex flex-col h-full"
                   style={{ background: f.bgTint, border: `1.5px solid ${f.border}`, minHeight: 260 }}>
                   {/* Pattern */}
                   <div className="absolute inset-0 pointer-events-none" style={{
@@ -757,46 +757,58 @@ export default function SponsorsPage() {
             </motion.p>
           </motion.div>
 
-          {/* 3 editorial escrow cards */}
+          {/* Asymmetric escrow layout: large feature card + 2 stacked */}
           <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={vp}
-            className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            className="grid grid-cols-1 md:grid-cols-5 gap-4 items-stretch">
 
-            {/* Card 1 — Locked · dot grid */}
-            <motion.div variants={fadeUp}>
-              <div className="relative overflow-hidden rounded-[28px] flex flex-col"
-                style={{ background: 'rgba(37,99,235,0.05)', border: '1.5px solid rgba(37,99,235,0.14)', minHeight: 380 }}>
+            {/* Large feature card — col-span-3 · dot grid */}
+            <motion.div variants={fadeUp} className="md:col-span-3 h-full">
+              <div className="relative overflow-hidden rounded-[28px] flex flex-col h-full"
+                style={{ background: 'rgba(37,99,235,0.05)', border: '1.5px solid rgba(37,99,235,0.14)', minHeight: 420 }}>
                 <div className="absolute inset-0 pointer-events-none" style={{
                   backgroundImage: 'radial-gradient(circle, rgba(37,99,235,0.13) 1px, transparent 1px)',
                   backgroundSize: '18px 18px',
                 }} />
-                <span className="absolute -bottom-6 -right-2 font-black select-none pointer-events-none leading-none"
-                  style={{ fontSize: '13rem', color: '#2563EB', opacity: 0.055, letterSpacing: '-0.06em' }}>01</span>
+                {/* Ghost index */}
+                <span className="absolute -bottom-8 -right-4 font-black select-none pointer-events-none leading-none"
+                  style={{ fontSize: '18rem', color: '#2563EB', opacity: 0.045, letterSpacing: '-0.06em' }}>01</span>
                 <div className="relative z-10 flex flex-col h-full">
-                  <div className="flex items-center justify-between px-7 pt-6 pb-4"
+                  <div className="flex items-center justify-between px-8 pt-7 pb-5"
                     style={{ borderBottom: '1px solid rgba(37,99,235,0.12)' }}>
                     <span className="text-[9px] font-black uppercase tracking-[0.22em]" style={{ color: '#2563EB' }}>Escrow System</span>
                     <span className="flex items-center gap-1.5 text-[9px] font-bold uppercase tracking-[0.14em]" style={{ color: '#2563EB' }}>
                       <Lock size={9} />
-                      Locked
+                      Protected
                     </span>
                   </div>
-                  <div className="flex-1 px-7 pt-8 pb-4 flex flex-col">
+                  <div className="flex-1 px-8 pt-10 pb-6 flex flex-col">
+                    {/* Oversized hero stat */}
                     <p className="font-black leading-none mb-1"
-                      style={{ fontSize: 'clamp(52px, 6vw, 72px)', color: '#2563EB', letterSpacing: '-0.04em' }}>₦500K</p>
-                    <p className="text-[9px] font-black uppercase tracking-[0.22em] mb-8"
-                      style={{ color: 'rgba(37,99,235,0.45)' }}>Held in escrow</p>
-                    <div className="h-px mb-6" style={{ background: 'rgba(37,99,235,0.14)' }} />
-                    <h3 className="font-bold text-base mb-2 text-[#0F0F1A]">Locked on activation</h3>
-                    <p className="text-sm text-[#4A4A6A] leading-relaxed flex-1">
-                      Budget enters escrow the moment your campaign goes live. Creators can see funds exist before they apply. No budget = no campaign.
+                      style={{ fontSize: 'clamp(72px, 9vw, 108px)', color: '#2563EB', letterSpacing: '-0.05em' }}>₦0</p>
+                    <p className="text-[9px] font-black uppercase tracking-[0.22em] mb-10"
+                      style={{ color: 'rgba(37,99,235,0.45)' }}>Lost to non-performance</p>
+                    <div className="h-px mb-8" style={{ background: 'rgba(37,99,235,0.12)' }} />
+                    <h3 className="font-black text-[#0F0F1A] tracking-tight mb-3"
+                      style={{ fontSize: 'clamp(20px, 2vw, 26px)', lineHeight: 1.1 }}>
+                      Every naira locked<br />before creators apply.
+                    </h3>
+                    <p className="text-sm text-[#4A4A6A] leading-relaxed max-w-sm flex-1">
+                      Budget enters escrow the moment your campaign activates. Creators see funds exist before applying — no budget means no campaign. If a creator misses requirements, their portion auto-returns. You never lose money to non-performance.
                     </p>
                   </div>
-                  <div className="grid grid-cols-2" style={{ borderTop: '1px solid rgba(37,99,235,0.12)' }}>
-                    {[{ val: '100%', label: 'Pre-locked' }, { val: '₦0', label: 'Accessible early' }].map((s, j) => (
+                  {/* 4-col box score */}
+                  <div className="grid grid-cols-4" style={{ borderTop: '1px solid rgba(37,99,235,0.12)' }}>
+                    {[
+                      { val: '100%', label: 'Pre-locked' },
+                      { val: '₦0', label: 'Early access' },
+                      { val: '48h', label: 'Avg. return' },
+                      { val: '0', label: 'Disputes' },
+                    ].map((s, j) => (
                       <div key={j} className="py-4 text-center"
-                        style={{ borderRight: j === 0 ? '1px solid rgba(37,99,235,0.10)' : 'none' }}>
+                        style={{ borderRight: j < 3 ? '1px solid rgba(37,99,235,0.10)' : 'none' }}>
                         <p className="font-black text-sm leading-none" style={{ color: '#2563EB' }}>{s.val}</p>
-                        <p className="text-[8px] font-bold uppercase tracking-[0.18em] mt-1" style={{ color: 'rgba(37,99,235,0.45)' }}>{s.label}</p>
+                        <p className="text-[8px] font-bold uppercase tracking-[0.18em] mt-1"
+                          style={{ color: 'rgba(37,99,235,0.45)' }}>{s.label}</p>
                       </div>
                     ))}
                   </div>
@@ -804,89 +816,92 @@ export default function SponsorsPage() {
               </div>
             </motion.div>
 
-            {/* Card 2 — Released · horizontal rules */}
-            <motion.div variants={fadeUp}>
-              <div className="relative overflow-hidden rounded-[28px] flex flex-col"
-                style={{ background: 'rgba(124,59,237,0.05)', border: '1.5px solid rgba(124,59,237,0.14)', minHeight: 380 }}>
-                <div className="absolute inset-0 pointer-events-none" style={{
-                  backgroundImage: 'repeating-linear-gradient(180deg, rgba(124,59,237,0.07) 0px, rgba(124,59,237,0.07) 1px, transparent 1px, transparent 22px)',
-                }} />
-                <span className="absolute -bottom-6 -right-2 font-black select-none pointer-events-none leading-none"
-                  style={{ fontSize: '13rem', color: '#7C3BED', opacity: 0.055, letterSpacing: '-0.06em' }}>02</span>
-                <div className="relative z-10 flex flex-col h-full">
-                  <div className="flex items-center justify-between px-7 pt-6 pb-4"
-                    style={{ borderBottom: '1px solid rgba(124,59,237,0.12)' }}>
-                    <span className="text-[9px] font-black uppercase tracking-[0.22em]" style={{ color: '#7C3BED' }}>Validation</span>
-                    <span className="flex items-center gap-1.5 text-[9px] font-bold uppercase tracking-[0.14em]" style={{ color: '#7C3BED' }}>
-                      <CheckCircle size={9} />
-                      Auto
-                    </span>
-                  </div>
-                  <div className="flex-1 px-7 pt-8 pb-4 flex flex-col">
-                    <p className="font-black leading-none mb-1"
-                      style={{ fontSize: 'clamp(52px, 6vw, 72px)', color: '#7C3BED', letterSpacing: '-0.04em' }}>98%</p>
-                    <p className="text-[9px] font-black uppercase tracking-[0.22em] mb-8"
-                      style={{ color: 'rgba(124,59,237,0.45)' }}>On-time payouts</p>
-                    <div className="h-px mb-6" style={{ background: 'rgba(124,59,237,0.14)' }} />
-                    <h3 className="font-bold text-base mb-2 text-[#0F0F1A]">Released on verified results</h3>
-                    <p className="text-sm text-[#4A4A6A] leading-relaxed flex-1">
-                      Each creator's portion unlocks automatically once their submission meets every requirement you set. No manual review needed.
-                    </p>
-                  </div>
-                  <div className="grid grid-cols-2" style={{ borderTop: '1px solid rgba(124,59,237,0.12)' }}>
-                    {[{ val: '0', label: 'Manual steps' }, { val: '48h', label: 'Avg. payout' }].map((s, j) => (
-                      <div key={j} className="py-4 text-center"
-                        style={{ borderRight: j === 0 ? '1px solid rgba(124,59,237,0.10)' : 'none' }}>
-                        <p className="font-black text-sm leading-none" style={{ color: '#7C3BED' }}>{s.val}</p>
-                        <p className="text-[8px] font-bold uppercase tracking-[0.18em] mt-1" style={{ color: 'rgba(124,59,237,0.45)' }}>{s.label}</p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </motion.div>
+            {/* Right column — 2 stacked cards */}
+            <div className="md:col-span-2 flex flex-col gap-4">
 
-            {/* Card 3 — Refunded · diagonal crosshatch */}
-            <motion.div variants={fadeUp}>
-              <div className="relative overflow-hidden rounded-[28px] flex flex-col"
-                style={{ background: 'rgba(0,160,80,0.05)', border: '1.5px solid rgba(0,160,80,0.14)', minHeight: 380 }}>
-                <div className="absolute inset-0 pointer-events-none" style={{
-                  backgroundImage: 'repeating-linear-gradient(-45deg, rgba(0,160,80,0.06) 0px, rgba(0,160,80,0.06) 1px, transparent 1px, transparent 14px)',
-                }} />
-                <span className="absolute -bottom-6 -right-2 font-black select-none pointer-events-none leading-none"
-                  style={{ fontSize: '13rem', color: '#00A050', opacity: 0.055, letterSpacing: '-0.06em' }}>03</span>
-                <div className="relative z-10 flex flex-col h-full">
-                  <div className="flex items-center justify-between px-7 pt-6 pb-4"
-                    style={{ borderBottom: '1px solid rgba(0,160,80,0.12)' }}>
-                    <span className="text-[9px] font-black uppercase tracking-[0.22em]" style={{ color: '#00A050' }}>Refund Policy</span>
-                    <span className="flex items-center gap-1.5 text-[9px] font-bold uppercase tracking-[0.14em]" style={{ color: '#00A050' }}>
-                      <RotateCcw size={9} />
-                      Auto-return
-                    </span>
-                  </div>
-                  <div className="flex-1 px-7 pt-8 pb-4 flex flex-col">
-                    <p className="font-black leading-none mb-1"
-                      style={{ fontSize: 'clamp(52px, 6vw, 72px)', color: '#00A050', letterSpacing: '-0.04em' }}>₦0</p>
-                    <p className="text-[9px] font-black uppercase tracking-[0.22em] mb-8"
-                      style={{ color: 'rgba(0,160,80,0.45)' }}>Lost to non-performance</p>
-                    <div className="h-px mb-6" style={{ background: 'rgba(0,160,80,0.14)' }} />
-                    <h3 className="font-bold text-base mb-2 text-[#0F0F1A]">Refunded if unused</h3>
-                    <p className="text-sm text-[#4A4A6A] leading-relaxed flex-1">
-                      Unfilled slots and missed deadlines trigger automatic returns. You never lose budget to non-performance. Every naira accounted for.
-                    </p>
-                  </div>
-                  <div className="grid grid-cols-2" style={{ borderTop: '1px solid rgba(0,160,80,0.12)' }}>
-                    {[{ val: '100%', label: 'Returned' }, { val: '0 days', label: 'Dispute time' }].map((s, j) => (
-                      <div key={j} className="py-4 text-center"
-                        style={{ borderRight: j === 0 ? '1px solid rgba(0,160,80,0.10)' : 'none' }}>
-                        <p className="font-black text-sm leading-none" style={{ color: '#00A050' }}>{s.val}</p>
-                        <p className="text-[8px] font-bold uppercase tracking-[0.18em] mt-1" style={{ color: 'rgba(0,160,80,0.45)' }}>{s.label}</p>
-                      </div>
-                    ))}
+              {/* Card: Validation · horizontal rules */}
+              <motion.div variants={fadeUp} className="flex-1">
+                <div className="relative overflow-hidden rounded-[28px] flex flex-col h-full"
+                  style={{ background: 'rgba(124,59,237,0.05)', border: '1.5px solid rgba(124,59,237,0.14)', minHeight: 190 }}>
+                  <div className="absolute inset-0 pointer-events-none" style={{
+                    backgroundImage: 'repeating-linear-gradient(180deg, rgba(124,59,237,0.07) 0px, rgba(124,59,237,0.07) 1px, transparent 1px, transparent 22px)',
+                  }} />
+                  <span className="absolute -bottom-4 -right-2 font-black select-none pointer-events-none leading-none"
+                    style={{ fontSize: '9rem', color: '#7C3BED', opacity: 0.05, letterSpacing: '-0.06em' }}>02</span>
+                  <div className="relative z-10 flex flex-col h-full">
+                    <div className="flex items-center justify-between px-6 pt-5 pb-4"
+                      style={{ borderBottom: '1px solid rgba(124,59,237,0.12)' }}>
+                      <span className="text-[9px] font-black uppercase tracking-[0.22em]" style={{ color: '#7C3BED' }}>Validation</span>
+                      <span className="flex items-center gap-1.5 text-[9px] font-bold uppercase tracking-[0.14em]" style={{ color: '#7C3BED' }}>
+                        <CheckCircle size={9} />
+                        Auto
+                      </span>
+                    </div>
+                    <div className="flex-1 px-6 pt-5 pb-4 flex flex-col">
+                      <p className="font-black leading-none mb-1"
+                        style={{ fontSize: 'clamp(42px, 5vw, 58px)', color: '#7C3BED', letterSpacing: '-0.04em' }}>98%</p>
+                      <p className="text-[9px] font-black uppercase tracking-[0.2em] mb-3"
+                        style={{ color: 'rgba(124,59,237,0.45)' }}>On-time payouts</p>
+                      <p className="text-xs text-[#4A4A6A] leading-relaxed flex-1">
+                        Each creator's portion releases automatically when their submission clears every requirement.
+                      </p>
+                    </div>
+                    <div className="grid grid-cols-2" style={{ borderTop: '1px solid rgba(124,59,237,0.12)' }}>
+                      {[{ val: '0', label: 'Manual steps' }, { val: '48h', label: 'Avg. payout' }].map((s, j) => (
+                        <div key={j} className="py-3 text-center"
+                          style={{ borderRight: j === 0 ? '1px solid rgba(124,59,237,0.10)' : 'none' }}>
+                          <p className="font-black text-sm leading-none" style={{ color: '#7C3BED' }}>{s.val}</p>
+                          <p className="text-[8px] font-bold uppercase tracking-[0.18em] mt-1"
+                            style={{ color: 'rgba(124,59,237,0.45)' }}>{s.label}</p>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
-              </div>
-            </motion.div>
+              </motion.div>
+
+              {/* Card: Refund · diagonal crosshatch */}
+              <motion.div variants={fadeUp} className="flex-1">
+                <div className="relative overflow-hidden rounded-[28px] flex flex-col h-full"
+                  style={{ background: 'rgba(0,160,80,0.05)', border: '1.5px solid rgba(0,160,80,0.14)', minHeight: 190 }}>
+                  <div className="absolute inset-0 pointer-events-none" style={{
+                    backgroundImage: 'repeating-linear-gradient(-45deg, rgba(0,160,80,0.06) 0px, rgba(0,160,80,0.06) 1px, transparent 1px, transparent 14px)',
+                  }} />
+                  <span className="absolute -bottom-4 -right-2 font-black select-none pointer-events-none leading-none"
+                    style={{ fontSize: '9rem', color: '#00A050', opacity: 0.05, letterSpacing: '-0.06em' }}>03</span>
+                  <div className="relative z-10 flex flex-col h-full">
+                    <div className="flex items-center justify-between px-6 pt-5 pb-4"
+                      style={{ borderBottom: '1px solid rgba(0,160,80,0.12)' }}>
+                      <span className="text-[9px] font-black uppercase tracking-[0.22em]" style={{ color: '#00A050' }}>Refund Policy</span>
+                      <span className="flex items-center gap-1.5 text-[9px] font-bold uppercase tracking-[0.14em]" style={{ color: '#00A050' }}>
+                        <RotateCcw size={9} />
+                        Auto-return
+                      </span>
+                    </div>
+                    <div className="flex-1 px-6 pt-5 pb-4 flex flex-col">
+                      <p className="font-black leading-none mb-1"
+                        style={{ fontSize: 'clamp(42px, 5vw, 58px)', color: '#00A050', letterSpacing: '-0.04em' }}>100%</p>
+                      <p className="text-[9px] font-black uppercase tracking-[0.2em] mb-3"
+                        style={{ color: 'rgba(0,160,80,0.45)' }}>Returned if unused</p>
+                      <p className="text-xs text-[#4A4A6A] leading-relaxed flex-1">
+                        Unfilled slots and missed deadlines auto-return funds. No disputes, no chasing.
+                      </p>
+                    </div>
+                    <div className="grid grid-cols-2" style={{ borderTop: '1px solid rgba(0,160,80,0.12)' }}>
+                      {[{ val: '0 days', label: 'Dispute time' }, { val: 'Auto', label: 'Returns' }].map((s, j) => (
+                        <div key={j} className="py-3 text-center"
+                          style={{ borderRight: j === 0 ? '1px solid rgba(0,160,80,0.10)' : 'none' }}>
+                          <p className="font-black text-sm leading-none" style={{ color: '#00A050' }}>{s.val}</p>
+                          <p className="text-[8px] font-bold uppercase tracking-[0.18em] mt-1"
+                            style={{ color: 'rgba(0,160,80,0.45)' }}>{s.label}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+
+            </div>
 
           </motion.div>
 
