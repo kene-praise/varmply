@@ -197,12 +197,12 @@ export default function CreatorsPage() {
               </motion.p>
               <motion.div variants={fadeUp} className="flex flex-col sm:flex-row gap-3 mb-12">
                 <Link href="#"
-                  className="inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold transition-all hover:opacity-90"
+                  className="flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold transition-all hover:opacity-90 w-full sm:w-auto"
                   style={{ background: 'white', color: '#00A050' }}>
                   Create Creator Account <ArrowRight size={15} />
                 </Link>
                 <Link href="#how-it-works"
-                  className="inline-flex items-center justify-center rounded-full px-7 py-3.5 text-sm font-semibold"
+                  className="flex items-center justify-center rounded-full px-7 py-3.5 text-sm font-semibold w-full sm:w-auto"
                   style={{ color: 'white', border: '1.5px solid rgba(255,255,255,0.28)' }}>
                   Browse Campaigns
                 </Link>
@@ -516,8 +516,6 @@ export default function CreatorsPage() {
                 <div className="absolute inset-0 pointer-events-none" style={{
                   backgroundImage: 'repeating-linear-gradient(-45deg, rgba(124,59,237,0.06) 0px, rgba(124,59,237,0.06) 1px, transparent 1px, transparent 14px)',
                 }} />
-                <span className="absolute -bottom-6 -right-2 font-black select-none pointer-events-none leading-none"
-                  style={{ fontSize: '13rem', color: '#7C3BED', opacity: 0.055, letterSpacing: '-0.06em' }}>01</span>
                 <div className="relative z-10 flex flex-col h-full">
                   <div className="flex items-center justify-between px-7 pt-6 pb-4"
                     style={{ borderBottom: '1px solid rgba(124,59,237,0.12)' }}>
@@ -556,8 +554,6 @@ export default function CreatorsPage() {
                   backgroundImage: 'radial-gradient(circle, rgba(0,160,80,0.13) 1px, transparent 1px)',
                   backgroundSize: '18px 18px',
                 }} />
-                <span className="absolute -bottom-6 -right-2 font-black select-none pointer-events-none leading-none"
-                  style={{ fontSize: '13rem', color: '#00A050', opacity: 0.055, letterSpacing: '-0.06em' }}>02</span>
                 <div className="relative z-10 flex flex-col h-full">
                   <div className="flex items-center justify-between px-7 pt-6 pb-4"
                     style={{ borderBottom: '1px solid rgba(0,160,80,0.12)' }}>
@@ -595,8 +591,6 @@ export default function CreatorsPage() {
                 <div className="absolute inset-0 pointer-events-none" style={{
                   backgroundImage: 'repeating-linear-gradient(180deg, rgba(217,119,6,0.07) 0px, rgba(217,119,6,0.07) 1px, transparent 1px, transparent 22px)',
                 }} />
-                <span className="absolute -bottom-6 -right-2 font-black select-none pointer-events-none leading-none"
-                  style={{ fontSize: '13rem', color: '#D97706', opacity: 0.055, letterSpacing: '-0.06em' }}>03</span>
                 <div className="relative z-10 flex flex-col h-full">
                   <div className="flex items-center justify-between px-7 pt-6 pb-4"
                     style={{ borderBottom: '1px solid rgba(217,119,6,0.12)' }}>

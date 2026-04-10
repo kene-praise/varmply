@@ -5,8 +5,116 @@ import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import { ArrowRight } from 'lucide-react';
 import { PhoneFrame } from '@/components/ui/PhoneFrame';
-import HeroPhonePrototype from './HeroPhonePrototype';
 import { LiquidGlass } from '@/components/ui/LiquidGlass';
+
+// ── shadcn-style app UI ───────────────────────────────────────────────────────
+function HeroPhoneApp() {
+  const border = '1px solid hsl(214.3 31.8% 91.4%)';
+  const muted = 'hsl(215.4 16.3% 46.9%)';
+  const mutedBg = 'hsl(210 40% 96.1%)';
+
+  const campaigns = [
+    { brand: 'Paystack', task: 'Instagram post', reward: '₦25,000', status: 'Active', statusColor: '#16A34A', statusBg: '#F0FDF4', avatar: '#7C3BED' },
+    { brand: 'PiggyVest', task: 'TikTok video', reward: '₦18,000', status: 'Pending', statusColor: '#D97706', statusBg: '#FFFBEB', avatar: '#2563EB' },
+    { brand: 'Cowrywise', task: 'Twitter thread', reward: '₦8,000', status: 'Active', statusColor: '#16A34A', statusBg: '#F0FDF4', avatar: '#00A050' },
+  ];
+
+  const bars = [65, 40, 80, 55, 70, 35, 90];
+
+  return (
+    <div className="w-full h-full flex flex-col overflow-hidden" style={{ background: 'hsl(210 40% 98%)', fontFamily: 'system-ui,-apple-system,sans-serif' }}>
+
+      {/* Status bar */}
+      <div className="flex items-center justify-between shrink-0 bg-white" style={{ height: 40, padding: '10px 16px 0' }}>
+        <span style={{ fontSize: 10.5, fontWeight: 600, letterSpacing: -0.2 }}>9:41</span>
+        <div className="flex items-center gap-1.5">
+          <svg width="13" height="9" viewBox="0 0 13 9" fill="currentColor" className="text-foreground">
+            <rect x="0" y="4.5" width="2.5" height="4.5" rx="0.5" opacity="0.3" />
+            <rect x="3.5" y="3" width="2.5" height="6" rx="0.5" opacity="0.55" />
+            <rect x="7" y="1.5" width="2.5" height="7.5" rx="0.5" opacity="0.8" />
+            <rect x="10.5" y="0" width="2.5" height="9" rx="0.5" />
+          </svg>
+          <svg width="19" height="9" viewBox="0 0 19 9" fill="none">
+            <rect x="0.5" y="0.5" width="15.5" height="8" rx="2" stroke="black" strokeOpacity="0.3" strokeWidth="0.8" />
+            <rect x="1.5" y="1.5" width="11" height="6" rx="1.5" fill="black" />
+            <path d="M17 3v3c.7-.2 1.2-.8 1.2-1.5S17.7 3.2 17 3z" fill="black" fillOpacity="0.35" />
+          </svg>
+        </div>
+      </div>
+
+      {/* App header */}
+      <div className="flex items-center justify-between shrink-0 bg-white" style={{ padding: '8px 16px 10px', borderBottom: border }}>
+        <div>
+          <p style={{ fontSize: 10, color: muted, marginBottom: 1 }}>Good morning,</p>
+          <p style={{ fontSize: 14, fontWeight: 700, color: 'hsl(222.2 84% 4.9%)', letterSpacing: -0.3 }}>Dami Adeyemi</p>
+        </div>
+        <div style={{ width: 34, height: 34, borderRadius: '50%', background: '#7C3BED', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <span style={{ fontSize: 10, fontWeight: 700, color: 'white' }}>DA</span>
+        </div>
+      </div>
+
+      {/* Earnings card */}
+      <div className="shrink-0 mx-3 mt-3" style={{ background: '#7C3BED', borderRadius: 14, padding: '14px 16px 12px' }}>
+        <p style={{ fontSize: 10, color: 'rgba(255,255,255,0.65)', marginBottom: 4 }}>Total earnings</p>
+        <p style={{ fontSize: 30, fontWeight: 700, color: 'white', letterSpacing: -1, lineHeight: 1, marginBottom: 10 }}>₦47,500</p>
+        <div className="flex gap-1.5 items-end" style={{ marginBottom: 6 }}>
+          {bars.map((h, i) => (
+            <div key={i} style={{ flex: 1, height: h * 0.3, borderRadius: 3, background: i === 6 ? 'white' : 'rgba(255,255,255,0.35)' }} />
+          ))}
+        </div>
+        <div className="flex items-center justify-between">
+          <span style={{ fontSize: 9, color: 'rgba(255,255,255,0.6)' }}>Last 7 days</span>
+          <span style={{ fontSize: 9, fontWeight: 600, color: '#86EFAC', background: 'rgba(255,255,255,0.12)', borderRadius: 20, padding: '2px 7px' }}>+₦12,000</span>
+        </div>
+      </div>
+
+      {/* Quick stats row */}
+      <div className="shrink-0 flex gap-2 mx-3 mt-2.5">
+        {[
+          { label: 'Active', value: '3', sub: 'campaigns', color: '#7C3BED', bg: '#F5F0FF' },
+          { label: 'Pending', value: '₦18K', sub: 'payout', color: '#D97706', bg: '#FFFBEB' },
+          { label: 'Reach', value: '340K', sub: 'followers', color: '#2563EB', bg: '#EFF6FF' },
+        ].map(({ label, value, sub, color, bg }) => (
+          <div key={label} style={{ flex: 1, background: 'white', borderRadius: 10, border, padding: '8px 8px 7px' }}>
+            <p style={{ fontSize: 7.5, color: muted, marginBottom: 3 }}>{label}</p>
+            <p style={{ fontSize: 15, fontWeight: 700, color, letterSpacing: -0.5, lineHeight: 1, marginBottom: 1 }}>{value}</p>
+            <p style={{ fontSize: 7, color: muted }}>{sub}</p>
+          </div>
+        ))}
+      </div>
+
+      {/* Campaigns section */}
+      <div className="shrink-0 mx-3 mt-3">
+        <div className="flex items-center justify-between" style={{ marginBottom: 8 }}>
+          <p style={{ fontSize: 11, fontWeight: 600, color: 'hsl(222.2 84% 4.9%)' }}>Active campaigns</p>
+          <p style={{ fontSize: 10, color: '#7C3BED', fontWeight: 500 }}>See all</p>
+        </div>
+        <div style={{ background: 'white', borderRadius: 12, border, overflow: 'hidden' }}>
+          {campaigns.map((c, i) => (
+            <div
+              key={i}
+              className="flex items-center gap-2.5"
+              style={{ padding: '9px 12px', borderBottom: i < campaigns.length - 1 ? border : 'none' }}
+            >
+              <div style={{ width: 32, height: 32, borderRadius: 8, background: c.avatar + '18', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, border: `1px solid ${c.avatar}22` }}>
+                <span style={{ fontSize: 10, fontWeight: 700, color: c.avatar }}>{c.brand[0]}</span>
+              </div>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <p style={{ fontSize: 10.5, fontWeight: 600, color: 'hsl(222.2 84% 4.9%)', marginBottom: 1.5 }}>{c.brand}</p>
+                <p style={{ fontSize: 9, color: muted, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{c.task}</p>
+              </div>
+              <div className="flex flex-col items-end gap-1">
+                <span style={{ fontSize: 10, fontWeight: 600, color: 'hsl(222.2 84% 4.9%)' }}>{c.reward}</span>
+                <span style={{ fontSize: 8, fontWeight: 500, color: c.statusColor, background: c.statusBg, borderRadius: 20, padding: '1px 6px' }}>{c.status}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+    </div>
+  );
+}
 
 const HeroBackground3D = dynamic(() => import('./HeroBackground3D'), { ssr: false });
 const HeroForeground3D = dynamic(() => import('./HeroForeground3D'), { ssr: false });
@@ -216,12 +324,12 @@ export default function HeroSection() {
         }}
       />
       <div
-        className="relative z-10 max-w-6xl mx-auto px-6 flex items-center"
+        className="relative z-10 max-w-6xl mx-auto px-6 flex flex-col lg:flex-row items-start lg:items-center"
         style={{ minHeight: '100dvh', gap: 48 }}
       >
 
         {/* ── Left: text ── */}
-        <div style={{ flex: '0 0 50%', paddingTop: 96, paddingBottom: 80 }}>
+        <div className="w-full lg:w-1/2 lg:shrink-0 pt-24 pb-16 lg:pb-20">
 
           {/* Live pill */}
           <motion.div
@@ -268,14 +376,14 @@ export default function HeroSection() {
 
           {/* CTAs */}
           <motion.div
-            className="flex flex-wrap items-center gap-3 mb-14"
+            className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3 mb-14"
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65, delay: 1.3, ease: [0.16, 1, 0.3, 1] as const }}
           >
             <Link
               href="/sponsors"
-              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-semibold text-sm text-[#0F0F1A] transition-all hover:scale-[1.02] active:scale-[0.98]"
+              className="flex items-center justify-center gap-2 px-7 py-3.5 rounded-full font-semibold text-sm text-[#0F0F1A] transition-all hover:scale-[1.02] active:scale-[0.98] w-full sm:w-auto"
               style={{
                 background: '#FFFFFF',
                 boxShadow: '0 4px 24px rgba(0,0,0,0.20)',
@@ -285,7 +393,7 @@ export default function HeroSection() {
             </Link>
             <Link
               href="/creators"
-              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-semibold text-sm transition-all"
+              className="flex items-center justify-center gap-2 px-7 py-3.5 rounded-full font-semibold text-sm transition-all w-full sm:w-auto"
               style={{
                 border: '1.5px solid rgba(255,255,255,0.30)',
                 color: 'white',
@@ -326,15 +434,14 @@ export default function HeroSection() {
             className="relative"
             style={{ height: 'clamp(560px, 74vh, 680px)' }}
           >
-            {/* Purple box fills wrapper, clips phone halfway */}
+            {/* Purple box fills wrapper, clips phone at bottom */}
             <motion.div
-              className="absolute inset-0 rounded-[36px] overflow-hidden flex items-start justify-center"
+              className="absolute inset-0 rounded-[36px] overflow-hidden"
               style={{
                 background: 'rgba(255,255,255,0.08)',
                 backdropFilter: 'blur(24px)',
                 WebkitBackdropFilter: 'blur(24px)',
                 border: '1px solid rgba(255,255,255,0.16)',
-                paddingTop: 110,
               }}
               initial={{ opacity: 0, y: 32, scale: 0.97 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -342,16 +449,19 @@ export default function HeroSection() {
             >
               {/* Bottom fade */}
               <div
-                className="pointer-events-none absolute bottom-0 inset-x-0"
+                className="pointer-events-none absolute bottom-0 inset-x-0 z-10"
                 style={{
                   height: 110,
                   background: 'linear-gradient(to bottom, transparent, rgba(40,10,110,0.85))',
                 }}
               />
-              {/* Phone — slightly wider, bottom clipped by box */}
-              <div className="relative z-10" style={{ transform: 'scaleX(1.12)', transformOrigin: 'top center' }}>
-                <PhoneFrame screenBg="#F9FAFB">
-                  <HeroPhonePrototype />
+              {/* Phone — bottom-anchored, top half visible, bottom half clipped */}
+              <div
+                className="absolute bottom-0 w-full flex justify-center"
+                style={{ transform: 'translateY(20%) scale(1.0)', transformOrigin: 'center center' }}
+              >
+                <PhoneFrame screenBg="#FFFFFF">
+                  <HeroPhoneApp />
                 </PhoneFrame>
               </div>
             </motion.div>

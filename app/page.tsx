@@ -1,14 +1,13 @@
 'use client';
 
 import HeroSection from '@/components/HeroSection';
-import LogoBar from '@/components/LogoBar';
 import { PhoneFrame } from '@/components/ui/PhoneFrame';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import {
   ArrowRight, CheckCircle, Shield, Wallet,
-  BarChart2, Zap, Users, Star, Lock, AlignLeft, CheckSquare,
+  BarChart2, Zap, Users, Star, Lock, TrendingUp,
 } from 'lucide-react';
 import { BrowserChrome, DashboardSkeleton, CreateCampaignSkeleton } from '@/components/MockupSkeletons';
 
@@ -41,121 +40,240 @@ function BentoFeature() {
   return (
     <section className="py-24" style={{ background: '#FFFFFF', borderTop: '1px solid #E4E4EC' }}>
       <div className="max-w-6xl mx-auto px-6">
-        <motion.div
-          variants={stagger} initial="hidden" whileInView="visible" viewport={vp}
-          className="mb-12 flex flex-col items-center text-center"
-        >
+
+        {/* Centered header */}
+        <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={vp}
+          className="mb-14 flex flex-col items-center text-center gap-4">
           <motion.div variants={fadeUp}><SectionLabel>How it works</SectionLabel></motion.div>
-          <motion.h2
-            variants={fadeUp}
-            className="font-black text-[#0F0F1A] tracking-tight"
-            style={{ fontSize: 'clamp(36px, 5vw, 56px)', lineHeight: 1.0, maxWidth: 600 }}
-          >
+          <motion.h2 variants={fadeUp} className="font-black text-[#0F0F1A] tracking-tight"
+            style={{ fontSize: 'clamp(36px, 5vw, 56px)', lineHeight: 1.0, maxWidth: 600 }}>
             Designed for how<br />campaigns actually work.
           </motion.h2>
-          <motion.p variants={fadeUp} className="mt-4 text-base text-[#4A4A6A]" style={{ lineHeight: 1.6, maxWidth: 440 }}>
+          <motion.p variants={fadeUp} className="text-base text-[#4A4A6A]" style={{ lineHeight: 1.6, maxWidth: 440 }}>
             From discovery to payout — every step is structured, tracked, and protected.
           </motion.p>
         </motion.div>
 
-        <motion.div
-          variants={stagger} initial="hidden" whileInView="visible" viewport={vp}
-          className="grid grid-cols-1 md:grid-cols-3 gap-4"
-        >
-          {/* Purple hero — My Campaigns browser */}
-          <motion.div variants={fadeUp}
-            className="relative overflow-hidden rounded-[32px] col-span-1 md:col-span-2 shadow-sm"
-            style={{ background: '#F4F0FD', border: '1px solid rgba(124,59,237,0.15)', height: 440 }}
-          >
-            <p className="absolute z-20 top-7 left-8 text-[10px] font-bold text-[#7C3BED] uppercase tracking-[0.18em]">Campaign Management</p>
-            <p className="absolute z-20 top-[46px] left-8 text-2xl font-black text-[#0F0F1A] leading-tight mt-0.5">My campaigns</p>
-            <div className="absolute rounded-xl overflow-hidden shadow-2xl" style={{ top: 108, left: 36, right: -80, border: '1px solid rgba(0,0,0,0.05)' }}>
-              <BrowserChrome url="app.varmply.com/campaigns" />
-              <div style={{ transform: 'scale(0.85)', transformOrigin: 'top left', width: '117%' }}>
-                <DashboardSkeleton />
-              </div>
-            </div>
-          </motion.div>
+        {/* Row 1 — browser card + earnings card */}
+        <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={vp}
+          className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
 
-          {/* Green earnings stat */}
-          <motion.div variants={fadeUp}
-            className="relative overflow-hidden rounded-[32px] p-8 shadow-sm"
-            style={{ background: '#E6F5EC', border: '1px solid rgba(0,160,80,0.15)', height: 440 }}
-          >
-            <div className="relative flex h-full flex-col">
-              <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-white shadow-sm" style={{ border: '1px solid rgba(0,160,80,0.1)' }}>
-                <Wallet size={26} color="#00A050" />
-              </div>
-              <p className="text-[42px] font-black text-[#00A050] tracking-tight leading-none">₦285K</p>
-              <p className="mt-2 text-[11px] font-bold uppercase tracking-[0.15em] text-[#00A050] opacity-80">earned this month</p>
-              <div className="h-px bg-[#00A050] opacity-10 my-6" />
-              <div className="mt-auto flex flex-col gap-3">
-                {['Paystack ₦25K', 'PiggyVest ₦18K', 'Flutterwave ₦40K'].map((item) => (
-                  <div key={item} className="flex items-center gap-2.5 text-xs font-semibold text-[#0F0F1A]">
-                    <CheckCircle size={14} color="#00A050" />
-                    {item}
+          {/* Campaign Management — purple, crosshatch, col-span-2 */}
+          <motion.div variants={fadeUp} className="md:col-span-2">
+            <div className="relative overflow-hidden rounded-[28px] flex flex-col"
+              style={{ background: 'rgba(124,59,237,0.05)', border: '1.5px solid rgba(124,59,237,0.14)', minHeight: 420 }}>
+              <div className="absolute inset-0 pointer-events-none" style={{
+                backgroundImage: 'repeating-linear-gradient(-45deg, rgba(124,59,237,0.045) 0px, rgba(124,59,237,0.045) 1px, transparent 1px, transparent 14px)',
+              }} />
+              <div className="relative z-10 flex flex-col h-full">
+                <div className="flex items-center justify-between px-7 pt-6 pb-4"
+                  style={{ borderBottom: '1px solid rgba(124,59,237,0.12)' }}>
+                  <span className="text-[9px] font-black uppercase tracking-[0.22em]" style={{ color: '#7C3BED' }}>
+                    Campaign Management
+                  </span>
+                  <span className="flex items-center gap-1.5 text-[9px] font-bold uppercase tracking-[0.14em]"
+                    style={{ color: '#7C3BED' }}>
+                    <span className="w-1.5 h-1.5 rounded-full inline-block animate-pulse" style={{ background: '#7C3BED' }} />
+                    Live
+                  </span>
+                </div>
+                <div className="flex-1 px-7 pt-6 pb-0">
+                  <p className="font-black text-[#0F0F1A] tracking-tight mb-5"
+                    style={{ fontSize: 'clamp(16px, 1.8vw, 20px)', lineHeight: 1.15 }}>
+                    Every active campaign, creator,<br className="hidden md:block" /> and spend — in one place.
+                  </p>
+                  <div className="relative rounded-xl overflow-hidden"
+                    style={{ border: '1px solid rgba(124,59,237,0.10)' }}>
+                    <BrowserChrome url="app.varmply.com/campaigns" />
+                    <div className="bg-[#FAFAFA] overflow-hidden" style={{ height: 260 }}>
+                      <DashboardSkeleton />
+                    </div>
                   </div>
-                ))}
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Amber — Create Campaign, browser clips left */}
-          <motion.div variants={fadeUp}
-            className="relative overflow-hidden rounded-[32px] shadow-sm"
-            style={{ background: '#FDF1E6', border: '1px solid rgba(217,119,6,0.15)', height: 360 }}
-          >
-            <p className="absolute z-20 top-7 left-7 text-[10px] font-bold text-[#D97706] uppercase tracking-[0.18em]">Sponsor Tools</p>
-            <p className="absolute z-20 top-[46px] left-7 text-xl font-black text-[#0F0F1A] leading-snug mt-0.5">Create a campaign<br />in minutes</p>
-            <div className="absolute rounded-xl overflow-hidden shadow-2xl" style={{ top: 116, left: -100, width: 480, border: '1px solid rgba(0,0,0,0.05)' }}>
-              <BrowserChrome url="app.varmply.com/campaigns/create" />
-              <div className="relative overflow-hidden bg-white" style={{ height: 300 }}>
-                <div style={{ transform: 'scale(0.9)', transformOrigin: 'top left', width: '110%' }}>
-                  <CreateCampaignSkeleton />
+                </div>
+                <div className="grid grid-cols-3" style={{ borderTop: '1px solid rgba(124,59,237,0.12)' }}>
+                  {[{ val: '847+', label: 'Creators' }, { val: '₦2.4M', label: 'Distributed' }, { val: '98%', label: 'On-time' }].map((s, j) => (
+                    <div key={j} className="py-4 text-center"
+                      style={{ borderRight: j < 2 ? '1px solid rgba(124,59,237,0.10)' : 'none' }}>
+                      <p className="font-black text-sm leading-none" style={{ color: '#7C3BED' }}>{s.val}</p>
+                      <p className="text-[8px] font-bold uppercase tracking-[0.18em] mt-1" style={{ color: 'rgba(124,59,237,0.45)' }}>{s.label}</p>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
           </motion.div>
 
-          {/* Rose — Create Campaign, chrome clips top */}
-          <motion.div variants={fadeUp}
-            className="relative overflow-hidden rounded-[32px] shadow-sm"
-            style={{ background: '#FCE8EC', border: '1px solid rgba(225,29,72,0.15)', height: 360 }}
-          >
-            <div className="absolute rounded-xl overflow-hidden shadow-xl" style={{ top: -22, left: 14, width: 380, border: '1px solid rgba(0,0,0,0.05)' }}>
-              <BrowserChrome url="app.varmply.com/campaigns/create" />
-              <div className="relative overflow-hidden bg-white" style={{ height: 240 }}>
-                <div style={{ transform: 'scale(0.8)', transformOrigin: 'top left', width: '125%' }}>
-                  <CreateCampaignSkeleton />
+          {/* Creator Earnings — green, dot grid */}
+          <motion.div variants={fadeUp} className="h-full">
+            <div className="relative overflow-hidden rounded-[28px] flex flex-col h-full"
+              style={{ background: 'rgba(0,160,80,0.05)', border: '1.5px solid rgba(0,160,80,0.14)', minHeight: 420 }}>
+              <div className="absolute inset-0 pointer-events-none" style={{
+                backgroundImage: 'radial-gradient(circle, rgba(0,160,80,0.13) 1px, transparent 1px)',
+                backgroundSize: '18px 18px',
+              }} />
+              <div className="relative z-10 flex flex-col h-full">
+                <div className="flex items-center justify-between px-7 pt-6 pb-4"
+                  style={{ borderBottom: '1px solid rgba(0,160,80,0.12)' }}>
+                  <span className="text-[9px] font-black uppercase tracking-[0.22em]" style={{ color: '#00A050' }}>Creator Earnings</span>
+                  <Wallet size={11} style={{ color: '#00A050' }} />
+                </div>
+                <div className="flex-1 px-7 pt-7 pb-4 flex flex-col">
+                  <p className="font-black leading-none mb-1"
+                    style={{ fontSize: 'clamp(52px, 6vw, 72px)', color: '#00A050', letterSpacing: '-0.04em' }}>₦285K</p>
+                  <p className="text-[9px] font-black uppercase tracking-[0.22em] mb-7"
+                    style={{ color: 'rgba(0,160,80,0.45)' }}>Earned this month</p>
+                  <div className="h-px mb-6" style={{ background: 'rgba(0,160,80,0.14)' }} />
+                  <div className="flex flex-col gap-2.5 flex-1">
+                    {[
+                      { brand: 'Paystack', amount: '₦25K' },
+                      { brand: 'PiggyVest', amount: '₦18K' },
+                      { brand: 'Flutterwave', amount: '₦40K' },
+                    ].map((item) => (
+                      <div key={item.brand} className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <CheckCircle size={12} style={{ color: '#00A050' }} />
+                          <span className="text-xs font-semibold text-[#0F0F1A]">{item.brand}</span>
+                        </div>
+                        <span className="text-xs font-black" style={{ color: '#00A050' }}>{item.amount}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <div className="grid grid-cols-2" style={{ borderTop: '1px solid rgba(0,160,80,0.12)' }}>
+                  {[{ val: '48h', label: 'Avg. payout' }, { val: '100%', label: 'Automated' }].map((s, j) => (
+                    <div key={j} className="py-4 text-center"
+                      style={{ borderRight: j === 0 ? '1px solid rgba(0,160,80,0.10)' : 'none' }}>
+                      <p className="font-black text-sm leading-none" style={{ color: '#00A050' }}>{s.val}</p>
+                      <p className="text-[8px] font-bold uppercase tracking-[0.18em] mt-1" style={{ color: 'rgba(0,160,80,0.45)' }}>{s.label}</p>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
-            <p className="absolute z-20 bottom-7 left-7 text-[10px] font-bold text-[#E11D48] uppercase tracking-[0.18em]">Clear requirements</p>
-            <p className="absolute z-20 bottom-[44px] left-7 text-xl font-black text-[#0F0F1A] leading-snug mb-0.5">Set rules.<br />Creators apply.</p>
           </motion.div>
+        </motion.div>
 
-          {/* Dark trust card - Editorial stark black */}
-          <motion.div variants={fadeUp}
-            className="relative overflow-hidden rounded-[32px] p-8"
-            style={{ background: '#0F0F1A', height: 360 }}
-          >
-            <div className="pointer-events-none absolute inset-0" style={{ backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px)', backgroundSize: '24px 24px' }} />
-            <div className="relative flex h-full flex-col">
-              <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-full" style={{ background: '#7C3BED' }}>
-                <Shield size={20} color="white" />
-              </div>
-              <p className="text-2xl font-black text-white tracking-tight">0% payment risk</p>
-              <p className="mt-2 text-sm text-white/50 leading-relaxed max-w-[200px]">Funds only leave escrow when performance is validated.</p>
-              <div className="mt-auto flex flex-col gap-3 pt-6 border-t border-white/10">
-                {['Escrow-protected budget', 'Automated validation'].map((item) => (
-                  <div key={item} className="flex items-center gap-2.5 text-xs text-white/70 font-semibold">
-                    <CheckCircle size={12} color="#7C3BED" />
-                    {item}
+        {/* Row 2 — 3 feature cards */}
+        <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={vp}
+          className="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+          {/* Sponsor Tools — amber, horizontal rules */}
+          <motion.div variants={fadeUp} className="h-full">
+            <div className="relative overflow-hidden rounded-[28px] flex flex-col h-full"
+              style={{ background: 'rgba(217,119,6,0.05)', border: '1.5px solid rgba(217,119,6,0.14)', minHeight: 340 }}>
+              <div className="absolute inset-0 pointer-events-none" style={{
+                backgroundImage: 'repeating-linear-gradient(180deg, rgba(217,119,6,0.07) 0px, rgba(217,119,6,0.07) 1px, transparent 1px, transparent 22px)',
+              }} />
+              <div className="relative z-10 flex flex-col h-full">
+                <div className="flex items-center justify-between px-7 pt-5 pb-4"
+                  style={{ borderBottom: '1px solid rgba(217,119,6,0.12)' }}>
+                  <span className="text-[9px] font-black uppercase tracking-[0.22em]" style={{ color: '#D97706' }}>Sponsor Tools</span>
+                  <BarChart2 size={11} style={{ color: '#D97706' }} />
+                </div>
+                <div className="flex-1 px-7 pt-6 pb-4 flex flex-col">
+                  <h3 className="font-black text-[#0F0F1A] tracking-tight mb-3"
+                    style={{ fontSize: 'clamp(16px, 1.6vw, 19px)', lineHeight: 1.15 }}>Create a campaign<br />in minutes</h3>
+                  <p className="text-sm text-[#4A4A6A] leading-relaxed flex-1">
+                    Set requirements, lock your budget in escrow, and publish. Creators see it and apply.
+                  </p>
+                  <div className="relative rounded-xl overflow-hidden mt-4"
+                    style={{ border: '1px solid rgba(217,119,6,0.10)' }}>
+                    <BrowserChrome url="app.varmply.com/campaigns/create" />
+                    <div className="relative overflow-hidden bg-white" style={{ height: 120 }}>
+                      <div style={{ transform: 'scale(0.85)', transformOrigin: 'top left', width: '118%' }}>
+                        <CreateCampaignSkeleton />
+                      </div>
+                    </div>
                   </div>
-                ))}
+                </div>
+                <div className="grid grid-cols-2" style={{ borderTop: '1px solid rgba(217,119,6,0.12)' }}>
+                  {[{ val: '5min', label: 'Setup' }, { val: '₦0', label: 'Upfront risk' }].map((s, j) => (
+                    <div key={j} className="py-4 text-center"
+                      style={{ borderRight: j === 0 ? '1px solid rgba(217,119,6,0.10)' : 'none' }}>
+                      <p className="font-black text-sm leading-none" style={{ color: '#D97706' }}>{s.val}</p>
+                      <p className="text-[8px] font-bold uppercase tracking-[0.18em] mt-1" style={{ color: 'rgba(217,119,6,0.45)' }}>{s.label}</p>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </motion.div>
+
+          {/* Clear Requirements — blue, vertical lines */}
+          <motion.div variants={fadeUp} className="h-full">
+            <div className="relative overflow-hidden rounded-[28px] flex flex-col h-full"
+              style={{ background: 'rgba(37,99,235,0.05)', border: '1.5px solid rgba(37,99,235,0.14)', minHeight: 340 }}>
+              <div className="absolute inset-0 pointer-events-none" style={{
+                backgroundImage: 'repeating-linear-gradient(90deg, rgba(37,99,235,0.06) 0px, rgba(37,99,235,0.06) 1px, transparent 1px, transparent 20px)',
+              }} />
+              <div className="relative z-10 flex flex-col h-full">
+                <div className="flex items-center justify-between px-7 pt-5 pb-4"
+                  style={{ borderBottom: '1px solid rgba(37,99,235,0.12)' }}>
+                  <span className="text-[9px] font-black uppercase tracking-[0.22em]" style={{ color: '#2563EB' }}>Requirements</span>
+                  <span className="flex items-center gap-1 text-[9px] font-bold uppercase tracking-[0.14em]"
+                    style={{ color: '#2563EB' }}>
+                    <CheckCircle size={9} />Clear
+                  </span>
+                </div>
+                <div className="flex-1 px-7 pt-7 pb-4 flex flex-col">
+                  <p className="font-black leading-none mb-1"
+                    style={{ fontSize: 'clamp(52px, 6vw, 72px)', color: '#2563EB', letterSpacing: '-0.04em' }}>100%</p>
+                  <p className="text-[9px] font-black uppercase tracking-[0.22em] mb-6"
+                    style={{ color: 'rgba(37,99,235,0.45)' }}>Transparent briefs</p>
+                  <div className="h-px mb-5" style={{ background: 'rgba(37,99,235,0.12)' }} />
+                  <p className="text-sm text-[#4A4A6A] leading-relaxed flex-1">
+                    Every campaign shows deliverables, eligibility, and payout before you apply. No hidden clauses.
+                  </p>
+                </div>
+                <div className="grid grid-cols-2" style={{ borderTop: '1px solid rgba(37,99,235,0.12)' }}>
+                  {[{ val: '0', label: 'Hidden terms' }, { val: 'Pre-read', label: 'Brief' }].map((s, j) => (
+                    <div key={j} className="py-4 text-center"
+                      style={{ borderRight: j === 0 ? '1px solid rgba(37,99,235,0.10)' : 'none' }}>
+                      <p className="font-black text-sm leading-none" style={{ color: '#2563EB' }}>{s.val}</p>
+                      <p className="text-[8px] font-bold uppercase tracking-[0.18em] mt-1" style={{ color: 'rgba(37,99,235,0.45)' }}>{s.label}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Payment Safety — purple, crosshatch */}
+          <motion.div variants={fadeUp} className="h-full">
+            <div className="relative overflow-hidden rounded-[28px] flex flex-col h-full"
+              style={{ background: 'rgba(124,59,237,0.05)', border: '1.5px solid rgba(124,59,237,0.14)', minHeight: 340 }}>
+              <div className="absolute inset-0 pointer-events-none" style={{
+                backgroundImage: 'repeating-linear-gradient(-45deg, rgba(124,59,237,0.055) 0px, rgba(124,59,237,0.055) 1px, transparent 1px, transparent 14px)',
+              }} />
+              <div className="relative z-10 flex flex-col h-full">
+                <div className="flex items-center justify-between px-7 pt-5 pb-4"
+                  style={{ borderBottom: '1px solid rgba(124,59,237,0.12)' }}>
+                  <span className="text-[9px] font-black uppercase tracking-[0.22em]" style={{ color: '#7C3BED' }}>Payment Safety</span>
+                  <Shield size={11} style={{ color: '#7C3BED' }} />
+                </div>
+                <div className="flex-1 px-7 pt-7 pb-4 flex flex-col">
+                  <p className="font-black leading-none mb-1"
+                    style={{ fontSize: 'clamp(52px, 6vw, 72px)', color: '#7C3BED', letterSpacing: '-0.04em' }}>0%</p>
+                  <p className="text-[9px] font-black uppercase tracking-[0.22em] mb-6"
+                    style={{ color: 'rgba(124,59,237,0.45)' }}>Payment risk</p>
+                  <div className="h-px mb-5" style={{ background: 'rgba(124,59,237,0.12)' }} />
+                  <p className="text-sm text-[#4A4A6A] leading-relaxed flex-1">
+                    Funds only leave escrow when performance is validated. No manual release, no disputes.
+                  </p>
+                </div>
+                <div className="grid grid-cols-2" style={{ borderTop: '1px solid rgba(124,59,237,0.12)' }}>
+                  {[{ val: 'Escrow', label: 'Protected' }, { val: 'Auto', label: 'Validated' }].map((s, j) => (
+                    <div key={j} className="py-4 text-center"
+                      style={{ borderRight: j === 0 ? '1px solid rgba(124,59,237,0.10)' : 'none' }}>
+                      <p className="font-black text-sm leading-none" style={{ color: '#7C3BED' }}>{s.val}</p>
+                      <p className="text-[8px] font-bold uppercase tracking-[0.18em] mt-1" style={{ color: 'rgba(124,59,237,0.45)' }}>{s.label}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
         </motion.div>
       </div>
     </section>
@@ -166,353 +284,451 @@ function BentoFeature() {
 
 function PhoneShowcase() {
   return (
-    <section className="h-auto pb-24 md:pb-32 relative" style={{ background: '#FFFFFF' }}>
-      <div className="absolute top-0 inset-x-0 h-px" style={{ background: 'linear-gradient(90deg, transparent, rgba(0,0,0,0.05) 50%, transparent)' }} />
-      <div className="max-w-6xl mx-auto px-6 pt-16">
-        <motion.div
-          variants={stagger} initial="hidden" whileInView="visible" viewport={vp}
-          className="mb-14 flex flex-col md:flex-row md:items-end md:justify-between gap-6"
-        >
+    <section className="py-24" style={{ background: '#FFFFFF', borderTop: '1px solid #E4E4EC' }}>
+      <div className="max-w-6xl mx-auto px-6">
+
+        {/* Split header */}
+        <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={vp}
+          className="mb-14 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
           <div>
-            <motion.div variants={fadeUp}>
-              <SectionLabel>Mobile app</SectionLabel>
-            </motion.div>
-            <motion.h2 variants={fadeUp} className="font-black text-[#0F0F1A] tracking-tight" style={{ fontSize: 'clamp(36px, 5vw, 56px)', lineHeight: 1.0 }}>
+            <motion.div variants={fadeUp}><SectionLabel>Mobile app</SectionLabel></motion.div>
+            <motion.h2 variants={fadeUp} className="font-black text-[#0F0F1A] tracking-tight"
+              style={{ fontSize: 'clamp(36px, 5vw, 56px)', lineHeight: 1.0 }}>
               The full platform.<br />In your pocket.
             </motion.h2>
           </div>
-          <motion.p variants={fadeUp} className="text-base text-[#4A4A6A] max-w-xs md:text-right md:pb-1" style={{ lineHeight: 1.6 }}>
+          <motion.p variants={fadeUp} className="text-base text-[#4A4A6A] max-w-xs md:text-right md:pb-1"
+            style={{ lineHeight: 1.6 }}>
             Creator and sponsor dashboards built for mobile-first Nigeria.
           </motion.p>
         </motion.div>
 
-        <motion.div
-          variants={stagger} initial="hidden" whileInView="visible" viewport={vp}
-          className="grid grid-cols-1 sm:grid-cols-3 gap-4"
-        >
-          {/* Purple — creator earnings */}
-          <motion.div variants={fadeUp}
-            className="relative overflow-hidden rounded-[32px] px-8 pt-8 shadow-sm"
-            style={{ background: '#F0EBFC', border: '1px solid rgba(124,59,237,0.15)', height: 380 }}
-          >
-            <p className="mb-0.5 text-[10px] font-bold text-[#7C3BED] uppercase tracking-[0.18em]">Creator app</p>
-            <p className="text-xl font-black text-[#0F0F1A] leading-tight mt-1">Track earnings<br />&amp; campaigns</p>
-            <div className="mt-6 flex justify-center">
-              <PhoneFrame screenBg="#F9FAFB" scale={0.74}>
-                <div className="h-full w-full overflow-y-auto bg-[#F9FAFB]">
-                  <div className="flex items-center justify-between px-5 pt-11 pb-4">
-                    <div>
-                      <p className="text-[10px] text-[#8A8A9A]">Good morning</p>
-                      <p className="text-sm font-bold text-[#1C1C1E]">Dami Adeyemi</p>
-                    </div>
-                    <div className="h-8 w-8 rounded-full flex items-center justify-center" style={{ background: '#E8E8EE' }}>
-                      <span className="text-[10px] font-bold text-[#4A4A60]">DA</span>
-                    </div>
-                  </div>
-                  <div className="mx-4 rounded-xl p-4" style={{ background: '#FFFFFF', boxShadow: '0 1px 4px rgba(0,0,0,0.08)' }}>
-                    <p className="text-[10px] text-[#8A8A9A]">Total earnings</p>
-                    <p className="mt-0.5 text-2xl font-bold text-[#1C1C1E]">₦47,500</p>
-                    <div className="mt-2 flex gap-2">
-                      <div className="flex-1 rounded-lg px-2.5 py-1.5" style={{ background: '#F2F2F7' }}>
-                        <p className="text-[9px] text-[#8A8A9A]">Active</p>
-                        <p className="text-xs font-semibold text-[#1C1C1E]">3 campaigns</p>
-                      </div>
-                      <div className="flex-1 rounded-lg px-2.5 py-1.5" style={{ background: '#F2F2F7' }}>
-                        <p className="text-[9px] text-[#8A8A9A]">Pending</p>
-                        <p className="text-xs font-semibold text-[#1C1C1E]">₦18,000</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="mt-3 px-4">
-                    <p className="mb-2 text-[9px] font-semibold text-[#B0B0C0] uppercase tracking-wider">Campaigns</p>
-                    {[
-                      { brand: 'Paystack', task: 'Instagram post', reward: '₦25,000' },
-                      { brand: 'PiggyVest', task: 'TikTok video', reward: '₦18,000' },
-                      { brand: 'Cowrywise', task: 'Twitter thread', reward: '₦8,000' },
-                    ].map((c, i) => (
-                      <div key={i} className="mb-1.5 flex items-center gap-2.5 rounded-lg px-3 py-2.5" style={{ background: '#FFFFFF', boxShadow: '0 1px 3px rgba(0,0,0,0.06)' }}>
-                        <div className="h-7 w-7 rounded-lg flex items-center justify-center shrink-0" style={{ background: '#F2F2F7' }}>
-                          <span className="text-[9px] font-bold text-[#7C3BED]">{c.brand[0]}</span>
+        <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={vp}
+          className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+
+          {/* Creator App — purple, crosshatch */}
+          <motion.div variants={fadeUp} className="h-full">
+            <div className="relative overflow-hidden rounded-[28px] flex flex-col h-full"
+              style={{ background: 'rgba(124,59,237,0.05)', border: '1.5px solid rgba(124,59,237,0.14)', minHeight: 400 }}>
+              <div className="absolute inset-0 pointer-events-none" style={{
+                backgroundImage: 'repeating-linear-gradient(-45deg, rgba(124,59,237,0.045) 0px, rgba(124,59,237,0.045) 1px, transparent 1px, transparent 14px)',
+              }} />
+              <div className="relative z-10 flex flex-col h-full">
+                <div className="flex items-center justify-between px-7 pt-5 pb-4"
+                  style={{ borderBottom: '1px solid rgba(124,59,237,0.12)' }}>
+                  <span className="text-[9px] font-black uppercase tracking-[0.22em]" style={{ color: '#7C3BED' }}>Creator App</span>
+                  <span className="text-[9px] font-bold uppercase tracking-[0.14em]" style={{ color: '#7C3BED' }}>iOS · Android</span>
+                </div>
+                <div className="px-7 pt-5 pb-6">
+                  <h3 className="font-black text-[#0F0F1A] tracking-tight"
+                    style={{ fontSize: 'clamp(15px, 1.5vw, 17px)', lineHeight: 1.2 }}>Track earnings<br />&amp; campaigns</h3>
+                </div>
+                <div className="flex-1 relative overflow-hidden">
+                  <div className="absolute top-0 left-1/2" style={{ transform: 'translateX(-50%)' }}>
+                  <div style={{ transform: 'scale(0.85)', transformOrigin: 'top center' }}>
+                  <PhoneFrame screenBg="#F9FAFB">
+                    <div className="h-full w-full overflow-y-auto bg-[#F9FAFB]">
+                      <div className="flex items-center justify-between px-5 pt-11 pb-4">
+                        <div>
+                          <p className="text-[10px] text-[#8A8A9A]">Good morning</p>
+                          <p className="text-sm font-bold text-[#1C1C1E]">Dami Adeyemi</p>
                         </div>
-                        <div className="flex-1 min-w-0">
-                          <p className="text-[11px] font-semibold text-[#1C1C1E] truncate">{c.brand}</p>
-                          <p className="text-[9px] text-[#8A8A9A] truncate">{c.task}</p>
+                        <div className="h-8 w-8 rounded-full flex items-center justify-center" style={{ background: '#E8E8EE' }}>
+                          <span className="text-[10px] font-bold text-[#4A4A60]">DA</span>
                         </div>
-                        <span className="text-[10px] font-bold text-[#00A050] shrink-0">{c.reward}</span>
                       </div>
-                    ))}
+                      <div className="mx-4 rounded-xl p-4" style={{ background: '#FFFFFF', boxShadow: '0 1px 4px rgba(0,0,0,0.08)' }}>
+                        <p className="text-[10px] text-[#8A8A9A]">Total earnings</p>
+                        <p className="mt-0.5 text-2xl font-bold text-[#1C1C1E]">₦47,500</p>
+                        <div className="mt-2 flex gap-2">
+                          <div className="flex-1 rounded-lg px-2.5 py-1.5" style={{ background: '#F2F2F7' }}>
+                            <p className="text-[9px] text-[#8A8A9A]">Active</p>
+                            <p className="text-xs font-semibold text-[#1C1C1E]">3 campaigns</p>
+                          </div>
+                          <div className="flex-1 rounded-lg px-2.5 py-1.5" style={{ background: '#F2F2F7' }}>
+                            <p className="text-[9px] text-[#8A8A9A]">Pending</p>
+                            <p className="text-xs font-semibold text-[#1C1C1E]">₦18,000</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="mt-3 px-4">
+                        <p className="mb-2 text-[9px] font-semibold text-[#B0B0C0] uppercase tracking-wider">Campaigns</p>
+                        {[
+                          { brand: 'Paystack', task: 'Instagram post', reward: '₦25,000' },
+                          { brand: 'PiggyVest', task: 'TikTok video', reward: '₦18,000' },
+                          { brand: 'Cowrywise', task: 'Twitter thread', reward: '₦8,000' },
+                        ].map((c, i) => (
+                          <div key={i} className="mb-1.5 flex items-center gap-2.5 rounded-lg px-3 py-2.5"
+                            style={{ background: '#FFFFFF', boxShadow: '0 1px 3px rgba(0,0,0,0.06)' }}>
+                            <div className="h-7 w-7 rounded-lg flex items-center justify-center shrink-0" style={{ background: '#F2F2F7' }}>
+                              <span className="text-[9px] font-bold text-[#7C3BED]">{c.brand[0]}</span>
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <p className="text-[11px] font-semibold text-[#1C1C1E] truncate">{c.brand}</p>
+                              <p className="text-[9px] text-[#8A8A9A] truncate">{c.task}</p>
+                            </div>
+                            <span className="text-[10px] font-bold text-[#00A050] shrink-0">{c.reward}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </PhoneFrame>
+                  </div>
                   </div>
                 </div>
-              </PhoneFrame>
+              </div>
             </div>
           </motion.div>
 
-          {/* Green — sponsor dashboard */}
-          <motion.div variants={fadeUp}
-            className="relative overflow-hidden rounded-[32px] px-8 pt-8 shadow-sm"
-            style={{ background: '#E6F5EC', border: '1px solid rgba(0,160,80,0.15)', height: 380 }}
-          >
-            <p className="mb-0.5 text-[10px] font-bold text-[#00A050] uppercase tracking-[0.18em]">Sponsor app</p>
-            <p className="text-xl font-black text-[#0F0F1A] leading-tight mt-1">Manage live<br />campaigns</p>
-            <div className="mt-6 flex justify-center">
-              <PhoneFrame screenBg="#F9FAFB" scale={0.74}>
-                <div className="h-full w-full overflow-y-auto bg-[#F9FAFB]">
-                  <div className="px-5 pt-11 pb-3">
-                    <p className="text-[10px] text-[#8A8A9A]">Overview</p>
-                    <p className="text-sm font-bold text-[#1C1C1E]">Paystack Dashboard</p>
-                  </div>
-                  <div className="mx-4 rounded-xl p-4" style={{ background: '#FFFFFF', boxShadow: '0 1px 4px rgba(0,0,0,0.08)' }}>
-                    <p className="text-[10px] text-[#8A8A9A]">Campaign spend</p>
-                    <p className="mt-0.5 text-2xl font-bold text-[#1C1C1E]">₦240,000</p>
-                    <div className="mt-2 flex gap-2">
-                      <div className="flex-1 rounded-lg px-2.5 py-1.5" style={{ background: '#F2F2F7' }}>
-                        <p className="text-[9px] text-[#8A8A9A]">Creators</p>
-                        <p className="text-xs font-semibold text-[#1C1C1E]">12 joined</p>
+          {/* Sponsor App — green, dot grid */}
+          <motion.div variants={fadeUp} className="h-full">
+            <div className="relative overflow-hidden rounded-[28px] flex flex-col h-full"
+              style={{ background: 'rgba(0,160,80,0.05)', border: '1.5px solid rgba(0,160,80,0.14)', minHeight: 400 }}>
+              <div className="absolute inset-0 pointer-events-none" style={{
+                backgroundImage: 'radial-gradient(circle, rgba(0,160,80,0.13) 1px, transparent 1px)',
+                backgroundSize: '18px 18px',
+              }} />
+              <div className="relative z-10 flex flex-col h-full">
+                <div className="flex items-center justify-between px-7 pt-5 pb-4"
+                  style={{ borderBottom: '1px solid rgba(0,160,80,0.12)' }}>
+                  <span className="text-[9px] font-black uppercase tracking-[0.22em]" style={{ color: '#00A050' }}>Sponsor App</span>
+                  <span className="text-[9px] font-bold uppercase tracking-[0.14em]" style={{ color: '#00A050' }}>iOS · Android</span>
+                </div>
+                <div className="px-7 pt-5 pb-6">
+                  <h3 className="font-black text-[#0F0F1A] tracking-tight"
+                    style={{ fontSize: 'clamp(15px, 1.5vw, 17px)', lineHeight: 1.2 }}>Manage live<br />campaigns</h3>
+                </div>
+                <div className="flex-1 relative overflow-hidden">
+                  <div className="absolute top-0 left-1/2" style={{ transform: 'translateX(-50%)' }}>
+                  <div style={{ transform: 'scale(0.85)', transformOrigin: 'top center' }}>
+                  <PhoneFrame screenBg="#F9FAFB">
+                    <div className="h-full w-full overflow-y-auto bg-[#F9FAFB]">
+                      <div className="px-5 pt-11 pb-3">
+                        <p className="text-[10px] text-[#8A8A9A]">Overview</p>
+                        <p className="text-sm font-bold text-[#1C1C1E]">Paystack Dashboard</p>
                       </div>
-                      <div className="flex-1 rounded-lg px-2.5 py-1.5" style={{ background: '#F2F2F7' }}>
-                        <p className="text-[9px] text-[#8A8A9A]">Reach</p>
-                        <p className="text-xs font-semibold text-[#1C1C1E]">840K</p>
+                      <div className="mx-4 rounded-xl p-4" style={{ background: '#FFFFFF', boxShadow: '0 1px 4px rgba(0,0,0,0.08)' }}>
+                        <p className="text-[10px] text-[#8A8A9A]">Campaign spend</p>
+                        <p className="mt-0.5 text-2xl font-bold text-[#1C1C1E]">₦240,000</p>
+                        <div className="mt-2 flex gap-2">
+                          <div className="flex-1 rounded-lg px-2.5 py-1.5" style={{ background: '#F2F2F7' }}>
+                            <p className="text-[9px] text-[#8A8A9A]">Creators</p>
+                            <p className="text-xs font-semibold text-[#1C1C1E]">12 joined</p>
+                          </div>
+                          <div className="flex-1 rounded-lg px-2.5 py-1.5" style={{ background: '#F2F2F7' }}>
+                            <p className="text-[9px] text-[#8A8A9A]">Reach</p>
+                            <p className="text-xs font-semibold text-[#1C1C1E]">840K</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="mt-3 px-4">
+                        <p className="mb-2 text-[9px] font-semibold text-[#B0B0C0] uppercase tracking-wider">Live campaigns</p>
+                        {[
+                          { name: 'Q2 Instagram Push', creators: '8 active', budget: '₦120K' },
+                          { name: 'TikTok Launch', creators: '4 active', budget: '₦80K' },
+                          { name: 'Twitter Awareness', creators: 'Recruiting', budget: '₦40K' },
+                        ].map((c, i) => (
+                          <div key={i} className="mb-1.5 flex items-center gap-2.5 rounded-lg px-3 py-2.5"
+                            style={{ background: '#FFFFFF', boxShadow: '0 1px 3px rgba(0,0,0,0.06)' }}>
+                            <div className="h-1.5 w-1.5 rounded-full shrink-0" style={{ background: i === 2 ? '#D0D0DC' : '#00A050' }} />
+                            <div className="flex-1 min-w-0">
+                              <p className="text-[11px] font-semibold text-[#1C1C1E] truncate">{c.name}</p>
+                              <p className="text-[9px] text-[#8A8A9A]">{c.creators}</p>
+                            </div>
+                            <span className="text-[10px] font-semibold text-[#8A8A9A] shrink-0">{c.budget}</span>
+                          </div>
+                        ))}
                       </div>
                     </div>
+                  </PhoneFrame>
                   </div>
-                  <div className="mt-3 px-4">
-                    <p className="mb-2 text-[9px] font-semibold text-[#B0B0C0] uppercase tracking-wider">Live campaigns</p>
-                    {[
-                      { name: 'Q2 Instagram Push', creators: '8 active', budget: '₦120K' },
-                      { name: 'TikTok Launch', creators: '4 active', budget: '₦80K' },
-                      { name: 'Twitter Awareness', creators: 'Recruiting', budget: '₦40K' },
-                    ].map((c, i) => (
-                      <div key={i} className="mb-1.5 flex items-center gap-2.5 rounded-lg px-3 py-2.5" style={{ background: '#FFFFFF', boxShadow: '0 1px 3px rgba(0,0,0,0.06)' }}>
-                        <div className="h-1.5 w-1.5 rounded-full shrink-0" style={{ background: i === 2 ? '#D0D0DC' : '#00A050' }} />
-                        <div className="flex-1 min-w-0">
-                          <p className="text-[11px] font-semibold text-[#1C1C1E] truncate">{c.name}</p>
-                          <p className="text-[9px] text-[#8A8A9A]">{c.creators}</p>
-                        </div>
-                        <span className="text-[10px] font-semibold text-[#8A8A9A] shrink-0">{c.budget}</span>
-                      </div>
-                    ))}
                   </div>
                 </div>
-              </PhoneFrame>
+              </div>
             </div>
           </motion.div>
 
-          {/* Blue — analytics */}
-          <motion.div variants={fadeUp}
-            className="relative overflow-hidden rounded-[32px] px-8 pt-8 shadow-sm"
-            style={{ background: '#EBF5FF', border: '1px solid rgba(37,99,235,0.15)', height: 380 }}
-          >
-            <p className="mb-0.5 text-[10px] font-bold text-[#2563EB] uppercase tracking-[0.18em]">Analytics</p>
-            <p className="text-xl font-black text-[#0F0F1A] leading-tight mt-1">Real-time<br />performance</p>
-            <div className="mt-6 flex justify-center">
-              <PhoneFrame screenBg="#F9FAFB" scale={0.74}>
-                <div className="h-full w-full overflow-y-auto bg-[#F9FAFB]">
-                  <div className="px-5 pt-11 pb-3">
-                    <p className="text-[10px] text-[#8A8A9A]">Campaign</p>
-                    <p className="text-sm font-bold text-[#1C1C1E]">Paystack Q1</p>
-                  </div>
-                  {[
-                    { label: 'Total views', value: '840K', change: '+12%' },
-                    { label: 'Engagement', value: '6.2%', change: '+0.8%' },
-                    { label: 'Creators paid', value: '₦240K', change: '12 of 12' },
-                  ].map((m, i) => (
-                    <div key={i} className="mx-4 mb-2 flex items-center justify-between rounded-lg px-3 py-3" style={{ background: '#FFFFFF', boxShadow: '0 1px 3px rgba(0,0,0,0.06)' }}>
-                      <div>
-                        <p className="text-[9px] text-[#8A8A9A]">{m.label}</p>
-                        <p className="text-base font-bold text-[#1C1C1E]">{m.value}</p>
+          {/* Analytics — blue, horizontal rules */}
+          <motion.div variants={fadeUp} className="h-full">
+            <div className="relative overflow-hidden rounded-[28px] flex flex-col h-full"
+              style={{ background: 'rgba(37,99,235,0.05)', border: '1.5px solid rgba(37,99,235,0.14)', minHeight: 400 }}>
+              <div className="absolute inset-0 pointer-events-none" style={{
+                backgroundImage: 'repeating-linear-gradient(180deg, rgba(37,99,235,0.06) 0px, rgba(37,99,235,0.06) 1px, transparent 1px, transparent 22px)',
+              }} />
+              <div className="relative z-10 flex flex-col h-full">
+                <div className="flex items-center justify-between px-7 pt-5 pb-4"
+                  style={{ borderBottom: '1px solid rgba(37,99,235,0.12)' }}>
+                  <span className="text-[9px] font-black uppercase tracking-[0.22em]" style={{ color: '#2563EB' }}>Analytics</span>
+                  <span className="flex items-center gap-1 text-[9px] font-bold uppercase tracking-[0.14em]"
+                    style={{ color: '#2563EB' }}>
+                    <TrendingUp size={9} />Real-time
+                  </span>
+                </div>
+                <div className="px-7 pt-5 pb-6">
+                  <h3 className="font-black text-[#0F0F1A] tracking-tight"
+                    style={{ fontSize: 'clamp(15px, 1.5vw, 17px)', lineHeight: 1.2 }}>Real-time<br />performance</h3>
+                </div>
+                <div className="flex-1 relative overflow-hidden">
+                  <div className="absolute top-0 left-1/2" style={{ transform: 'translateX(-50%)' }}>
+                  <div style={{ transform: 'scale(0.85)', transformOrigin: 'top center' }}>
+                  <PhoneFrame screenBg="#F9FAFB">
+                    <div className="h-full w-full overflow-y-auto bg-[#F9FAFB]">
+                      <div className="px-5 pt-11 pb-3">
+                        <p className="text-[10px] text-[#8A8A9A]">Campaign</p>
+                        <p className="text-sm font-bold text-[#1C1C1E]">Paystack Q1</p>
                       </div>
-                      <span className="text-[10px] font-semibold rounded-full px-2 py-0.5" style={{ background: 'rgba(0,160,80,0.10)', color: '#00A050' }}>{m.change}</span>
-                    </div>
-                  ))}
-                  <div className="mx-4 mt-1 rounded-lg p-3" style={{ background: '#FFFFFF', boxShadow: '0 1px 3px rgba(0,0,0,0.06)' }}>
-                    <p className="mb-2 text-[9px] text-[#8A8A9A]">Views over time</p>
-                    <div className="flex items-end gap-1 h-14">
-                      {[40, 65, 45, 80, 55, 90, 70].map((h, i) => (
-                        <div key={i} className="flex-1 rounded-sm" style={{ height: `${h}%`, background: i === 5 ? '#2563EB' : '#DBEAFE' }} />
+                      {[
+                        { label: 'Total views', value: '840K', change: '+12%' },
+                        { label: 'Engagement', value: '6.2%', change: '+0.8%' },
+                        { label: 'Creators paid', value: '₦240K', change: '12 of 12' },
+                      ].map((m, i) => (
+                        <div key={i} className="mx-4 mb-2 flex items-center justify-between rounded-lg px-3 py-3"
+                          style={{ background: '#FFFFFF', boxShadow: '0 1px 3px rgba(0,0,0,0.06)' }}>
+                          <div>
+                            <p className="text-[9px] text-[#8A8A9A]">{m.label}</p>
+                            <p className="text-base font-bold text-[#1C1C1E]">{m.value}</p>
+                          </div>
+                          <span className="text-[10px] font-semibold rounded-full px-2 py-0.5"
+                            style={{ background: 'rgba(0,160,80,0.10)', color: '#00A050' }}>{m.change}</span>
+                        </div>
                       ))}
+                      <div className="mx-4 mt-1 rounded-lg p-3" style={{ background: '#FFFFFF', boxShadow: '0 1px 3px rgba(0,0,0,0.06)' }}>
+                        <p className="mb-2 text-[9px] text-[#8A8A9A]">Views over time</p>
+                        <div className="flex items-end gap-1 h-14">
+                          {[40, 65, 45, 80, 55, 90, 70].map((h, i) => (
+                            <div key={i} className="flex-1 rounded-sm"
+                              style={{ height: `${h}%`, background: i === 5 ? '#2563EB' : '#DBEAFE' }} />
+                          ))}
+                        </div>
+                      </div>
                     </div>
+                  </PhoneFrame>
+                  </div>
                   </div>
                 </div>
-              </PhoneFrame>
+              </div>
             </div>
           </motion.div>
+
         </motion.div>
       </div>
     </section>
+  );
+}
+
+// ─── Platform icon SVGs ──────────────────────────────────────────────────────
+
+function TikTokIcon({ size = 12 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
+      <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V9a8.17 8.17 0 0 0 4.78 1.52V7.06a4.85 4.85 0 0 1-1.01-.37z" />
+    </svg>
+  );
+}
+function IGIcon({ size = 12 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="2" y="2" width="20" height="20" rx="5" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+    </svg>
+  );
+}
+function XIcon({ size = 12 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+    </svg>
+  );
+}
+function YTIcon({ size = 12 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
+      <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z" /><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="white" />
+    </svg>
   );
 }
 
 // ─── 3. Creator Reel ──────────────────────────────────────────────────────────
 
-function CreatorReel() {
+const REELS_ROW_1 = [
+  { thumb: '/mockups/creator-1.jpg', avatar: '/mockups/avatar-1.png', name: 'Tolu Adeyemi', handle: '@toluade', campaign: 'Jazzy Song — Ayra Starr', platform: 'TikTok', likes: '14.2K' },
+  { thumb: '/mockups/art-cover-3.png', avatar: '/mockups/avatar-2.png', name: 'Rema Fan', handle: '@remafan_', campaign: 'Ozeba — Rema', platform: 'Instagram', likes: '9.8K' },
+  { thumb: '/mockups/creator-2.jpg', avatar: '/mockups/avatar-3.png', name: 'Chidi Ezike', handle: '@chidi.e', campaign: 'With You — Davido', platform: 'TikTok', likes: '22.1K' },
+  { thumb: '/mockups/art-cover-1.png', avatar: '/mockups/avatar-4.png', name: 'Sola Babs', handle: '@solababs', campaign: 'Q2 Promo — MTN', platform: 'TikTok', likes: '8.5K' },
+  { thumb: '/mockups/creator-3.jpg', avatar: '/mockups/avatar-5.png', name: 'Kemi Ade', handle: '@keminade', campaign: 'Jazzy Song — Ayra Starr', platform: 'Instagram', likes: '31.4K' },
+  { thumb: '/mockups/art-cover-4.png', avatar: '/mockups/avatar-6.png', name: 'Dami Okon', handle: '@damiokon', campaign: 'Ozeba — Rema', platform: 'TikTok', likes: '18.7K' },
+  { thumb: '/mockups/creator-4.jpg', avatar: '/mockups/avatar-1.png', name: 'Femi Lagos', handle: '@femilagos', campaign: 'With You — Davido', platform: 'TikTok', likes: '12.3K' },
+  { thumb: '/mockups/art-cover-5.png', avatar: '/mockups/avatar-2.png', name: 'Temi Coker', handle: '@temicoker', campaign: 'Q2 Promo — MTN', platform: 'Instagram', likes: '27.0K' },
+];
+
+const REELS_ROW_2 = [
+  { thumb: '/mockups/art-cover-2.png', avatar: '/mockups/avatar-3.png', name: 'Banky W', handle: '@bankyw', campaign: 'With You — Davido', platform: 'Instagram', likes: '45.2K' },
+  { thumb: '/mockups/creator-2.jpg', avatar: '/mockups/avatar-4.png', name: 'Nkechi Ali', handle: '@nkechi.ali', campaign: 'Ozeba — Rema', platform: 'TikTok', likes: '19.6K' },
+  { thumb: '/mockups/art-cover-6.png', avatar: '/mockups/avatar-5.png', name: 'Seun Kuti', handle: '@seunkuti_', campaign: 'Jazzy Song — Ayra Starr', platform: 'TikTok', likes: '11.1K' },
+  { thumb: '/mockups/creator-1.jpg', avatar: '/mockups/avatar-6.png', name: 'Ify Okeke', handle: '@ifybrand', campaign: 'Q2 Promo — MTN', platform: 'Instagram', likes: '33.8K' },
+  { thumb: '/mockups/art-cover-3.png', avatar: '/mockups/avatar-1.png', name: 'Deji Awe', handle: '@deji.awe', campaign: 'With You — Davido', platform: 'TikTok', likes: '7.4K' },
+  { thumb: '/mockups/creator-3.jpg', avatar: '/mockups/avatar-2.png', name: 'Zainab Mo', handle: '@zainabmo', campaign: 'Jazzy Song — Ayra Starr', platform: 'TikTok', likes: '24.9K' },
+  { thumb: '/mockups/art-cover-1.png', avatar: '/mockups/avatar-3.png', name: 'Kunle Rex', handle: '@kunlerex', campaign: 'Ozeba — Rema', platform: 'Instagram', likes: '16.3K' },
+  { thumb: '/mockups/creator-4.jpg', avatar: '/mockups/avatar-4.png', name: 'Amaka Eze', handle: '@amaka.eze', campaign: 'Q2 Promo — MTN', platform: 'TikTok', likes: '38.5K' },
+];
+
+function ReelCard({ reel }: { reel: typeof REELS_ROW_1[number] }) {
   return (
-    <section className="py-24" style={{ background: '#FFFFFF' }}>
-      <div className="max-w-6xl mx-auto px-6">
-        <motion.div
-          variants={stagger} initial="hidden" whileInView="visible" viewport={vp}
-          className="mb-12 flex flex-col items-center text-center gap-4"
-        >
-          <motion.div variants={fadeUp}><SectionLabel>Creator community</SectionLabel></motion.div>
-          <motion.h2 variants={fadeUp} className="font-black text-[#0F0F1A] tracking-tight" style={{ fontSize: 'clamp(36px, 5vw, 56px)', lineHeight: 1.0 }}>
-            Real creators.<br />Real campaigns.
-          </motion.h2>
-          <motion.p variants={fadeUp} className="text-base" style={{ color: '#4A4A6A', maxWidth: 420, lineHeight: 1.6 }}>
-            847+ creators earning from structured brand partnerships — no DMs, no guesswork.
-          </motion.p>
-          <motion.div variants={fadeUp}>
-            <Link
-              href="/creators"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-sm"
-              style={{ background: '#7C3BED', color: 'white' }}
-            >
-              Join as Creator <ArrowRight size={14} />
-            </Link>
-          </motion.div>
-        </motion.div>
+    <div
+      className="relative shrink-0 overflow-hidden rounded-2xl"
+      style={{ width: 148, aspectRatio: '9/16' }}
+    >
+      {/* Thumbnail */}
+      <Image src={reel.thumb} alt="" fill className="object-cover" sizes="148px" />
 
-        {/* Bento grid — col 1 spans 2 rows, cols 2+3 each have 2 stacked cards */}
-        <motion.div
-          variants={stagger} initial="hidden" whileInView="visible" viewport={vp}
-          className="grid gap-4 mb-12 grid-cols-1 md:grid-cols-3"
-          style={{ gridTemplateRows: undefined }}
-        >
-          {/* Card 1 — tall featured, spans 2 rows */}
-          <motion.div variants={fadeUp} className="relative overflow-hidden rounded-[32px] h-[440px] md:row-span-2 md:h-auto shadow-sm" style={{ minHeight: 220 }}>
-            <Image src="/mockups/art-cover-3.png" alt="Jazzy Song campaign" fill className="object-cover" sizes="33vw" />
-            <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 60%)' }} />
-            <div className="absolute bottom-6 left-6 right-6">
-              <div className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.1em] text-[#00A050] bg-white mb-3 shadow-sm">
-                <CheckCircle size={12} color="#00A050" /> CREATOR ELIGIBLE
-              </div>
-              <p className="text-white font-black text-2xl leading-snug tracking-tight">Jazzy Song</p>
-              <p className="text-white/80 font-bold text-xs mt-1 tracking-wide">₦120,000 · INSTAGRAM · 7 DAYS</p>
-              <div className="flex items-center gap-2 mt-4 pt-4 border-t border-white/20">
-                <Image src="/mockups/avatar-1.png" alt="Ayra Starr" width={24} height={24} className="rounded-full object-cover border border-white/50" />
-                <span className="text-white font-bold text-xs tracking-tight">Ayra Starr</span>
-              </div>
-            </div>
-          </motion.div>
+      {/* Gradient */}
+      <div className="absolute inset-0" style={{
+        background: 'linear-gradient(180deg, rgba(0,0,0,0.22) 0%, transparent 35%, rgba(0,0,0,0.65) 70%, rgba(0,0,0,0.88) 100%)',
+      }} />
 
-          {/* Card 2 — Rema / Ozeba */}
-          <motion.div variants={fadeUp} className="relative overflow-hidden rounded-[32px] h-[220px] shadow-sm">
-            <Image src="/mockups/art-cover-4.png" alt="Ozeba campaign" fill className="object-cover" sizes="33vw" />
-            <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 60%)' }} />
-            <div className="absolute bottom-5 left-5 right-5">
-              <p className="text-white font-black text-xl leading-tight tracking-tight">Ozeba</p>
-              <p className="text-white/80 font-bold text-xs mt-1 tracking-wide">₦135,000 · TIKTOK</p>
-              <div className="flex items-center gap-2 mt-3 pt-3 border-t border-white/20">
-                <Image src="/mockups/avatar-2.png" alt="Rema" width={20} height={20} className="rounded-full object-cover border border-white/50" />
-                <span className="text-white font-bold text-[11px] tracking-tight">Rema</span>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Card 3 — Davido / With You */}
-          <motion.div variants={fadeUp} className="relative overflow-hidden rounded-[32px] h-[220px] shadow-sm">
-            <Image src="/mockups/davido-cover.png" alt="With You Album campaign" fill className="object-cover object-top" sizes="33vw" />
-            <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 60%)' }} />
-            <div className="absolute bottom-5 left-5 right-5">
-              <p className="text-white font-black text-xl leading-tight tracking-tight">With You Album</p>
-              <p className="text-white/80 font-bold text-xs mt-1 tracking-wide">₦500,000 · MULTI-PLATFORM</p>
-              <div className="flex items-center gap-2 mt-3 pt-3 border-t border-white/20">
-                <Image src="/mockups/avatar-3.png" alt="Davido" width={20} height={20} className="rounded-full object-cover border border-white/50" />
-                <span className="text-white font-bold text-[11px] tracking-tight">Davido</span>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Card 4 — purple stat */}
-          <motion.div variants={fadeUp}
-            className="relative overflow-hidden rounded-[32px] p-6 h-[220px]"
-            style={{ background: 'rgba(124,59,237,0.05)', border: '1px solid rgba(124,59,237,0.14)' }}
-          >
-            <div className="relative flex flex-col h-full">
-              <p className="font-black leading-none tracking-tight" style={{ fontSize: 'clamp(48px, 5vw, 64px)', color: '#7C3BED', letterSpacing: '-0.03em' }}>₦2.4M</p>
-              <p className="text-[10px] font-bold uppercase tracking-[0.16em] mt-1" style={{ color: 'rgba(124,59,237,0.65)' }}>Distributed to creators</p>
-              <div className="mt-auto pt-4 border-t" style={{ borderColor: 'rgba(124,59,237,0.14)' }}>
-                <p className="text-xs font-semibold" style={{ color: '#4A4A6A' }}>Verified payouts this quarter alone</p>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Card 5 — green stat (pastel switch) */}
-          <motion.div variants={fadeUp}
-            className="relative overflow-hidden rounded-[32px] p-6 h-[220px]"
-            style={{ background: '#E6F5EC', border: '1px solid rgba(0,160,80,0.15)' }}
-          >
-            <div className="relative">
-              <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-sm" style={{ border: '1px solid rgba(0,160,80,0.1)' }}>
-                <Users size={18} color="#00A050" />
-              </div>
-              <p className="text-3xl font-black text-[#00A050] tracking-tight leading-none">847+</p>
-              <p className="text-[11px] font-bold uppercase tracking-[0.1em] text-[#00A050] border-t border-[#00A050]/10 pt-3 mt-3">active platform creators</p>
-            </div>
-          </motion.div>
-        </motion.div>
+      {/* Platform badge */}
+      <div className="absolute top-3 left-3 z-10">
+        <span className="text-[9px] font-black uppercase tracking-[0.12em] text-white px-2 py-0.5 rounded-full"
+          style={{ background: 'rgba(255,255,255,0.15)', backdropFilter: 'blur(6px)', border: '1px solid rgba(255,255,255,0.18)' }}>
+          {reel.platform}
+        </span>
       </div>
+
+      {/* Play icon */}
+      <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
+        <div className="rounded-full flex items-center justify-center"
+          style={{ width: 36, height: 36, background: 'rgba(255,255,255,0.18)', backdropFilter: 'blur(4px)', border: '1px solid rgba(255,255,255,0.25)' }}>
+          <svg width="12" height="14" viewBox="0 0 12 14" fill="white">
+            <path d="M1 1.5l10 5-10 5V1.5z" />
+          </svg>
+        </div>
+      </div>
+
+      {/* Bottom info */}
+      <div className="absolute bottom-0 left-0 right-0 z-10 px-3 pb-3">
+        {/* Campaign */}
+        <p className="text-white/70 font-medium leading-tight mb-1.5" style={{ fontSize: 9 }}>
+          {reel.campaign}
+        </p>
+        {/* Creator row */}
+        <div className="flex items-center gap-1.5">
+          <div className="rounded-full overflow-hidden shrink-0 relative" style={{ width: 20, height: 20, border: '1.5px solid rgba(255,255,255,0.4)' }}>
+            <Image src={reel.avatar} alt="" fill className="object-cover" sizes="20px" />
+          </div>
+          <div className="flex-1 min-w-0">
+            <p className="text-white font-bold truncate" style={{ fontSize: 10 }}>{reel.name}</p>
+            <p className="text-white/55 truncate" style={{ fontSize: 8.5 }}>{reel.handle}</p>
+          </div>
+        </div>
+        {/* Likes */}
+        <div className="flex items-center gap-1 mt-1.5">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="rgba(255,255,255,0.5)">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+          </svg>
+          <span className="font-semibold text-white/50" style={{ fontSize: 8.5 }}>{reel.likes}</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function CreatorReel() {
+  const row1 = [...REELS_ROW_1, ...REELS_ROW_1];
+  const row2 = [...REELS_ROW_2, ...REELS_ROW_2];
+
+  return (
+    <section className="py-24 overflow-hidden" style={{ background: '#FFFFFF', borderTop: '1px solid #E4E4EC' }}>
+
+      {/* Header */}
+      <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={vp}
+        className="max-w-6xl mx-auto px-6 mb-14 flex flex-col items-center text-center gap-4">
+        <motion.div variants={fadeUp}><SectionLabel>Creator community</SectionLabel></motion.div>
+        <motion.h2 variants={fadeUp} className="font-black text-[#0F0F1A] tracking-tight"
+          style={{ fontSize: 'clamp(36px, 5vw, 56px)', lineHeight: 1.0 }}>
+          Real campaigns.<br />Real creators.
+        </motion.h2>
+        <motion.p variants={fadeUp} className="text-base text-[#4A4A6A]" style={{ maxWidth: 420, lineHeight: 1.6 }}>
+          Structured campaigns. Verified payouts. Across TikTok, Instagram, YouTube, and more.
+        </motion.p>
+        <motion.div variants={fadeUp} className="w-full sm:w-auto">
+          <Link href="/creators"
+            className="flex sm:inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full font-semibold text-sm w-full sm:w-auto"
+            style={{ background: '#7C3BED', color: 'white' }}>
+            Join as Creator <ArrowRight size={14} />
+          </Link>
+        </motion.div>
+      </motion.div>
+
+      {/* Row 1 — scrolls left */}
+      <div className="relative mb-3">
+        <div className="flex animate-marquee gap-3" style={{ width: 'max-content' }}>
+          {row1.map((r, i) => <ReelCard key={i} reel={r} />)}
+        </div>
+        {/* Edge fades */}
+        <div className="absolute inset-y-0 left-0 w-24 pointer-events-none z-10" style={{ background: 'linear-gradient(to right, #fff, transparent)' }} />
+        <div className="absolute inset-y-0 right-0 w-24 pointer-events-none z-10" style={{ background: 'linear-gradient(to left, #fff, transparent)' }} />
+      </div>
+
+      {/* Row 2 — scrolls right */}
+      <div className="relative">
+        <div className="flex animate-marquee-reverse gap-3" style={{ width: 'max-content' }}>
+          {row2.map((r, i) => <ReelCard key={i} reel={r} />)}
+        </div>
+        <div className="absolute inset-y-0 left-0 w-24 pointer-events-none z-10" style={{ background: 'linear-gradient(to right, #fff, transparent)' }} />
+        <div className="absolute inset-y-0 right-0 w-24 pointer-events-none z-10" style={{ background: 'linear-gradient(to left, #fff, transparent)' }} />
+      </div>
+
     </section>
   );
 }
 
-// WebMockup section removed and transferred to app/sponsors/page.tsx
+// ─── 4. Trust Pillars ─────────────────────────────────────────────────────────
 
-// ─── 5. Trust Pillars ─────────────────────────────────────────────────────────
+const pillars = [
+  {
+    stat: '₦2.4M+', statLabel: 'Held in escrow',
+    title: 'Escrow-First',
+    description: "Sponsor budgets are locked before campaigns go live. Creators know funds exist — no ghosting, no excuses.",
+    accent: '#7C3BED', bgTint: 'rgba(124,59,237,0.05)', border: 'rgba(124,59,237,0.14)',
+    pattern: 'repeating-linear-gradient(-45deg, rgba(124,59,237,0.055) 0px, rgba(124,59,237,0.055) 1px, transparent 1px, transparent 14px)',
+    Icon: Lock,
+    stats: [{ val: '100%', label: 'Pre-locked' }, { val: '₦0', label: 'Early access' }],
+  },
+  {
+    stat: '98%', statLabel: 'On-time payouts',
+    title: 'Automated Validation',
+    description: 'Submissions are checked programmatically. No favoritism, no back-and-forth — just clear pass/fail against the brief.',
+    accent: '#00A050', bgTint: 'rgba(0,160,80,0.05)', border: 'rgba(0,160,80,0.14)',
+    pattern: 'radial-gradient(circle, rgba(0,160,80,0.13) 1px, transparent 1px)',
+    patternSize: '18px 18px',
+    Icon: CheckCircle,
+    stats: [{ val: '0', label: 'Manual steps' }, { val: '48h', label: 'Avg. payout' }],
+  },
+  {
+    stat: '0', statLabel: 'Hidden terms',
+    title: 'Transparent Rules',
+    description: 'Every campaign brief is public. Eligibility, deliverables, payout amounts — all visible before you apply.',
+    accent: '#D97706', bgTint: 'rgba(217,119,6,0.05)', border: 'rgba(217,119,6,0.14)',
+    pattern: 'repeating-linear-gradient(90deg, rgba(217,119,6,0.06) 0px, rgba(217,119,6,0.06) 1px, transparent 1px, transparent 20px)',
+    Icon: Shield,
+    stats: [{ val: '100%', label: 'Public briefs' }, { val: 'Pre-read', label: 'Requirements' }],
+  },
+];
 
 function TrustPillars() {
-  const pillars = [
-    {
-      stat: '₦2.4M+',
-      statLabel: 'Held in escrow',
-      title: 'Escrow-First',
-      description: "Sponsor budgets are locked before campaigns go live. Creators know funds exist — no ghosting, no excuses.",
-      accent: '#7C3BED',
-      bgTint: 'rgba(124,59,237,0.05)',
-      border: 'rgba(124,59,237,0.14)',
-    },
-    {
-      stat: '98%',
-      statLabel: 'On-time payouts',
-      title: 'Automated Validation',
-      description: 'Submissions are checked programmatically. No favoritism, no back-and-forth — just clear pass/fail against the brief.',
-      accent: '#00A050',
-      bgTint: 'rgba(0,160,80,0.05)',
-      border: 'rgba(0,160,80,0.14)',
-    },
-    {
-      stat: '0',
-      statLabel: 'Hidden terms',
-      title: 'Transparent Rules',
-      description: 'Every campaign brief is public. Eligibility, deliverables, payout amounts — all visible before you apply.',
-      accent: '#D97706',
-      bgTint: 'rgba(217,119,6,0.05)',
-      border: 'rgba(217,119,6,0.14)',
-    },
-  ];
-
   return (
-    <section className="py-24" style={{ background: '#FFFFFF' }}>
+    <section className="py-24" style={{ background: '#FFFFFF', borderTop: '1px solid #E4E4EC' }}>
       <div className="max-w-6xl mx-auto px-6">
 
-        {/* Editorial header row */}
-        <motion.div
-          variants={stagger} initial="hidden" whileInView="visible" viewport={vp}
-          className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8"
-        >
-          <div className="max-w-xl">
-            <motion.div variants={fadeUp}>
-              <span className="inline-block rounded-full px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.18em] mb-6"
-                style={{ background: 'rgba(124,59,237,0.08)', color: '#7C3BED' }}>
-                Why trust Varmply
-              </span>
-            </motion.div>
-            <motion.h2 variants={fadeUp}
-              className="font-black text-[#0F0F1A] tracking-tight"
+        {/* Split header with inline stat trio */}
+        <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={vp}
+          className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8">
+          <div>
+            <motion.div variants={fadeUp}><SectionLabel>Why trust Varmply</SectionLabel></motion.div>
+            <motion.h2 variants={fadeUp} className="font-black text-[#0F0F1A] tracking-tight"
               style={{ fontSize: 'clamp(36px, 5vw, 56px)', lineHeight: 1.0 }}>
               Built around<br />accountability.
             </motion.h2>
           </div>
-
-          {/* Inline stat trio — top right */}
           <motion.div variants={fadeUp} className="flex gap-8 md:gap-10 md:pb-1 shrink-0">
             {pillars.map((p) => (
               <div key={p.stat}>
@@ -523,32 +739,50 @@ function TrustPillars() {
           </motion.div>
         </motion.div>
 
-        {/* Cards */}
+        {/* Editorial cards */}
         <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={vp}
           className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {pillars.map((p, i) => (
-            <motion.div key={i} variants={fadeUp}
-              className="flex flex-col rounded-3xl p-8"
-              style={{ background: p.bgTint, border: `1px solid ${p.border}` }}>
-              {/* Stat */}
-              <p className="font-black leading-none mb-1" style={{ fontSize: 'clamp(42px, 5vw, 56px)', color: p.accent, letterSpacing: '-0.03em' }}>
-                {p.stat}
-              </p>
-              <p className="text-[10px] font-bold uppercase tracking-[0.16em] mb-6" style={{ color: `${p.accent}AA` }}>
-                {p.statLabel}
-              </p>
-              {/* Divider */}
-              <div className="h-px mb-6" style={{ background: `${p.accent}20` }} />
-              {/* Copy */}
-              <h3 className="font-bold text-base mb-2" style={{ color: '#0F0F1A' }}>{p.title}</h3>
-              <p className="text-sm leading-relaxed" style={{ color: '#4A4A6A' }}>{p.description}</p>
+            <motion.div key={i} variants={fadeUp} className="h-full">
+              <div className="relative overflow-hidden rounded-[28px] flex flex-col h-full"
+                style={{ background: p.bgTint, border: `1.5px solid ${p.border}`, minHeight: 360 }}>
+                <div className="absolute inset-0 pointer-events-none" style={{
+                  backgroundImage: p.pattern,
+                  backgroundSize: (p as any).patternSize,
+                }} />
+                <div className="relative z-10 flex flex-col h-full">
+                  <div className="flex items-center justify-between px-7 pt-5 pb-4"
+                    style={{ borderBottom: `1px solid ${p.border}` }}>
+                    <span className="text-[9px] font-black uppercase tracking-[0.22em]" style={{ color: p.accent }}>{p.title}</span>
+                    <p.Icon size={11} style={{ color: p.accent }} />
+                  </div>
+                  <div className="flex-1 px-7 pt-7 pb-4 flex flex-col">
+                    <p className="font-black leading-none mb-1"
+                      style={{ fontSize: 'clamp(42px, 5vw, 60px)', color: p.accent, letterSpacing: '-0.04em' }}>
+                      {p.stat}
+                    </p>
+                    <p className="text-[9px] font-black uppercase tracking-[0.22em] mb-6"
+                      style={{ color: `${p.accent}70` }}>{p.statLabel}</p>
+                    <div className="h-px mb-5" style={{ background: `${p.accent}20` }} />
+                    <p className="text-sm text-[#4A4A6A] leading-relaxed flex-1">{p.description}</p>
+                  </div>
+                  <div className="grid grid-cols-2" style={{ borderTop: `1px solid ${p.border}` }}>
+                    {p.stats.map((s, j) => (
+                      <div key={j} className="py-4 text-center"
+                        style={{ borderRight: j === 0 ? `1px solid ${p.border}` : 'none' }}>
+                        <p className="font-black text-sm leading-none" style={{ color: p.accent }}>{s.val}</p>
+                        <p className="text-[8px] font-bold uppercase tracking-[0.18em] mt-1"
+                          style={{ color: `${p.accent}60` }}>{s.label}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
             </motion.div>
           ))}
         </motion.div>
 
-        {/* Footnote */}
-        <motion.p
-          variants={fadeUp} initial="hidden" whileInView="visible" viewport={vp}
+        <motion.p variants={fadeUp} initial="hidden" whileInView="visible" viewport={vp}
           className="text-center text-[11px] font-semibold uppercase tracking-[0.22em] mt-10"
           style={{ color: '#BBBBCC' }}>
           All data verified automatically — no manual overrides
@@ -558,50 +792,65 @@ function TrustPillars() {
   );
 }
 
-// ─── 6. Testimonials ──────────────────────────────────────────────────────────
+// ─── 5. Testimonials ──────────────────────────────────────────────────────────
 
 const testimonials = [
   {
-    name: 'Tolu Adeyemi', handle: 'toluade_', initials: 'T', color: '#7C3BED', avatar: '/mockups/avatar-1.png',
+    name: 'Tolu Adeyemi', handle: 'toluade_', initials: 'T', accent: '#7C3BED',
+    bgTint: 'rgba(124,59,237,0.05)', border: 'rgba(124,59,237,0.14)',
+    pattern: 'repeating-linear-gradient(-45deg, rgba(124,59,237,0.04) 0px, rgba(124,59,237,0.04) 1px, transparent 1px, transparent 14px)',
+    role: 'Content Creator', avatar: '/mockups/avatar-1.png',
     text: "Finally a platform that actually pays. I used to get ghosted after posting. With Varmply, there's an escrow — my ₦25K was in my wallet within 48 hours.",
   },
   {
-    name: 'Dami Oluwole', handle: 'dami.creates', initials: 'D', color: '#00A050', avatar: '/mockups/avatar-2.png',
+    name: 'Dami Oluwole', handle: 'dami.creates', initials: 'D', accent: '#00A050',
+    bgTint: 'rgba(0,160,80,0.05)', border: 'rgba(0,160,80,0.14)',
+    pattern: 'radial-gradient(circle, rgba(0,160,80,0.11) 1px, transparent 1px)',
+    patternSize: '18px 18px',
+    role: 'UGC Creator', avatar: '/mockups/avatar-2.png',
     text: "The eligibility system is underrated. I don't waste time applying for campaigns I won't get. Varmply only shows me what I qualify for.",
   },
   {
-    name: 'Chidi Eze', handle: 'chidieze_', initials: 'C', color: '#2563EB', avatar: '/mockups/avatar-3.png',
+    name: 'Chidi Eze', handle: 'chidieze_', initials: 'C', accent: '#2563EB',
+    bgTint: 'rgba(37,99,235,0.05)', border: 'rgba(37,99,235,0.14)',
+    pattern: 'repeating-linear-gradient(180deg, rgba(37,99,235,0.06) 0px, rgba(37,99,235,0.06) 1px, transparent 1px, transparent 22px)',
+    role: 'Brand Creator', avatar: '/mockups/avatar-3.png',
     text: "I was skeptical at first. But the campaign requirements were so clear — no back-and-forth with the brand. I posted, hit the metrics, got validated. Done.",
   },
   {
-    name: 'Sarah Jenkins', handle: 'sarah.j', initials: 'S', color: '#E11D48', avatar: '/mockups/avatar-4.png',
+    name: 'Sarah Jenkins', handle: 'sarah.j', initials: 'S', accent: '#E11D48',
+    bgTint: 'rgba(225,29,72,0.05)', border: 'rgba(225,29,72,0.14)',
+    pattern: 'repeating-linear-gradient(90deg, rgba(225,29,72,0.05) 0px, rgba(225,29,72,0.05) 1px, transparent 1px, transparent 20px)',
+    role: 'Lifestyle Creator', avatar: '/mockups/avatar-4.png',
     text: "Finally a platform that treats creators like professionals. The brief was clear, the timeline was fair, and the payment came through exactly as promised.",
   },
   {
-    name: 'Emeka Nwosu', handle: 'emeka.ng', initials: 'E', color: '#D97706', avatar: '/mockups/avatar-5.png',
+    name: 'Emeka Nwosu', handle: 'emeka.ng', initials: 'E', accent: '#D97706',
+    bgTint: 'rgba(217,119,6,0.05)', border: 'rgba(217,119,6,0.14)',
+    pattern: 'repeating-linear-gradient(-45deg, rgba(217,119,6,0.05) 0px, rgba(217,119,6,0.05) 1px, transparent 1px, transparent 14px)',
+    role: 'Sponsor', avatar: '/mockups/avatar-5.png',
     text: "As a sponsor, Varmply gave us a level of accountability we never had before. We could see exactly which creators hit their targets before releasing payment.",
   },
   {
-    name: 'Marcus Thorne', handle: 'marcus_t', initials: 'M', color: '#0891B2', avatar: '/mockups/avatar-6.png',
+    name: 'Marcus Thorne', handle: 'marcus_t', initials: 'M', accent: '#0891B2',
+    bgTint: 'rgba(8,145,178,0.05)', border: 'rgba(8,145,178,0.14)',
+    pattern: 'radial-gradient(circle, rgba(8,145,178,0.11) 1px, transparent 1px)',
+    patternSize: '18px 18px',
+    role: 'Creator', avatar: '/mockups/avatar-6.png',
     text: "The escrow system removed so much anxiety from the process. I knew from day one that if I delivered the work, the money would be there. No chasing required.",
   },
 ];
 
 function Testimonials() {
   return (
-    <section className="py-24" style={{ background: '#F7F7F9' }}>
+    <section className="py-24" style={{ background: '#FFFFFF', borderTop: '1px solid #E4E4EC' }}>
       <div className="max-w-6xl mx-auto px-6">
-        
-        {/* Editorial Header */}
-        <motion.div
-          variants={stagger} initial="hidden" whileInView="visible" viewport={vp}
-          className="flex flex-col items-center text-center mb-16 gap-4"
-        >
-          <motion.div variants={fadeUp}>
-            <SectionLabel>Testimonials</SectionLabel>
-          </motion.div>
-          <motion.h2 variants={fadeUp}
-            className="font-black text-[#0F0F1A] tracking-tight"
+
+        {/* Centered header */}
+        <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={vp}
+          className="flex flex-col items-center text-center mb-16 gap-4">
+          <motion.div variants={fadeUp}><SectionLabel>Testimonials</SectionLabel></motion.div>
+          <motion.h2 variants={fadeUp} className="font-black text-[#0F0F1A] tracking-tight"
             style={{ fontSize: 'clamp(36px, 5vw, 56px)', lineHeight: 1.0 }}>
             What creators<br />are saying.
           </motion.h2>
@@ -610,59 +859,54 @@ function Testimonials() {
           </motion.p>
         </motion.div>
 
-        {/* Cards */}
-        <motion.div
-          variants={stagger} initial="hidden" whileInView="visible" viewport={vp}
-          className="grid grid-cols-1 md:grid-cols-3 gap-5"
-        >
+        {/* Editorial testimonial cards */}
+        <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={vp}
+          className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {testimonials.map((t, i) => (
-            <motion.div
-              key={i} variants={fadeUp}
-              className="relative flex flex-col rounded-[24px] p-8 overflow-hidden hover-lift card-hover"
-              style={{ background: `${t.color}0D`, border: `1.5px solid ${t.color}15` }}
-            >
-              {/* Giant ghost quote marker */}
-              <div className="absolute -top-6 -right-6 font-serif select-none pointer-events-none leading-none"
-                   style={{ fontSize: '14rem', color: t.color, opacity: 0.08 }}>
-                &rdquo;
-              </div>
-
-              <div className="relative z-10 flex flex-col h-full">
-                {/* Sticker-like star pill */}
-                <div className="inline-flex items-center gap-0.5 mb-6 px-2.5 py-1.5 rounded-full bg-white shadow-sm w-max"
-                     style={{ border: `1px solid ${t.color}20` }}>
-                  {Array(5).fill(0).map((_, s) => (
-                    <Star key={s} size={11} fill={t.color} color={t.color} />
-                  ))}
-                </div>
-
-                <p className="text-base font-bold leading-relaxed flex-1" style={{ color: '#0F0F1A' }}>
-                  &ldquo;{t.text}&rdquo;
-                </p>
-
-                <div className="flex items-center gap-4 pt-6 mt-6 border-t" style={{ borderColor: `${t.color}20` }}>
-                  {t.avatar ? (
-                    <div className="h-11 w-11 rounded-xl shrink-0 shadow-sm relative overflow-hidden" style={{ border: '2px solid rgba(255,255,255,0.8)' }}>
+            <motion.div key={i} variants={fadeUp} className="h-full">
+              <div className="relative overflow-hidden rounded-[28px] flex flex-col h-full"
+                style={{ background: t.bgTint, border: `1.5px solid ${t.border}`, minHeight: 280 }}>
+                <div className="absolute inset-0 pointer-events-none" style={{
+                  backgroundImage: t.pattern,
+                  backgroundSize: (t as any).patternSize,
+                }} />
+                <div className="relative z-10 flex flex-col h-full">
+                  {/* Top rule bar: handle + star rating */}
+                  <div className="flex items-center justify-between px-7 pt-5 pb-4"
+                    style={{ borderBottom: `1px solid ${t.border}` }}>
+                    <span className="text-[9px] font-black uppercase tracking-[0.22em]"
+                      style={{ color: t.accent }}>@{t.handle}</span>
+                    <div className="flex items-center gap-0.5">
+                      {Array(5).fill(0).map((_, s) => (
+                        <Star key={s} size={9} fill={t.accent} color={t.accent} />
+                      ))}
+                    </div>
+                  </div>
+                  {/* Quote body */}
+                  <div className="flex-1 px-7 pt-6 pb-4">
+                    <p className="text-sm font-semibold leading-relaxed text-[#0F0F1A]">
+                      &ldquo;{t.text}&rdquo;
+                    </p>
+                  </div>
+                  {/* Attribution row */}
+                  <div className="flex items-center gap-3 px-7 py-4"
+                    style={{ borderTop: `1px solid ${t.border}` }}>
+                    <div className="h-8 w-8 rounded-lg shrink-0 relative overflow-hidden"
+                      style={{ border: `1.5px solid ${t.accent}30` }}>
                       <Image src={t.avatar} alt={t.name} fill className="object-cover" />
                     </div>
-                  ) : (
-                    <div
-                      className="h-11 w-11 rounded-xl flex items-center justify-center text-base font-black text-white shrink-0 shadow-sm"
-                      style={{ background: t.color, border: '2px solid rgba(255,255,255,0.5)' }}
-                    >
-                      {t.initials}
+                    <div>
+                      <p className="text-xs font-black tracking-tight text-[#0F0F1A]">{t.name}</p>
+                      <p className="text-[9px] font-bold uppercase tracking-[0.14em] mt-0.5"
+                        style={{ color: t.accent }}>{t.role}</p>
                     </div>
-                  )}
-                  <div>
-                    <p className="text-sm font-black tracking-tight" style={{ color: '#0F0F1A' }}>{t.name}</p>
-                    <p className="text-[10px] font-bold uppercase tracking-[0.16em] mt-0.5" style={{ color: t.color }}>@{t.handle}</p>
                   </div>
                 </div>
               </div>
             </motion.div>
           ))}
         </motion.div>
-        
+
       </div>
     </section>
   );
@@ -674,11 +918,9 @@ export default function HomePage() {
   return (
     <>
       <HeroSection />
-      <LogoBar />
       <BentoFeature />
       <PhoneShowcase />
       <CreatorReel />
-      {/* WebMockup moved to Sponsors Page */}
       <TrustPillars />
       <Testimonials />
     </>

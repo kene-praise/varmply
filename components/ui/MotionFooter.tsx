@@ -397,11 +397,11 @@ export function MotionFooter() {
                         </div>
 
                         <div ref={linksRef} className="flex flex-col items-center gap-6 w-full">
-                            <div className="flex flex-wrap justify-center gap-4 w-full">
+                            <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-4 w-full">
                                 <MagneticButton
                                     as={Link}
                                     href={config.cta1.href}
-                                    className="footer-glass-pill px-10 py-5 rounded-full font-bold text-sm md:text-base flex items-center gap-3 group"
+                                    className="footer-glass-pill px-10 py-5 rounded-full font-bold text-sm md:text-base flex items-center justify-center gap-3 group w-full sm:w-auto"
                                 >
                                     {config.cta1.label} <ArrowRight className="w-5 h-5 opacity-50 group-hover:opacity-100 transition-opacity" />
                                 </MagneticButton>
@@ -409,7 +409,7 @@ export function MotionFooter() {
                                 <MagneticButton
                                     as={Link}
                                     href={config.cta2.href}
-                                    className="footer-glass-pill px-10 py-5 rounded-full font-bold text-sm md:text-base flex items-center gap-3 group"
+                                    className="footer-glass-pill px-10 py-5 rounded-full font-bold text-sm md:text-base flex items-center justify-center gap-3 group w-full sm:w-auto"
                                 >
                                     {config.cta2.label}
                                 </MagneticButton>
@@ -419,8 +419,30 @@ export function MotionFooter() {
 
                     {/* 3. Bottom bar */}
                     <div className="relative z-20 w-full pb-8 px-6 md:px-12 flex flex-row items-center justify-between gap-6">
-                        <div className="text-[10px] md:text-xs font-semibold tracking-widest uppercase" style={{ color: 'rgba(255,255,255,0.30)' }}>
-                            © 2026 Varmply. All rights reserved.
+                        <div className="flex flex-col md:flex-row md:items-center gap-3 md:gap-6">
+                            <div className="text-[10px] md:text-xs font-semibold tracking-widest uppercase" style={{ color: 'rgba(255,255,255,0.30)' }}>
+                                © 2026 Varmply. All rights reserved.
+                            </div>
+                            <div className="flex items-center gap-4">
+                                <Link
+                                    href="/terms"
+                                    className="text-[10px] md:text-xs font-semibold tracking-widest uppercase transition-colors"
+                                    style={{ color: 'rgba(255,255,255,0.30)' }}
+                                    onMouseEnter={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.70)')}
+                                    onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.30)')}
+                                >
+                                    Terms
+                                </Link>
+                                <Link
+                                    href="/privacy"
+                                    className="text-[10px] md:text-xs font-semibold tracking-widest uppercase transition-colors"
+                                    style={{ color: 'rgba(255,255,255,0.30)' }}
+                                    onMouseEnter={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.70)')}
+                                    onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.30)')}
+                                >
+                                    Privacy
+                                </Link>
+                            </div>
                         </div>
 
                         <MagneticButton
