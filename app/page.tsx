@@ -10,6 +10,7 @@ import {
   BarChart2, Zap, Users, Star, Lock, TrendingUp,
 } from 'lucide-react';
 import { BrowserChrome, DashboardSkeleton, CreateCampaignSkeleton } from '@/components/MockupSkeletons';
+import DomeGallery from '@/components/DomeGallery';
 
 // ─── Shared helpers ───────────────────────────────────────────────────────────
 
@@ -549,98 +550,50 @@ function YTIcon({ size = 12 }: { size?: number }) {
 
 // ─── 3. Creator Reel ──────────────────────────────────────────────────────────
 
-const REELS_ROW_1 = [
-  { thumb: '/mockups/creator-1.jpg', avatar: '/mockups/avatar-1.png', name: 'Tolu Adeyemi', handle: '@toluade', campaign: 'Jazzy Song — Ayra Starr', platform: 'TikTok', likes: '14.2K' },
-  { thumb: '/mockups/art-cover-3.png', avatar: '/mockups/avatar-2.png', name: 'Rema Fan', handle: '@remafan_', campaign: 'Ozeba — Rema', platform: 'Instagram', likes: '9.8K' },
-  { thumb: '/mockups/creator-2.jpg', avatar: '/mockups/avatar-3.png', name: 'Chidi Ezike', handle: '@chidi.e', campaign: 'With You — Davido', platform: 'TikTok', likes: '22.1K' },
-  { thumb: '/mockups/art-cover-1.png', avatar: '/mockups/avatar-4.png', name: 'Sola Babs', handle: '@solababs', campaign: 'Q2 Promo — MTN', platform: 'TikTok', likes: '8.5K' },
-  { thumb: '/mockups/creator-3.jpg', avatar: '/mockups/avatar-5.png', name: 'Kemi Ade', handle: '@keminade', campaign: 'Jazzy Song — Ayra Starr', platform: 'Instagram', likes: '31.4K' },
-  { thumb: '/mockups/art-cover-4.png', avatar: '/mockups/avatar-6.png', name: 'Dami Okon', handle: '@damiokon', campaign: 'Ozeba — Rema', platform: 'TikTok', likes: '18.7K' },
-  { thumb: '/mockups/creator-4.jpg', avatar: '/mockups/avatar-1.png', name: 'Femi Lagos', handle: '@femilagos', campaign: 'With You — Davido', platform: 'TikTok', likes: '12.3K' },
-  { thumb: '/mockups/art-cover-5.png', avatar: '/mockups/avatar-2.png', name: 'Temi Coker', handle: '@temicoker', campaign: 'Q2 Promo — MTN', platform: 'Instagram', likes: '27.0K' },
+const DOME_IMAGES = [
+  '/mockups/creator-1.jpg',
+  '/mockups/art-cover-3.png',
+  '/mockups/creator-2.jpg',
+  '/mockups/art-cover-1.png',
+  '/mockups/creator-3.jpg',
+  '/mockups/art-cover-4.png',
+  '/mockups/creator-4.jpg',
+  '/mockups/art-cover-2.png',
+  '/mockups/ayra-starr.png',
+  '/mockups/art-cover-5.png',
+  '/mockups/creator-1.jpg',
+  '/mockups/art-cover-6.png',
+  '/mockups/creator-2.jpg',
+  '/mockups/davido-cover.png',
+  '/mockups/creator-3.jpg',
+  '/mockups/art-cover-1.png',
+  '/mockups/creator-4.jpg',
+  '/mockups/art-cover-3.png',
+  '/mockups/ayra-starr.png',
+  '/mockups/art-cover-2.png',
+  '/mockups/creator-1.jpg',
+  '/mockups/art-cover-5.png',
+  '/mockups/creator-2.jpg',
+  '/mockups/art-cover-4.png',
+  '/mockups/creator-3.jpg',
+  '/mockups/art-cover-6.png',
+  '/mockups/creator-4.jpg',
+  '/mockups/art-cover-1.png',
+  '/mockups/ayra-starr.png',
+  '/mockups/davido-cover.png',
+  '/mockups/creator-1.jpg',
+  '/mockups/art-cover-2.png',
+  '/mockups/creator-2.jpg',
+  '/mockups/art-cover-3.png',
 ];
-
-const REELS_ROW_2 = [
-  { thumb: '/mockups/art-cover-2.png', avatar: '/mockups/avatar-3.png', name: 'Banky W', handle: '@bankyw', campaign: 'With You — Davido', platform: 'Instagram', likes: '45.2K' },
-  { thumb: '/mockups/creator-2.jpg', avatar: '/mockups/avatar-4.png', name: 'Nkechi Ali', handle: '@nkechi.ali', campaign: 'Ozeba — Rema', platform: 'TikTok', likes: '19.6K' },
-  { thumb: '/mockups/art-cover-6.png', avatar: '/mockups/avatar-5.png', name: 'Seun Kuti', handle: '@seunkuti_', campaign: 'Jazzy Song — Ayra Starr', platform: 'TikTok', likes: '11.1K' },
-  { thumb: '/mockups/creator-1.jpg', avatar: '/mockups/avatar-6.png', name: 'Ify Okeke', handle: '@ifybrand', campaign: 'Q2 Promo — MTN', platform: 'Instagram', likes: '33.8K' },
-  { thumb: '/mockups/art-cover-3.png', avatar: '/mockups/avatar-1.png', name: 'Deji Awe', handle: '@deji.awe', campaign: 'With You — Davido', platform: 'TikTok', likes: '7.4K' },
-  { thumb: '/mockups/creator-3.jpg', avatar: '/mockups/avatar-2.png', name: 'Zainab Mo', handle: '@zainabmo', campaign: 'Jazzy Song — Ayra Starr', platform: 'TikTok', likes: '24.9K' },
-  { thumb: '/mockups/art-cover-1.png', avatar: '/mockups/avatar-3.png', name: 'Kunle Rex', handle: '@kunlerex', campaign: 'Ozeba — Rema', platform: 'Instagram', likes: '16.3K' },
-  { thumb: '/mockups/creator-4.jpg', avatar: '/mockups/avatar-4.png', name: 'Amaka Eze', handle: '@amaka.eze', campaign: 'Q2 Promo — MTN', platform: 'TikTok', likes: '38.5K' },
-];
-
-function ReelCard({ reel }: { reel: typeof REELS_ROW_1[number] }) {
-  return (
-    <div
-      className="relative shrink-0 overflow-hidden rounded-2xl"
-      style={{ width: 148, aspectRatio: '9/16' }}
-    >
-      {/* Thumbnail */}
-      <Image src={reel.thumb} alt="" fill className="object-cover" sizes="148px" />
-
-      {/* Gradient */}
-      <div className="absolute inset-0" style={{
-        background: 'linear-gradient(180deg, rgba(0,0,0,0.22) 0%, transparent 35%, rgba(0,0,0,0.65) 70%, rgba(0,0,0,0.88) 100%)',
-      }} />
-
-      {/* Platform badge */}
-      <div className="absolute top-3 left-3 z-10">
-        <span className="text-[9px] font-black uppercase tracking-[0.12em] text-white px-2 py-0.5 rounded-full"
-          style={{ background: 'rgba(255,255,255,0.15)', backdropFilter: 'blur(6px)', border: '1px solid rgba(255,255,255,0.18)' }}>
-          {reel.platform}
-        </span>
-      </div>
-
-      {/* Play icon */}
-      <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
-        <div className="rounded-full flex items-center justify-center"
-          style={{ width: 36, height: 36, background: 'rgba(255,255,255,0.18)', backdropFilter: 'blur(4px)', border: '1px solid rgba(255,255,255,0.25)' }}>
-          <svg width="12" height="14" viewBox="0 0 12 14" fill="white">
-            <path d="M1 1.5l10 5-10 5V1.5z" />
-          </svg>
-        </div>
-      </div>
-
-      {/* Bottom info */}
-      <div className="absolute bottom-0 left-0 right-0 z-10 px-3 pb-3">
-        {/* Campaign */}
-        <p className="text-white/70 font-medium leading-tight mb-1.5" style={{ fontSize: 9 }}>
-          {reel.campaign}
-        </p>
-        {/* Creator row */}
-        <div className="flex items-center gap-1.5">
-          <div className="rounded-full overflow-hidden shrink-0 relative" style={{ width: 20, height: 20, border: '1.5px solid rgba(255,255,255,0.4)' }}>
-            <Image src={reel.avatar} alt="" fill className="object-cover" sizes="20px" />
-          </div>
-          <div className="flex-1 min-w-0">
-            <p className="text-white font-bold truncate" style={{ fontSize: 10 }}>{reel.name}</p>
-            <p className="text-white/55 truncate" style={{ fontSize: 8.5 }}>{reel.handle}</p>
-          </div>
-        </div>
-        {/* Likes */}
-        <div className="flex items-center gap-1 mt-1.5">
-          <svg width="10" height="10" viewBox="0 0 24 24" fill="rgba(255,255,255,0.5)">
-            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-          </svg>
-          <span className="font-semibold text-white/50" style={{ fontSize: 8.5 }}>{reel.likes}</span>
-        </div>
-      </div>
-    </div>
-  );
-}
 
 function CreatorReel() {
-  const row1 = [...REELS_ROW_1, ...REELS_ROW_1];
-  const row2 = [...REELS_ROW_2, ...REELS_ROW_2];
-
   return (
-    <section className="py-24 overflow-hidden" style={{ background: '#FFFFFF', borderTop: '1px solid #E4E4EC' }}>
+    <section className="py-24" style={{ background: '#FFFFFF', borderTop: '1px solid #E4E4EC' }}>
 
       {/* Header */}
       <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={vp}
-        className="max-w-6xl mx-auto px-6 mb-14 flex flex-col items-center text-center gap-4">
+        className="max-w-6xl mx-auto px-6 mb-12 flex flex-col items-center text-center gap-4">
         <motion.div variants={fadeUp}><SectionLabel>Creator community</SectionLabel></motion.div>
         <motion.h2 variants={fadeUp} className="font-black text-[#0F0F1A] tracking-tight"
           style={{ fontSize: 'clamp(36px, 5vw, 56px)', lineHeight: 1.0 }}>
@@ -658,23 +611,17 @@ function CreatorReel() {
         </motion.div>
       </motion.div>
 
-      {/* Row 1 — scrolls left */}
-      <div className="relative mb-3">
-        <div className="flex animate-marquee gap-3" style={{ width: 'max-content' }}>
-          {row1.map((r, i) => <ReelCard key={i} reel={r} />)}
-        </div>
-        {/* Edge fades */}
-        <div className="absolute inset-y-0 left-0 w-24 pointer-events-none z-10" style={{ background: 'linear-gradient(to right, #fff, transparent)' }} />
-        <div className="absolute inset-y-0 right-0 w-24 pointer-events-none z-10" style={{ background: 'linear-gradient(to left, #fff, transparent)' }} />
-      </div>
-
-      {/* Row 2 — scrolls right */}
-      <div className="relative">
-        <div className="flex animate-marquee-reverse gap-3" style={{ width: 'max-content' }}>
-          {row2.map((r, i) => <ReelCard key={i} reel={r} />)}
-        </div>
-        <div className="absolute inset-y-0 left-0 w-24 pointer-events-none z-10" style={{ background: 'linear-gradient(to right, #fff, transparent)' }} />
-        <div className="absolute inset-y-0 right-0 w-24 pointer-events-none z-10" style={{ background: 'linear-gradient(to left, #fff, transparent)' }} />
+      {/* Dome Gallery */}
+      <div style={{ width: '100%', height: 520 }}>
+        <DomeGallery
+          images={DOME_IMAGES}
+          fit={0.8}
+          minRadius={650}
+          maxVerticalRotationDeg={0}
+          segments={34}
+          dragDampening={3.4}
+          grayscale={false}
+        />
       </div>
 
     </section>
