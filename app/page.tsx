@@ -636,11 +636,21 @@ function CreatorReel() {
   const row2 = [...REELS_ROW_2, ...REELS_ROW_2];
 
   return (
-    <section className="py-24 overflow-hidden" style={{ background: '#FFFFFF', borderTop: '1px solid #E4E4EC' }}>
+    <section className="py-24 overflow-hidden relative" style={{ background: '#F7F4FF', borderTop: '1px solid rgba(124,59,237,0.12)' }}>
+
+      {/* Diagonal stripe pattern */}
+      <div className="absolute inset-0 pointer-events-none" style={{
+        backgroundImage: 'repeating-linear-gradient(-45deg, rgba(124,59,237,0.055) 0px, rgba(124,59,237,0.055) 1px, transparent 1px, transparent 14px)',
+      }} />
+
+      {/* Soft radial glow — centre */}
+      <div className="absolute inset-0 pointer-events-none" style={{
+        background: 'radial-gradient(ellipse 70% 60% at 50% 50%, rgba(124,59,237,0.06) 0%, transparent 70%)',
+      }} />
 
       {/* Header */}
       <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={vp}
-        className="max-w-6xl mx-auto px-6 mb-14 flex flex-col items-center text-center gap-4">
+        className="relative z-10 max-w-6xl mx-auto px-6 mb-14 flex flex-col items-center text-center gap-4">
         <motion.div variants={fadeUp}><SectionLabel>Creator community</SectionLabel></motion.div>
         <motion.h2 variants={fadeUp} className="font-black text-[#0F0F1A] tracking-tight"
           style={{ fontSize: 'clamp(36px, 5vw, 56px)', lineHeight: 1.0 }}>
@@ -649,32 +659,32 @@ function CreatorReel() {
         <motion.p variants={fadeUp} className="text-base text-[#4A4A6A]" style={{ maxWidth: 420, lineHeight: 1.6 }}>
           Structured campaigns. Verified payouts. Across TikTok, Instagram, YouTube, and more.
         </motion.p>
-        <motion.div variants={fadeUp} className="w-full sm:w-auto">
-          <Link href="/creators"
-            className="flex sm:inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full font-semibold text-sm w-full sm:w-auto"
+        <motion.div variants={fadeUp} className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+          <Link href="/sponsors"
+            className="flex items-center justify-center gap-2 px-6 py-3 rounded-full font-semibold text-sm w-full sm:w-auto"
             style={{ background: '#7C3BED', color: 'white' }}>
+            Run a Campaign <ArrowRight size={14} />
+          </Link>
+          <Link href="/creators"
+            className="flex items-center justify-center gap-2 px-6 py-3 rounded-full font-semibold text-sm w-full sm:w-auto"
+            style={{ background: 'rgba(124,59,237,0.10)', color: '#7C3BED', border: '1.5px solid rgba(124,59,237,0.22)' }}>
             Join as Creator <ArrowRight size={14} />
           </Link>
         </motion.div>
       </motion.div>
 
       {/* Row 1 — scrolls left */}
-      <div className="relative mb-3">
+      <div className="relative z-10 mb-3">
         <div className="flex animate-marquee gap-3" style={{ width: 'max-content' }}>
           {row1.map((r, i) => <ReelCard key={i} reel={r} />)}
         </div>
-        {/* Edge fades */}
-        <div className="absolute inset-y-0 left-0 w-24 pointer-events-none z-10" style={{ background: 'linear-gradient(to right, #fff, transparent)' }} />
-        <div className="absolute inset-y-0 right-0 w-24 pointer-events-none z-10" style={{ background: 'linear-gradient(to left, #fff, transparent)' }} />
       </div>
 
       {/* Row 2 — scrolls right */}
-      <div className="relative">
+      <div className="relative z-10">
         <div className="flex animate-marquee-reverse gap-3" style={{ width: 'max-content' }}>
           {row2.map((r, i) => <ReelCard key={i} reel={r} />)}
         </div>
-        <div className="absolute inset-y-0 left-0 w-24 pointer-events-none z-10" style={{ background: 'linear-gradient(to right, #fff, transparent)' }} />
-        <div className="absolute inset-y-0 right-0 w-24 pointer-events-none z-10" style={{ background: 'linear-gradient(to left, #fff, transparent)' }} />
       </div>
 
     </section>
