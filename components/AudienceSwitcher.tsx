@@ -4,15 +4,32 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { clsx } from 'clsx';
 import BrandLogo from '@/components/BrandLogo';
+import { motion, useScroll, useMotionValueEvent } from 'framer-motion';
+import { useState } from 'react';
 
 /** Fixed bottom pill: audience only (Creators vs Sponsors). Does not replace the main header. */
 export default function AudienceSwitcher() {
   const pathname = usePathname();
   const creatorsActive = pathname === '/creators';
   const sponsorsActive = pathname === '/sponsors';
+  const isHomePage = pathname === '/';
+
+  const [hidden, setHidden] = useState(false);
+  const { scrollYProgress } = useScroll();
+
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    if (isHomePage) {
+      setHidden(latest > 0.95);
+    } else {
+      setHidden(false);
+    }
+  });
 
   return (
-    <nav
+    <motion.nav
+      initial={{ opacity: 1, y: 0 }}
+      animate={{ opacity: hidden ? 0 : 1, y: hidden ? 20 : 0 }}
+      transition={{ duration: 0.3 }}
       className="pointer-events-none fixed bottom-5 left-0 right-0 z-50 flex justify-center px-4 sm:bottom-7 sm:px-6"
       aria-label="Audience"
     >
@@ -55,6 +72,6 @@ export default function AudienceSwitcher() {
           </Link>
         </div>
       </div>
-    </nav>
+    </motion.nav>
   );
 }

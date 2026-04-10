@@ -8,16 +8,7 @@ export default function LogoBar() {
   return (
     <section style={{ background: 'white', borderTop: '1px solid #EBEBF0', borderBottom: '1px solid #EBEBF0' }}>
       <div className="max-w-6xl mx-auto px-6 py-10">
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-center text-sm text-[#8888AA] mb-6 font-medium"
-        >
-          Trusted by teams and creators at
-        </motion.p>
-        <motion.div
+<motion.div
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
