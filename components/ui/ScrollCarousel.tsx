@@ -44,7 +44,7 @@ export function ScrollCarousel({ children, count, gridClass, className = '' }: P
         whileInView="visible"
         viewport={{ once: true, margin: '-80px' }}
         onScroll={handleScroll}
-        className={`flex items-stretch overflow-x-auto snap-x snap-mandatory gap-4 ${gridClass} md:grid md:items-start md:overflow-x-visible md:snap-none -mx-6 md:mx-0 pb-4 md:pb-0 before:shrink-0 before:w-6 md:before:hidden after:shrink-0 after:w-6 md:after:hidden scroll-px-6 md:scroll-px-0 ${className}`}
+        className={`flex items-stretch overflow-x-auto snap-x snap-mandatory gap-4 ${gridClass} md:grid md:items-stretch md:overflow-x-visible md:snap-none -mx-6 md:mx-0 pb-4 md:pb-0 before:shrink-0 before:w-6 md:before:hidden after:shrink-0 after:w-6 md:after:hidden scroll-px-6 md:scroll-px-0 ${className}`}
         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' } as React.CSSProperties}
       >
         {children}

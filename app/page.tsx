@@ -273,8 +273,8 @@ function WhyVarmply() {
               <div className="relative z-10 flex flex-col h-full">
                 <div className="flex items-center justify-between px-7 pt-5 pb-4"
                   style={{ borderBottom: '1px solid rgba(0,160,80,0.12)' }}>
-                  <span className="text-[9px] font-black uppercase tracking-[0.22em]" style={{ color: '#00A050' }}>Reach</span>
-                  <span className="text-[9px] font-bold uppercase tracking-[0.14em]" style={{ color: '#00A050' }}>TikTok · Instagram</span>
+                  <span className="text-[10px] md:text-xs font-black uppercase tracking-[0.22em]" style={{ color: '#00A050' }}>Reach</span>
+                  <span className="text-[10px] md:text-xs font-bold uppercase tracking-[0.14em]" style={{ color: '#00A050' }}>TikTok · Instagram</span>
                 </div>
                 <div className="flex-1 grid grid-cols-1 md:grid-cols-2">
                   {/* TikTok */}
@@ -284,11 +284,11 @@ function WhyVarmply() {
                       backgroundSize: '16px 16px',
                     }} />
                     <div className="relative z-10">
-                      <span className="text-[9px] font-black uppercase tracking-[0.22em] mb-5 block" style={{ color: '#00A050' }}>TikTok</span>
+                      <span className="text-[10px] md:text-xs font-black uppercase tracking-[0.22em] mb-5 block" style={{ color: '#00A050' }}>TikTok</span>
                       <p className="font-black leading-none mb-1"
                         style={{ fontSize: 'clamp(42px, 4.5vw, 58px)', color: '#00A050', letterSpacing: '-0.04em' }}>2.1M+</p>
-                      <p className="text-[9px] font-black uppercase tracking-[0.18em] mb-4" style={{ color: 'rgba(0,160,80,0.45)' }}>Video plays</p>
-                      <p className="text-xs text-[#4A4A6A] leading-relaxed">Short-form videos using your track as the sound.</p>
+                      <p className="text-[10px] md:text-xs font-black uppercase tracking-[0.18em] mb-4" style={{ color: 'rgba(0,160,80,0.45)' }}>Video plays</p>
+                      <p className="text-[13px] md:text-sm text-[#4A4A6A] leading-relaxed">Short-form videos using your track as the sound.</p>
                     </div>
                   </div>
                   {/* Instagram */}
@@ -298,11 +298,11 @@ function WhyVarmply() {
                       backgroundImage: 'repeating-linear-gradient(-45deg, rgba(0,160,80,0.045) 0px, rgba(0,160,80,0.045) 1px, transparent 1px, transparent 14px)',
                     }} />
                     <div className="relative z-10">
-                      <span className="text-[9px] font-black uppercase tracking-[0.22em] mb-5 block" style={{ color: '#00A050' }}>Instagram</span>
+                      <span className="text-[10px] md:text-xs font-black uppercase tracking-[0.22em] mb-5 block" style={{ color: '#00A050' }}>Instagram</span>
                       <p className="font-black leading-none mb-1"
                         style={{ fontSize: 'clamp(42px, 4.5vw, 58px)', color: '#00A050', letterSpacing: '-0.04em' }}>840K</p>
-                      <p className="text-[9px] font-black uppercase tracking-[0.18em] mb-4" style={{ color: 'rgba(0,160,80,0.45)' }}>Reel reach</p>
-                      <p className="text-xs text-[#4A4A6A] leading-relaxed">Reels extend your campaign beyond the core audience.</p>
+                      <p className="text-[10px] md:text-xs font-black uppercase tracking-[0.18em] mb-4" style={{ color: 'rgba(0,160,80,0.45)' }}>Reel reach</p>
+                      <p className="text-[13px] md:text-sm text-[#4A4A6A] leading-relaxed">Reels extend your campaign beyond the core audience.</p>
                     </div>
                   </div>
                 </div>
@@ -320,13 +320,13 @@ function WhyVarmply() {
               <div className="relative z-10 flex flex-col h-full">
                 <div className="flex items-center justify-between px-7 pt-5 pb-4"
                   style={{ borderBottom: '1px solid rgba(124,59,237,0.12)' }}>
-                  <span className="text-[9px] font-black uppercase tracking-[0.22em]" style={{ color: '#7C3BED' }}>Risk</span>
+                  <span className="text-[10px] md:text-xs font-black uppercase tracking-[0.22em]" style={{ color: '#7C3BED' }}>Risk</span>
                   <Shield size={11} style={{ color: '#7C3BED' }} />
                 </div>
                 <div className="flex-1 px-7 pt-7 pb-4 flex flex-col">
                   <p className="font-black leading-none mb-1"
                     style={{ fontSize: 'clamp(52px, 5.5vw, 70px)', color: '#7C3BED', letterSpacing: '-0.04em' }}>0%</p>
-                  <p className="text-[9px] font-black uppercase tracking-[0.22em] mb-6"
+                  <p className="text-[10px] md:text-xs font-black uppercase tracking-[0.22em] mb-6"
                     style={{ color: 'rgba(124,59,237,0.45)' }}>Payment risk</p>
                   <div className="h-px mb-5" style={{ background: 'rgba(124,59,237,0.12)' }} />
                   <h3 className="font-black text-[#0F0F1A] tracking-tight mb-2"
@@ -342,7 +342,7 @@ function WhyVarmply() {
                     <div key={j} className="py-4 text-center"
                       style={{ borderRight: j === 0 ? '1px solid rgba(124,59,237,0.10)' : 'none' }}>
                       <p className="font-black text-sm leading-none" style={{ color: '#7C3BED' }}>{s.val}</p>
-                      <p className="text-[8px] font-bold uppercase tracking-[0.18em] mt-1" style={{ color: 'rgba(124,59,237,0.45)' }}>{s.label}</p>
+                      <p className="text-[9px] md:text-[10px] font-bold uppercase tracking-[0.18em] mt-1" style={{ color: 'rgba(124,59,237,0.45)' }}>{s.label}</p>
                     </div>
                   ))}
                 </div>
@@ -360,13 +360,13 @@ function WhyVarmply() {
               <div className="relative z-10 flex flex-col h-full">
                 <div className="flex items-center justify-between px-7 pt-5 pb-4"
                   style={{ borderBottom: '1px solid rgba(37,99,235,0.12)' }}>
-                  <span className="text-[9px] font-black uppercase tracking-[0.22em]" style={{ color: '#2563EB' }}>Clarity</span>
+                  <span className="text-[10px] md:text-xs font-black uppercase tracking-[0.22em]" style={{ color: '#2563EB' }}>Clarity</span>
                   <CheckCircle size={9} style={{ color: '#2563EB' }} />
                 </div>
                 <div className="flex-1 px-7 pt-6 pb-4 flex flex-col">
                   <p className="font-black leading-none mb-1"
                     style={{ fontSize: 'clamp(48px, 5vw, 62px)', color: '#2563EB', letterSpacing: '-0.04em' }}>100%</p>
-                  <p className="text-[9px] font-black uppercase tracking-[0.22em] mb-5"
+                  <p className="text-[10px] md:text-xs font-black uppercase tracking-[0.22em] mb-5"
                     style={{ color: 'rgba(37,99,235,0.45)' }}>Transparent</p>
                   <div className="h-px mb-4" style={{ background: 'rgba(37,99,235,0.12)' }} />
                   <h3 className="font-black text-[#0F0F1A] tracking-tight mb-2"
@@ -391,12 +391,12 @@ function WhyVarmply() {
               <div className="relative z-10 flex flex-col h-full">
                 <div className="flex items-center justify-between px-7 pt-5 pb-4"
                   style={{ borderBottom: '1px solid rgba(217,119,6,0.12)' }}>
-                  <span className="text-[9px] font-black uppercase tracking-[0.22em]" style={{ color: '#D97706' }}>Payout</span>
+                  <span className="text-[10px] md:text-xs font-black uppercase tracking-[0.22em]" style={{ color: '#D97706' }}>Payout</span>
                 </div>
                 <div className="flex-1 px-7 pt-7 pb-4 flex flex-col">
                   <p className="font-black leading-none mb-1"
                     style={{ fontSize: 'clamp(52px, 5.5vw, 70px)', color: '#D97706', letterSpacing: '-0.04em' }}>48h</p>
-                  <p className="text-[9px] font-black uppercase tracking-[0.22em] mb-6"
+                  <p className="text-[10px] md:text-xs font-black uppercase tracking-[0.22em] mb-6"
                     style={{ color: 'rgba(217,119,6,0.45)' }}>Avg. release time</p>
                   <div className="h-px mb-5" style={{ background: 'rgba(217,119,6,0.12)' }} />
                   <h3 className="font-black text-[#0F0F1A] tracking-tight mb-2"
@@ -412,7 +412,7 @@ function WhyVarmply() {
                     <div key={j} className="py-4 text-center"
                       style={{ borderRight: j === 0 ? '1px solid rgba(217,119,6,0.10)' : 'none' }}>
                       <p className="font-black text-sm leading-none" style={{ color: '#D97706' }}>{s.val}</p>
-                      <p className="text-[8px] font-bold uppercase tracking-[0.18em] mt-1" style={{ color: 'rgba(217,119,6,0.45)' }}>{s.label}</p>
+                      <p className="text-[9px] md:text-[10px] font-bold uppercase tracking-[0.18em] mt-1" style={{ color: 'rgba(217,119,6,0.45)' }}>{s.label}</p>
                     </div>
                   ))}
                 </div>
