@@ -18,26 +18,28 @@ export default function AudienceSwitcher() {
   const { scrollYProgress } = useScroll();
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    if (isHomePage) {
-      setHidden(latest > 0.95);
-    } else {
-      setHidden(false);
-    }
+    // Hide earlier to avoid covering footer links
+    setHidden(latest > 0.88);
   });
 
   return (
     <motion.nav
       initial={{ opacity: 1, y: 0 }}
-      animate={{ opacity: hidden ? 0 : 1, y: hidden ? 20 : 0 }}
+      animate={{ 
+        opacity: hidden ? 0 : 1, 
+        y: hidden ? 20 : 0,
+        zIndex: hidden ? -1 : 50
+      }}
       transition={{ duration: 0.3 }}
-      className="pointer-events-none fixed bottom-5 left-0 right-0 z-50 flex justify-center px-4 sm:bottom-7 sm:px-6"
+      className="pointer-events-none fixed bottom-[5dvh] left-0 right-0 flex justify-center px-4 sm:bottom-[7dvh] sm:px-6"
       aria-label="Audience"
     >
       <div
         className={clsx(
-          'pointer-events-auto flex items-center rounded-full p-1 ring-1 ring-black/[0.06] sm:p-1.5',
-          'border border-white/80',
-          'backdrop-blur-[24px] backdrop-saturate-[180%]'
+          'flex items-center rounded-full p-1 ring-1 ring-black/[0.06] sm:p-1.5',
+          'border border-white/80 transition-all duration-300',
+          'backdrop-blur-[24px] backdrop-saturate-[180%]',
+          hidden ? 'pointer-events-none invisible' : 'pointer-events-auto visible'
         )}
         style={{
           WebkitBackdropFilter: 'blur(24px) saturate(180%)',

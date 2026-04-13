@@ -201,8 +201,8 @@ MagneticButton.displayName = "MagneticButton";
 const pageConfigs = {
     '/': {
         bg: '#6406cf',
-        headline: "Join Nigeria's most\nstructured creator marketplace.",
-        subtext: "No scattered DMs. No vague agreements. Structured campaigns, verified performance, transparent payments.",
+        headline: "Turn your next release\ninto a campaign.",
+        subtext: "No DMs. No guesswork. Just performance.",
         cta1: { label: 'Run a Campaign', href: '/sponsors' },
         cta2: { label: 'Join as Creator', href: '/creators' },
         marquee: ['Accountability Redefined', 'Transparent Tracking', 'Verified Performance', 'Sponsor Connection', 'Escrow Protected'],
@@ -220,7 +220,7 @@ const pageConfigs = {
     },
     '/creators': {
         bg: '#006B35',
-        headline: "Start earning from\nstructured campaigns.",
+        headline: "Start earning from\nmusic campaigns.",
         subtext: "Apply to campaigns you qualify for, deliver the work, get paid automatically. No chasing required.",
         cta1: { label: 'Create Creator Account', href: '#' },
         cta2: { label: 'Browse Campaigns', href: '#campaigns' },
@@ -317,12 +317,12 @@ export function MotionFooter() {
       */}
             <div
                 ref={wrapperRef}
-                className="relative h-screen w-full"
+                className="relative h-[100dvh] w-full"
                 style={{ clipPath: "polygon(0% 0, 100% 0%, 100% 100%, 0 100%)" }}
             >
                 {/* The actual footer stays fixed to the viewport underneath everything */}
                 <footer
-                    className="fixed bottom-0 left-0 flex h-screen w-full flex-col justify-between overflow-hidden cinematic-footer-wrapper"
+                    className="sticky bottom-0 left-0 flex h-[100dvh] w-full flex-col justify-between overflow-hidden cinematic-footer-wrapper z-10"
                     style={{ background: config.bg, color: '#FFFFFF' }}
                 >
                     {/* Ambient aurora glow */}
@@ -418,27 +418,29 @@ export function MotionFooter() {
                     </div>
 
                     {/* 3. Bottom bar */}
-                    <div className="relative z-20 w-full pb-8 px-6 md:px-12 flex flex-row items-center justify-between gap-6">
+                    <div className="relative z-[60] w-full pb-10 md:pb-8 px-6 md:px-12 flex flex-row items-center justify-between gap-6">
                         <div className="flex flex-col md:flex-row md:items-center gap-3 md:gap-6">
-                            <div className="text-[10px] md:text-xs font-semibold tracking-widest uppercase" style={{ color: 'rgba(255,255,255,0.30)' }}>
+                            <div className="text-[12px] md:text-xs font-semibold tracking-widest uppercase" style={{ color: 'rgba(255,255,255,0.40)' }}>
                                 © 2026 Varmply. All rights reserved.
                             </div>
-                            <div className="flex items-center gap-4">
+                            <div className="flex items-center gap-1 relative z-[100]">
                                 <Link
                                     href="/terms"
-                                    className="text-[10px] md:text-xs font-semibold tracking-widest uppercase transition-colors"
-                                    style={{ color: 'rgba(255,255,255,0.30)' }}
-                                    onMouseEnter={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.70)')}
-                                    onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.30)')}
+                                    data-lenis-prevent
+                                    className="text-sm md:text-xs px-5 py-4 font-bold tracking-[0.2em] uppercase transition-all cursor-pointer relative z-[110] active:scale-95 active:bg-white/5 rounded-lg whitespace-nowrap"
+                                    style={{ color: 'rgba(255,255,255,0.40)', pointerEvents: 'auto', touchAction: 'manipulation' }}
+                                    onMouseEnter={e => (e.currentTarget.style.color = 'rgba(255,255,255,1)')}
+                                    onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.40)')}
                                 >
                                     Terms
                                 </Link>
                                 <Link
                                     href="/privacy"
-                                    className="text-[10px] md:text-xs font-semibold tracking-widest uppercase transition-colors"
-                                    style={{ color: 'rgba(255,255,255,0.30)' }}
-                                    onMouseEnter={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.70)')}
-                                    onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.30)')}
+                                    data-lenis-prevent
+                                    className="text-sm md:text-xs px-5 py-4 font-bold tracking-[0.2em] uppercase transition-all cursor-pointer relative z-[110] active:scale-95 active:bg-white/5 rounded-lg whitespace-nowrap"
+                                    style={{ color: 'rgba(255,255,255,0.40)', pointerEvents: 'auto', touchAction: 'manipulation' }}
+                                    onMouseEnter={e => (e.currentTarget.style.color = 'rgba(255,255,255,1)')}
+                                    onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.40)')}
                                 >
                                     Privacy
                                 </Link>

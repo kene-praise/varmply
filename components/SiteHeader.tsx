@@ -25,19 +25,20 @@ export default function SiteHeader() {
 
   return (
     <header className={clsx(
-      'w-full z-50',
-      // Desktop: absolute overlay over hero, scrolls away with page
-      'md:absolute md:top-0 md:left-0 md:right-0 md:bg-transparent',
-      // Mobile: solid fill in normal flow
-      isLightHeader ? 'bg-white' : 'bg-[#07071A]',
+      'w-full z-50 sticky top-0 backdrop-blur-xl border-b',
+      'bg-[rgba(10,2,40,0.96)] border-white/10 md:border-none',
+      isLightHeader
+        ? 'md:bg-transparent'
+        : 'md:bg-transparent',
+      'md:absolute md:top-0 md:left-0 md:right-0 md:backdrop-blur-none',
     )}>
       <div className="relative mx-auto flex min-h-16 max-w-6xl items-center justify-between px-6 py-2 md:min-h-[4.25rem] md:py-2.5">
         <div className="flex flex-1 items-center justify-start">
           <Link href="/" className="flex items-center gap-1" aria-label="Varmply home">
-            <BrandLogo className="h-9 w-auto md:h-13" priority white={!isLightHeader} />
+            <BrandLogo className="h-9 w-auto md:h-13" priority white={!isLightHeader || true} />
             <span className={clsx(
-              'text-[17px] md:text-[24px] font-black tracking-tight',
-              isLightHeader ? 'text-[#0F0F1A]' : 'text-white'
+              'text-[17px] md:text-[24px] font-black tracking-tight drop-shadow-sm transition-colors',
+              isLightHeader ? 'text-white md:text-[#0F0F1A]' : 'text-white'
             )}>
               Varmply
             </span>
@@ -96,8 +97,8 @@ export default function SiteHeader() {
             className={clsx(
               'rounded-full p-2 transition-colors md:hidden',
               isLightHeader
-                ? 'text-[#0F0F1A]/70 hover:bg-black/5 hover:text-[#0F0F1A]'
-                : 'text-white/70 hover:bg-white/10 hover:text-white'
+                ? 'text-white md:text-[#0F0F1A] hover:bg-white/10'
+                : 'text-white hover:bg-white/10'
             )}
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Toggle menu"
@@ -109,12 +110,7 @@ export default function SiteHeader() {
       </div>
 
       {mobileOpen && (
-        <div className={clsx(
-          'backdrop-blur-xl md:hidden border-t',
-          isLightHeader
-            ? 'bg-white/90 border-black/[0.06]'
-            : 'bg-[rgba(10,2,40,0.92)] border-white/10'
-        )}>
+        <div className="md:hidden border-t border-white/5">
           <div className="flex flex-col gap-1 px-6 py-4">
             {navLinks.map((link) => (
               <Link

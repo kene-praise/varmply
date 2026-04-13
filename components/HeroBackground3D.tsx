@@ -107,7 +107,7 @@ export default function HeroBackground3D() {
 
     const w = el.clientWidth, h = el.clientHeight;
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color('#7433FF');
+    scene.background = new THREE.Color('#6406cf');
 
     const camera = new THREE.PerspectiveCamera(58, w / h, 0.1, 100);
     camera.position.set(-3, 0, 13);

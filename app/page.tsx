@@ -8,8 +8,37 @@ import { motion } from 'framer-motion';
 import {
   ArrowRight, CheckCircle, Shield, Wallet,
   BarChart2, Zap, Users, Star, Lock, TrendingUp,
+  Music2, Camera,
 } from 'lucide-react';
 import { BrowserChrome, DashboardSkeleton, CreateCampaignSkeleton } from '@/components/MockupSkeletons';
+import { ScrollCarousel } from '@/components/ui/ScrollCarousel';
+
+// ─── Phone skeletons ──────────────────────────────────────────────────────────
+
+function MobileCampaignSkeleton() {
+  return (
+    <div className="p-4 flex flex-col gap-3">
+      <div className="h-3 w-32 bg-[#EBEBF2] rounded mb-1" />
+      <div className="h-8 w-full rounded-lg bg-[#F0F0F5] mb-1" />
+      <div className="h-3 w-24 bg-[#EBEBF2] rounded mt-2 mb-1" />
+      <div className="flex gap-2 mb-2">
+        <div className="h-8 flex-1 rounded-lg bg-[#EDE9FF]" />
+        <div className="h-8 flex-1 rounded-lg bg-[#F0F0F5]" />
+      </div>
+      <div className="h-3 w-28 bg-[#EBEBF2] rounded mb-1" />
+      <div className="h-16 w-full rounded-xl bg-[#F0F0F5]" />
+      <div className="h-3 w-20 bg-[#EBEBF2] rounded mt-2 mb-1" />
+      <div className="flex flex-wrap gap-1.5">
+        {['TikTok', 'Instagram', 'YouTube'].map(p => (
+          <div key={p} className="h-6 px-3 rounded-full bg-[#EDE9FF] flex items-center">
+            <div className="h-1.5 w-10 bg-[#C4B5FD] rounded" />
+          </div>
+        ))}
+      </div>
+      <div className="mt-3 h-10 w-full rounded-full bg-[#7C3BED]" />
+    </div>
+  );
+}
 
 // ─── Shared helpers ───────────────────────────────────────────────────────────
 
@@ -34,66 +63,77 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
   );
 }
 
-// ─── 1. Bento Feature Section ─────────────────────────────────────────────────
+// ─── 1a. How It Works ────────────────────────────────────────────────────────
 
-function BentoFeature() {
+function HowItWorks() {
   return (
-    <section className="py-24" style={{ background: '#FFFFFF', borderTop: '1px solid #E4E4EC' }}>
+    <section className="py-12 md:py-24" style={{ background: '#FFFFFF', borderTop: '1px solid #E4E4EC' }}>
       <div className="max-w-6xl mx-auto px-6">
 
         {/* Centered header */}
         <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={vp}
-          className="mb-14 flex flex-col items-center text-center gap-4">
+          className="mb-8 md:mb-14 flex flex-col items-start text-left md:items-center md:text-center gap-4">
           <motion.div variants={fadeUp}><SectionLabel>How it works</SectionLabel></motion.div>
           <motion.h2 variants={fadeUp} className="font-black text-[#0F0F1A] tracking-tight"
-            style={{ fontSize: 'clamp(36px, 5vw, 56px)', lineHeight: 1.0, maxWidth: 600 }}>
-            Designed for how<br />campaigns actually work.
+            style={{ fontSize: 'clamp(36px, 5vw, 56px)', lineHeight: 1.0 }}>
+            From release to virality <br className="max-md:hidden" />fully structured.
           </motion.h2>
-          <motion.p variants={fadeUp} className="text-base text-[#4A4A6A]" style={{ lineHeight: 1.6, maxWidth: 440 }}>
-            From discovery to payout — every step is structured, tracked, and protected.
+          <motion.p variants={fadeUp} className="text-base text-[#4A4A6A] md:max-w-[440px]" style={{ lineHeight: 1.6 }}>
+            Launch your track once. Creators pick it up. Performance is tracked automatically and payouts follow.
           </motion.p>
         </motion.div>
 
-        {/* Row 1 — browser card + earnings card */}
+        {/* Bento — LAUNCH spans 2 rows left, DISTRIBUTION + ENFORCEMENT stack right */}
         <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={vp}
-          className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+          className="grid grid-cols-1 md:grid-cols-[5fr_7fr] gap-4">
 
-          {/* Campaign Management — purple, crosshatch, col-span-2 */}
-          <motion.div variants={fadeUp} className="md:col-span-2">
-            <div className="relative overflow-hidden rounded-[28px] flex flex-col"
-              style={{ background: 'rgba(124,59,237,0.05)', border: '1.5px solid rgba(124,59,237,0.14)', minHeight: 420 }}>
+          {/* ── LAUNCH (step 01) — tall left, purple crosshatch, browser mockup ── */}
+          <motion.div variants={fadeUp} className="md:row-span-2 flex flex-col">
+            <div className="relative overflow-hidden rounded-[28px] flex flex-col h-full"
+              style={{ background: 'rgba(124,59,237,0.05)', border: '1.5px solid rgba(124,59,237,0.14)', minHeight: 460 }}>
               <div className="absolute inset-0 pointer-events-none" style={{
                 backgroundImage: 'repeating-linear-gradient(-45deg, rgba(124,59,237,0.045) 0px, rgba(124,59,237,0.045) 1px, transparent 1px, transparent 14px)',
               }} />
               <div className="relative z-10 flex flex-col h-full">
-                <div className="flex items-center justify-between px-7 pt-6 pb-4"
+                <div className="flex items-center justify-between px-7 pt-5 pb-4"
                   style={{ borderBottom: '1px solid rgba(124,59,237,0.12)' }}>
-                  <span className="text-[9px] font-black uppercase tracking-[0.22em]" style={{ color: '#7C3BED' }}>
-                    Campaign Management
-                  </span>
-                  <span className="flex items-center gap-1.5 text-[9px] font-bold uppercase tracking-[0.14em]"
-                    style={{ color: '#7C3BED' }}>
-                    <span className="w-1.5 h-1.5 rounded-full inline-block animate-pulse" style={{ background: '#7C3BED' }} />
-                    Live
+                  <span className="text-[9px] font-black uppercase tracking-[0.22em]" style={{ color: '#7C3BED' }}>Launch</span>
+                  <span className="flex items-center gap-1.5 text-[9px] font-bold uppercase tracking-[0.14em]" style={{ color: '#7C3BED' }}>
+                    <span className="w-1.5 h-1.5 rounded-full inline-block animate-pulse" style={{ background: '#7C3BED' }} />01
                   </span>
                 </div>
-                <div className="flex-1 px-7 pt-6 pb-0">
-                  <p className="font-black text-[#0F0F1A] tracking-tight mb-5"
-                    style={{ fontSize: 'clamp(16px, 1.8vw, 20px)', lineHeight: 1.15 }}>
-                    Every active campaign, creator,<br className="hidden md:block" /> and spend — in one place.
+                <div className="flex-1 px-7 pt-6 pb-4 flex flex-col">
+                  <h3 className="font-black text-[#0F0F1A] tracking-tight mb-3"
+                    style={{ fontSize: 'clamp(17px, 1.7vw, 22px)', lineHeight: 1.15 }}>
+                    Launch your track <br className="max-md:hidden" />as a campaign
+                  </h3>
+                  <p className="text-sm text-[#4A4A6A] leading-relaxed mb-5">
+                    Set your budget, rules, and payout model. Creators join and start posting.
                   </p>
-                  <div className="relative rounded-xl overflow-hidden"
-                    style={{ border: '1px solid rgba(124,59,237,0.10)' }}>
-                    <BrowserChrome url="app.varmply.com/campaigns" />
-                    <div className="bg-[#FAFAFA] overflow-hidden" style={{ height: 260 }}>
-                      <DashboardSkeleton />
+                  <div className="hidden md:block relative rounded-xl overflow-hidden flex-1"
+                    style={{ border: '1px solid rgba(124,59,237,0.10)', minHeight: 180 }}>
+                    <BrowserChrome url="app.varmply.co/campaigns/create" />
+                    <div className="relative overflow-hidden bg-white" style={{ height: 240 }}>
+                      <div style={{ transform: 'scale(0.85)', transformOrigin: 'top left', width: '118%' }}>
+                        <CreateCampaignSkeleton />
+                      </div>
+                    </div>
+                  </div>
+                  {/* Mobile version (Phone visual) */}
+                  <div className="md:hidden mt-2 relative h-[260px] w-full flex justify-center overflow-hidden pointer-events-none -mb-4">
+                    <div className="absolute top-0 flex justify-center" style={{ transform: 'scale(0.85)', transformOrigin: 'top center', width: 320 }}>
+                      <PhoneFrame screenBg="#FFFFFF">
+                        <div className="w-full h-[696px] bg-white pt-6">
+                          <MobileCampaignSkeleton />
+                        </div>
+                      </PhoneFrame>
                     </div>
                   </div>
                 </div>
-                <div className="grid grid-cols-3" style={{ borderTop: '1px solid rgba(124,59,237,0.12)' }}>
-                  {[{ val: '847+', label: 'Creators' }, { val: '₦2.4M', label: 'Distributed' }, { val: '98%', label: 'On-time' }].map((s, j) => (
+                <div className="grid grid-cols-2" style={{ borderTop: '1px solid rgba(124,59,237,0.12)' }}>
+                  {[{ val: '5min', label: 'Setup' }, { val: '₦0', label: 'Upfront risk' }].map((s, j) => (
                     <div key={j} className="py-4 text-center"
-                      style={{ borderRight: j < 2 ? '1px solid rgba(124,59,237,0.10)' : 'none' }}>
+                      style={{ borderRight: j === 0 ? '1px solid rgba(124,59,237,0.10)' : 'none' }}>
                       <p className="font-black text-sm leading-none" style={{ color: '#7C3BED' }}>{s.val}</p>
                       <p className="text-[8px] font-bold uppercase tracking-[0.18em] mt-1" style={{ color: 'rgba(124,59,237,0.45)' }}>{s.label}</p>
                     </div>
@@ -103,44 +143,40 @@ function BentoFeature() {
             </div>
           </motion.div>
 
-          {/* Creator Earnings — green, dot grid */}
-          <motion.div variants={fadeUp} className="h-full">
+          {/* ── DISTRIBUTION (step 02) — top right, green dot grid ── */}
+          <motion.div variants={fadeUp} className="flex flex-col">
             <div className="relative overflow-hidden rounded-[28px] flex flex-col h-full"
-              style={{ background: 'rgba(0,160,80,0.05)', border: '1.5px solid rgba(0,160,80,0.14)', minHeight: 420 }}>
+              style={{ background: 'rgba(0,160,80,0.05)', border: '1.5px solid rgba(0,160,80,0.14)', minHeight: 210 }}>
               <div className="absolute inset-0 pointer-events-none" style={{
                 backgroundImage: 'radial-gradient(circle, rgba(0,160,80,0.13) 1px, transparent 1px)',
                 backgroundSize: '18px 18px',
               }} />
               <div className="relative z-10 flex flex-col h-full">
-                <div className="flex items-center justify-between px-7 pt-6 pb-4"
+                <div className="flex items-center justify-between px-7 pt-5 pb-4"
                   style={{ borderBottom: '1px solid rgba(0,160,80,0.12)' }}>
-                  <span className="text-[9px] font-black uppercase tracking-[0.22em]" style={{ color: '#00A050' }}>Creator Earnings</span>
-                  <Wallet size={11} style={{ color: '#00A050' }} />
+                  <span className="text-[9px] font-black uppercase tracking-[0.22em]" style={{ color: '#00A050' }}>Distribution</span>
+                  <span className="text-[9px] font-bold uppercase tracking-[0.14em]" style={{ color: '#00A050' }}>02</span>
                 </div>
-                <div className="flex-1 px-7 pt-7 pb-4 flex flex-col">
-                  <p className="font-black leading-none mb-1"
-                    style={{ fontSize: 'clamp(52px, 6vw, 72px)', color: '#00A050', letterSpacing: '-0.04em' }}>₦285K</p>
-                  <p className="text-[9px] font-black uppercase tracking-[0.22em] mb-7"
-                    style={{ color: 'rgba(0,160,80,0.45)' }}>Earned this month</p>
-                  <div className="h-px mb-6" style={{ background: 'rgba(0,160,80,0.14)' }} />
-                  <div className="flex flex-col gap-2.5 flex-1">
-                    {[
-                      { brand: 'Paystack', amount: '₦25K' },
-                      { brand: 'PiggyVest', amount: '₦18K' },
-                      { brand: 'Flutterwave', amount: '₦40K' },
-                    ].map((item) => (
-                      <div key={item.brand} className="flex items-center justify-between">
-                        <div className="flex items-center gap-2">
-                          <CheckCircle size={12} style={{ color: '#00A050' }} />
-                          <span className="text-xs font-semibold text-[#0F0F1A]">{item.brand}</span>
-                        </div>
-                        <span className="text-xs font-black" style={{ color: '#00A050' }}>{item.amount}</span>
-                      </div>
-                    ))}
+                <div className="flex-1 px-7 pt-6 pb-4 flex flex-col md:flex-row md:items-center md:gap-8">
+                  <div className="shrink-0">
+                    <p className="font-black leading-none mb-1"
+                      style={{ fontSize: 'clamp(52px, 5vw, 66px)', color: '#00A050', letterSpacing: '-0.04em' }}>2.4M+</p>
+                    <p className="text-[9px] font-black uppercase tracking-[0.22em]"
+                      style={{ color: 'rgba(0,160,80,0.45)' }}>Plays generated</p>
+                  </div>
+                  <div className="hidden md:block w-px self-stretch" style={{ background: 'rgba(0,160,80,0.12)' }} />
+                  <div className="mt-4 md:mt-0">
+                    <h3 className="font-black text-[#0F0F1A] tracking-tight mb-1.5"
+                      style={{ fontSize: 'clamp(13px, 1.3vw, 16px)', lineHeight: 1.2 }}>
+                      Creators turn your song into content
+                    </h3>
+                    <p className="text-sm text-[#4A4A6A] leading-relaxed">
+                      Your track spreads across TikTok and Instagram — driven by real creators, not ads.
+                    </p>
                   </div>
                 </div>
                 <div className="grid grid-cols-2" style={{ borderTop: '1px solid rgba(0,160,80,0.12)' }}>
-                  {[{ val: '48h', label: 'Avg. payout' }, { val: '100%', label: 'Automated' }].map((s, j) => (
+                  {[{ val: '847+', label: 'Creators' }, { val: '2', label: 'Platforms' }].map((s, j) => (
                     <div key={j} className="py-4 text-center"
                       style={{ borderRight: j === 0 ? '1px solid rgba(0,160,80,0.10)' : 'none' }}>
                       <p className="font-black text-sm leading-none" style={{ color: '#00A050' }}>{s.val}</p>
@@ -151,122 +187,46 @@ function BentoFeature() {
               </div>
             </div>
           </motion.div>
-        </motion.div>
 
-        {/* Row 2 — 3 feature cards */}
-        <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={vp}
-          className="grid grid-cols-1 md:grid-cols-3 gap-4">
-
-          {/* Sponsor Tools — amber, horizontal rules */}
-          <motion.div variants={fadeUp} className="h-full">
+          {/* ── ENFORCEMENT (step 03) — bottom right, amber horizontal rules ── */}
+          <motion.div variants={fadeUp} className="flex flex-col">
             <div className="relative overflow-hidden rounded-[28px] flex flex-col h-full"
-              style={{ background: 'rgba(217,119,6,0.05)', border: '1.5px solid rgba(217,119,6,0.14)', minHeight: 340 }}>
+              style={{ background: 'rgba(217,119,6,0.05)', border: '1.5px solid rgba(217,119,6,0.14)', minHeight: 210 }}>
               <div className="absolute inset-0 pointer-events-none" style={{
                 backgroundImage: 'repeating-linear-gradient(180deg, rgba(217,119,6,0.07) 0px, rgba(217,119,6,0.07) 1px, transparent 1px, transparent 22px)',
               }} />
               <div className="relative z-10 flex flex-col h-full">
                 <div className="flex items-center justify-between px-7 pt-5 pb-4"
                   style={{ borderBottom: '1px solid rgba(217,119,6,0.12)' }}>
-                  <span className="text-[9px] font-black uppercase tracking-[0.22em]" style={{ color: '#D97706' }}>Sponsor Tools</span>
-                  <BarChart2 size={11} style={{ color: '#D97706' }} />
+                  <span className="text-[9px] font-black uppercase tracking-[0.22em]" style={{ color: '#D97706' }}>Enforcement</span>
+                  <span className="flex items-center gap-1.5 text-[9px] font-bold uppercase tracking-[0.14em]" style={{ color: '#D97706' }}>
+                    <span className="w-1.5 h-1.5 rounded-full inline-block animate-pulse" style={{ background: '#D97706' }} />03
+                  </span>
                 </div>
-                <div className="flex-1 px-7 pt-6 pb-4 flex flex-col">
-                  <h3 className="font-black text-[#0F0F1A] tracking-tight mb-3"
-                    style={{ fontSize: 'clamp(16px, 1.6vw, 19px)', lineHeight: 1.15 }}>Create a campaign<br />in minutes</h3>
-                  <p className="text-sm text-[#4A4A6A] leading-relaxed flex-1">
-                    Set requirements, lock your budget in escrow, and publish. Creators see it and apply.
-                  </p>
-                  <div className="relative rounded-xl overflow-hidden mt-4"
-                    style={{ border: '1px solid rgba(217,119,6,0.10)' }}>
-                    <BrowserChrome url="app.varmply.com/campaigns/create" />
-                    <div className="relative overflow-hidden bg-white" style={{ height: 120 }}>
-                      <div style={{ transform: 'scale(0.85)', transformOrigin: 'top left', width: '118%' }}>
-                        <CreateCampaignSkeleton />
-                      </div>
-                    </div>
+                <div className="flex-1 px-7 pt-6 pb-4 flex flex-col md:flex-row md:items-center md:gap-8">
+                  <div className="shrink-0">
+                    <p className="font-black leading-none mb-1"
+                      style={{ fontSize: 'clamp(52px, 5vw, 66px)', color: '#D97706', letterSpacing: '-0.04em' }}>0%</p>
+                    <p className="text-[9px] font-black uppercase tracking-[0.22em]"
+                      style={{ color: 'rgba(217,119,6,0.45)' }}>Wasted budget</p>
+                  </div>
+                  <div className="hidden md:block w-px self-stretch" style={{ background: 'rgba(217,119,6,0.12)' }} />
+                  <div className="mt-4 md:mt-0">
+                    <h3 className="font-black text-[#0F0F1A] tracking-tight mb-1.5"
+                      style={{ fontSize: 'clamp(13px, 1.3vw, 16px)', lineHeight: 1.2 }}>
+                      You only pay for real performance
+                    </h3>
+                    <p className="text-sm text-[#4A4A6A] leading-relaxed">
+                      Funds stay locked in escrow and release automatically when engagement is verified.
+                    </p>
                   </div>
                 </div>
                 <div className="grid grid-cols-2" style={{ borderTop: '1px solid rgba(217,119,6,0.12)' }}>
-                  {[{ val: '5min', label: 'Setup' }, { val: '₦0', label: 'Upfront risk' }].map((s, j) => (
+                  {[{ val: 'Escrow', label: 'Protected' }, { val: 'Auto', label: 'Release' }].map((s, j) => (
                     <div key={j} className="py-4 text-center"
                       style={{ borderRight: j === 0 ? '1px solid rgba(217,119,6,0.10)' : 'none' }}>
                       <p className="font-black text-sm leading-none" style={{ color: '#D97706' }}>{s.val}</p>
                       <p className="text-[8px] font-bold uppercase tracking-[0.18em] mt-1" style={{ color: 'rgba(217,119,6,0.45)' }}>{s.label}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Clear Requirements — blue, vertical lines */}
-          <motion.div variants={fadeUp} className="h-full">
-            <div className="relative overflow-hidden rounded-[28px] flex flex-col h-full"
-              style={{ background: 'rgba(37,99,235,0.05)', border: '1.5px solid rgba(37,99,235,0.14)', minHeight: 340 }}>
-              <div className="absolute inset-0 pointer-events-none" style={{
-                backgroundImage: 'repeating-linear-gradient(90deg, rgba(37,99,235,0.06) 0px, rgba(37,99,235,0.06) 1px, transparent 1px, transparent 20px)',
-              }} />
-              <div className="relative z-10 flex flex-col h-full">
-                <div className="flex items-center justify-between px-7 pt-5 pb-4"
-                  style={{ borderBottom: '1px solid rgba(37,99,235,0.12)' }}>
-                  <span className="text-[9px] font-black uppercase tracking-[0.22em]" style={{ color: '#2563EB' }}>Requirements</span>
-                  <span className="flex items-center gap-1 text-[9px] font-bold uppercase tracking-[0.14em]"
-                    style={{ color: '#2563EB' }}>
-                    <CheckCircle size={9} />Clear
-                  </span>
-                </div>
-                <div className="flex-1 px-7 pt-7 pb-4 flex flex-col">
-                  <p className="font-black leading-none mb-1"
-                    style={{ fontSize: 'clamp(52px, 6vw, 72px)', color: '#2563EB', letterSpacing: '-0.04em' }}>100%</p>
-                  <p className="text-[9px] font-black uppercase tracking-[0.22em] mb-6"
-                    style={{ color: 'rgba(37,99,235,0.45)' }}>Transparent briefs</p>
-                  <div className="h-px mb-5" style={{ background: 'rgba(37,99,235,0.12)' }} />
-                  <p className="text-sm text-[#4A4A6A] leading-relaxed flex-1">
-                    Every campaign shows deliverables, eligibility, and payout before you apply. No hidden clauses.
-                  </p>
-                </div>
-                <div className="grid grid-cols-2" style={{ borderTop: '1px solid rgba(37,99,235,0.12)' }}>
-                  {[{ val: '0', label: 'Hidden terms' }, { val: 'Pre-read', label: 'Brief' }].map((s, j) => (
-                    <div key={j} className="py-4 text-center"
-                      style={{ borderRight: j === 0 ? '1px solid rgba(37,99,235,0.10)' : 'none' }}>
-                      <p className="font-black text-sm leading-none" style={{ color: '#2563EB' }}>{s.val}</p>
-                      <p className="text-[8px] font-bold uppercase tracking-[0.18em] mt-1" style={{ color: 'rgba(37,99,235,0.45)' }}>{s.label}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Payment Safety — purple, crosshatch */}
-          <motion.div variants={fadeUp} className="h-full">
-            <div className="relative overflow-hidden rounded-[28px] flex flex-col h-full"
-              style={{ background: 'rgba(124,59,237,0.05)', border: '1.5px solid rgba(124,59,237,0.14)', minHeight: 340 }}>
-              <div className="absolute inset-0 pointer-events-none" style={{
-                backgroundImage: 'repeating-linear-gradient(-45deg, rgba(124,59,237,0.055) 0px, rgba(124,59,237,0.055) 1px, transparent 1px, transparent 14px)',
-              }} />
-              <div className="relative z-10 flex flex-col h-full">
-                <div className="flex items-center justify-between px-7 pt-5 pb-4"
-                  style={{ borderBottom: '1px solid rgba(124,59,237,0.12)' }}>
-                  <span className="text-[9px] font-black uppercase tracking-[0.22em]" style={{ color: '#7C3BED' }}>Payment Safety</span>
-                  <Shield size={11} style={{ color: '#7C3BED' }} />
-                </div>
-                <div className="flex-1 px-7 pt-7 pb-4 flex flex-col">
-                  <p className="font-black leading-none mb-1"
-                    style={{ fontSize: 'clamp(52px, 6vw, 72px)', color: '#7C3BED', letterSpacing: '-0.04em' }}>0%</p>
-                  <p className="text-[9px] font-black uppercase tracking-[0.22em] mb-6"
-                    style={{ color: 'rgba(124,59,237,0.45)' }}>Payment risk</p>
-                  <div className="h-px mb-5" style={{ background: 'rgba(124,59,237,0.12)' }} />
-                  <p className="text-sm text-[#4A4A6A] leading-relaxed flex-1">
-                    Funds only leave escrow when performance is validated. No manual release, no disputes.
-                  </p>
-                </div>
-                <div className="grid grid-cols-2" style={{ borderTop: '1px solid rgba(124,59,237,0.12)' }}>
-                  {[{ val: 'Escrow', label: 'Protected' }, { val: 'Auto', label: 'Validated' }].map((s, j) => (
-                    <div key={j} className="py-4 text-center"
-                      style={{ borderRight: j === 0 ? '1px solid rgba(124,59,237,0.10)' : 'none' }}>
-                      <p className="font-black text-sm leading-none" style={{ color: '#7C3BED' }}>{s.val}</p>
-                      <p className="text-[8px] font-bold uppercase tracking-[0.18em] mt-1" style={{ color: 'rgba(124,59,237,0.45)' }}>{s.label}</p>
                     </div>
                   ))}
                 </div>
@@ -280,34 +240,219 @@ function BentoFeature() {
   );
 }
 
-// ─── 2. Phone Showcase ────────────────────────────────────────────────────────
+// ─── 1b. Why Varmply ──────────────────────────────────────────────────────────
 
-function PhoneShowcase() {
+function WhyVarmply() {
   return (
-    <section className="py-24" style={{ background: '#FFFFFF', borderTop: '1px solid #E4E4EC' }}>
+    <section className="py-12 md:py-24" style={{ background: '#FFFFFF', borderTop: '1px solid #E4E4EC' }}>
       <div className="max-w-6xl mx-auto px-6">
 
         {/* Split header */}
         <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={vp}
-          className="mb-14 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+          className="mb-8 md:mb-14 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+          <div>
+            <motion.div variants={fadeUp}><SectionLabel>Why Varmply</SectionLabel></motion.div>
+            <motion.h2 variants={fadeUp} className="font-black text-[#0F0F1A] tracking-tight"
+              style={{ fontSize: 'clamp(36px, 5vw, 56px)', lineHeight: 1.0 }}>
+              The platform that <br className="max-md:hidden" />protects both sides.
+            </motion.h2>
+          </div>
+          <motion.p variants={fadeUp} className="text-base text-[#4A4A6A] md:max-w-xs md:text-right md:pb-1"
+            style={{ lineHeight: 1.6 }}>
+            No ghosting, no fake metrics, no wasted budgets. Varmply keeps creators and sponsors accountable.
+          </motion.p>
+        </motion.div>
+
+        {/* Bento grid — 7+5 top, 4+8 bottom */}
+        <ScrollCarousel count={4} gridClass="md:grid-cols-12">
+
+          {/* ── REACH — 7/12, green, TikTok + Instagram split ── */}
+          <motion.div variants={fadeUp} className="shrink-0 w-[82vw] snap-start md:w-auto md:col-span-7 flex flex-col">
+            <div className="relative overflow-hidden rounded-[28px] flex flex-col h-full"
+              style={{ background: 'rgba(0,160,80,0.05)', border: '1.5px solid rgba(0,160,80,0.14)', minHeight: 300 }}>
+              <div className="relative z-10 flex flex-col h-full">
+                <div className="flex items-center justify-between px-7 pt-5 pb-4"
+                  style={{ borderBottom: '1px solid rgba(0,160,80,0.12)' }}>
+                  <span className="text-[9px] font-black uppercase tracking-[0.22em]" style={{ color: '#00A050' }}>Reach</span>
+                  <span className="text-[9px] font-bold uppercase tracking-[0.14em]" style={{ color: '#00A050' }}>TikTok · Instagram</span>
+                </div>
+                <div className="flex-1 grid grid-cols-1 md:grid-cols-2">
+                  {/* TikTok */}
+                  <div className="relative overflow-hidden p-6 md:p-7 flex flex-col justify-between border-b md:border-b-0" style={{ borderColor: 'rgba(0,160,80,0.12)' }}>
+                    <div className="absolute inset-0 pointer-events-none" style={{
+                      backgroundImage: 'radial-gradient(circle, rgba(0,160,80,0.10) 1px, transparent 1px)',
+                      backgroundSize: '16px 16px',
+                    }} />
+                    <div className="relative z-10">
+                      <span className="text-[9px] font-black uppercase tracking-[0.22em] mb-5 block" style={{ color: '#00A050' }}>TikTok</span>
+                      <p className="font-black leading-none mb-1"
+                        style={{ fontSize: 'clamp(42px, 4.5vw, 58px)', color: '#00A050', letterSpacing: '-0.04em' }}>2.1M+</p>
+                      <p className="text-[9px] font-black uppercase tracking-[0.18em] mb-4" style={{ color: 'rgba(0,160,80,0.45)' }}>Video plays</p>
+                      <p className="text-xs text-[#4A4A6A] leading-relaxed">Short-form videos using your track as the sound.</p>
+                    </div>
+                  </div>
+                  {/* Instagram */}
+                  <div className="relative overflow-hidden p-6 md:p-7 flex flex-col justify-between md:border-l"
+                    style={{ borderColor: 'rgba(0,160,80,0.12)' }}>
+                    <div className="absolute inset-0 pointer-events-none" style={{
+                      backgroundImage: 'repeating-linear-gradient(-45deg, rgba(0,160,80,0.045) 0px, rgba(0,160,80,0.045) 1px, transparent 1px, transparent 14px)',
+                    }} />
+                    <div className="relative z-10">
+                      <span className="text-[9px] font-black uppercase tracking-[0.22em] mb-5 block" style={{ color: '#00A050' }}>Instagram</span>
+                      <p className="font-black leading-none mb-1"
+                        style={{ fontSize: 'clamp(42px, 4.5vw, 58px)', color: '#00A050', letterSpacing: '-0.04em' }}>840K</p>
+                      <p className="text-[9px] font-black uppercase tracking-[0.18em] mb-4" style={{ color: 'rgba(0,160,80,0.45)' }}>Reel reach</p>
+                      <p className="text-xs text-[#4A4A6A] leading-relaxed">Reels extend your campaign beyond the core audience.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* ── RISK — 5/12, purple crosshatch ── */}
+          <motion.div variants={fadeUp} className="shrink-0 w-[82vw] snap-start md:w-auto md:col-span-5 flex flex-col">
+            <div className="relative overflow-hidden rounded-[28px] flex flex-col h-full"
+              style={{ background: 'rgba(124,59,237,0.05)', border: '1.5px solid rgba(124,59,237,0.14)', minHeight: 300 }}>
+              <div className="absolute inset-0 pointer-events-none" style={{
+                backgroundImage: 'repeating-linear-gradient(-45deg, rgba(124,59,237,0.055) 0px, rgba(124,59,237,0.055) 1px, transparent 1px, transparent 14px)',
+              }} />
+              <div className="relative z-10 flex flex-col h-full">
+                <div className="flex items-center justify-between px-7 pt-5 pb-4"
+                  style={{ borderBottom: '1px solid rgba(124,59,237,0.12)' }}>
+                  <span className="text-[9px] font-black uppercase tracking-[0.22em]" style={{ color: '#7C3BED' }}>Risk</span>
+                  <Shield size={11} style={{ color: '#7C3BED' }} />
+                </div>
+                <div className="flex-1 px-7 pt-7 pb-4 flex flex-col">
+                  <p className="font-black leading-none mb-1"
+                    style={{ fontSize: 'clamp(52px, 5.5vw, 70px)', color: '#7C3BED', letterSpacing: '-0.04em' }}>0%</p>
+                  <p className="text-[9px] font-black uppercase tracking-[0.22em] mb-6"
+                    style={{ color: 'rgba(124,59,237,0.45)' }}>Payment risk</p>
+                  <div className="h-px mb-5" style={{ background: 'rgba(124,59,237,0.12)' }} />
+                  <h3 className="font-black text-[#0F0F1A] tracking-tight mb-2"
+                    style={{ fontSize: 'clamp(14px, 1.4vw, 17px)', lineHeight: 1.2 }}>
+                    0% wasted budget
+                  </h3>
+                  <p className="text-sm text-[#4A4A6A] leading-relaxed flex-1">
+                    If performance doesn't happen, funds stay in escrow. You never pay for nothing.
+                  </p>
+                </div>
+                <div className="grid grid-cols-2" style={{ borderTop: '1px solid rgba(124,59,237,0.12)' }}>
+                  {[{ val: 'Escrow', label: 'Protected' }, { val: 'Auto', label: 'Release' }].map((s, j) => (
+                    <div key={j} className="py-4 text-center"
+                      style={{ borderRight: j === 0 ? '1px solid rgba(124,59,237,0.10)' : 'none' }}>
+                      <p className="font-black text-sm leading-none" style={{ color: '#7C3BED' }}>{s.val}</p>
+                      <p className="text-[8px] font-bold uppercase tracking-[0.18em] mt-1" style={{ color: 'rgba(124,59,237,0.45)' }}>{s.label}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* ── CLARITY — 4/12, blue vertical lines ── */}
+          <motion.div variants={fadeUp} className="shrink-0 w-[82vw] snap-start md:w-auto md:col-span-4 flex flex-col">
+            <div className="relative overflow-hidden rounded-[28px] flex flex-col h-full"
+              style={{ background: 'rgba(37,99,235,0.05)', border: '1.5px solid rgba(37,99,235,0.14)', minHeight: 260 }}>
+              <div className="absolute inset-0 pointer-events-none" style={{
+                backgroundImage: 'repeating-linear-gradient(90deg, rgba(37,99,235,0.06) 0px, rgba(37,99,235,0.06) 1px, transparent 1px, transparent 20px)',
+              }} />
+              <div className="relative z-10 flex flex-col h-full">
+                <div className="flex items-center justify-between px-7 pt-5 pb-4"
+                  style={{ borderBottom: '1px solid rgba(37,99,235,0.12)' }}>
+                  <span className="text-[9px] font-black uppercase tracking-[0.22em]" style={{ color: '#2563EB' }}>Clarity</span>
+                  <CheckCircle size={9} style={{ color: '#2563EB' }} />
+                </div>
+                <div className="flex-1 px-7 pt-6 pb-4 flex flex-col">
+                  <p className="font-black leading-none mb-1"
+                    style={{ fontSize: 'clamp(48px, 5vw, 62px)', color: '#2563EB', letterSpacing: '-0.04em' }}>100%</p>
+                  <p className="text-[9px] font-black uppercase tracking-[0.22em] mb-5"
+                    style={{ color: 'rgba(37,99,235,0.45)' }}>Transparent</p>
+                  <div className="h-px mb-4" style={{ background: 'rgba(37,99,235,0.12)' }} />
+                  <h3 className="font-black text-[#0F0F1A] tracking-tight mb-2"
+                    style={{ fontSize: 'clamp(13px, 1.3vw, 16px)', lineHeight: 1.2 }}>
+                    No hidden terms
+                  </h3>
+                  <p className="text-sm text-[#4A4A6A] leading-relaxed flex-1">
+                    Every campaign shows deliverables, eligibility, and payout before creators apply.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* ── PAYOUT — 8/12, amber, horizontal rules ── */}
+          <motion.div variants={fadeUp} className="shrink-0 w-[82vw] snap-start md:w-auto md:col-span-8 flex flex-col">
+            <div className="relative overflow-hidden rounded-[28px] flex flex-col h-full"
+              style={{ background: 'rgba(217,119,6,0.05)', border: '1.5px solid rgba(217,119,6,0.14)', minHeight: 260 }}>
+              <div className="absolute inset-0 pointer-events-none" style={{
+                backgroundImage: 'repeating-linear-gradient(180deg, rgba(217,119,6,0.07) 0px, rgba(217,119,6,0.07) 1px, transparent 1px, transparent 22px)',
+              }} />
+              <div className="relative z-10 flex flex-col h-full">
+                <div className="flex items-center justify-between px-7 pt-5 pb-4"
+                  style={{ borderBottom: '1px solid rgba(217,119,6,0.12)' }}>
+                  <span className="text-[9px] font-black uppercase tracking-[0.22em]" style={{ color: '#D97706' }}>Payout</span>
+                </div>
+                <div className="flex-1 px-7 pt-7 pb-4 flex flex-col">
+                  <p className="font-black leading-none mb-1"
+                    style={{ fontSize: 'clamp(52px, 5.5vw, 70px)', color: '#D97706', letterSpacing: '-0.04em' }}>48h</p>
+                  <p className="text-[9px] font-black uppercase tracking-[0.22em] mb-6"
+                    style={{ color: 'rgba(217,119,6,0.45)' }}>Avg. release time</p>
+                  <div className="h-px mb-5" style={{ background: 'rgba(217,119,6,0.12)' }} />
+                  <h3 className="font-black text-[#0F0F1A] tracking-tight mb-2"
+                    style={{ fontSize: 'clamp(14px, 1.4vw, 17px)', lineHeight: 1.2 }}>
+                    Payouts release automatically
+                  </h3>
+                  <p className="text-sm text-[#4A4A6A] leading-relaxed flex-1">
+                    Once performance is verified, funds move. No invoices, no manual release, no waiting on either side.
+                  </p>
+                </div>
+                <div className="grid grid-cols-2" style={{ borderTop: '1px solid rgba(217,119,6,0.12)' }}>
+                  {[{ val: '0', label: 'Manual steps' }, { val: '₦2.4M+', label: 'Paid out' }].map((s, j) => (
+                    <div key={j} className="py-4 text-center"
+                      style={{ borderRight: j === 0 ? '1px solid rgba(217,119,6,0.10)' : 'none' }}>
+                      <p className="font-black text-sm leading-none" style={{ color: '#D97706' }}>{s.val}</p>
+                      <p className="text-[8px] font-bold uppercase tracking-[0.18em] mt-1" style={{ color: 'rgba(217,119,6,0.45)' }}>{s.label}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+        </ScrollCarousel>
+      </div>
+    </section>
+  );
+}
+
+// ─── 2. Phone Showcase ────────────────────────────────────────────────────────
+
+function PhoneShowcase() {
+  return (
+    <section className="py-12 md:py-24" style={{ background: '#FFFFFF', borderTop: '1px solid #E4E4EC' }}>
+      <div className="max-w-6xl mx-auto px-6">
+
+        {/* Split header */}
+        <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={vp}
+          className="mb-8 md:mb-14 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
           <div>
             <motion.div variants={fadeUp}><SectionLabel>Mobile app</SectionLabel></motion.div>
             <motion.h2 variants={fadeUp} className="font-black text-[#0F0F1A] tracking-tight"
               style={{ fontSize: 'clamp(36px, 5vw, 56px)', lineHeight: 1.0 }}>
-              The full platform.<br />In your pocket.
+              Manage your campaign <br className="max-md:hidden" />from anywhere.
             </motion.h2>
           </div>
           <motion.p variants={fadeUp} className="text-base text-[#4A4A6A] max-w-xs md:text-right md:pb-1"
             style={{ lineHeight: 1.6 }}>
-            Creator and sponsor dashboards built for mobile-first Nigeria.
+            Built for creators and artists running fast-moving campaigns — all from your phone.
           </motion.p>
         </motion.div>
 
-        <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={vp}
-          className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <ScrollCarousel count={3} gridClass="md:grid-cols-3">
 
           {/* Creator App — purple, crosshatch */}
-          <motion.div variants={fadeUp} className="h-full">
+          <motion.div variants={fadeUp} className="shrink-0 w-[82vw] snap-start md:w-auto h-full">
             <div className="relative overflow-hidden rounded-[28px] flex flex-col h-full"
               style={{ background: 'rgba(124,59,237,0.05)', border: '1.5px solid rgba(124,59,237,0.14)', minHeight: 400 }}>
               <div className="absolute inset-0 pointer-events-none" style={{
@@ -321,59 +466,59 @@ function PhoneShowcase() {
                 </div>
                 <div className="px-7 pt-5 pb-6">
                   <h3 className="font-black text-[#0F0F1A] tracking-tight"
-                    style={{ fontSize: 'clamp(15px, 1.5vw, 17px)', lineHeight: 1.2 }}>Track earnings<br />&amp; campaigns</h3>
+                    style={{ fontSize: 'clamp(15px, 1.5vw, 17px)', lineHeight: 1.2 }}>Track earnings <br className="max-md:hidden" />&amp; campaigns</h3>
                 </div>
-                <div className="flex-1 relative overflow-hidden">
+                <div className="flex-1 relative overflow-hidden min-h-[300px] md:min-h-0">
                   <div className="absolute top-0 left-1/2" style={{ transform: 'translateX(-50%)' }}>
-                  <div style={{ transform: 'scale(0.85)', transformOrigin: 'top center' }}>
-                  <PhoneFrame screenBg="#F9FAFB">
-                    <div className="h-full w-full overflow-y-auto bg-[#F9FAFB]">
-                      <div className="flex items-center justify-between px-5 pt-11 pb-4">
-                        <div>
-                          <p className="text-[10px] text-[#8A8A9A]">Good morning</p>
-                          <p className="text-sm font-bold text-[#1C1C1E]">Dami Adeyemi</p>
-                        </div>
-                        <div className="h-8 w-8 rounded-full flex items-center justify-center" style={{ background: '#E8E8EE' }}>
-                          <span className="text-[10px] font-bold text-[#4A4A60]">DA</span>
-                        </div>
-                      </div>
-                      <div className="mx-4 rounded-xl p-4" style={{ background: '#FFFFFF', boxShadow: '0 1px 4px rgba(0,0,0,0.08)' }}>
-                        <p className="text-[10px] text-[#8A8A9A]">Total earnings</p>
-                        <p className="mt-0.5 text-2xl font-bold text-[#1C1C1E]">₦47,500</p>
-                        <div className="mt-2 flex gap-2">
-                          <div className="flex-1 rounded-lg px-2.5 py-1.5" style={{ background: '#F2F2F7' }}>
-                            <p className="text-[9px] text-[#8A8A9A]">Active</p>
-                            <p className="text-xs font-semibold text-[#1C1C1E]">3 campaigns</p>
-                          </div>
-                          <div className="flex-1 rounded-lg px-2.5 py-1.5" style={{ background: '#F2F2F7' }}>
-                            <p className="text-[9px] text-[#8A8A9A]">Pending</p>
-                            <p className="text-xs font-semibold text-[#1C1C1E]">₦18,000</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="mt-3 px-4">
-                        <p className="mb-2 text-[9px] font-semibold text-[#B0B0C0] uppercase tracking-wider">Campaigns</p>
-                        {[
-                          { brand: 'Paystack', task: 'Instagram post', reward: '₦25,000' },
-                          { brand: 'PiggyVest', task: 'TikTok video', reward: '₦18,000' },
-                          { brand: 'Cowrywise', task: 'Twitter thread', reward: '₦8,000' },
-                        ].map((c, i) => (
-                          <div key={i} className="mb-1.5 flex items-center gap-2.5 rounded-lg px-3 py-2.5"
-                            style={{ background: '#FFFFFF', boxShadow: '0 1px 3px rgba(0,0,0,0.06)' }}>
-                            <div className="h-7 w-7 rounded-lg flex items-center justify-center shrink-0" style={{ background: '#F2F2F7' }}>
-                              <span className="text-[9px] font-bold text-[#7C3BED]">{c.brand[0]}</span>
+                    <div style={{ transform: 'scale(0.85)', transformOrigin: 'top center' }}>
+                      <PhoneFrame screenBg="#F9FAFB">
+                        <div className="h-full w-full overflow-y-auto bg-[#F9FAFB]">
+                          <div className="flex items-center justify-between px-5 pt-11 pb-4">
+                            <div>
+                              <p className="text-[10px] text-[#8A8A9A]">Good morning</p>
+                              <p className="text-sm font-bold text-[#1C1C1E]">Dami Adeyemi</p>
                             </div>
-                            <div className="flex-1 min-w-0">
-                              <p className="text-[11px] font-semibold text-[#1C1C1E] truncate">{c.brand}</p>
-                              <p className="text-[9px] text-[#8A8A9A] truncate">{c.task}</p>
+                            <div className="h-8 w-8 rounded-full flex items-center justify-center" style={{ background: '#E8E8EE' }}>
+                              <span className="text-[10px] font-bold text-[#4A4A60]">DA</span>
                             </div>
-                            <span className="text-[10px] font-bold text-[#00A050] shrink-0">{c.reward}</span>
                           </div>
-                        ))}
-                      </div>
+                          <div className="mx-4 rounded-xl p-4" style={{ background: '#FFFFFF', boxShadow: '0 1px 4px rgba(0,0,0,0.08)' }}>
+                            <p className="text-[10px] text-[#8A8A9A]">Total earnings</p>
+                            <p className="mt-0.5 text-2xl font-bold text-[#1C1C1E]">₦47,500</p>
+                            <div className="mt-2 flex gap-2">
+                              <div className="flex-1 rounded-lg px-2.5 py-1.5" style={{ background: '#F2F2F7' }}>
+                                <p className="text-[9px] text-[#8A8A9A]">Active</p>
+                                <p className="text-xs font-semibold text-[#1C1C1E]">3 campaigns</p>
+                              </div>
+                              <div className="flex-1 rounded-lg px-2.5 py-1.5" style={{ background: '#F2F2F7' }}>
+                                <p className="text-[9px] text-[#8A8A9A]">Pending</p>
+                                <p className="text-xs font-semibold text-[#1C1C1E]">₦18,000</p>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="mt-3 px-4">
+                            <p className="mb-2 text-[9px] font-semibold text-[#B0B0C0] uppercase tracking-wider">Campaigns</p>
+                            {[
+                              { brand: 'Paystack', task: 'Instagram post', reward: '₦25,000' },
+                              { brand: 'PiggyVest', task: 'TikTok video', reward: '₦18,000' },
+                              { brand: 'Cowrywise', task: 'Twitter thread', reward: '₦8,000' },
+                            ].map((c, i) => (
+                              <div key={i} className="mb-1.5 flex items-center gap-2.5 rounded-lg px-3 py-2.5"
+                                style={{ background: '#FFFFFF', boxShadow: '0 1px 3px rgba(0,0,0,0.06)' }}>
+                                <div className="h-7 w-7 rounded-lg flex items-center justify-center shrink-0" style={{ background: '#F2F2F7' }}>
+                                  <span className="text-[9px] font-bold text-[#7C3BED]">{c.brand[0]}</span>
+                                </div>
+                                <div className="flex-1 min-w-0">
+                                  <p className="text-[11px] font-semibold text-[#1C1C1E] truncate">{c.brand}</p>
+                                  <p className="text-[9px] text-[#8A8A9A] truncate">{c.task}</p>
+                                </div>
+                                <span className="text-[10px] font-bold text-[#00A050] shrink-0">{c.reward}</span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </PhoneFrame>
                     </div>
-                  </PhoneFrame>
-                  </div>
                   </div>
                 </div>
               </div>
@@ -381,7 +526,7 @@ function PhoneShowcase() {
           </motion.div>
 
           {/* Sponsor App — green, dot grid */}
-          <motion.div variants={fadeUp} className="h-full">
+          <motion.div variants={fadeUp} className="shrink-0 w-[82vw] snap-start md:w-auto h-full">
             <div className="relative overflow-hidden rounded-[28px] flex flex-col h-full"
               style={{ background: 'rgba(0,160,80,0.05)', border: '1.5px solid rgba(0,160,80,0.14)', minHeight: 400 }}>
               <div className="absolute inset-0 pointer-events-none" style={{
@@ -396,52 +541,52 @@ function PhoneShowcase() {
                 </div>
                 <div className="px-7 pt-5 pb-6">
                   <h3 className="font-black text-[#0F0F1A] tracking-tight"
-                    style={{ fontSize: 'clamp(15px, 1.5vw, 17px)', lineHeight: 1.2 }}>Manage live<br />campaigns</h3>
+                    style={{ fontSize: 'clamp(15px, 1.5vw, 17px)', lineHeight: 1.2 }}>Manage live <br className="max-md:hidden" />campaigns</h3>
                 </div>
-                <div className="flex-1 relative overflow-hidden">
+                <div className="flex-1 relative overflow-hidden min-h-[300px] md:min-h-0">
                   <div className="absolute top-0 left-1/2" style={{ transform: 'translateX(-50%)' }}>
-                  <div style={{ transform: 'scale(0.85)', transformOrigin: 'top center' }}>
-                  <PhoneFrame screenBg="#F9FAFB">
-                    <div className="h-full w-full overflow-y-auto bg-[#F9FAFB]">
-                      <div className="px-5 pt-11 pb-3">
-                        <p className="text-[10px] text-[#8A8A9A]">Overview</p>
-                        <p className="text-sm font-bold text-[#1C1C1E]">Paystack Dashboard</p>
-                      </div>
-                      <div className="mx-4 rounded-xl p-4" style={{ background: '#FFFFFF', boxShadow: '0 1px 4px rgba(0,0,0,0.08)' }}>
-                        <p className="text-[10px] text-[#8A8A9A]">Campaign spend</p>
-                        <p className="mt-0.5 text-2xl font-bold text-[#1C1C1E]">₦240,000</p>
-                        <div className="mt-2 flex gap-2">
-                          <div className="flex-1 rounded-lg px-2.5 py-1.5" style={{ background: '#F2F2F7' }}>
-                            <p className="text-[9px] text-[#8A8A9A]">Creators</p>
-                            <p className="text-xs font-semibold text-[#1C1C1E]">12 joined</p>
+                    <div style={{ transform: 'scale(0.85)', transformOrigin: 'top center' }}>
+                      <PhoneFrame screenBg="#F9FAFB">
+                        <div className="h-full w-full overflow-y-auto bg-[#F9FAFB]">
+                          <div className="px-5 pt-11 pb-3">
+                            <p className="text-[10px] text-[#8A8A9A]">Overview</p>
+                            <p className="text-sm font-bold text-[#1C1C1E]">Paystack Dashboard</p>
                           </div>
-                          <div className="flex-1 rounded-lg px-2.5 py-1.5" style={{ background: '#F2F2F7' }}>
-                            <p className="text-[9px] text-[#8A8A9A]">Reach</p>
-                            <p className="text-xs font-semibold text-[#1C1C1E]">840K</p>
+                          <div className="mx-4 rounded-xl p-4" style={{ background: '#FFFFFF', boxShadow: '0 1px 4px rgba(0,0,0,0.08)' }}>
+                            <p className="text-[10px] text-[#8A8A9A]">Campaign spend</p>
+                            <p className="mt-0.5 text-2xl font-bold text-[#1C1C1E]">₦240,000</p>
+                            <div className="mt-2 flex gap-2">
+                              <div className="flex-1 rounded-lg px-2.5 py-1.5" style={{ background: '#F2F2F7' }}>
+                                <p className="text-[9px] text-[#8A8A9A]">Creators</p>
+                                <p className="text-xs font-semibold text-[#1C1C1E]">12 joined</p>
+                              </div>
+                              <div className="flex-1 rounded-lg px-2.5 py-1.5" style={{ background: '#F2F2F7' }}>
+                                <p className="text-[9px] text-[#8A8A9A]">Reach</p>
+                                <p className="text-xs font-semibold text-[#1C1C1E]">840K</p>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="mt-3 px-4">
+                            <p className="mb-2 text-[9px] font-semibold text-[#B0B0C0] uppercase tracking-wider">Live campaigns</p>
+                            {[
+                              { name: 'Q2 Instagram Push', creators: '8 active', budget: '₦120K' },
+                              { name: 'TikTok Launch', creators: '4 active', budget: '₦80K' },
+                              { name: 'Twitter Awareness', creators: 'Recruiting', budget: '₦40K' },
+                            ].map((c, i) => (
+                              <div key={i} className="mb-1.5 flex items-center gap-2.5 rounded-lg px-3 py-2.5"
+                                style={{ background: '#FFFFFF', boxShadow: '0 1px 3px rgba(0,0,0,0.06)' }}>
+                                <div className="h-1.5 w-1.5 rounded-full shrink-0" style={{ background: i === 2 ? '#D0D0DC' : '#00A050' }} />
+                                <div className="flex-1 min-w-0">
+                                  <p className="text-[11px] font-semibold text-[#1C1C1E] truncate">{c.name}</p>
+                                  <p className="text-[9px] text-[#8A8A9A]">{c.creators}</p>
+                                </div>
+                                <span className="text-[10px] font-semibold text-[#8A8A9A] shrink-0">{c.budget}</span>
+                              </div>
+                            ))}
                           </div>
                         </div>
-                      </div>
-                      <div className="mt-3 px-4">
-                        <p className="mb-2 text-[9px] font-semibold text-[#B0B0C0] uppercase tracking-wider">Live campaigns</p>
-                        {[
-                          { name: 'Q2 Instagram Push', creators: '8 active', budget: '₦120K' },
-                          { name: 'TikTok Launch', creators: '4 active', budget: '₦80K' },
-                          { name: 'Twitter Awareness', creators: 'Recruiting', budget: '₦40K' },
-                        ].map((c, i) => (
-                          <div key={i} className="mb-1.5 flex items-center gap-2.5 rounded-lg px-3 py-2.5"
-                            style={{ background: '#FFFFFF', boxShadow: '0 1px 3px rgba(0,0,0,0.06)' }}>
-                            <div className="h-1.5 w-1.5 rounded-full shrink-0" style={{ background: i === 2 ? '#D0D0DC' : '#00A050' }} />
-                            <div className="flex-1 min-w-0">
-                              <p className="text-[11px] font-semibold text-[#1C1C1E] truncate">{c.name}</p>
-                              <p className="text-[9px] text-[#8A8A9A]">{c.creators}</p>
-                            </div>
-                            <span className="text-[10px] font-semibold text-[#8A8A9A] shrink-0">{c.budget}</span>
-                          </div>
-                        ))}
-                      </div>
+                      </PhoneFrame>
                     </div>
-                  </PhoneFrame>
-                  </div>
                   </div>
                 </div>
               </div>
@@ -449,7 +594,7 @@ function PhoneShowcase() {
           </motion.div>
 
           {/* Analytics — blue, horizontal rules */}
-          <motion.div variants={fadeUp} className="h-full">
+          <motion.div variants={fadeUp} className="shrink-0 w-[82vw] snap-start md:w-auto h-full">
             <div className="relative overflow-hidden rounded-[28px] flex flex-col h-full"
               style={{ background: 'rgba(37,99,235,0.05)', border: '1.5px solid rgba(37,99,235,0.14)', minHeight: 400 }}>
               <div className="absolute inset-0 pointer-events-none" style={{
@@ -466,51 +611,51 @@ function PhoneShowcase() {
                 </div>
                 <div className="px-7 pt-5 pb-6">
                   <h3 className="font-black text-[#0F0F1A] tracking-tight"
-                    style={{ fontSize: 'clamp(15px, 1.5vw, 17px)', lineHeight: 1.2 }}>Real-time<br />performance</h3>
+                    style={{ fontSize: 'clamp(15px, 1.5vw, 17px)', lineHeight: 1.2 }}>Real-time <br className="max-md:hidden" />performance</h3>
                 </div>
-                <div className="flex-1 relative overflow-hidden">
+                <div className="flex-1 relative overflow-hidden min-h-[300px] md:min-h-0">
                   <div className="absolute top-0 left-1/2" style={{ transform: 'translateX(-50%)' }}>
-                  <div style={{ transform: 'scale(0.85)', transformOrigin: 'top center' }}>
-                  <PhoneFrame screenBg="#F9FAFB">
-                    <div className="h-full w-full overflow-y-auto bg-[#F9FAFB]">
-                      <div className="px-5 pt-11 pb-3">
-                        <p className="text-[10px] text-[#8A8A9A]">Campaign</p>
-                        <p className="text-sm font-bold text-[#1C1C1E]">Paystack Q1</p>
-                      </div>
-                      {[
-                        { label: 'Total views', value: '840K', change: '+12%' },
-                        { label: 'Engagement', value: '6.2%', change: '+0.8%' },
-                        { label: 'Creators paid', value: '₦240K', change: '12 of 12' },
-                      ].map((m, i) => (
-                        <div key={i} className="mx-4 mb-2 flex items-center justify-between rounded-lg px-3 py-3"
-                          style={{ background: '#FFFFFF', boxShadow: '0 1px 3px rgba(0,0,0,0.06)' }}>
-                          <div>
-                            <p className="text-[9px] text-[#8A8A9A]">{m.label}</p>
-                            <p className="text-base font-bold text-[#1C1C1E]">{m.value}</p>
+                    <div style={{ transform: 'scale(0.85)', transformOrigin: 'top center' }}>
+                      <PhoneFrame screenBg="#F9FAFB">
+                        <div className="h-full w-full overflow-y-auto bg-[#F9FAFB]">
+                          <div className="px-5 pt-11 pb-3">
+                            <p className="text-[10px] text-[#8A8A9A]">Campaign</p>
+                            <p className="text-sm font-bold text-[#1C1C1E]">Paystack Q1</p>
                           </div>
-                          <span className="text-[10px] font-semibold rounded-full px-2 py-0.5"
-                            style={{ background: 'rgba(0,160,80,0.10)', color: '#00A050' }}>{m.change}</span>
-                        </div>
-                      ))}
-                      <div className="mx-4 mt-1 rounded-lg p-3" style={{ background: '#FFFFFF', boxShadow: '0 1px 3px rgba(0,0,0,0.06)' }}>
-                        <p className="mb-2 text-[9px] text-[#8A8A9A]">Views over time</p>
-                        <div className="flex items-end gap-1 h-14">
-                          {[40, 65, 45, 80, 55, 90, 70].map((h, i) => (
-                            <div key={i} className="flex-1 rounded-sm"
-                              style={{ height: `${h}%`, background: i === 5 ? '#2563EB' : '#DBEAFE' }} />
+                          {[
+                            { label: 'Total views', value: '840K', change: '+12%' },
+                            { label: 'Engagement', value: '6.2%', change: '+0.8%' },
+                            { label: 'Creators paid', value: '₦240K', change: '12 of 12' },
+                          ].map((m, i) => (
+                            <div key={i} className="mx-4 mb-2 flex items-center justify-between rounded-lg px-3 py-3"
+                              style={{ background: '#FFFFFF', boxShadow: '0 1px 3px rgba(0,0,0,0.06)' }}>
+                              <div>
+                                <p className="text-[9px] text-[#8A8A9A]">{m.label}</p>
+                                <p className="text-base font-bold text-[#1C1C1E]">{m.value}</p>
+                              </div>
+                              <span className="text-[10px] font-semibold rounded-full px-2 py-0.5"
+                                style={{ background: 'rgba(0,160,80,0.10)', color: '#00A050' }}>{m.change}</span>
+                            </div>
                           ))}
+                          <div className="mx-4 mt-1 rounded-lg p-3" style={{ background: '#FFFFFF', boxShadow: '0 1px 3px rgba(0,0,0,0.06)' }}>
+                            <p className="mb-2 text-[9px] text-[#8A8A9A]">Views over time</p>
+                            <div className="flex items-end gap-1 h-14">
+                              {[40, 65, 45, 80, 55, 90, 70].map((h, i) => (
+                                <div key={i} className="flex-1 rounded-sm"
+                                  style={{ height: `${h}%`, background: i === 5 ? '#2563EB' : '#DBEAFE' }} />
+                              ))}
+                            </div>
+                          </div>
                         </div>
-                      </div>
+                      </PhoneFrame>
                     </div>
-                  </PhoneFrame>
-                  </div>
                   </div>
                 </div>
               </div>
             </div>
           </motion.div>
 
-        </motion.div>
+        </ScrollCarousel>
       </div>
     </section>
   );
@@ -636,7 +781,7 @@ function CreatorReel() {
   const row2 = [...REELS_ROW_2, ...REELS_ROW_2];
 
   return (
-    <section className="py-24 overflow-hidden relative" style={{ background: '#F7F4FF', borderTop: '1px solid rgba(124,59,237,0.12)' }}>
+    <section className="py-12 md:py-24 overflow-hidden relative" style={{ background: '#F7F4FF', borderTop: '1px solid rgba(124,59,237,0.12)' }}>
 
       {/* Diagonal stripe pattern */}
       <div className="absolute inset-0 pointer-events-none" style={{
@@ -650,14 +795,14 @@ function CreatorReel() {
 
       {/* Header */}
       <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={vp}
-        className="relative z-10 max-w-6xl mx-auto px-6 mb-14 flex flex-col items-center text-center gap-4">
+        className="relative z-10 max-w-6xl mx-auto px-6 mb-8 md:mb-14 flex flex-col items-start text-left md:items-center md:text-center gap-4">
         <motion.div variants={fadeUp}><SectionLabel>Creator community</SectionLabel></motion.div>
         <motion.h2 variants={fadeUp} className="font-black text-[#0F0F1A] tracking-tight"
           style={{ fontSize: 'clamp(36px, 5vw, 56px)', lineHeight: 1.0 }}>
-          Real campaigns.<br />Real creators.
+          Real songs. <br className="max-md:hidden" />Real creators. <br className="max-md:hidden" />Real reach.
         </motion.h2>
-        <motion.p variants={fadeUp} className="text-base text-[#4A4A6A]" style={{ maxWidth: 420, lineHeight: 1.6 }}>
-          Structured campaigns. Verified payouts. Across TikTok, Instagram, YouTube, and more.
+        <motion.p variants={fadeUp} className="text-base text-[#4A4A6A] md:max-w-[420px]" style={{ lineHeight: 1.6 }}>
+          Campaigns across TikTok, Instagram, YouTube and more. All tracked and verified.
         </motion.p>
         <motion.div variants={fadeUp} className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
           <Link href="/sponsors"
@@ -696,8 +841,8 @@ function CreatorReel() {
 const pillars = [
   {
     stat: '₦2.4M+', statLabel: 'Held in escrow',
-    title: 'Escrow-First',
-    description: "Sponsor budgets are locked before campaigns go live. Creators know funds exist — no ghosting, no excuses.",
+    title: 'Escrow',
+    description: "Funds locked before campaigns go live. Creators know the money is there — no ghosting.",
     accent: '#7C3BED', bgTint: 'rgba(124,59,237,0.05)', border: 'rgba(124,59,237,0.14)',
     pattern: 'repeating-linear-gradient(-45deg, rgba(124,59,237,0.055) 0px, rgba(124,59,237,0.055) 1px, transparent 1px, transparent 14px)',
     Icon: Lock,
@@ -705,8 +850,8 @@ const pillars = [
   },
   {
     stat: '98%', statLabel: 'On-time payouts',
-    title: 'Automated Validation',
-    description: 'Submissions are checked programmatically. No favoritism, no back-and-forth — just clear pass/fail against the brief.',
+    title: 'Validation',
+    description: 'Performance verified automatically. No self-reporting. No manipulation. No fake engagement.',
     accent: '#00A050', bgTint: 'rgba(0,160,80,0.05)', border: 'rgba(0,160,80,0.14)',
     pattern: 'radial-gradient(circle, rgba(0,160,80,0.13) 1px, transparent 1px)',
     patternSize: '18px 18px',
@@ -715,8 +860,8 @@ const pillars = [
   },
   {
     stat: '0', statLabel: 'Hidden terms',
-    title: 'Transparent Rules',
-    description: 'Every campaign brief is public. Eligibility, deliverables, payout amounts — all visible before you apply.',
+    title: 'Transparency',
+    description: 'Everything is visible upfront. Requirements, payouts, and rules — all clear before creators join.',
     accent: '#D97706', bgTint: 'rgba(217,119,6,0.05)', border: 'rgba(217,119,6,0.14)',
     pattern: 'repeating-linear-gradient(90deg, rgba(217,119,6,0.06) 0px, rgba(217,119,6,0.06) 1px, transparent 1px, transparent 20px)',
     Icon: Shield,
@@ -726,17 +871,17 @@ const pillars = [
 
 function TrustPillars() {
   return (
-    <section className="py-24" style={{ background: '#FFFFFF', borderTop: '1px solid #E4E4EC' }}>
+    <section className="py-12 md:py-24" style={{ background: '#FFFFFF', borderTop: '1px solid #E4E4EC' }}>
       <div className="max-w-6xl mx-auto px-6">
 
         {/* Split header with inline stat trio */}
         <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={vp}
-          className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8">
+          className="flex flex-col md:flex-row md:items-end justify-between mb-10 md:mb-16 gap-8">
           <div>
             <motion.div variants={fadeUp}><SectionLabel>Why trust Varmply</SectionLabel></motion.div>
             <motion.h2 variants={fadeUp} className="font-black text-[#0F0F1A] tracking-tight"
               style={{ fontSize: 'clamp(36px, 5vw, 56px)', lineHeight: 1.0 }}>
-              Built around<br />accountability.
+              Every naira is tied <br className="max-md:hidden" />to performance.
             </motion.h2>
           </div>
           <motion.div variants={fadeUp} className="flex gap-8 md:gap-10 md:pb-1 shrink-0">
@@ -750,10 +895,9 @@ function TrustPillars() {
         </motion.div>
 
         {/* Editorial cards */}
-        <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={vp}
-          className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <ScrollCarousel count={3} gridClass="md:grid-cols-3">
           {pillars.map((p, i) => (
-            <motion.div key={i} variants={fadeUp} className="h-full">
+            <motion.div key={i} variants={fadeUp} className="shrink-0 w-[82vw] snap-start md:w-auto h-full">
               <div className="relative overflow-hidden rounded-[28px] flex flex-col h-full"
                 style={{ background: p.bgTint, border: `1.5px solid ${p.border}`, minHeight: 360 }}>
                 <div className="absolute inset-0 pointer-events-none" style={{
@@ -790,7 +934,7 @@ function TrustPillars() {
               </div>
             </motion.div>
           ))}
-        </motion.div>
+        </ScrollCarousel>
 
         <motion.p variants={fadeUp} initial="hidden" whileInView="visible" viewport={vp}
           className="text-center text-[11px] font-semibold uppercase tracking-[0.22em] mt-10"
@@ -853,27 +997,26 @@ const testimonials = [
 
 function Testimonials() {
   return (
-    <section className="py-24" style={{ background: '#FFFFFF', borderTop: '1px solid #E4E4EC' }}>
+    <section className="py-12 md:py-24" style={{ background: '#FFFFFF', borderTop: '1px solid #E4E4EC' }}>
       <div className="max-w-6xl mx-auto px-6">
 
-        {/* Centered header */}
+        {/* Header */}
         <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={vp}
-          className="flex flex-col items-center text-center mb-16 gap-4">
+          className="flex flex-col items-start text-left md:items-center md:text-center mb-8 md:mb-14 gap-4">
           <motion.div variants={fadeUp}><SectionLabel>Testimonials</SectionLabel></motion.div>
           <motion.h2 variants={fadeUp} className="font-black text-[#0F0F1A] tracking-tight"
             style={{ fontSize: 'clamp(36px, 5vw, 56px)', lineHeight: 1.0 }}>
             What creators<br />are saying.
           </motion.h2>
-          <motion.p variants={fadeUp} className="text-base text-[#4A4A6A]" style={{ maxWidth: 420, lineHeight: 1.6 }}>
+          <motion.p variants={fadeUp} className="text-base text-[#4A4A6A] md:max-w-[420px]" style={{ lineHeight: 1.6 }}>
             Real experiences from verified creators and sponsors on Varmply.
           </motion.p>
         </motion.div>
 
         {/* Editorial testimonial cards */}
-        <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={vp}
-          className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <ScrollCarousel count={3} gridClass="md:grid-cols-3">
           {testimonials.map((t, i) => (
-            <motion.div key={i} variants={fadeUp} className="h-full">
+            <motion.div key={i} variants={fadeUp} className="shrink-0 w-[82vw] snap-start md:w-auto h-full">
               <div className="relative overflow-hidden rounded-[28px] flex flex-col h-full"
                 style={{ background: t.bgTint, border: `1.5px solid ${t.border}`, minHeight: 280 }}>
                 <div className="absolute inset-0 pointer-events-none" style={{
@@ -915,7 +1058,7 @@ function Testimonials() {
               </div>
             </motion.div>
           ))}
-        </motion.div>
+        </ScrollCarousel>
 
       </div>
     </section>
@@ -928,7 +1071,8 @@ export default function HomePage() {
   return (
     <>
       <HeroSection />
-      <BentoFeature />
+      <HowItWorks />
+      <WhyVarmply />
       <PhoneShowcase />
       <CreatorReel />
       <TrustPillars />

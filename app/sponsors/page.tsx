@@ -2,7 +2,9 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { ArrowRight, CheckCircle, Lock, RotateCcw, BarChart2, Users, Shield } from 'lucide-react';
+import { ScrollCarousel } from '@/components/ui/ScrollCarousel';
+import Image from 'next/image';
+import { ArrowRight, CheckCircle, Lock, RotateCcw, BarChart2, Users, Shield, TrendingUp, DollarSign } from 'lucide-react';
 import FAQAccordion from '@/components/FAQAccordion';
 import { BrowserChrome, DashboardSkeleton } from '@/components/MockupSkeletons';
 import { VideoCard } from '@/components/ui/VideoCard';
@@ -213,105 +215,151 @@ export default function SponsorsPage() {
     <div style={{ background: '#FFFFFF' }}>
 
       {/* 1. HERO ─────────────────────────────────────────────────────────────── */}
-      <section className="relative flex flex-col justify-center overflow-hidden pt-32 pb-24"
-        style={{ background: '#2563EB', minHeight: '100dvh' }}>
-        {/* Grid pattern */}
+      <section className="relative overflow-hidden flex flex-col"
+        style={{ background: '#1A40B8' }}>
+
+        {/* Aurora bloom */}
+        <div className="pointer-events-none absolute rounded-[50%]" style={{
+          width: '80vw', height: '60vh',
+          top: '50%', left: '50%',
+          background: 'radial-gradient(circle at 50% 50%, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.05) 40%, transparent 70%)',
+          filter: 'blur(80px)',
+          animation: 'hero-breathe 8s ease-in-out infinite alternate',
+        }} />
+        {/* Line grid */}
         <div className="absolute inset-0 pointer-events-none" style={{
-          backgroundImage: 'linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)',
-          backgroundSize: '48px 48px',
-        }} />
-        {/* Radial glow */}
-        <div className="absolute top-0 right-0 pointer-events-none" style={{
-          width: 600, height: 600, borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(147,197,253,0.22) 0%, transparent 70%)',
-          filter: 'blur(60px)',
-          transform: 'translate(30%, -30%)',
+          backgroundSize: '60px 60px',
+          backgroundImage: 'linear-gradient(to right, rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.04) 1px, transparent 1px)',
+          maskImage: 'linear-gradient(to bottom, transparent, black 30%, black 70%, transparent)',
+          WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 30%, black 70%, transparent)',
+          opacity: 0.4,
         }} />
 
-        <div className="max-w-6xl mx-auto px-6 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <motion.div variants={stagger} initial="hidden" animate="visible">
-              <motion.span variants={fadeUp}
-                className="inline-block rounded-full px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.18em] mb-6 text-white"
-                style={{ background: 'rgba(255,255,255,0.15)' }}>
-                For Sponsors
-              </motion.span>
-              <motion.h1 variants={fadeUp}
-                className="mb-5 text-white font-black tracking-tight"
-                style={{ fontSize: 'clamp(40px, 5vw, 68px)', lineHeight: 1.0 }}>
-                Creator campaigns<br />with full accountability.
-              </motion.h1>
-              <motion.p variants={fadeUp} className="text-white/75 text-base leading-relaxed mb-8" style={{ maxWidth: 440 }}>
-                Set your rules, lock your budget, and watch verified results come in. Varmply handles eligibility, submission validation, and payouts — automatically.
-              </motion.p>
-              <motion.div variants={fadeUp} className="flex flex-col sm:flex-row gap-3 mb-10">
-                <Link href="#"
-                  className="flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold transition-all hover:opacity-90 w-full sm:w-auto"
-                  style={{ background: 'white', color: '#2563EB' }}>
-                  Launch a Campaign <ArrowRight size={15} />
-                </Link>
-                <Link href="#how-it-works"
-                  className="flex items-center justify-center rounded-full px-7 py-3.5 text-sm font-semibold w-full sm:w-auto"
-                  style={{ color: 'white', border: '1.5px solid rgba(255,255,255,0.28)' }}>
-                  See How It Works
-                </Link>
-              </motion.div>
-              <motion.div variants={fadeUp} className="flex flex-wrap gap-3">
-                {['Escrow-protected budget', 'Auto-validated submissions', 'Pay for results only'].map((b) => (
-                  <span key={b} className="flex items-center gap-1.5 text-sm font-medium px-4 py-2 rounded-full text-white"
-                    style={{ background: 'rgba(255,255,255,0.12)' }}>
-                    <CheckCircle size={13} style={{ color: '#93C5FD' }} /> {b}
-                  </span>
-                ))}
-              </motion.div>
-            </motion.div>
+        {/* ── Centered text ── */}
+        <motion.div
+          variants={stagger} initial="hidden" animate="visible"
+          className="relative z-10 flex flex-col items-start md:items-center text-left md:text-center pt-32 pb-8 px-6"
+        >
+          <motion.span variants={fadeUp}
+            className="inline-block rounded-full px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.18em] mb-6 text-white"
+            style={{ background: 'rgba(255,255,255,0.15)' }}>
+            For Sponsors
+          </motion.span>
+          <motion.h1 variants={fadeUp}
+            className="font-black tracking-tight mb-5 w-full text-left md:text-center"
+            style={{
+              fontSize: 'clamp(36px, 5vw, 68px)', lineHeight: 1.0,
+              background: 'linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.58) 100%)',
+              WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+              filter: 'drop-shadow(0px 0px 28px rgba(255,255,255,0.18))',
+              paddingBottom: '0.15em',
+            }}>
+            Turn your track into <br className="max-md:hidden" />a creator campaign.
+          </motion.h1>
+          <motion.p variants={fadeUp}
+            className="text-white/75 text-base leading-relaxed mb-8 w-full text-left md:text-center"
+            style={{ maxWidth: 480 }}>
+            Fund once. Creators amplify your song. Pay only for results — payouts happen only when engagement is verified.
+          </motion.p>
+          <motion.div variants={fadeUp} className="flex flex-col sm:flex-row gap-3 mb-8 w-full md:w-auto">
+            <Link href="#"
+              className="flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold transition-all hover:opacity-90 w-full md:w-auto"
+              style={{ background: 'white', color: '#1A40B8' }}>
+              Launch a Campaign <ArrowRight size={15} />
+            </Link>
+            <Link href="#how-it-works"
+              className="flex items-center justify-center rounded-full px-7 py-3.5 text-sm font-semibold w-full md:w-auto"
+              style={{ color: 'white', border: '1.5px solid rgba(255,255,255,0.28)' }}>
+              See How It Works
+            </Link>
+          </motion.div>
+          <motion.div variants={fadeUp} className="flex flex-wrap md:justify-center gap-3">
+            {['Budget locked in escrow', 'Paid only on performance', 'No chasing creators', 'No fake metrics'].map((b) => (
+              <span key={b} className="flex items-center gap-1.5 text-sm font-medium px-4 py-2 rounded-full text-white"
+                style={{ background: 'rgba(255,255,255,0.12)' }}>
+                <CheckCircle size={13} style={{ color: '#93C5FD' }} /> {b}
+              </span>
+            ))}
+          </motion.div>
+        </motion.div>
 
-            <motion.div
-              initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-              className="hidden lg:flex justify-center lg:justify-end">
-              <motion.div animate={{ y: [0, -10, 0] }} transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut' }}>
-                <CampaignBuilderMockup />
-              </motion.div>
-            </motion.div>
+        {/* ── Desktop dashboard — bleeds out of section bottom ── */}
+        <motion.div
+          className="relative z-10 w-full px-4 hidden md:flex flex-col"
+          style={{ marginBottom: -2 }}
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <div className="max-w-[1100px] mx-auto w-full">
+            {/* Browser chrome — white header */}
+            <div className="rounded-t-[16px] overflow-hidden"
+              style={{ boxShadow: '0 -4px 40px rgba(0,0,0,0.30)', border: '1px solid rgba(255,255,255,0.18)', borderBottom: 'none' }}>
+              <div className="flex items-center gap-2 px-4 py-3 shrink-0"
+                style={{ background: '#FFFFFF', borderBottom: '1px solid #E8E8EE' }}>
+                <div className="flex gap-1.5">
+                  <span className="block w-2.5 h-2.5 rounded-full bg-[#FF5F56]" />
+                  <span className="block w-2.5 h-2.5 rounded-full bg-[#FFBD2E]" />
+                  <span className="block w-2.5 h-2.5 rounded-full bg-[#27C93F]" />
+                </div>
+                <div className="flex-1 rounded-full px-3 py-1 text-[10px] text-[#9999AA] border border-[#EBEBF2] truncate text-center max-w-xs mx-auto"
+                  style={{ background: '#F4F4F8' }}>
+                  app.varmply.co/dashboard
+                </div>
+                <div className="w-10" />
+              </div>
+
+              {/* Dashboard screenshot — top 50% crop */}
+              <div className="relative overflow-hidden" style={{ aspectRatio: '6048 / 3268', background: '#F8F8FB' }}>
+                <Image
+                  src="/mockups/dashboard-screenshot-2.png"
+                  alt="Varmply sponsor dashboard"
+                  fill
+                  quality={95}
+                  priority
+                  className="object-cover"
+                  style={{ objectPosition: 'top left' }}
+                />
+              </div>
+            </div>
           </div>
-        </div>
+        </motion.div>
       </section>
 
       {/* 2. HOW IT WORKS ─────────────────────────────────────────────────────── */}
-      <section id="how-it-works" className="py-24" style={{ background: '#FFFFFF', borderTop: '1px solid #E4E4EC' }}>
+      <section id="how-it-works" className="py-12 md:py-24" style={{ background: '#FFFFFF', borderTop: '1px solid #E4E4EC' }}>
         <div className="max-w-6xl mx-auto px-6">
 
           {/* Centered header */}
           <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={vp}
-            className="mb-14 flex flex-col items-center text-center">
+            className="mb-8 md:mb-14 flex flex-col items-start text-left md:items-center md:text-center">
             <motion.div variants={fadeUp}><SectionLabel>How it works</SectionLabel></motion.div>
-            <motion.h2 variants={fadeUp} className="font-black text-[#0F0F1A] tracking-tight"
-              style={{ fontSize: 'clamp(36px, 5vw, 56px)', lineHeight: 1.0, maxWidth: 560 }}>
-              From brief to payout.<br />Fully automated.
+            <motion.h2 variants={fadeUp} className="font-black text-[#0F0F1A] tracking-tight w-full"
+              style={{ fontSize: 'clamp(32px, 5vw, 56px)', lineHeight: 1.0 }}>
+              From campaign setup  <br className="max-md:hidden" />to verified reach.
             </motion.h2>
-            <motion.p variants={fadeUp} className="mt-4 text-base text-[#4A4A6A]"
-              style={{ lineHeight: 1.6, maxWidth: 440 }}>
-              Four steps, zero chasing. Define your rules once — Varmply handles everything else.
+            <motion.p variants={fadeUp} className="mt-4 text-base text-[#4A4A6A] w-full"
+              style={{ lineHeight: 1.6 }}>
+              Define your rules — Varmply handles distribution, tracking, and payouts.
             </motion.p>
           </motion.div>
 
           {/* 2×2 editorial bento */}
-          <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={vp}
-            className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <ScrollCarousel count={4} gridClass="md:grid-cols-2">
 
             {/* Step 01 — Purple · diagonal crosshatch */}
             {[
               {
                 step: '01', accent: '#7C3BED', bgTint: 'rgba(124,59,237,0.05)', border: 'rgba(124,59,237,0.14)',
-                label: 'Define your campaign rules',
+                label: 'Define your campaign rules', tag: 'SETUP',
                 description: "Set your brief, eligibility requirements, deliverables, payout per creator, and deadline. Everything is crystal clear before any creator applies.",
                 pattern: 'repeating-linear-gradient(-45deg, rgba(124,59,237,0.06) 0px, rgba(124,59,237,0.06) 1px, transparent 1px, transparent 14px)',
                 phone: <MobileCampaignSkeleton />,
               },
               {
                 step: '02', accent: '#2563EB', bgTint: 'rgba(37,99,235,0.05)', border: 'rgba(37,99,235,0.14)',
-                label: 'Activate with escrow',
+                label: 'Activate with escrow', tag: 'FUNDING',
                 description: "Lock your campaign budget in escrow. Creators can see funds exist before they apply. No budget = no campaign. Trust is built in from day one.",
                 pattern: 'radial-gradient(circle, rgba(37,99,235,0.13) 1px, transparent 1px)',
                 patternSize: '18px 18px',
@@ -319,22 +367,22 @@ export default function SponsorsPage() {
               },
               {
                 step: '03', accent: '#00A050', bgTint: 'rgba(0,160,80,0.05)', border: 'rgba(0,160,80,0.14)',
-                label: 'Monitor in real time',
+                label: 'Monitor in real time', tag: 'ANALYTICS',
                 description: "Watch submissions come in. Track reach, engagement, and impressions per creator as they happen. Every metric is validated automatically.",
                 pattern: 'repeating-linear-gradient(180deg, rgba(0,160,80,0.07) 0px, rgba(0,160,80,0.07) 1px, transparent 1px, transparent 22px)',
                 phone: <MobileAnalyticsSkeleton />,
               },
               {
                 step: '04', accent: '#D97706', bgTint: 'rgba(217,119,6,0.05)', border: 'rgba(217,119,6,0.14)',
-                label: 'Pay for verified results',
+                label: 'Pay for verified results', tag: 'PAYOUTS',
                 description: 'Funds are released only when performance is confirmed. Unused budget returns automatically. You only ever pay for what actually happened.',
                 pattern: 'repeating-linear-gradient(90deg, rgba(217,119,6,0.06) 0px, rgba(217,119,6,0.06) 1px, transparent 1px, transparent 20px)',
                 phone: <MobilePayoutSkeleton />,
               },
             ].map((s, i) => (
-              <motion.div key={i} variants={fadeUp}>
-                <div className="relative overflow-hidden rounded-[32px] flex flex-col"
-                  style={{ background: s.bgTint, border: `1px solid ${s.border}`, minHeight: 420 }}>
+              <motion.div key={i} variants={fadeUp} className="shrink-0 w-[82vw] snap-start md:w-auto self-stretch flex flex-col">
+                <div className="relative overflow-hidden rounded-[32px] flex flex-col flex-1"
+                  style={{ background: s.bgTint, border: `1px solid ${s.border}`, minHeight: 380 }}>
                   {/* Pattern overlay */}
                   <div className="absolute inset-0 pointer-events-none" style={{
                     backgroundImage: s.pattern,
@@ -353,7 +401,7 @@ export default function SponsorsPage() {
                       <span className="text-[9px] font-black uppercase tracking-[0.22em]"
                         style={{ color: s.accent }}>Step {s.step}</span>
                       <span className="text-[9px] font-black uppercase tracking-[0.22em]"
-                        style={{ color: `${s.accent}60` }}>— {s.label.split(' ').slice(0, 2).join(' ')}</span>
+                        style={{ color: `${s.accent}60` }}>— {s.tag}</span>
                     </div>
 
                     <div className="px-8 pt-7 pb-0 flex-1 flex flex-col">
@@ -367,22 +415,22 @@ export default function SponsorsPage() {
                 </div>
               </motion.div>
             ))}
-          </motion.div>
+          </ScrollCarousel>
         </div>
       </section>
 
       {/* 3. CAMPAIGN DASHBOARD ───────────────────────────────────────────────── */}
-      <section className="py-24" style={{ background: '#FFFFFF', borderTop: '1px solid #E4E4EC' }}>
+      <section className="py-12 md:py-24" style={{ background: '#FFFFFF', borderTop: '1px solid #E4E4EC' }}>
         <div className="max-w-6xl mx-auto px-6">
 
           {/* Split header */}
           <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={vp}
-            className="mb-14 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
-            <div>
+            className="mb-8 md:mb-14 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+            <div className="w-full">
               <motion.div variants={fadeUp}><SectionLabel>Dashboard & Analytics</SectionLabel></motion.div>
-              <motion.h2 variants={fadeUp} className="font-black text-[#0F0F1A] tracking-tight"
-                style={{ fontSize: 'clamp(36px, 5vw, 56px)', lineHeight: 1.0 }}>
-                Total visibility.<br />Zero guesswork.
+              <motion.h2 variants={fadeUp} className="font-black text-[#0F0F1A] tracking-tight w-full text-left"
+                style={{ fontSize: 'clamp(32px, 5vw, 56px)', lineHeight: 1.0 }}>
+                Total visibility. <br className="max-md:hidden" />Zero guesswork.
               </motion.h2>
             </div>
             <motion.div variants={fadeUp} className="flex gap-8 md:gap-10 md:pb-1 shrink-0">
@@ -424,13 +472,23 @@ export default function SponsorsPage() {
               <div className="p-6 md:p-10 pt-7">
                 <p className="font-black text-[#0F0F1A] tracking-tight mb-6"
                   style={{ fontSize: 'clamp(18px, 2vw, 22px)', lineHeight: 1.15 }}>
-                  Every active campaign, submission,<br className="hidden md:block" /> and spend tracked in real time.
+                  Every active campaign, submission, <br className="max-md:hidden" /> and spend tracked in real time.
                 </p>
-                <div className="relative rounded-xl overflow-hidden"
+                <div className="hidden md:block relative rounded-xl overflow-hidden"
                   style={{ border: '1px solid rgba(37,99,235,0.10)', boxShadow: '0 4px 24px rgba(37,99,235,0.08)' }}>
                   <BrowserChrome url="app.varmply.com/campaigns" />
                   <div className="bg-[#FAFAFA] overflow-hidden" style={{ height: 340 }}>
                     <DashboardSkeleton />
+                  </div>
+                </div>
+                {/* Mobile version (Phone visual) */}
+                <div className="md:hidden mt-4 relative h-[280px] w-full flex justify-center overflow-hidden pointer-events-none -mb-8">
+                  <div className="absolute top-0 flex justify-center" style={{ transform: 'scale(0.85)', transformOrigin: 'top center', width: 320 }}>
+                    <PhoneFrame screenBg="#FFFFFF">
+                      <div className="w-full h-[696px] bg-white pt-6">
+                        <MobileAnalyticsSkeleton />
+                      </div>
+                    </PhoneFrame>
                   </div>
                 </div>
               </div>
@@ -438,8 +496,7 @@ export default function SponsorsPage() {
           </motion.div>
 
           {/* 3 analytics feature cards — each with a unique pattern */}
-          <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={vp}
-            className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <ScrollCarousel count={3} gridClass="md:grid-cols-3">
             {[
               {
                 accent: '#7C3BED', bgTint: 'rgba(124,59,237,0.05)', border: 'rgba(124,59,237,0.14)',
@@ -467,8 +524,8 @@ export default function SponsorsPage() {
                 stats: [{ val: '₦0', label: 'Surprises' }, { val: 'Real-time', label: 'Tracking' }],
               },
             ].map((f, i) => (
-              <motion.div key={i} variants={fadeUp} className="h-full">
-                <div className="relative overflow-hidden rounded-[28px] flex flex-col h-full"
+              <motion.div key={i} variants={fadeUp} className="shrink-0 w-[82vw] snap-start md:w-auto self-stretch flex flex-col">
+                <div className="relative overflow-hidden rounded-[28px] flex flex-col flex-1"
                   style={{ background: f.bgTint, border: `1.5px solid ${f.border}`, minHeight: 260 }}>
                   {/* Pattern */}
                   <div className="absolute inset-0 pointer-events-none" style={{
@@ -506,34 +563,33 @@ export default function SponsorsPage() {
                 </div>
               </motion.div>
             ))}
-          </motion.div>
+          </ScrollCarousel>
         </div>
       </section>
 
       {/* 4. LIVE PERFORMANCE ─────────────────────────────────────────────────── */}
-      <section id="performance" className="py-24" style={{ background: '#FFFFFF', borderTop: '1px solid #E4E4EC' }}>
+      <section id="performance" className="py-12 md:py-24" style={{ background: '#FFFFFF', borderTop: '1px solid #E4E4EC' }}>
         <div className="max-w-6xl mx-auto px-6">
 
-          {/* Centered header */}
+          {/* Header */}
           <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={vp}
-            className="mb-14 flex flex-col items-center text-center gap-4">
+            className="mb-8 md:mb-14 flex flex-col items-start text-left md:items-center md:text-center gap-4">
             <motion.div variants={fadeUp}><SectionLabel>Live Performance</SectionLabel></motion.div>
-            <motion.h2 variants={fadeUp} className="font-black text-[#0F0F1A] tracking-tight"
-              style={{ fontSize: 'clamp(36px, 5vw, 56px)', lineHeight: 1.0 }}>
-              Real campaigns.<br />Verified results.
+            <motion.h2 variants={fadeUp} className="font-black text-[#0F0F1A] tracking-tight w-full"
+              style={{ fontSize: 'clamp(32px, 5vw, 56px)', lineHeight: 1.0 }}>
+              Real campaigns. <br className="max-md:hidden" />Verified results.
             </motion.h2>
-            <motion.p variants={fadeUp} className="text-base text-[#4A4A6A]"
-              style={{ maxWidth: 420, lineHeight: 1.6 }}>
+            <motion.p variants={fadeUp} className="text-base text-[#4A4A6A] md:max-w-[420px] w-full"
+              style={{ lineHeight: 1.6 }}>
               Every figure is validated automatically — no self-reporting, no manipulation.
             </motion.p>
           </motion.div>
 
           {/* Editorial poster cards */}
-          <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={vp}
-            className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <ScrollCarousel count={3} gridClass="md:grid-cols-3">
 
             {/* Card 1 — Paystack · diagonal crosshatch */}
-            <motion.div variants={fadeUp}>
+            <motion.div variants={fadeUp} className="shrink-0 w-[82vw] snap-start md:w-auto">
               <div className="relative overflow-hidden rounded-[28px] flex flex-col"
                 style={{ background: 'rgba(37,99,235,0.05)', border: '1.5px solid rgba(37,99,235,0.14)', minHeight: 420 }}>
                 {/* Diagonal crosshatch pattern */}
@@ -596,8 +652,8 @@ export default function SponsorsPage() {
             </motion.div>
 
             {/* Card 2 — PiggyVest · fine dot grid */}
-            <motion.div variants={fadeUp}>
-              <div className="relative overflow-hidden rounded-[28px] flex flex-col"
+            <motion.div variants={fadeUp} className="shrink-0 w-[82vw] snap-start md:w-auto self-stretch flex flex-col">
+              <div className="relative overflow-hidden rounded-[28px] flex flex-col flex-1"
                 style={{ background: 'rgba(124,59,237,0.05)', border: '1.5px solid rgba(124,59,237,0.14)', minHeight: 420 }}>
                 {/* Fine dot grid pattern */}
                 <div className="absolute inset-0 pointer-events-none" style={{
@@ -656,8 +712,8 @@ export default function SponsorsPage() {
             </motion.div>
 
             {/* Card 3 — Carbon Credit · horizontal rule lines */}
-            <motion.div variants={fadeUp}>
-              <div className="relative overflow-hidden rounded-[28px] flex flex-col"
+            <motion.div variants={fadeUp} className="shrink-0 w-[82vw] snap-start md:w-auto self-stretch flex flex-col">
+              <div className="relative overflow-hidden rounded-[28px] flex flex-col flex-1"
                 style={{ background: 'rgba(217,119,6,0.05)', border: '1.5px solid rgba(217,119,6,0.14)', minHeight: 420 }}>
                 {/* Horizontal rule lines pattern */}
                 <div className="absolute inset-0 pointer-events-none" style={{
@@ -714,7 +770,7 @@ export default function SponsorsPage() {
               </div>
             </motion.div>
 
-          </motion.div>
+          </ScrollCarousel>
 
           <motion.p variants={fadeUp} initial="hidden" whileInView="visible" viewport={vp}
             className="text-center mt-10 text-[11px] font-semibold uppercase tracking-[0.22em]"
@@ -725,21 +781,21 @@ export default function SponsorsPage() {
       </section>
 
       {/* 5. ESCROW ───────────────────────────────────────────────────────────── */}
-      <section id="escrow" className="py-24" style={{ background: '#FFFFFF', borderTop: '1px solid #E4E4EC' }}>
+      <section id="escrow" className="py-12 md:py-24" style={{ background: '#FFFFFF', borderTop: '1px solid #E4E4EC' }}>
         <div className="max-w-6xl mx-auto px-6">
 
           {/* Split header */}
           <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={vp}
-            className="mb-14 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+            className="mb-8 md:mb-14 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
             <div>
               <motion.div variants={fadeUp}><SectionLabel>Escrow System</SectionLabel></motion.div>
               <motion.h2 variants={fadeUp} className="font-black text-[#0F0F1A] tracking-tight"
                 style={{ fontSize: 'clamp(36px, 5vw, 56px)', lineHeight: 1.0 }}>
-                Your budget moves<br />on your terms.
+                Your budget is protected <br className="max-md:hidden" />by design.
               </motion.h2>
             </div>
             <motion.p variants={fadeUp}
-              className="text-base text-[#4A4A6A] max-w-xs md:text-right md:pb-1"
+              className="text-base text-[#4A4A6A] md:max-w-xs md:text-right md:pb-1"
               style={{ lineHeight: 1.6 }}>
               Funds only leave escrow when performance is confirmed. No exceptions, no overrides.
             </motion.p>
@@ -775,7 +831,7 @@ export default function SponsorsPage() {
                     <div className="h-px mb-8" style={{ background: 'rgba(37,99,235,0.12)' }} />
                     <h3 className="font-black text-[#0F0F1A] tracking-tight mb-3"
                       style={{ fontSize: 'clamp(20px, 2vw, 26px)', lineHeight: 1.1 }}>
-                      Every naira locked<br />before creators apply.
+                      Every naira locked <br className="max-md:hidden" />before creators apply.
                     </h3>
                     <p className="text-sm text-[#4A4A6A] leading-relaxed max-w-sm flex-1">
                       Budget enters escrow the moment your campaign activates. Creators see funds exist before applying — no budget means no campaign. If a creator misses requirements, their portion auto-returns. You never lose money to non-performance.
@@ -895,19 +951,19 @@ export default function SponsorsPage() {
       </section>
 
       {/* 6. CREATOR CONTENT REEL ─────────────────────────────────────────────── */}
-      <section className="py-24 overflow-hidden" style={{ background: '#FFFFFF', borderTop: '1px solid #E4E4EC' }}>
+      <section className="py-12 md:py-24 overflow-hidden" style={{ background: '#FFFFFF', borderTop: '1px solid #E4E4EC' }}>
         <div className="max-w-6xl mx-auto px-6">
 
-          {/* Centered header */}
+          {/* Header */}
           <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={vp}
-            className="mb-14 flex flex-col items-center text-center gap-4">
+            className="mb-8 md:mb-14 flex flex-col items-start text-left md:items-center md:text-center gap-4">
             <motion.div variants={fadeUp}><SectionLabel>Creator Content</SectionLabel></motion.div>
             <motion.h2 variants={fadeUp} className="font-black text-[#0F0F1A] tracking-tight"
               style={{ fontSize: 'clamp(36px, 5vw, 56px)', lineHeight: 1.0 }}>
-              The content your<br />campaigns produce.
+              The content your <br className="max-md:hidden" />campaigns produce.
             </motion.h2>
-            <motion.p variants={fadeUp} className="text-base text-[#4A4A6A]"
-              style={{ maxWidth: 420, lineHeight: 1.6 }}>
+            <motion.p variants={fadeUp} className="text-base text-[#4A4A6A] md:max-w-[420px]"
+              style={{ lineHeight: 1.6 }}>
               Real creators, real deliverables. Every post tied to a verified campaign brief.
             </motion.p>
           </motion.div>
@@ -937,14 +993,14 @@ export default function SponsorsPage() {
       </section>
 
       {/* 7. FAQ ──────────────────────────────────────────────────────────────── */}
-      <section id="faq" className="py-24" style={{ background: '#FFFFFF', borderTop: '1px solid #E4E4EC' }}>
+      <section id="faq" className="py-12 md:py-24" style={{ background: '#FFFFFF', borderTop: '1px solid #E4E4EC' }}>
         <div className="max-w-4xl mx-auto px-6">
           <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={vp}
-            className="mb-14 flex flex-col items-center text-center gap-4">
+            className="mb-8 md:mb-14 flex flex-col items-start text-left md:items-center md:text-center gap-4">
             <motion.div variants={fadeUp}><SectionLabel>FAQ</SectionLabel></motion.div>
             <motion.h2 variants={fadeUp} className="font-black text-[#0F0F1A] tracking-tight"
               style={{ fontSize: 'clamp(36px, 5vw, 56px)', lineHeight: 1.0 }}>
-              Sponsor questions,<br />answered.
+              Sponsor questions, <br className="max-md:hidden" />answered.
             </motion.h2>
           </motion.div>
           <motion.div

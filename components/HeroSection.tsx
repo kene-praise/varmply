@@ -7,6 +7,11 @@ import { ArrowRight } from 'lucide-react';
 import { PhoneFrame } from '@/components/ui/PhoneFrame';
 import { LiquidGlass } from '@/components/ui/LiquidGlass';
 
+const fadeUp = {
+  hidden: { opacity: 0, y: 28 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] as const } }
+};
+
 // ── shadcn-style app UI ───────────────────────────────────────────────────────
 function HeroPhoneApp() {
   const border = '1px solid hsl(214.3 31.8% 91.4%)';
@@ -22,7 +27,7 @@ function HeroPhoneApp() {
   const bars = [65, 40, 80, 55, 70, 35, 90];
 
   return (
-    <div className="w-full h-full flex flex-col overflow-hidden" style={{ background: 'hsl(210 40% 98%)', fontFamily: 'system-ui,-apple-system,sans-serif' }}>
+    <div className="w-full max-md:h-full max-md:flex max-md:flex-col overflow-hidden" style={{ background: 'hsl(210 40% 98%)', fontFamily: 'system-ui,-apple-system,sans-serif' }}>
 
       {/* Status bar */}
       <div className="flex items-center justify-between shrink-0 bg-white" style={{ height: 40, padding: '10px 16px 0' }}>
@@ -130,7 +135,7 @@ function RevealLine({
   className?: string;
 }) {
   return (
-    <div style={{ overflow: 'hidden' }} className={className}>
+    <div style={{ overflow: 'hidden', paddingBottom: '0.15em', marginBottom: '-0.15em' }} className={className}>
       <motion.div
         initial={{ y: '105%' }}
         animate={{ y: '0%' }}
@@ -287,7 +292,7 @@ export default function HeroSection() {
   return (
     <section
       className="relative overflow-hidden cursor-none"
-      style={{ minHeight: '100dvh', background: '#7433FF' }}
+      style={{ minHeight: '100dvh', background: '#6406cf' }}
     >
       <LiquidGlass width={140} height={140} borderRadius={70} blur={2} tintOpacity={0.15} />
       {/* Background 3D layer — icons fan out behind the glass box */}
@@ -295,13 +300,31 @@ export default function HeroSection() {
       {/* Foreground 3D layer — transparent canvas, icons pass IN FRONT of box */}
       <HeroForeground3D />
 
-      {/* Dot grid pattern on hero background */}
+      {/* Aurora — white glow, identical to footer */}
+      <div
+        className="pointer-events-none absolute rounded-[50%]"
+        style={{
+          width: '80vw',
+          height: '60vh',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          background: 'radial-gradient(circle at 50% 50%, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.05) 40%, transparent 70%)',
+          filter: 'blur(80px)',
+          animation: 'hero-breathe 8s ease-in-out infinite alternate',
+        }}
+      />
+
+      {/* Line grid — identical to footer-bg-grid */}
       <div
         className="pointer-events-none absolute inset-0"
         style={{
+          backgroundSize: '60px 60px',
           backgroundImage:
-            'radial-gradient(circle, rgba(255,255,255,0.10) 1.5px, transparent 1.5px)',
-          backgroundSize: '28px 28px',
+            'linear-gradient(to right, rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.04) 1px, transparent 1px)',
+          maskImage: 'linear-gradient(to bottom, transparent, black 30%, black 70%, transparent)',
+          WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 30%, black 70%, transparent)',
+          opacity: 0.4,
         }}
       />
       {/* Concentric rings — centred in the section */}
@@ -349,29 +372,36 @@ export default function HeroSection() {
           </motion.div>
 
           {/* Headline */}
-          <h1
-            className="font-extrabold tracking-tight text-white mb-7"
-            style={{ fontSize: 'clamp(40px, 4.4vw, 72px)', lineHeight: 1.04 }}
+          <motion.h1
+            variants={fadeUp}
+            initial="hidden"
+            animate="visible"
+            className="font-extrabold tracking-tight mb-7"
+            style={{
+              fontSize: 'clamp(40px, 4.4vw, 60px)',
+              lineHeight: 1.04,
+              background: 'linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.58) 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+              filter: 'drop-shadow(0px 0px 28px rgba(255,255,255,0.18))',
+              paddingBottom: '0.15em',
+            }}
           >
-            <RevealLine delay={0.48}>Campaigns</RevealLine>
-            <RevealLine delay={0.58}>that actually</RevealLine>
-            <RevealLine delay={0.68}>perform.</RevealLine>
-          </h1>
+            Turn your <br className="max-md:hidden" />song into a <br className="max-md:hidden" />creator campaign.
+          </motion.h1>
 
           {/* Subtext */}
           <motion.p
-            className="leading-relaxed mb-10"
+            variants={fadeUp}
+            initial="hidden"
+            animate="visible"
+            className="leading-relaxed mb-10 text-base md:max-w-[420px]"
             style={{
-              fontSize: 'clamp(15px, 1.1vw, 18px)',
               color: 'rgba(255,255,255,0.68)',
-              maxWidth: 420,
             }}
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 1.1, ease: [0.16, 1, 0.3, 1] as const }}
           >
-            Structured campaigns, verified metrics, and escrow payouts —
-            connecting creators and sponsors across Nigeria.
+            Launch structured creator campaigns where your track becomes content. Only pay for real performance — payouts happen only when engagement is verified.
           </motion.p>
 
           {/* CTAs */}
@@ -389,7 +419,7 @@ export default function HeroSection() {
                 boxShadow: '0 4px 24px rgba(0,0,0,0.20)',
               }}
             >
-              Run a Campaign <ArrowRight size={15} />
+              Launch a Campaign <ArrowRight size={15} />
             </Link>
             <Link
               href="/creators"
@@ -399,7 +429,7 @@ export default function HeroSection() {
                 color: 'white',
               }}
             >
-              Join as Creator
+              Start Earning
             </Link>
           </motion.div>
 
@@ -452,7 +482,7 @@ export default function HeroSection() {
                 className="pointer-events-none absolute bottom-0 inset-x-0 z-10"
                 style={{
                   height: 110,
-                  background: 'linear-gradient(to bottom, transparent, rgba(40,10,110,0.85))',
+                  background: 'linear-gradient(to bottom, transparent, rgba(80,3,160,0.90))',
                 }}
               />
               {/* Phone — bottom-anchored, top half visible, bottom half clipped */}

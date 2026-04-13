@@ -179,6 +179,12 @@ h1, h2, h3, h4, h5, h6 {
   background-clip: text;
 }
 
+/* Hero aurora breathe — shared across all hero sections */
+@keyframes hero-breathe {
+  0%   { transform: translate(-50%, -50%) scale(1);    opacity: 0.5; }
+  100% { transform: translate(-50%, -50%) scale(1.12); opacity: 0.9; }
+}
+
 /* Blob animations */
 @keyframes blob-float {
   0%, 100% { transform: translate(0, 0) scale(1); }
