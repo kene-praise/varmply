@@ -98,7 +98,7 @@ const PARTICLES: ParticleDef[] = [
   { type: 'heart',   color: '#4ADE80', spawnX: 5.3, spawnZ: 1.6, xDrift: 0.24, lifetime: 8.1, birthOffset: 7.38, spinX: 0.009, spinY: 0.012 },
 ];
 
-export default function HeroBackground3D() {
+export default function HeroBackground3D({ backgroundColor = '#6406cf' }: { backgroundColor?: string }) {
   const mountRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -107,7 +107,7 @@ export default function HeroBackground3D() {
 
     const w = el.clientWidth, h = el.clientHeight;
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color('#6406cf');
+    scene.background = new THREE.Color(backgroundColor);
 
     const camera = new THREE.PerspectiveCamera(58, w / h, 0.1, 100);
     camera.position.set(-3, 0, 13);

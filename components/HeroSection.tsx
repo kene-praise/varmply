@@ -3,8 +3,8 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
+import Image from 'next/image';
 import { ArrowRight } from 'lucide-react';
-import { PhoneFrame } from '@/components/ui/PhoneFrame';
 import { LiquidGlass } from '@/components/ui/LiquidGlass';
 
 const fadeUp = {
@@ -464,7 +464,7 @@ export default function HeroSection() {
             className="relative"
             style={{ height: 'clamp(560px, 74vh, 680px)' }}
           >
-            {/* Purple box fills wrapper, clips phone at bottom */}
+            {/* Glass panel with human portrait */}
             <motion.div
               className="absolute inset-0 rounded-[36px] overflow-hidden"
               style={{
@@ -477,23 +477,22 @@ export default function HeroSection() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               transition={{ duration: 1.0, delay: 0.5, ease: [0.16, 1, 0.3, 1] as const }}
             >
-              {/* Bottom fade */}
+              <div className="absolute inset-0">
+                <Image
+                  src="/mockups/sponsor-hero-artist.png"
+                  alt="Music creator portrait with headphones"
+                  fill
+                  priority
+                  className="object-cover object-center"
+                  sizes="(max-width: 1024px) 100vw, 48vw"
+                />
+              </div>
               <div
-                className="pointer-events-none absolute bottom-0 inset-x-0 z-10"
+                className="pointer-events-none absolute inset-0 z-10"
                 style={{
-                  height: 110,
-                  background: 'linear-gradient(to bottom, transparent, rgba(80,3,160,0.90))',
+                  background: 'linear-gradient(180deg, rgba(100,6,207,0.06) 0%, rgba(100,6,207,0.24) 55%, rgba(100,6,207,0.48) 100%)',
                 }}
               />
-              {/* Phone — bottom-anchored, top half visible, bottom half clipped */}
-              <div
-                className="absolute bottom-0 w-full flex justify-center"
-                style={{ transform: 'translateY(20%) scale(1.0)', transformOrigin: 'center center' }}
-              >
-                <PhoneFrame screenBg="#FFFFFF">
-                  <HeroPhoneApp />
-                </PhoneFrame>
-              </div>
             </motion.div>
 
             {/* ── Orbit chips — siblings of purple box, z-30, fixed px positions ── */}

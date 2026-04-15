@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import { ScrollCarousel } from '@/components/ui/ScrollCarousel';
 import Image from 'next/image';
 import { ArrowRight, CheckCircle, Lock, RotateCcw, BarChart2, Users, Shield, TrendingUp, DollarSign } from 'lucide-react';
@@ -9,7 +10,11 @@ import FAQAccordion from '@/components/FAQAccordion';
 import { BrowserChrome, DashboardSkeleton } from '@/components/MockupSkeletons';
 import { VideoCard } from '@/components/ui/VideoCard';
 import { PhoneFrame } from '@/components/ui/PhoneFrame';
+import { LiquidGlass } from '@/components/ui/LiquidGlass';
 import CampaignBuilderMockup from '@/components/UIComponents/CampaignBuilderMockup';
+
+const HeroBackground3D = dynamic(() => import('@/components/HeroBackground3D'), { ssr: false });
+const HeroForeground3D = dynamic(() => import('@/components/HeroForeground3D'), { ssr: false });
 
 // ─── Animation helpers ────────────────────────────────────────────────────────
 
@@ -28,7 +33,7 @@ const vp = { once: true, margin: '-80px' };
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
     <span className="inline-block rounded-full px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.18em] mb-6"
-      style={{ background: 'rgba(124,59,237,0.08)', color: '#7C3BED' }}>
+      style={{ background: 'rgba(124,59,237,0.08)', color: '#180d2bff' }}>
       {children}
     </span>
   );
@@ -161,6 +166,164 @@ const phoneVisual = (children: React.ReactNode) => (
   </div>
 );
 
+// ─── Hero Components from Main Page ──────────────────────────────────────────
+
+function HeroPhoneApp() {
+  const border = '1px solid hsl(214.3 31.8% 91.4%)';
+  const muted = 'hsl(215.4 16.3% 46.9%)';
+
+  const campaigns = [
+    { brand: 'Paystack', task: 'Instagram post', reward: '₦25,000', status: 'Active', statusColor: '#16A34A', statusBg: '#F0FDF4', avatar: '#3B82F6' },
+    { brand: 'PiggyVest', task: 'TikTok video', reward: '₦18,000', status: 'Pending', statusColor: '#D97706', statusBg: '#FFFBEB', avatar: '#2563EB' },
+    { brand: 'Cowrywise', task: 'Twitter thread', reward: '₦8,000', status: 'Active', statusColor: '#16A34A', statusBg: '#F0FDF4', avatar: '#00A050' },
+  ];
+
+  const bars = [65, 40, 80, 55, 70, 35, 90];
+
+  return (
+    <div className="w-full max-md:h-full max-md:flex max-md:flex-col overflow-hidden" style={{ background: 'hsl(210 40% 98%)', fontFamily: 'system-ui,-apple-system,sans-serif' }}>
+      {/* Status bar */}
+      <div className="flex items-center justify-between shrink-0 bg-white" style={{ height: 40, padding: '10px 16px 0' }}>
+        <span style={{ fontSize: 10.5, fontWeight: 600, letterSpacing: -0.2 }}>9:41</span>
+        <div className="flex items-center gap-1.5">
+          <svg width="13" height="9" viewBox="0 0 13 9" fill="currentColor" className="text-foreground">
+            <rect x="0" y="4.5" width="2.5" height="4.5" rx="0.5" opacity="0.3" />
+            <rect x="3.5" y="3" width="2.5" height="6" rx="0.5" opacity="0.55" />
+            <rect x="7" y="1.5" width="2.5" height="7.5" rx="0.5" opacity="0.8" />
+            <rect x="10.5" y="0" width="2.5" height="9" rx="0.5" />
+          </svg>
+          <svg width="19" height="9" viewBox="0 0 19 9" fill="none">
+            <rect x="0.5" y="0.5" width="15.5" height="8" rx="2" stroke="black" strokeOpacity="0.3" strokeWidth="0.8" />
+            <rect x="1.5" y="1.5" width="11" height="6" rx="1.5" fill="black" />
+            <path d="M17 3v3c.7-.2 1.2-.8 1.2-1.5S17.7 3.2 17 3z" fill="black" fillOpacity="0.35" />
+          </svg>
+        </div>
+      </div>
+
+      {/* App header */}
+      <div className="flex items-center justify-between shrink-0 bg-white" style={{ padding: '8px 16px 10px', borderBottom: border }}>
+        <div>
+          <p style={{ fontSize: 10, color: muted, marginBottom: 1 }}>Good morning,</p>
+          <p style={{ fontSize: 14, fontWeight: 700, color: 'hsl(222.2 84% 4.9%)', letterSpacing: -0.3 }}>Dami Adeyemi</p>
+        </div>
+        <div style={{ width: 34, height: 34, borderRadius: '50%', background: '#3B82F6', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <span style={{ fontSize: 10, fontWeight: 700, color: 'white' }}>DA</span>
+        </div>
+      </div>
+
+      {/* Earnings card */}
+      <div className="shrink-0 mx-3 mt-3" style={{ background: '#3B82F6', borderRadius: 14, padding: '14px 16px 12px' }}>
+        <p style={{ fontSize: 10, color: 'rgba(255,255,255,0.65)', marginBottom: 4 }}>Total earnings</p>
+        <p style={{ fontSize: 30, fontWeight: 700, color: 'white', letterSpacing: -1, lineHeight: 1, marginBottom: 10 }}>₦47,500</p>
+        <div className="flex gap-1.5 items-end" style={{ marginBottom: 6 }}>
+          {bars.map((h, i) => (
+            <div key={i} style={{ flex: 1, height: h * 0.3, borderRadius: 3, background: i === 6 ? 'white' : 'rgba(255,255,255,0.35)' }} />
+          ))}
+        </div>
+        <div className="flex items-center justify-between">
+          <span style={{ fontSize: 9, color: 'rgba(255,255,255,0.6)' }}>Last 7 days</span>
+          <span style={{ fontSize: 9, fontWeight: 600, color: '#86EFAC', background: 'rgba(255,255,255,0.12)', borderRadius: 20, padding: '2px 7px' }}>+₦12,000</span>
+        </div>
+      </div>
+
+      {/* Quick stats row */}
+      <div className="shrink-0 flex gap-2 mx-3 mt-2.5">
+        {[
+          { label: 'Active', value: '3', sub: 'campaigns', color: '#3B82F6', bg: '#EFF6FF' },
+          { label: 'Pending', value: '₦18K', sub: 'payout', color: '#D97706', bg: '#FFFBEB' },
+          { label: 'Reach', value: '340K', sub: 'followers', color: '#2563EB', bg: '#EFF6FF' },
+        ].map(({ label, value, sub, color, bg }) => (
+          <div key={label} style={{ flex: 1, background: 'white', borderRadius: 10, border, padding: '8px 8px 7px' }}>
+            <p style={{ fontSize: 7.5, color: muted, marginBottom: 3 }}>{label}</p>
+            <p style={{ fontSize: 15, fontWeight: 700, color, letterSpacing: -0.5, lineHeight: 1, marginBottom: 1 }}>{value}</p>
+            <p style={{ fontSize: 7, color: muted }}>{sub}</p>
+          </div>
+        ))}
+      </div>
+
+      {/* Campaigns section */}
+      <div className="shrink-0 mx-3 mt-3">
+        <div className="flex items-center justify-between" style={{ marginBottom: 8 }}>
+          <p style={{ fontSize: 11, fontWeight: 600, color: 'hsl(222.2 84% 4.9%)' }}>Active campaigns</p>
+          <p style={{ fontSize: 10, color: '#3B82F6', fontWeight: 500 }}>See all</p>
+        </div>
+        <div style={{ background: 'white', borderRadius: 12, border, overflow: 'hidden' }}>
+          {campaigns.map((c, i) => (
+            <div
+              key={i}
+              className="flex items-center gap-2.5"
+              style={{ padding: '9px 12px', borderBottom: i < campaigns.length - 1 ? border : 'none' }}
+            >
+              <div style={{ width: 32, height: 32, borderRadius: 8, background: c.avatar + '18', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, border: `1px solid ${c.avatar}22` }}>
+                <span style={{ fontSize: 10, fontWeight: 700, color: c.avatar }}>{c.brand[0]}</span>
+              </div>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <p style={{ fontSize: 10.5, fontWeight: 600, color: 'hsl(222.2 84% 4.9%)', marginBottom: 1.5 }}>{c.brand}</p>
+                <p style={{ fontSize: 9, color: muted, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{c.task}</p>
+              </div>
+              <div className="flex flex-col items-end gap-1">
+                <span style={{ fontSize: 10, fontWeight: 600, color: 'hsl(222.2 84% 4.9%)' }}>{c.reward}</span>
+                <span style={{ fontSize: 8, fontWeight: 500, color: c.statusColor, background: c.statusBg, borderRadius: 20, padding: '1px 6px' }}>{c.status}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function TikTokIcon({ size = 12 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="white">
+      <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V9a8.17 8.17 0 0 0 4.78 1.52V7.06a4.85 4.85 0 0 1-1.01-.37z" />
+    </svg>
+  );
+}
+
+function InstagramIcon({ size = 12 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="#E1306C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="2" y="2" width="20" height="20" rx="5" ry="5" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+    </svg>
+  );
+}
+
+function OrbitChip({
+  children,
+  chipStyle,
+  delay,
+  floatOffset = 7,
+}: {
+  children: React.ReactNode;
+  chipStyle: React.CSSProperties;
+  delay: number;
+  floatOffset?: number;
+}) {
+  return (
+    <motion.div
+      className="absolute flex items-center gap-2 rounded-2xl px-4 py-2.5 text-[11px] font-semibold text-white whitespace-nowrap z-30"
+      style={{
+        background: 'rgba(255,255,255,0.12)',
+        border: '1px solid rgba(255,255,255,0.22)',
+        backdropFilter: 'blur(16px)',
+        WebkitBackdropFilter: 'blur(16px)',
+        boxShadow: '0 4px 24px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.15)',
+        ...chipStyle,
+      }}
+      initial={{ opacity: 0, scale: 0.8 }}
+      animate={{ opacity: 1, scale: 1, y: [0, -floatOffset, 0] }}
+      transition={{
+        opacity: { duration: 0.45, delay },
+        scale: { duration: 0.55, delay, ease: [0.16, 1, 0.3, 1] as const },
+        y: { duration: 4 + delay * 0.3, delay, repeat: Infinity, ease: 'easeInOut' },
+      }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
 // ─── Data ─────────────────────────────────────────────────────────────────────
 
 
@@ -215,13 +378,20 @@ export default function SponsorsPage() {
     <div style={{ background: '#FFFFFF' }}>
 
       {/* 1. HERO ─────────────────────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden flex flex-col"
-        style={{ background: '#1A40B8' }}>
+      <section className="relative overflow-hidden cursor-none"
+        style={{ minHeight: '100dvh', background: '#3B82F6' }}>
+
+        <LiquidGlass width={140} height={140} borderRadius={70} blur={2} tintOpacity={0.15} />
+        {/* Background 3D layer — icons fan out behind the glass box */}
+        <HeroBackground3D backgroundColor="#0E52BE" />
+        {/* Foreground 3D layer — transparent canvas, icons pass IN FRONT of box */}
+        <HeroForeground3D />
 
         {/* Aurora bloom */}
         <div className="pointer-events-none absolute rounded-[50%]" style={{
           width: '80vw', height: '60vh',
           top: '50%', left: '50%',
+          transform: 'translate(-50%, -50%)',
           background: 'radial-gradient(circle at 50% 50%, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.05) 40%, transparent 70%)',
           filter: 'blur(80px)',
           animation: 'hero-breathe 8s ease-in-out infinite alternate',
@@ -234,97 +404,126 @@ export default function SponsorsPage() {
           WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 30%, black 70%, transparent)',
           opacity: 0.4,
         }} />
+        {/* Concentric rings */}
+        <div className="pointer-events-none absolute" style={{
+          width: 800, height: 800, borderRadius: '50%',
+          border: '1px solid rgba(255,255,255,0.07)',
+          top: '50%', left: '36%',
+          transform: 'translate(-50%, -50%)',
+        }} />
+        <div className="pointer-events-none absolute" style={{
+          width: 540, height: 540, borderRadius: '50%',
+          border: '1px solid rgba(255,255,255,0.06)',
+          top: '50%', left: '36%',
+          transform: 'translate(-50%, -50%)',
+        }} />
 
-        {/* ── Centered text ── */}
-        <motion.div
-          variants={stagger} initial="hidden" animate="visible"
-          className="relative z-10 flex flex-col items-start md:items-center text-left md:text-center pt-32 pb-8 px-6"
-        >
-          <motion.span variants={fadeUp}
-            className="inline-block rounded-full px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.18em] mb-6 text-white"
-            style={{ background: 'rgba(255,255,255,0.15)' }}>
-            For Sponsors
-          </motion.span>
-          <motion.h1 variants={fadeUp}
-            className="font-black tracking-tight mb-5 w-full text-left md:text-center"
-            style={{
-              fontSize: 'clamp(36px, 5vw, 68px)', lineHeight: 1.0,
-              background: 'linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.58) 100%)',
-              WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
-              filter: 'drop-shadow(0px 0px 28px rgba(255,255,255,0.18))',
-              paddingBottom: '0.15em',
-            }}>
-            Turn your track into <br className="max-md:hidden" />a creator campaign.
-          </motion.h1>
-          <motion.p variants={fadeUp}
-            className="text-white/75 text-base leading-relaxed mb-8 w-full text-left md:text-center"
-            style={{ maxWidth: 480 }}>
-            Fund once. Creators amplify your song. Pay only for results — payouts happen only when engagement is verified.
-          </motion.p>
-          <motion.div variants={fadeUp} className="flex flex-col sm:flex-row gap-3 mb-8 w-full md:w-auto">
-            <Link href="#"
-              className="flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold transition-all hover:opacity-90 w-full md:w-auto"
-              style={{ background: 'white', color: '#1A40B8' }}>
-              Launch a Campaign <ArrowRight size={15} />
-            </Link>
-            <Link href="#how-it-works"
-              className="flex items-center justify-center rounded-full px-7 py-3.5 text-sm font-semibold w-full md:w-auto"
-              style={{ color: 'white', border: '1.5px solid rgba(255,255,255,0.28)' }}>
-              See How It Works
-            </Link>
+        <div className="relative z-10 max-w-6xl mx-auto px-6 flex flex-col lg:flex-row items-start lg:items-center"
+          style={{ minHeight: '100dvh', gap: 48 }}>
+
+          {/* ── Left: text ── */}
+          <motion.div
+            className="w-full lg:w-1/2 lg:shrink-0 pt-20 pb-8 lg:pt-28 lg:pb-20"
+            variants={stagger} initial="hidden" animate="visible"
+          >
+            <motion.span variants={fadeUp}
+              className="inline-block rounded-full px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.18em] mb-6 text-white"
+              style={{ background: 'rgba(255,255,255,0.15)' }}>
+              For Sponsors
+            </motion.span>
+
+            <motion.h1 variants={fadeUp}
+              className="font-black tracking-tight mb-6"
+              style={{
+                fontSize: 'clamp(40px, 4.4vw, 64px)', lineHeight: 1.04,
+                background: 'linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.58) 100%)',
+                WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+                filter: 'drop-shadow(0px 0px 28px rgba(255,255,255,0.18))',
+                paddingBottom: '0.15em',
+              }}>
+              Turn your track <br className="max-md:hidden" /> into a creator campaign.
+            </motion.h1>
+
+            <motion.p variants={fadeUp}
+              className="text-white/75 text-base leading-relaxed mb-6 md:mb-10 md:max-w-[420px]">
+              Fund once. Creators amplify your song. Pay only for results — payouts happen only when engagement is verified.
+            </motion.p>
+
+            <motion.div variants={fadeUp} className="flex flex-col sm:flex-row gap-3 mb-6 md:mb-10">
+              <Link href="#"
+                className="flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold transition-all hover:opacity-90 w-full sm:w-auto"
+                style={{ background: 'white', color: '#3B82F6', boxShadow: '0 4px 24px rgba(0,0,0,0.20)' }}>
+                Launch a Campaign <ArrowRight size={15} />
+              </Link>
+              <Link href="#how-it-works"
+                className="flex items-center justify-center rounded-full px-7 py-3.5 text-sm font-semibold w-full sm:w-auto"
+                style={{ color: 'white', border: '1.5px solid rgba(255,255,255,0.28)' }}>
+                See How It Works
+              </Link>
+            </motion.div>
+
+            <motion.div variants={fadeUp} className="flex flex-wrap gap-3">
+              {['Budget locked in escrow', 'Paid only on performance', 'No chasing creators', 'No fake metrics'].map((b) => (
+                <span key={b} className="flex items-center gap-1.5 text-sm font-medium px-4 py-2 rounded-full text-white"
+                  style={{ background: 'rgba(255,255,255,0.12)' }}>
+                  <CheckCircle size={13} style={{ color: '#93C5FD' }} /> {b}
+                </span>
+              ))}
+            </motion.div>
           </motion.div>
-          <motion.div variants={fadeUp} className="flex flex-wrap md:justify-center gap-3">
-            {['Budget locked in escrow', 'Paid only on performance', 'No chasing creators', 'No fake metrics'].map((b) => (
-              <span key={b} className="flex items-center gap-1.5 text-sm font-medium px-4 py-2 rounded-full text-white"
-                style={{ background: 'rgba(255,255,255,0.12)' }}>
-                <CheckCircle size={13} style={{ color: '#93C5FD' }} /> {b}
-              </span>
-            ))}
-          </motion.div>
-        </motion.div>
 
-        {/* ── Desktop dashboard — bleeds out of section bottom ── */}
-        <motion.div
-          className="relative z-10 w-full px-4 hidden md:flex flex-col"
-          style={{ marginBottom: -2 }}
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <div className="max-w-[1100px] mx-auto w-full">
-            {/* Browser chrome — white header */}
-            <div className="rounded-t-[16px] overflow-hidden"
-              style={{ boxShadow: '0 -4px 40px rgba(0,0,0,0.30)', border: '1px solid rgba(255,255,255,0.18)', borderBottom: 'none' }}>
-              <div className="flex items-center gap-2 px-4 py-3 shrink-0"
-                style={{ background: '#FFFFFF', borderBottom: '1px solid #E8E8EE' }}>
-                <div className="flex gap-1.5">
-                  <span className="block w-2.5 h-2.5 rounded-full bg-[#FF5F56]" />
-                  <span className="block w-2.5 h-2.5 rounded-full bg-[#FFBD2E]" />
-                  <span className="block w-2.5 h-2.5 rounded-full bg-[#27C93F]" />
-                </div>
-                <div className="flex-1 rounded-full px-3 py-1 text-[10px] text-[#9999AA] border border-[#EBEBF2] truncate text-center max-w-xs mx-auto"
-                  style={{ background: '#F4F4F8' }}>
-                  app.varmply.co/dashboard
-                </div>
-                <div className="w-10" />
-              </div>
-
-              {/* Dashboard screenshot — top 50% crop */}
-              <div className="relative overflow-hidden" style={{ aspectRatio: '6048 / 3268', background: '#F8F8FB' }}>
-                <Image
-                  src="/mockups/dashboard-screenshot-2.png"
-                  alt="Varmply sponsor dashboard"
-                  fill
-                  quality={95}
-                  priority
-                  className="object-cover"
-                  style={{ objectPosition: 'top left' }}
+          {/* ── Right: glass box + phone + chips ── */}
+          <div
+            className="hidden lg:flex flex-col justify-center"
+            style={{ flex: 1 }}
+          >
+            <div
+              className="relative"
+              style={{ height: 'clamp(560px, 74vh, 680px)' }}
+            >
+              <motion.div
+                className="absolute inset-0 rounded-[36px] overflow-hidden"
+                style={{
+                  background: 'rgba(255,255,255,0.08)',
+                  backdropFilter: 'blur(24px)',
+                  WebkitBackdropFilter: 'blur(24px)',
+                  border: '1px solid rgba(255,255,255,0.16)',
+                }}
+                initial={{ opacity: 0, y: 32, scale: 0.97 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ duration: 1.0, delay: 0.5, ease: [0.16, 1, 0.3, 1] as const }}
+              >
+                <div
+                  className="pointer-events-none absolute bottom-0 inset-x-0 z-10"
+                  style={{
+                    height: 110,
+                    background: 'linear-gradient(to bottom, transparent, rgba(59,130,246,0.90))',
+                  }}
                 />
-              </div>
+                <div
+                  className="absolute bottom-0 w-full flex justify-center"
+                  style={{ transform: 'translateY(20%) scale(1.0)', transformOrigin: 'center center' }}
+                >
+                  <PhoneFrame screenBg="#FFFFFF">
+                    <HeroPhoneApp />
+                  </PhoneFrame>
+                </div>
+              </motion.div>
+
+              <OrbitChip chipStyle={{ top: 80, left: -24 }} delay={1.6} floatOffset={8}>
+                <InstagramIcon size={14} />
+                <span>840K reach</span>
+              </OrbitChip>
+
+              <OrbitChip chipStyle={{ top: 260, right: -24 }} delay={2.0} floatOffset={9}>
+                <TikTokIcon size={14} />
+                <span>2.1M views</span>
+              </OrbitChip>
             </div>
           </div>
-        </motion.div>
+
+        </div>
       </section>
 
       {/* 2. HOW IT WORKS ─────────────────────────────────────────────────────── */}
