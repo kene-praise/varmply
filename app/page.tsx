@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 import { BrowserChrome, DashboardSkeleton, CreateCampaignSkeleton } from '@/components/MockupSkeletons';
 import { ScrollCarousel } from '@/components/ui/ScrollCarousel';
+import FAQAccordion from '@/components/FAQAccordion';
 
 // ─── Phone skeletons ──────────────────────────────────────────────────────────
 
@@ -29,7 +30,7 @@ function MobileCampaignSkeleton() {
       <div className="h-16 w-full rounded-xl bg-[#F0F0F5]" />
       <div className="h-3 w-20 bg-[#EBEBF2] rounded mt-2 mb-1" />
       <div className="flex flex-wrap gap-1.5">
-        {['TikTok', 'Instagram', 'YouTube'].map(p => (
+        {['TikTok', 'Instagram'].map(p => (
           <div key={p} className="h-6 px-3 rounded-full bg-[#EDE9FF] flex items-center">
             <div className="h-1.5 w-10 bg-[#C4B5FD] rounded" />
           </div>
@@ -67,7 +68,7 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
 
 function HowItWorks() {
   return (
-    <section className="py-12 md:py-24" style={{ background: '#FFFFFF', borderTop: '1px solid #E4E4EC' }}>
+    <section id="how-it-works" className="py-12 md:py-24" style={{ background: '#FFFFFF', borderTop: '1px solid #E4E4EC' }}>
       <div className="max-w-6xl mx-auto px-6">
 
         {/* Centered header */}
@@ -719,8 +720,8 @@ const REELS_ROW_2 = [
 function ReelCard({ reel }: { reel: typeof REELS_ROW_1[number] }) {
   return (
     <div
-      className="relative shrink-0 overflow-hidden rounded-2xl"
-      style={{ width: 148, aspectRatio: '9/16' }}
+      className="relative shrink-0 overflow-hidden rounded-2xl w-[220px] md:w-[148px]"
+      style={{ aspectRatio: '9/16' }}
     >
       {/* Thumbnail */}
       <Image src={reel.thumb} alt="" fill className="object-cover" sizes="148px" />
@@ -802,18 +803,18 @@ function CreatorReel() {
           Real songs. <br className="max-md:hidden" />Real creators. <br className="max-md:hidden" />Real reach.
         </motion.h2>
         <motion.p variants={fadeUp} className="text-base text-[#4A4A6A] md:max-w-[420px]" style={{ lineHeight: 1.6 }}>
-          Campaigns across TikTok, Instagram, YouTube and more. All tracked and verified.
+          Campaigns across TikTok and Instagram. All tracked and verified.
         </motion.p>
         <motion.div variants={fadeUp} className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
-          <Link href="/sponsors"
+          <Link href="/waitlist"
             className="flex items-center justify-center gap-2 px-6 py-3 rounded-full font-semibold text-sm w-full sm:w-auto"
             style={{ background: '#7C3BED', color: 'white' }}>
-            Run a Campaign <ArrowRight size={14} />
+            Join the Waitlist <ArrowRight size={14} />
           </Link>
-          <Link href="/creators"
+          <Link href="#how-it-works"
             className="flex items-center justify-center gap-2 px-6 py-3 rounded-full font-semibold text-sm w-full sm:w-auto"
             style={{ background: 'rgba(124,59,237,0.10)', color: '#7C3BED', border: '1.5px solid rgba(124,59,237,0.22)' }}>
-            Join as Creator <ArrowRight size={14} />
+            How It Works <ArrowRight size={14} />
           </Link>
         </motion.div>
       </motion.div>
@@ -826,7 +827,7 @@ function CreatorReel() {
       </div>
 
       {/* Row 2 — scrolls right */}
-      <div className="relative z-10">
+      <div className="relative z-10 hidden md:block">
         <div className="flex animate-marquee-reverse gap-3" style={{ width: 'max-content' }}>
           {row2.map((r, i) => <ReelCard key={i} reel={r} />)}
         </div>
@@ -1065,6 +1066,38 @@ function Testimonials() {
   );
 }
 
+// ─── FAQ ──────────────────────────────────────────────────────────────────────
+
+const homeFaqItems = [
+  { question: 'What is Varmply?', answer: 'Varmply is a performance-based music campaign platform. Artists and labels run campaigns where creators post content promoting a track — payouts are only released when real engagement is verified.' },
+  { question: 'How do payouts work?', answer: "Sponsor budgets are locked in escrow when a campaign launches. Payments are released to creators automatically after their submission is validated — typically within 24–72 hours. No manual chasing." },
+  { question: 'Is it free to sign up?', answer: 'Free for creators. Sponsors pay only for verified results — there are no upfront platform fees to launch a campaign.' },
+  { question: 'Which platforms are supported?', answer: 'Instagram and TikTok. Each campaign specifies which platform is required.' },
+  { question: 'How is engagement verified?', answer: 'Varmply connects directly to social platform APIs to pull real metrics — views, plays, engagement rate. Creators cannot self-report results.' },
+  { question: 'When will Varmply be publicly available?', answer: "We're currently in closed beta. Join the waitlist and you'll be among the first to get access when we open to the public." },
+];
+
+function FAQ() {
+  return (
+    <section id="faq" className="py-12 md:py-24" style={{ background: '#FFFFFF', borderTop: '1px solid #E4E4EC' }}>
+      <div className="max-w-4xl mx-auto px-6">
+        <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={vp}
+          className="mb-8 md:mb-14 flex flex-col items-start text-left md:items-center md:text-center gap-4">
+          <motion.div variants={fadeUp}><SectionLabel>FAQ</SectionLabel></motion.div>
+          <motion.h2 variants={fadeUp} className="font-black text-[#0F0F1A] tracking-tight"
+            style={{ fontSize: 'clamp(36px, 5vw, 56px)', lineHeight: 1.0 }}>
+            Questions, answered.
+          </motion.h2>
+        </motion.div>
+        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
+          viewport={vp} transition={{ duration: 0.5 }}>
+          <FAQAccordion items={homeFaqItems} />
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
 export default function HomePage() {
@@ -1077,6 +1110,7 @@ export default function HomePage() {
       <CreatorReel />
       <TrustPillars />
       <Testimonials />
+      <FAQ />
     </>
   );
 }

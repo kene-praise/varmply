@@ -10,7 +10,7 @@ import FAQAccordion from '@/components/FAQAccordion';
 import WalletMockup from '@/components/UIComponents/WalletMockup';
 import { PhoneFrame } from '@/components/ui/PhoneFrame';
 import { BrowserChrome } from '@/components/MockupSkeletons';
-import CreatorBalloons3D from '@/components/CreatorBalloons3D';
+import CreatorHeroRisingIcons from '@/components/CreatorHeroRisingIcons';
 
 // ─── Animation helpers ────────────────────────────────────────────────────────
 
@@ -38,9 +38,9 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
 // ─── Video carousel for hero phone ──────────────────────────────────────────
 
 const CREATOR_VIDEOS = [
-  '/videos/creator-1.mp4',
-  '/videos/creator-2.mp4',
-  '/videos/creator-3.mp4',
+  '/videos/demo-1.mp4',
+  '/videos/demo-2.mp4',
+  '/videos/demo-3.mp4',
 ];
 
 function VideoCarouselScreen() {
@@ -59,7 +59,6 @@ function VideoCarouselScreen() {
   useEffect(() => {
     const el = videoRef.current;
     if (!el) return;
-    el.currentTime = 0;
     el.play().catch(() => {/* autoplay blocked — silent */});
   }, [index]);
 
@@ -82,6 +81,11 @@ function VideoCarouselScreen() {
             autoPlay
             muted
             playsInline
+            onLoadedMetadata={(e) => {
+              if (index === 2) {
+                e.currentTarget.currentTime = 4;
+              }
+            }}
             className="w-full h-full object-cover"
           />
         </motion.div>
@@ -282,7 +286,7 @@ const faqItems = [
   { question: 'When do I get paid?', answer: "Payments are released from escrow after your submission is validated — typically 24–72 hours. Funds land in your Varmply wallet immediately and can be withdrawn anytime." },
   { question: 'What counts as a valid submission?', answer: "Each campaign defines its own requirements (tagging the brand, hashtags, minimum video length). Validation is automated. The campaign brief shows exactly what's needed upfront." },
   { question: 'Can I join multiple campaigns at once?', answer: "Yes — as many as you qualify for simultaneously. Some campaigns have exclusivity clauses, which are always disclosed upfront." },
-  { question: 'What platforms are supported?', answer: 'Instagram, TikTok, YouTube, and Twitter. Each campaign specifies which platforms count.' },
+  { question: 'What platforms are supported?', answer: 'Instagram and TikTok. Each campaign specifies which platform is required.' },
   { question: 'Is there a fee for creators?', answer: 'Varmply is free for creators. You keep 100% of your campaign earnings. We charge sponsors, not creators.' },
 ];
 
@@ -295,7 +299,6 @@ export default function CreatorsPage() {
       {/* 1. HERO ─────────────────────────────────────────────────────────────── */}
       <section className="relative overflow-hidden"
         style={{ minHeight: '100dvh', background: '#006B35' }}>
-        <CreatorBalloons3D />
         {/* Aurora bloom */}
         <div className="pointer-events-none absolute rounded-[50%]" style={{
           width: '80vw', height: '60vh',
@@ -318,7 +321,7 @@ export default function CreatorsPage() {
 
           {/* ── Left: text ── */}
           <motion.div
-            className="w-full lg:w-1/2 lg:shrink-0 pt-20 pb-8 lg:pt-28 lg:pb-20"
+            className="w-full lg:w-1/2 lg:shrink-0 pt-20 pb-0 lg:pt-28 lg:pb-20"
             variants={stagger} initial="hidden" animate="visible"
           >
             <motion.span variants={fadeUp}
@@ -344,18 +347,29 @@ export default function CreatorsPage() {
               Join campaigns, post content, and get paid as soon as your performance is verified.
             </motion.p>
             <motion.div variants={fadeUp} className="flex flex-col sm:flex-row gap-3 mb-6 md:mb-10">
-              <Link href="#"
+              <Link href="/waitlist"
                 className="flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold transition-all hover:opacity-90 w-full sm:w-auto"
                 style={{ background: 'white', color: '#006B35', boxShadow: '0 4px 24px rgba(0,0,0,0.20)' }}>
-                Create Creator Account <ArrowRight size={15} />
+                Join the Waitlist <ArrowRight size={15} />
               </Link>
               <Link href="#how-it-works"
                 className="flex items-center justify-center rounded-full px-7 py-3.5 text-sm font-semibold w-full sm:w-auto"
                 style={{ color: 'white', border: '1.5px solid rgba(255,255,255,0.30)' }}>
-                Browse Campaigns
+                How It Works
               </Link>
             </motion.div>
-            <motion.div variants={fadeUp} className="flex flex-wrap gap-3">
+            {/* Mobile hero phone: 70% visible, bottom clipped by hero */}
+            <motion.div variants={fadeUp} className="lg:hidden mt-8">
+              <div className="relative w-full overflow-hidden h-[420px]">
+                <div className="absolute top-0 left-1/2" style={{ transform: 'translateX(-50%)' }}>
+                  <PhoneFrame screenBg="#000">
+                    <VideoCarouselScreen />
+                  </PhoneFrame>
+                </div>
+              </div>
+            </motion.div>
+
+            <motion.div variants={fadeUp} className="hidden lg:flex flex-wrap gap-3">
               {['Guaranteed payouts', 'No scattered DMs', 'Top-tier brands', 'Free to join'].map((b) => (
                 <span key={b} className="flex items-center gap-1.5 text-sm font-medium px-4 py-2 rounded-full text-white"
                   style={{ background: 'rgba(255,255,255,0.12)' }}>
@@ -381,6 +395,7 @@ export default function CreatorsPage() {
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 transition={{ duration: 1.0, delay: 0.5, ease: [0.16, 1, 0.3, 1] as const }}
               >
+                <CreatorHeroRisingIcons />
                 <div
                   className="pointer-events-none absolute bottom-0 inset-x-0 z-10"
                   style={{ height: 110, background: 'linear-gradient(to bottom, transparent, rgba(2,40,18,0.90))' }}
@@ -431,6 +446,7 @@ export default function CreatorsPage() {
           </div>
 
         </div>
+
       </section>
 
       {/* 2. HOW IT WORKS ─────────────────────────────────────────────────────── */}
@@ -555,7 +571,7 @@ export default function CreatorsPage() {
             {[
               { imageSrc: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=600&q=80', caption: '@dami.creates', subcaption: '₦140K earned · TikTok', chips: [{ label: '120K followers', position: 'top-left' as const, variant: 'dark' as const }] },
               { imageSrc: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80', caption: '@chuka.tv', subcaption: '₦95K earned · Instagram', chips: [{ label: '88K followers', position: 'top-left' as const, variant: 'dark' as const }] },
-              { imageSrc: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=600&q=80', caption: '@amara.creates', subcaption: '₦85K earned · YouTube', chips: [{ label: '54K followers', position: 'top-left' as const, variant: 'dark' as const }] },
+              { imageSrc: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=600&q=80', caption: '@amara.creates', subcaption: '₦85K earned · TikTok', chips: [{ label: '54K followers', position: 'top-left' as const, variant: 'dark' as const }] },
             ].map((item, i) => (
               <motion.div key={i} variants={fadeUp} className="shrink-0 w-[72vw] snap-start md:w-auto">
                 <VideoCard {...item} aspectRatio="4/5" surface="light" showGradient hoverable />

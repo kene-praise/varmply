@@ -10,11 +10,7 @@ import FAQAccordion from '@/components/FAQAccordion';
 import { BrowserChrome, DashboardSkeleton } from '@/components/MockupSkeletons';
 import { VideoCard } from '@/components/ui/VideoCard';
 import { PhoneFrame } from '@/components/ui/PhoneFrame';
-import { LiquidGlass } from '@/components/ui/LiquidGlass';
 import CampaignBuilderMockup from '@/components/UIComponents/CampaignBuilderMockup';
-
-const HeroBackground3D = dynamic(() => import('@/components/HeroBackground3D'), { ssr: false });
-const HeroForeground3D = dynamic(() => import('@/components/HeroForeground3D'), { ssr: false });
 
 // ─── Animation helpers ────────────────────────────────────────────────────────
 
@@ -33,7 +29,7 @@ const vp = { once: true, margin: '-80px' };
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
     <span className="inline-block rounded-full px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.18em] mb-6"
-      style={{ background: 'rgba(124,59,237,0.08)', color: '#180d2bff' }}>
+      style={{ background: 'rgba(124,59,237,0.08)', color: '#7C3BED' }}>
       {children}
     </span>
   );
@@ -55,7 +51,7 @@ function MobileCampaignSkeleton() {
       <div className="h-16 w-full rounded-xl bg-[#F0F0F5]" />
       <div className="h-3 w-20 bg-[#EBEBF2] rounded mt-2 mb-1" />
       <div className="flex flex-wrap gap-1.5">
-        {['TikTok', 'Instagram', 'YouTube'].map(p => (
+        {['TikTok', 'Instagram'].map(p => (
           <div key={p} className="h-6 px-3 rounded-full bg-[#EDE9FF] flex items-center">
             <div className="h-1.5 w-10 bg-[#C4B5FD] rounded" />
           </div>
@@ -173,9 +169,9 @@ function HeroPhoneApp() {
   const muted = 'hsl(215.4 16.3% 46.9%)';
 
   const campaigns = [
-    { brand: 'Paystack', task: 'Instagram post', reward: '₦25,000', status: 'Active', statusColor: '#16A34A', statusBg: '#F0FDF4', avatar: '#3B82F6' },
+    { brand: 'Paystack', task: 'Instagram post', reward: '₦25,000', status: 'Active', statusColor: '#16A34A', statusBg: '#F0FDF4', avatar: '#1A40B8' },
     { brand: 'PiggyVest', task: 'TikTok video', reward: '₦18,000', status: 'Pending', statusColor: '#D97706', statusBg: '#FFFBEB', avatar: '#2563EB' },
-    { brand: 'Cowrywise', task: 'Twitter thread', reward: '₦8,000', status: 'Active', statusColor: '#16A34A', statusBg: '#F0FDF4', avatar: '#00A050' },
+    { brand: 'Cowrywise', task: 'TikTok video', reward: '₦8,000', status: 'Active', statusColor: '#16A34A', statusBg: '#F0FDF4', avatar: '#00A050' },
   ];
 
   const bars = [65, 40, 80, 55, 70, 35, 90];
@@ -206,13 +202,13 @@ function HeroPhoneApp() {
           <p style={{ fontSize: 10, color: muted, marginBottom: 1 }}>Good morning,</p>
           <p style={{ fontSize: 14, fontWeight: 700, color: 'hsl(222.2 84% 4.9%)', letterSpacing: -0.3 }}>Dami Adeyemi</p>
         </div>
-        <div style={{ width: 34, height: 34, borderRadius: '50%', background: '#3B82F6', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div style={{ width: 34, height: 34, borderRadius: '50%', background: '#1A40B8', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <span style={{ fontSize: 10, fontWeight: 700, color: 'white' }}>DA</span>
         </div>
       </div>
 
       {/* Earnings card */}
-      <div className="shrink-0 mx-3 mt-3" style={{ background: '#3B82F6', borderRadius: 14, padding: '14px 16px 12px' }}>
+      <div className="shrink-0 mx-3 mt-3" style={{ background: '#1A40B8', borderRadius: 14, padding: '14px 16px 12px' }}>
         <p style={{ fontSize: 10, color: 'rgba(255,255,255,0.65)', marginBottom: 4 }}>Total earnings</p>
         <p style={{ fontSize: 30, fontWeight: 700, color: 'white', letterSpacing: -1, lineHeight: 1, marginBottom: 10 }}>₦47,500</p>
         <div className="flex gap-1.5 items-end" style={{ marginBottom: 6 }}>
@@ -229,7 +225,7 @@ function HeroPhoneApp() {
       {/* Quick stats row */}
       <div className="shrink-0 flex gap-2 mx-3 mt-2.5">
         {[
-          { label: 'Active', value: '3', sub: 'campaigns', color: '#3B82F6', bg: '#EFF6FF' },
+          { label: 'Active', value: '3', sub: 'campaigns', color: '#1A40B8', bg: '#DBEAFE' },
           { label: 'Pending', value: '₦18K', sub: 'payout', color: '#D97706', bg: '#FFFBEB' },
           { label: 'Reach', value: '340K', sub: 'followers', color: '#2563EB', bg: '#EFF6FF' },
         ].map(({ label, value, sub, color, bg }) => (
@@ -245,7 +241,7 @@ function HeroPhoneApp() {
       <div className="shrink-0 mx-3 mt-3">
         <div className="flex items-center justify-between" style={{ marginBottom: 8 }}>
           <p style={{ fontSize: 11, fontWeight: 600, color: 'hsl(222.2 84% 4.9%)' }}>Active campaigns</p>
-          <p style={{ fontSize: 10, color: '#3B82F6', fontWeight: 500 }}>See all</p>
+          <p style={{ fontSize: 10, color: '#1A40B8', fontWeight: 500 }}>See all</p>
         </div>
         <div style={{ background: 'white', borderRadius: 12, border, overflow: 'hidden' }}>
           {campaigns.map((c, i) => (
@@ -378,15 +374,8 @@ export default function SponsorsPage() {
     <div style={{ background: '#FFFFFF' }}>
 
       {/* 1. HERO ─────────────────────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden cursor-none"
-        style={{ minHeight: '100dvh', background: '#3B82F6' }}>
-
-        <LiquidGlass width={140} height={140} borderRadius={70} blur={2} tintOpacity={0.15} />
-        {/* Background 3D layer — icons fan out behind the glass box */}
-        <HeroBackground3D backgroundColor="#0E52BE" />
-        {/* Foreground 3D layer — transparent canvas, icons pass IN FRONT of box */}
-        <HeroForeground3D />
-
+      <section className="relative overflow-hidden"
+        style={{ minHeight: '100dvh', background: '#1A40B8' }}>
         {/* Aurora bloom */}
         <div className="pointer-events-none absolute rounded-[50%]" style={{
           width: '80vw', height: '60vh',
@@ -423,7 +412,7 @@ export default function SponsorsPage() {
 
           {/* ── Left: text ── */}
           <motion.div
-            className="w-full lg:w-1/2 lg:shrink-0 pt-20 pb-8 lg:pt-28 lg:pb-20"
+            className="w-full lg:w-1/2 lg:shrink-0 pt-20 pb-0 lg:pt-28 lg:pb-20"
             variants={stagger} initial="hidden" animate="visible"
           >
             <motion.span variants={fadeUp}
@@ -451,19 +440,30 @@ export default function SponsorsPage() {
             </motion.p>
 
             <motion.div variants={fadeUp} className="flex flex-col sm:flex-row gap-3 mb-6 md:mb-10">
-              <Link href="#"
+              <Link href="/waitlist"
                 className="flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold transition-all hover:opacity-90 w-full sm:w-auto"
-                style={{ background: 'white', color: '#3B82F6', boxShadow: '0 4px 24px rgba(0,0,0,0.20)' }}>
-                Launch a Campaign <ArrowRight size={15} />
+                style={{ background: 'white', color: '#1A40B8', boxShadow: '0 4px 24px rgba(0,0,0,0.20)' }}>
+                Join the Waitlist <ArrowRight size={15} />
               </Link>
               <Link href="#how-it-works"
                 className="flex items-center justify-center rounded-full px-7 py-3.5 text-sm font-semibold w-full sm:w-auto"
                 style={{ color: 'white', border: '1.5px solid rgba(255,255,255,0.28)' }}>
-                See How It Works
+                How It Works
               </Link>
             </motion.div>
 
-            <motion.div variants={fadeUp} className="flex flex-wrap gap-3">
+            {/* Mobile hero phone: 70% visible, bottom clipped by hero */}
+            <motion.div variants={fadeUp} className="lg:hidden mt-8">
+              <div className="relative w-full overflow-hidden h-[420px]">
+                <div className="absolute top-0 left-1/2" style={{ transform: 'translateX(-50%)' }}>
+                  <PhoneFrame screenBg="#FFFFFF">
+                    <HeroPhoneApp />
+                  </PhoneFrame>
+                </div>
+              </div>
+            </motion.div>
+
+            <motion.div variants={fadeUp} className="hidden lg:flex flex-wrap gap-3">
               {['Budget locked in escrow', 'Paid only on performance', 'No chasing creators', 'No fake metrics'].map((b) => (
                 <span key={b} className="flex items-center gap-1.5 text-sm font-medium px-4 py-2 rounded-full text-white"
                   style={{ background: 'rgba(255,255,255,0.12)' }}>
@@ -473,15 +473,9 @@ export default function SponsorsPage() {
             </motion.div>
           </motion.div>
 
-          {/* ── Right: glass box + phone + chips ── */}
-          <div
-            className="hidden lg:flex flex-col justify-center"
-            style={{ flex: 1 }}
-          >
-            <div
-              className="relative"
-              style={{ height: 'clamp(560px, 74vh, 680px)' }}
-            >
+          {/* ── Right: glass box + phone + chips (desktop only) ── */}
+          <div className="hidden lg:flex flex-col justify-center" style={{ flex: 1 }}>
+            <div className="relative" style={{ height: 'clamp(560px, 74vh, 680px)' }}>
               <motion.div
                 className="absolute inset-0 rounded-[36px] overflow-hidden"
                 style={{
@@ -498,7 +492,7 @@ export default function SponsorsPage() {
                   className="pointer-events-none absolute bottom-0 inset-x-0 z-10"
                   style={{
                     height: 110,
-                    background: 'linear-gradient(to bottom, transparent, rgba(59,130,246,0.90))',
+                    background: 'linear-gradient(to bottom, transparent, rgba(26,64,184,0.90))',
                   }}
                 />
                 <div
@@ -524,6 +518,7 @@ export default function SponsorsPage() {
           </div>
 
         </div>
+
       </section>
 
       {/* 2. HOW IT WORKS ─────────────────────────────────────────────────────── */}
@@ -1174,7 +1169,7 @@ export default function SponsorsPage() {
               { imageSrc: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=500&q=80', caption: '@amara.creates', subcaption: 'Paystack Q1 · TikTok', chips: [{ label: '120K views', position: 'top-left' as const, variant: 'dark' as const }] },
               { imageSrc: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&q=80', caption: '@dayo_creates', subcaption: 'PiggyVest · Instagram', chips: [{ label: '88K views', position: 'top-left' as const, variant: 'dark' as const }] },
               { imageSrc: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500&q=80', caption: '@layla.ng', subcaption: 'Carbon Credit · TikTok', chips: [{ label: '54K views', position: 'top-left' as const, variant: 'dark' as const }] },
-              { imageSrc: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=500&q=80', caption: '@seunvibes', subcaption: 'Paystack Q1 · YouTube', chips: [{ label: '210K views', position: 'top-left' as const, variant: 'dark' as const }] },
+              { imageSrc: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=500&q=80', caption: '@seunvibes', subcaption: 'Paystack Q1 · TikTok', chips: [{ label: '210K views', position: 'top-left' as const, variant: 'dark' as const }] },
               { imageSrc: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=500&q=80', caption: '@chuka.tv', subcaption: 'PiggyVest · TikTok', chips: [{ label: '67K views', position: 'top-left' as const, variant: 'dark' as const }] },
             ].map((reel, i) => (
               <motion.div key={i} variants={fadeUp} className={i % 2 !== 0 ? 'md:mt-8' : ''}>

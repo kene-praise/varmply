@@ -19,8 +19,8 @@ export default function SiteHeader() {
   }, [pathname]);
 
   const navLinks = [
-    { href: '/#how-it-works', label: 'How It Works' },
-    { href: '/#faq', label: 'FAQ' },
+    { href: '#how-it-works', label: 'How It Works' },
+    { href: '#faq', label: 'FAQ' },
   ];
 
   return (
@@ -68,18 +68,7 @@ export default function SiteHeader() {
         <div className="flex flex-1 items-center justify-end gap-2 md:gap-3">
           <div className="hidden items-center gap-3 md:flex">
             <Link
-              href="#"
-              className={clsx(
-                'rounded-full px-5 py-2 text-sm font-semibold transition-all',
-                isLightHeader
-                  ? 'text-[#0F0F1A]/70 hover:bg-black/5 hover:text-[#0F0F1A]'
-                  : 'text-white/80 hover:bg-white/10 hover:text-white'
-              )}
-            >
-              Sign In
-            </Link>
-            <Link
-              href="#"
+              href="/waitlist"
               className={clsx(
                 'rounded-full px-5 py-2 text-sm font-semibold transition-all',
                 isLightHeader
@@ -88,7 +77,7 @@ export default function SiteHeader() {
               )}
               style={{ boxShadow: isLightHeader ? '0 2px 12px rgba(124,59,237,0.3)' : '0 2px 12px rgba(0,0,0,0.15)' }}
             >
-              Get Started →
+              Join Waitlist →
             </Link>
           </div>
 
@@ -128,24 +117,13 @@ export default function SiteHeader() {
             ))}
             <div className={clsx('mt-3 flex flex-col gap-2 border-t pt-3', isLightHeader ? 'border-black/[0.06]' : 'border-white/10')}>
               <Link
-                href="#"
-                className={clsx(
-                  'rounded-full px-4 py-2.5 text-center text-sm font-semibold transition-all',
-                  isLightHeader
-                    ? 'text-[#0F0F1A]/70 hover:bg-black/5'
-                    : 'text-white/80 hover:bg-white/10 hover:text-white'
-                )}
-              >
-                Sign In
-              </Link>
-              <Link
-                href="#"
+                href="/waitlist"
                 className={clsx(
                   'rounded-full px-4 py-2.5 text-center text-sm font-semibold',
                   isLightHeader ? 'bg-[#7C3BED] text-white' : 'bg-white text-[#0F0F1A]'
                 )}
               >
-                Get Started →
+                Join Waitlist →
               </Link>
             </div>
           </div>
