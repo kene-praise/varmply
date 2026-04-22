@@ -291,6 +291,7 @@ function CreatorScreen() {
 export default function HeroSection() {
   return (
     <section
+      id="hero"
       className="relative overflow-hidden cursor-none"
       style={{ minHeight: '100dvh', background: '#6406cf' }}
     >
