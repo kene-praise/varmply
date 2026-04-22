@@ -293,7 +293,7 @@ export default function CreatorsPage() {
     <div style={{ background: '#FFFFFF' }}>
 
       {/* 1. HERO ─────────────────────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden"
+      <section id="creator-hero" className="relative overflow-hidden"
         style={{ minHeight: '100dvh', background: '#006B35' }}>
         <CreatorBalloons3D />
         {/* Aurora bloom */}
