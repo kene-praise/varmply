@@ -781,7 +781,7 @@ function CreatorReel() {
   const row2 = [...REELS_ROW_2, ...REELS_ROW_2];
 
   return (
-    <section className="py-12 md:py-24 overflow-hidden relative" style={{ background: '#F7F4FF', borderTop: '1px solid rgba(124,59,237,0.12)' }}>
+    <section id="creator-community" className="py-12 md:py-24 overflow-hidden relative" style={{ background: '#F7F4FF', borderTop: '1px solid rgba(124,59,237,0.12)' }}>
 
       {/* Diagonal stripe pattern */}
       <div className="absolute inset-0 pointer-events-none" style={{
