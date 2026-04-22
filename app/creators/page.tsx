@@ -109,12 +109,6 @@ function VideoCarouselScreen() {
         </div>
       </div>
 
-      {/* ── Payout chip — top right ── */}
-      <div className="absolute top-14 right-3 z-20 flex items-center gap-1.5 rounded-full px-2.5 py-1"
-        style={{ background: 'rgba(0,160,80,0.88)', backdropFilter: 'blur(8px)' }}>
-        <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
-        <span style={{ fontSize: 9, fontWeight: 700, color: 'white' }}>₦25,000 pending</span>
-      </div>
 
       {/* ── Right: action buttons ── */}
       <div className="absolute right-3 z-20 flex flex-col items-center gap-4" style={{ bottom: 80 }}>
@@ -171,95 +165,175 @@ function VideoCarouselScreen() {
 
 // ─── Phone skeletons ──────────────────────────────────────────────────────────
 
-function MobileMarketplaceSkeleton() {
+function MobileMarketplaceMockup() {
   return (
-    <div className="p-4 flex flex-col gap-3">
-      <div className="flex gap-2 mb-2">
-        <div className="h-6 flex-1 rounded-full bg-[#F0F0F5]" />
-        <div className="h-6 w-6 rounded-full bg-[#F0F0F5]" />
-      </div>
-      <div className="flex gap-2 overflow-hidden mb-2">
-        <div className="h-5 w-16 rounded-full bg-[#C4B5FD]" />
-        <div className="h-5 w-12 rounded-full bg-[#F0F0F5]" />
-        <div className="h-5 w-14 rounded-full bg-[#F0F0F5]" />
-      </div>
-      {[1, 2, 3].map(i => (
-        <div key={i} className="rounded-xl border border-[#EBEBF2] p-3 flex gap-3 items-center">
-          <div className="h-10 w-10 rounded-lg bg-[#F0F0F5]" />
-          <div className="flex-1">
-            <div className="h-2 w-3/4 bg-[#EBEBF2] rounded mb-2" />
-            <div className="h-1.5 w-1/2 bg-[#EBEBF2] rounded mb-2" />
-            <div className="h-3 w-16 bg-[#D1D5DB] rounded-full" />
-          </div>
+    <div className="p-4 flex flex-col gap-3 font-sans h-full bg-[#FAFAFA] rounded-[36px] overflow-hidden -mx-2 -mt-4">
+      <div className="flex gap-2 items-center mb-2 px-1">
+        <div className="flex-1 bg-white border border-[#EBEBF2] rounded-full px-3 py-2 text-[11px] text-[#A0A0BA] flex items-center gap-2 shadow-sm">
+           <span className="text-[14px]">🔍</span> Find campaigns...
         </div>
-      ))}
-    </div>
-  );
-}
-
-function MobileProfileSkeleton() {
-  return (
-    <div className="p-5 flex flex-col items-center gap-4">
-      <div className="h-16 w-16 rounded-full bg-[#F0F0F5] mb-2" />
-      <div className="h-3 w-32 bg-[#EBEBF2] rounded mb-1" />
-      <div className="h-2 w-20 bg-[#EBEBF2] rounded mb-4" />
-      <div className="w-full flex gap-2 mb-4">
-        {[1, 2, 3].map(i => (
-          <div key={i} className="flex-1 h-12 rounded-xl bg-[#F0F0F5] flex flex-col items-center justify-center gap-1">
-            <div className="h-2 w-8 bg-[#EBEBF2] rounded" />
-            <div className="h-3 w-12 bg-[#D1D5DB] rounded" />
+        <div className="w-8 h-8 bg-white border border-[#EBEBF2] rounded-full flex items-center justify-center shadow-sm text-[14px]">⚙️</div>
+      </div>
+      
+      <div className="flex gap-2 mb-2 px-1 overflow-hidden shrink-0">
+        {['All', 'Music', 'Tech'].map((t, i) => (
+           <span key={i} className={`px-4 py-1.5 rounded-full text-[10px] font-bold whitespace-nowrap shadow-sm ${i === 0 ? 'bg-[#7C3BED] text-white' : 'bg-white border border-[#EBEBF2] text-[#4A4A6A]'}`}>{t}</span>
+        ))}
+      </div>
+      
+      <div className="flex flex-col gap-2 flex-1 overflow-hidden pb-4">
+        {[
+          { icon: '🎵', brand: 'Universal Music', title: 'Viral Dance Challenge', reward: '₦45K', tags: ['TikTok', 'Music'] },
+          { icon: '🏦', brand: 'PiggyVest', title: 'Q3 Promo Drive', reward: '₦20K', tags: ['Instagram', 'Finance'] },
+          { icon: '🍔', brand: 'Foodie Deliveries', title: 'Lunch Hour Push', reward: '₦15K', tags: ['Both', 'Lifestyle'] }
+        ].map((c, i) => (
+          <div key={i} className="bg-white border border-[#EBEBF2] rounded-2xl p-3.5 flex gap-3 shadow-sm items-center">
+            <div className="w-12 h-12 rounded-xl flex items-center justify-center text-[20px] bg-[#F5F5F7] border border-[#EAEAF0] shrink-0">{c.icon}</div>
+            <div className="flex-1 min-w-0">
+               <p className="text-[9px] font-black text-[#A0A0BA] uppercase mb-0.5">{c.brand}</p>
+               <p className="text-[12px] font-bold text-[#0F0F1A] truncate mb-1.5">{c.title}</p>
+               <div className="flex items-center gap-1.5">
+                 {c.tags.map(t => <span key={t} className="text-[8px] font-bold px-1.5 py-0.5 bg-[rgba(124,59,237,0.06)] border border-[rgba(124,59,237,0.12)] text-[#7C3BED] rounded">{t}</span>)}
+               </div>
+            </div>
+            <div className="flex flex-col items-end gap-1.5 shrink-0">
+               <span className="text-[12px] font-black text-[#00A050] bg-[rgba(0,160,80,0.08)] px-1.5 py-0.5 rounded">{c.reward}</span>
+               <span className="text-[9px] font-bold text-white bg-[#0F0F1A] px-3 py-1 rounded-md shadow-sm">Apply</span>
+            </div>
           </div>
         ))}
       </div>
-      <div className="w-full h-8 rounded-lg bg-[#C4B5FD] mb-2" />
-      <div className="w-full h-8 rounded-lg bg-[#F0F0F5]" />
     </div>
   );
 }
 
-function MobileSubmitSkeleton() {
+function MobileProfileMockup() {
   return (
-    <div className="p-4 flex flex-col gap-4">
-      <div className="h-24 w-full rounded-xl bg-[#F0F0F5] flex items-center justify-center">
-        <div className="h-8 w-8 rounded-full bg-[#EBEBF2]" />
+    <div className="p-5 flex flex-col items-center gap-4 font-sans h-full bg-[#FAFAFA] rounded-[36px] overflow-hidden -mx-2 -mt-4">
+      <div className="relative mb-2">
+         <div className="w-20 h-20 rounded-full border-[3px] border-[#0F0F1A] p-1 bg-white relative z-10">
+            <div className="w-full h-full rounded-full bg-[#F5F5F7] border border-[#EBEBF2] flex items-center justify-center text-[24px]">👤</div>
+         </div>
+         <div className="absolute -bottom-2 -right-2 w-8 h-8 rounded-full bg-[#00A050] border-2 border-white flex items-center justify-center text-[12px] text-white z-20 shadow-sm">✓</div>
       </div>
-      <div>
-        <div className="h-2 w-24 bg-[#EBEBF2] rounded mb-2" />
-        <div className="h-8 w-full rounded-lg border border-[#EBEBF2]" />
+      
+      <div className="text-center">
+         <p className="text-[16px] font-black text-[#0F0F1A] mb-0.5">Dami Adeyemi</p>
+         <p className="text-[11px] font-bold text-[#A0A0BA]">@dami_creates</p>
       </div>
-      <div>
-        <div className="h-2 w-16 bg-[#EBEBF2] rounded mb-2" />
-        <div className="h-16 w-full rounded-xl border border-[#EBEBF2]" />
+      
+      <div className="w-full flex gap-2 mb-2">
+        <div className="flex-1 rounded-2xl bg-white border border-[rgba(0,160,80,0.2)] shadow-sm flex flex-col items-center justify-center py-3 gap-0.5">
+            <span className="text-[10px] font-bold text-[#A0A0BA] uppercase">Followers</span>
+            <span className="text-[16px] font-black text-[#0F0F1A]">148K</span>
+        </div>
+        <div className="flex-1 rounded-2xl bg-white border border-[rgba(0,160,80,0.2)] shadow-sm flex flex-col items-center justify-center py-3 gap-0.5">
+            <span className="text-[10px] font-bold text-[#A0A0BA] uppercase">Eng. Rate</span>
+            <span className="text-[16px] font-black text-[#00A050]">12.4%</span>
+        </div>
       </div>
-      <div className="mt-auto h-10 w-full rounded-full bg-[#FBBF24]" />
+      
+      <div className="w-full flex flex-col gap-2 mt-4">
+         <span className="text-[10px] font-bold text-[#4A4A6A] uppercase px-1">Linked Profiles</span>
+         <div className="w-full rounded-2xl bg-white border border-[#EBEBF2] p-3 flex justify-between items-center shadow-sm">
+            <div className="flex items-center gap-3">
+               <div className="text-[18px]">📱</div>
+               <div className="flex flex-col">
+                  <span className="text-[11px] font-black text-[#0F0F1A]">TikTok</span>
+                  <span className="text-[9px] text-[#A0A0BA] font-medium">@dami_creates • 120K</span>
+               </div>
+            </div>
+            <span className="text-[9px] font-bold text-[#00A050] bg-[rgba(0,160,80,0.1)] px-2 py-1 rounded">Verified</span>
+         </div>
+         <div className="w-full rounded-2xl bg-white border border-[#EBEBF2] p-3 flex justify-between items-center shadow-sm">
+            <div className="flex items-center gap-3">
+               <div className="text-[18px]">📸</div>
+               <div className="flex flex-col">
+                  <span className="text-[11px] font-black text-[#0F0F1A]">Instagram</span>
+                  <span className="text-[9px] text-[#A0A0BA] font-medium">@dami_creates • 28K</span>
+               </div>
+            </div>
+            <span className="text-[9px] font-bold text-[#00A050] bg-[rgba(0,160,80,0.1)] px-2 py-1 rounded">Verified</span>
+         </div>
+      </div>
     </div>
   );
 }
 
-function MobileWalletSkeleton() {
+function MobileSubmitMockup() {
   return (
-    <div className="p-4 flex flex-col gap-4">
-      <div className="rounded-2xl p-5" style={{ background: '#0F0A2E' }}>
-        <div className="h-2 w-20 bg-white/30 rounded mb-3" />
-        <div className="h-6 w-32 bg-white rounded mb-4" />
-        <div className="h-6 w-24 rounded-full bg-white/20" />
+    <div className="p-4 flex flex-col gap-4 font-sans h-full bg-[#FAFAFA] rounded-[36px] overflow-hidden -mx-2 -mt-4">
+      <div className="rounded-2xl bg-[rgba(217,119,6,0.05)] border border-[rgba(217,119,6,0.15)] flex flex-col items-center justify-center py-6 px-4 mb-2 shadow-sm relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-24 h-24 bg-[rgba(217,119,6,0.08)] rounded-full -mr-6 -mt-6 pointer-events-none" />
+        <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm text-[16px] mb-2 border border-[#EBEBF2]">🔗</div>
+        <p className="text-[12px] font-black text-[#0F0F1A] text-center mb-1">Submit your link</p>
+        <p className="text-[10px] text-[#A0A0BA] text-center px-4">Paste the link to your live content for verification.</p>
       </div>
-      <div className="grid grid-cols-2 gap-3">
-        <div className="h-16 rounded-xl bg-[#F0F0F5]" />
-        <div className="h-16 rounded-xl bg-[#F0F0F5]" />
+      
+      <div>
+        <span className="text-[10px] font-bold text-[#4A4A6A] mb-1.5 block px-1">Content Link *</span>
+        <div className="h-11 w-full rounded-xl border border-[#EBEBF2] bg-white flex items-center px-3 shadow-sm">
+           <span className="text-[11px] text-[#D1D1DE] font-semibold">https://tiktok.com/@your_handle/...</span>
+        </div>
       </div>
-      <div className="flex flex-col gap-2">
-        <div className="h-2 w-24 bg-[#EBEBF2] rounded mb-1" />
-        {[1, 2, 3].map(i => (
-          <div key={i} className="flex justify-between items-center py-2 border-b border-[#F0F0F5]">
-            <div className="flex gap-2 items-center">
-              <div className="h-6 w-6 rounded-full bg-[#F0F0F5]" />
-              <div className="flex flex-col gap-1">
-                <div className="h-2 w-20 bg-[#EBEBF2] rounded" />
-                <div className="h-1.5 w-12 bg-[#EBEBF2] rounded" />
+      
+      <div>
+        <span className="text-[10px] font-bold text-[#4A4A6A] mb-1.5 block px-1">Proof / Screenshot (Optional)</span>
+        <div className="w-full rounded-xl border-2 border-dashed border-[#EBEBF2] bg-[#F9F9FB] flex flex-col items-center justify-center py-5">
+           <span className="text-[18px]">📷</span>
+           <span className="text-[9px] font-bold text-[#A0A0BA] mt-2">Tap to upload proof</span>
+        </div>
+      </div>
+      
+      <div className="mt-auto h-12 w-full rounded-full bg-[#D97706] shadow-md flex items-center justify-center text-white text-[12px] font-bold">
+         Submit for Validation
+      </div>
+    </div>
+  );
+}
+
+function MobileWalletMockup() {
+  return (
+    <div className="p-4 flex flex-col gap-3 font-sans h-full bg-[#FAFAFA] rounded-[36px] overflow-hidden -mx-2 -mt-4">
+      <div className="rounded-[24px] p-5 shadow-md relative overflow-hidden shrink-0 border border-[#1E1940]" style={{ background: '#0F0A2E' }}>
+        <div className="absolute right-0 top-0 w-32 h-32 bg-[rgba(37,99,235,0.2)] blur-2xl rounded-full" />
+        <div className="relative z-10">
+           <p className="text-[10px] font-bold text-white/50 uppercase tracking-widest mb-1">Available Balance</p>
+           <p className="text-[28px] font-black text-white mb-4 leading-none mix-blend-plus-lighter">₦145,200</p>
+           <div className="bg-white/10 px-4 py-1.5 rounded-full text-[11px] font-bold text-white border border-white/20 shadow-sm backdrop-blur-md w-max">Withdraw Funds</div>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-2 gap-3 mt-2 shrink-0">
+        <div className="rounded-2xl p-4 bg-white border border-[#EBEBF2] shadow-sm flex flex-col">
+           <span className="text-[9px] font-bold text-[#A0A0BA] uppercase mb-2">Pending Escrow</span>
+           <span className="text-[16px] font-black text-[#0F0F1A]">₦45,000</span>
+        </div>
+        <div className="rounded-2xl p-4 bg-white border border-[#EBEBF2] shadow-sm flex flex-col">
+           <span className="text-[9px] font-bold text-[#A0A0BA] uppercase mb-2">Total Earned</span>
+           <span className="text-[16px] font-black text-[#00A050]">₦390,200</span>
+        </div>
+      </div>
+
+      <div className="flex flex-col gap-0 mt-3 flex-1 overflow-hidden">
+        <div className="flex justify-between items-center mb-1 px-1">
+           <span className="text-[11px] font-bold text-[#4A4A6A] px-1 block">Recent Activity</span>
+           <span className="text-[9px] font-bold text-[#2563EB]">View all</span>
+        </div>
+        {[
+          { icon: '💸', title: 'Campaign Payout', desc: 'Universal Music — TikTok', amt: '+₦45,000' },
+          { icon: '🏦', title: 'Withdrawal', desc: 'To GTBank **** 4492', amt: '-₦120,000' },
+          { icon: '🔒', title: 'Escrow Locked', desc: 'PiggyVest Q3 Promo', amt: '+₦25,000' }
+        ].map((item, i) => (
+          <div key={i} className="flex justify-between items-center py-2.5 border-b border-[#F0F0F5] border-dashed last:border-0">
+            <div className="flex gap-3 items-center">
+              <div className="h-9 w-9 rounded-xl bg-[#F5F5F7] text-[14px] flex items-center justify-center border border-[#EBEBF2]">{item.icon}</div>
+              <div className="flex flex-col justify-center">
+                <p className="text-[11px] font-bold text-[#0F0F1A] leading-tight mb-[1px]">{item.title}</p>
+                <p className="text-[9px] text-[#A0A0BA] leading-none">{item.desc}</p>
               </div>
             </div>
-            <div className="h-3 w-12 bg-[#D1D5DB] rounded" />
+            <span className={`text-[11px] font-black ${item.amt.startsWith('+') ? 'text-[#00A050]' : 'text-[#0F0F1A]'}`}>{item.amt}</span>
           </div>
         ))}
       </div>
@@ -286,7 +360,7 @@ const faqItems = [
   { question: 'When do I get paid?', answer: "Payments are released from escrow after your submission is validated — typically 24–72 hours. Funds land in your Varmply wallet immediately and can be withdrawn anytime." },
   { question: 'What counts as a valid submission?', answer: "Each campaign defines its own requirements (tagging the brand, hashtags, minimum video length). Validation is automated. The campaign brief shows exactly what's needed upfront." },
   { question: 'Can I join multiple campaigns at once?', answer: "Yes — as many as you qualify for simultaneously. Some campaigns have exclusivity clauses, which are always disclosed upfront." },
-  { question: 'What platforms are supported?', answer: 'Instagram and TikTok. Each campaign specifies which platform is required.' },
+  { question: 'What platforms are supported?', answer: 'TikTok alone for now. More platforms are coming up soon.' },
   { question: 'Is there a fee for creators?', answer: 'Varmply is free for creators. You keep 100% of your campaign earnings. We charge sponsors, not creators.' },
 ];
 
@@ -310,10 +384,9 @@ export default function CreatorsPage() {
         {/* Line grid */}
         <div className="absolute inset-0 pointer-events-none" style={{
           backgroundSize: '60px 60px',
-          backgroundImage: 'linear-gradient(to right, rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.04) 1px, transparent 1px)',
-          maskImage: 'linear-gradient(to bottom, transparent, black 30%, black 70%, transparent)',
-          WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 30%, black 70%, transparent)',
-          opacity: 0.4,
+          backgroundImage: 'linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px)',
+          maskImage: 'linear-gradient(to bottom, transparent, black 20%, black 80%, transparent)',
+          WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 20%, black 80%, transparent)',
         }} />
 
         <div className="relative z-10 max-w-6xl mx-auto px-6 flex flex-col lg:flex-row items-start lg:items-center"
@@ -325,18 +398,19 @@ export default function CreatorsPage() {
             variants={stagger} initial="hidden" animate="visible"
           >
             <motion.span variants={fadeUp}
-              className="inline-block rounded-full px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.18em] mb-6 text-white"
-              style={{ background: 'rgba(255,255,255,0.15)' }}>
+              className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-[9px] font-bold uppercase tracking-[0.22em] mb-6 text-white/70 border"
+              style={{ borderColor: 'rgba(255,255,255,0.2)' }}>
+              <span className="w-1 h-1 rounded-full bg-white/60 animate-pulse" />
               For Creators
             </motion.span>
             <motion.h1 variants={fadeUp}
               className="font-black tracking-tight mb-6"
               style={{
                 fontSize: 'clamp(40px, 4.4vw, 64px)', lineHeight: 1.04,
-                background: 'linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.58) 100%)',
+                background: 'linear-gradient(160deg, #ffffff 0%, #c8ffd8 35%, #ffffff 60%, rgba(255,255,255,0.65) 100%)',
                 WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
                 backgroundClip: 'text',
-                filter: 'drop-shadow(0px 0px 28px rgba(255,255,255,0.18))',
+                filter: 'drop-shadow(0px 0px 40px rgba(200,255,216,0.45))',
                 paddingBottom: '0.15em',
               }}>
               Earn from promoting <br className="max-md:hidden" />music. Get paid <br className="max-md:hidden" />automatically.
@@ -347,7 +421,7 @@ export default function CreatorsPage() {
               Join campaigns, post content, and get paid as soon as your performance is verified.
             </motion.p>
             <motion.div variants={fadeUp} className="flex flex-col sm:flex-row gap-3 mb-6 md:mb-10">
-              <Link href="/waitlist"
+              <Link href="/waitlist?role=creator"
                 className="flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold transition-all hover:opacity-90 w-full sm:w-auto"
                 style={{ background: 'white', color: '#006B35', boxShadow: '0 4px 24px rgba(0,0,0,0.20)' }}>
                 Join the Waitlist <ArrowRight size={15} />
@@ -369,11 +443,13 @@ export default function CreatorsPage() {
               </div>
             </motion.div>
 
-            <motion.div variants={fadeUp} className="hidden lg:flex flex-wrap gap-3">
-              {['Guaranteed payouts', 'No scattered DMs', 'Top-tier brands', 'Free to join'].map((b) => (
-                <span key={b} className="flex items-center gap-1.5 text-sm font-medium px-4 py-2 rounded-full text-white"
-                  style={{ background: 'rgba(255,255,255,0.12)' }}>
-                  <CheckCircle size={13} style={{ color: '#BBF7D0' }} /> {b}
+            <motion.div variants={fadeUp} className="hidden lg:flex items-center flex-wrap gap-y-2">
+              {['Guaranteed payouts', 'No scattered DMs', 'Top-tier brands', 'Free to join'].map((b, i) => (
+                <span key={b} className="flex items-center">
+                  <span className="flex items-center gap-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-white/50">
+                    <CheckCircle size={9} style={{ color: '#BBF7D0', flexShrink: 0 }} /> {b}
+                  </span>
+                  {i < 3 && <span className="mx-3.5 text-white/20 text-xs select-none">·</span>}
                 </span>
               ))}
             </motion.div>
@@ -473,31 +549,31 @@ export default function CreatorsPage() {
               {
                 step: '01', accent: '#7C3BED', bgTint: 'rgba(124,59,237,0.05)', border: 'rgba(124,59,237,0.14)',
                 label: 'Browse the marketplace', tag: 'DISCOVERY',
-                description: 'Filter by niche, platform, payout, and eligibility. Every campaign shows full requirements before you apply.',
+                description: 'Discover campaigns curated for you, all in one place. Every campaign shows full requirements before you apply.',
                 pattern: 'repeating-linear-gradient(-45deg, rgba(124,59,237,0.06) 0px, rgba(124,59,237,0.06) 1px, transparent 1px, transparent 14px)',
-                phone: <MobileMarketplaceSkeleton />,
+                phone: <MobileMarketplaceMockup />,
               },
               {
                 step: '02', accent: '#00A050', bgTint: 'rgba(0,160,80,0.05)', border: 'rgba(0,160,80,0.14)',
                 label: 'Connect & apply', tag: 'APPLICATION',
-                description: 'Link your social accounts. Varmply checks eligibility automatically — follower count, engagement, niche match.',
+                description: 'Link your social accounts to unlock your access to campaign feed and enable performance tracking. Varmply handles the reporting, you do the chilling.',
                 pattern: 'radial-gradient(circle, rgba(0,160,80,0.13) 1px, transparent 1px)',
                 patternSize: '18px 18px',
-                phone: <MobileProfileSkeleton />,
+                phone: <MobileProfileMockup />,
               },
               {
                 step: '03', accent: '#D97706', bgTint: 'rgba(217,119,6,0.05)', border: 'rgba(217,119,6,0.14)',
                 label: 'Submit your content', tag: 'DELIVERY',
-                description: 'Post your content, submit the link in Varmply. Attach screenshots and notes. All tracked in one place.',
+                description: 'Create content that matches the campaign brief, post it, then drop your link. From there, Varmply handles the heavy lifting—tracking, verification, and everything in between.',
                 pattern: 'repeating-linear-gradient(180deg, rgba(217,119,6,0.07) 0px, rgba(217,119,6,0.07) 1px, transparent 1px, transparent 22px)',
-                phone: <MobileSubmitSkeleton />,
+                phone: <MobileSubmitMockup />,
               },
               {
                 step: '04', accent: '#2563EB', bgTint: 'rgba(37,99,235,0.05)', border: 'rgba(37,99,235,0.14)',
-                label: 'Earn after validation', tag: 'EARNINGS',
-                description: 'Once your submission meets campaign criteria, funds release from escrow to your wallet. Withdraw anytime.',
+                label: 'Result-backed earnings', tag: 'EARNINGS',
+                description: 'Your earnings are tied directly to the results you generate. At the end of each campaign, you receive payment based on the total value of engagement you delivered.',
                 pattern: 'repeating-linear-gradient(90deg, rgba(37,99,235,0.06) 0px, rgba(37,99,235,0.06) 1px, transparent 1px, transparent 20px)',
-                phone: <MobileWalletSkeleton />,
+                phone: <MobileWalletMockup />,
               },
             ].map((s, i) => (
               <motion.div key={i} variants={fadeUp} className="shrink-0 w-[82vw] snap-start md:w-auto self-stretch flex flex-col">
@@ -646,7 +722,7 @@ export default function CreatorsPage() {
                   <div className="absolute top-0 flex justify-center" style={{ transform: 'scale(0.85)', transformOrigin: 'top center', width: 320 }}>
                     <PhoneFrame screenBg="#FFFFFF">
                       <div className="w-full h-[696px] bg-white pt-6">
-                        <MobileWalletSkeleton />
+                        <MobileWalletMockup />
                       </div>
                     </PhoneFrame>
                   </div>

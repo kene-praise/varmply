@@ -548,3 +548,193 @@ Bento cards (mobile):   w-[82vw] snap-start (visible + hint of next card)
 | `contain: true` flag on SVG tiles for padded rendering | Fill SVG tiles like PNG (SVGs need breathing room) |
 | `translateY(20%)` on phone inside glass panel | `translateY(0)` — phone should be partially clipped to look "docked" |
 | Clamp font sizes (`clamp(40px, 4.4vw, 64px)`) | Fixed font sizes that don't scale with viewport |
+
+---
+
+## Glass look & feel
+
+Glass is the signature aesthetic of the hero sections. Every hero right-panel is a glass container holding a phone mockup and rising icon tiles.
+
+### Visual recipe
+
+```
+Background:      rgba(255,255,255,0.08)   — barely-there white fill
+Backdrop-filter: blur(24px)               — frosted glass effect
+Border:          1px solid rgba(255,255,255,0.16)   — soft light edge
+Border-radius:   36px                     — very rounded, premium feel
+overflow:        hidden                   — clips phone + rising icons naturally
+```
+
+### Inner depth layers (back to front)
+
+1. **Background gradient** — faint radial or directional glow matching page accent colour, adds warmth behind the glass
+2. **Rising icon tiles** — squarecle icons floating upward, clipped at panel edges
+3. **Bottom gradient fade** — `linear-gradient(to bottom, transparent, <accent-at-90%>)`, height 110px, `z-index: 10` — creates the impression that icons are emerging from colour below
+4. **Phone frame** — sits at `absolute bottom-0`, `translateY(20%)` so only mid-to-top section visible, clipped at both ends
+5. **Orbit chips** — absolute-positioned floating stat badges; `z-index: 20`; `backdropFilter: blur(16px)` adds nested glass effect
+
+### The frosted glass illusion
+
+The glass panel works because of layered transparency:
+- The 3D background (Three.js canvas) shines through the `rgba(255,255,255,0.08)` fill
+- `blur(24px)` softens whatever is behind the panel — Three.js orbs, gradients, or abstract shapes
+- The `1px solid rgba(255,255,255,0.16)` border catches light and defines the edge without a hard outline
+- The bottom gradient merges the panel into the page's accent colour, making it feel part of the surface
+
+### Orbit chips (nested glass)
+
+```
+bg:             rgba(255,255,255,0.12)
+border:         1px solid rgba(255,255,255,0.22)
+backdropFilter: blur(16px)
+boxShadow:      0 4px 24px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.15)
+```
+
+The `inset 0 1px 0 rgba(255,255,255,0.15)` creates a subtle top highlight — the classic glass bevel effect.
+
+### Navigation (scrolled state)
+
+The `SiteHeader` also uses glass when scrolled:
+```
+background: rgba(255,255,255,0.85)
+backdropFilter: blur(20px)
+borderBottom: 1px solid rgba(228,228,236,0.8)
+```
+
+This keeps the nav readable while the hero content scrolls beneath it.
+
+---
+
+## Motion system
+
+Motion is central to the Varmply landing aesthetic. The page should feel alive — not animated for the sake of it, but kinetic like a music campaign reel.
+
+### Scroll-triggered entrances (Framer Motion)
+
+Every section fades up as it enters the viewport. This is the base pattern — never deviate from it:
+
+```tsx
+const fadeUp = {
+  hidden: { opacity: 0, y: 28 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] } },
+};
+const stagger = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.11 } },
+};
+// Viewport trigger — fires once, 80px before element enters view
+const vp = { once: true, margin: '-80px' };
+```
+
+The easing `[0.16, 1, 0.3, 1]` is a custom spring — fast start, smooth settle. It's the same curve used throughout the page for consistency.
+
+### Hero panel entrance
+
+```tsx
+// Glass panel slides in from right with slight scale-up
+initial={{ opacity: 0, y: 32, scale: 0.97 }}
+animate={{ opacity: 1, y: 0, scale: 1 }}
+transition={{ duration: 1.0, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+```
+
+### Rising icon tiles (perpetual loops)
+
+Music platform icons (home) and engagement icons (creators) loop infinitely — they rise from below the glass panel and fade out at the top, creating constant low-level visual energy.
+
+```css
+/* Home — music platform logos */
+@keyframes icon-rise {
+  from { transform: translateY(0);      opacity: 0; }
+  10%  {                                opacity: 1; }
+  75%  {                                opacity: 1; }
+  to   { transform: translateY(-900px); opacity: 0; }
+}
+
+/* Creators — engagement icons (shorter travel distance) */
+@keyframes engagement-rise {
+  from { transform: translateY(0);      opacity: 0; }
+  10%  {                                opacity: 1; }
+  75%  {                                opacity: 1; }
+  to   { transform: translateY(-750px); opacity: 0; }
+}
+
+/* Optional lateral sway for creator icons */
+@keyframes icon-sway {
+  0%, 100% { transform: translateX(0); }
+  50%       { transform: translateX(var(--drift, 8px)); }
+}
+```
+
+Each tile gets:
+- `animationDuration: 8–11s` — randomised so they never all line up
+- `animationDelay: -Xs` (negative) — means the animation is already mid-way on first render; no waiting for first tile
+- `animationTimingFunction: linear` — constant speed, no easing
+
+### Orbit chip float
+
+Hero stat badges bob continuously:
+```tsx
+animate={{ opacity: 1, scale: 1, y: [0, -7, 0] }}
+transition={{
+  y: { duration: 4, repeat: Infinity, ease: 'easeInOut', repeatType: 'loop' }
+}}
+```
+
+Stagger chip reveals with `delay: 1.2`, `1.4`, `1.6` so they appear one-by-one after the hero enters.
+
+### Aurora breathe (hero background pulse)
+
+The radial gradient glow behind the hero breathes slowly:
+```css
+@keyframes hero-breathe {
+  from { opacity: 0.6; transform: scale(0.97); }
+  to   { opacity: 1.0; transform: scale(1.03); }
+}
+/* Applied with: animation: hero-breathe 4s ease-in-out infinite alternate */
+```
+
+### Three.js background motion
+
+- `HeroBackground3D` / `HeroForeground3D`: Abstract floating orbs/particles, subtle rotation, audience accent colour fill
+- `CreatorBalloons3D`: Playful balloon-like shapes for the creators hero, green tones
+- Both render at `position: absolute inset-0 z-0` — background canvas with `pointer-events: none`
+
+### What motion to avoid
+
+- No layout shifts or size changes on scroll (causes jank)
+- No entrance animations that take > 1s for above-the-fold content
+- No `opacity: 0` on content the user might interact with before animation fires
+- Never use `whileInView` on the hero — it's always visible on load, so use `animate` with a delay instead
+
+---
+
+## Visual references
+
+Screenshots and Figma files for design reference. All images are in `design-assets/`.
+
+### Landing page screenshots (live site)
+
+| File | Description |
+|------|-------------|
+| `design-assets/landing-desktop-1.png` | Home hero — desktop |
+| `design-assets/landing-desktop-2.png` | Home sections — desktop |
+| `design-assets/landing-desktop-3.png` | Home lower sections — desktop |
+| `design-assets/landing-mobile-1.png` | Home — iPhone 12 Pro |
+| `design-assets/landing-mobile-2.png` | Additional mobile view |
+| `design-assets/varmply-brand.png` | Varmply brand overview |
+
+### Figma UI screens (design intent for webapp)
+
+These two Figma frames show the target look for the web app UI — bright accent palette, bold stats, editorial card layout. Use these as the visual north star when refreshing the frontend (`varmply-frontend`).
+
+| File | Description |
+|------|-------------|
+| `design-assets/figma-sponsor-dashboard.png` | Sponsor Dashboard v2 — KPI tiles, campaign list, sidebar |
+| `design-assets/figma-campaign-detail.png` | Individual Campaign screen — hero banner, budget breakdown, submission list |
+
+**Key observations from Figma:**
+- Stat numbers are huge (`font-black`, audience colour) and dominate each tile
+- Cards use very light tint backgrounds (5% opacity accent) with visible border
+- Sidebar is dark (`#0F0F1A`) with accent-coloured active indicators
+- Status badges are colour-coded rounded pills (same system as `design.md`)
+- Bright accent squares for icon tiles — not grey, not muted

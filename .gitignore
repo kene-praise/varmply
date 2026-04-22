@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# playground (local only — never push)
+/app/playground/
+
+# playwright MCP artifacts
+/.playwright-mcp/

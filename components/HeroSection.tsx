@@ -315,10 +315,9 @@ export default function HeroSection() {
         style={{
           backgroundSize: '60px 60px',
           backgroundImage:
-            'linear-gradient(to right, rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.04) 1px, transparent 1px)',
-          maskImage: 'linear-gradient(to bottom, transparent, black 30%, black 70%, transparent)',
-          WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 30%, black 70%, transparent)',
-          opacity: 0.4,
+            'linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px)',
+          maskImage: 'linear-gradient(to bottom, transparent, black 20%, black 80%, transparent)',
+          WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 20%, black 80%, transparent)',
         }}
       />
       {/* Concentric rings — centred in the section */}
@@ -326,7 +325,7 @@ export default function HeroSection() {
         className="pointer-events-none absolute"
         style={{
           width: 800, height: 800, borderRadius: '50%',
-          border: '1px solid rgba(255,255,255,0.07)',
+          border: '1px solid rgba(255,255,255,0.035)',
           top: '50%', left: '36%',
           transform: 'translate(-50%, -50%)',
         }}
@@ -335,7 +334,7 @@ export default function HeroSection() {
         className="pointer-events-none absolute"
         style={{
           width: 540, height: 540, borderRadius: '50%',
-          border: '1px solid rgba(255,255,255,0.06)',
+          border: '1px solid rgba(255,255,255,0.025)',
           top: '50%', left: '36%',
           transform: 'translate(-50%, -50%)',
         }}
@@ -471,11 +470,12 @@ export default function HeroSection() {
             >
               <div className="absolute inset-0">
                 <Image
-                  src="/mockups/sponsor-hero-artist.png"
+                  src="/mockups/headphones-portrait-2.jpg"
                   alt="Music creator portrait with headphones"
                   fill
                   priority
                   className="object-cover object-center"
+                  style={{ transform: 'scaleX(-1)' }}
                   sizes="(max-width: 1024px) 100vw, 48vw"
                 />
               </div>

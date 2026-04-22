@@ -13,6 +13,7 @@ export default function AudienceSwitcher() {
   const creatorsActive = pathname === '/creators';
   const sponsorsActive = pathname === '/sponsors';
   const isHomePage = pathname === '/';
+  if (pathname === '/waitlist') return null;
 
   const [hidden, setHidden] = useState(false);
   const { scrollYProgress } = useScroll();

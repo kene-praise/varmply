@@ -14,17 +14,12 @@ type Item = {
 };
 
 const ITEMS: Item[] = [
-  { img: '/brand-icons/spotify.png',     name: 'Spotify',     bg: '#1DB954', left: '10%', sz: 42, dur: 8.0,  del: -3.0 },
-  { img: '/brand-icons/apple-music.png', name: 'Apple Music', bg: '#FC3C44', left: '28%', sz: 45, dur: 9.5,  del: -1.5 },
-  { img: '/brand-icons/soundcloud.png',  name: 'SoundCloud',  bg: '#FF5500', left: '48%', sz: 42, dur: 8.5,  del: -5.5 },
-  { img: '/brand-icons/audiomack.svg',   name: 'Audiomack',   bg: '#FE6D00', left: '66%', sz: 45, dur: 10.0, del: -7.0, contain: true },
-  { img: '/brand-icons/spotify.png',     name: 'Spotify',     bg: '#1DB954', left: '82%', sz: 42, dur: 9.0,  del: -2.5 },
-  { img: '/brand-icons/apple-music.png', name: 'Apple Music', bg: '#FC3C44', left: '20%', sz: 43, dur: 8.8,  del: -6.0 },
-  { img: '/brand-icons/soundcloud.png',  name: 'SoundCloud',  bg: '#FF5500', left: '57%', sz: 42, dur: 9.5,  del: -4.0 },
-  { img: '/brand-icons/audiomack.svg',   name: 'Audiomack',   bg: '#FE6D00', left: '38%', sz: 43, dur: 8.2,  del: -1.0, contain: true },
-  { img: '/brand-icons/spotify.png',     name: 'Spotify',     bg: '#1DB954', left: '74%', sz: 45, dur: 10.5, del: -8.0 },
-  { img: '/brand-icons/apple-music.png', name: 'Apple Music', bg: '#FC3C44', left: '5%',  sz: 42, dur: 9.2,  del: -4.5 },
-  { img: '/brand-icons/audiomack.svg',   name: 'Audiomack',   bg: '#FE6D00', left: '87%', sz: 42, dur: 9.8,  del: -6.5, contain: true },
+  { img: '/brand-icons/spotify.png',     name: 'Spotify',     bg: '#1DB954', left: '80%', sz: 42, dur: 16.0,  del: -2.0 },
+  { img: '/brand-icons/apple-music.png', name: 'Apple Music', bg: '#FC3C44', left: '88%', sz: 45, dur: 18.5,  del: -6.5 },
+  { img: '/brand-icons/soundcloud.png',  name: 'SoundCloud',  bg: '#FF5500', left: '76%', sz: 42, dur: 21.0,  del: -11.5 },
+  { img: '/brand-icons/audiomack.svg',   name: 'Audiomack',   bg: '#FE6D00', left: '92%', sz: 45, dur: 19.0,  del: -15.0, contain: true },
+  { img: '/brand-icons/spotify.png',     name: 'Spotify',     bg: '#1DB954', left: '84%', sz: 42, dur: 22.5,  del: -9.5 },
+  { img: '/brand-icons/apple-music.png', name: 'Apple Music', bg: '#FC3C44', left: '88%', sz: 43, dur: 17.8,  del: -20.0 },
 ];
 
 export default function HomeHeroFallingIcons() {
@@ -35,10 +30,10 @@ export default function HomeHeroFallingIcons() {
     >
       <style>{`
         @keyframes icon-rise {
-          from { transform: translateY(0);       opacity: 0; }
-          10%  {                                 opacity: 1; }
-          75%  {                                 opacity: 1; }
-          to   { transform: translateY(-900px);  opacity: 0; }
+          from { transform: translate(0, 0); opacity: 0; }
+          10%  { opacity: 1; }
+          75%  { opacity: 1; }
+          to   { transform: translate(-100px, -900px); opacity: 0; }
         }
       `}</style>
 
