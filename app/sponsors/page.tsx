@@ -378,7 +378,7 @@ export default function SponsorsPage() {
     <div style={{ background: '#FFFFFF' }}>
 
       {/* 1. HERO ─────────────────────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden cursor-none"
+      <section id="sponsor-hero" className="relative overflow-hidden cursor-none"
         style={{ minHeight: '100dvh', background: '#3B82F6' }}>
 
         <LiquidGlass width={140} height={140} borderRadius={70} blur={2} tintOpacity={0.15} />
