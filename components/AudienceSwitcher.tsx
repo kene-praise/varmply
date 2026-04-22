@@ -33,6 +33,7 @@ export default function AudienceSwitcher() {
       transition={{ duration: 0.3 }}
       className="pointer-events-none fixed bottom-[5dvh] left-0 right-0 flex justify-center px-4 sm:bottom-[7dvh] sm:px-6"
       aria-label="Audience"
+      data-audience-switcher
     >
       <div
         className={clsx(
