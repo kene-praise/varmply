@@ -36,6 +36,8 @@ export default function RootLayout({
         />
       </head>
       <body>
+        {/* Detect ?embed=1 before first paint — adds .embed class, CSS hides chrome */}
+        <script dangerouslySetInnerHTML={{ __html: `(function(){if(location.search.includes('embed=1'))document.documentElement.classList.add('embed')})()` }} />
         <SiteHeader />
         <LenisProvider>
           <NavigationScrollGuard />
