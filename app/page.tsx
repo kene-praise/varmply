@@ -244,7 +244,7 @@ function HowItWorks() {
 
 function WhyVarmply() {
   return (
-    <section className="py-12 md:py-24" style={{ background: '#FFFFFF', borderTop: '1px solid #E4E4EC' }}>
+    <section id="why-varmply" className="py-12 md:py-24" style={{ background: '#FFFFFF', borderTop: '1px solid #E4E4EC' }}>
       <div className="max-w-6xl mx-auto px-6">
 
         {/* Split header */}
@@ -430,7 +430,7 @@ function WhyVarmply() {
 
 function PhoneShowcase() {
   return (
-    <section className="py-12 md:py-24" style={{ background: '#FFFFFF', borderTop: '1px solid #E4E4EC' }}>
+    <section id="phone-showcase" className="py-12 md:py-24" style={{ background: '#FFFFFF', borderTop: '1px solid #E4E4EC' }}>
       <div className="max-w-6xl mx-auto px-6">
 
         {/* Split header */}
@@ -871,7 +871,7 @@ const pillars = [
 
 function TrustPillars() {
   return (
-    <section className="py-12 md:py-24" style={{ background: '#FFFFFF', borderTop: '1px solid #E4E4EC' }}>
+    <section id="trust" className="py-12 md:py-24" style={{ background: '#FFFFFF', borderTop: '1px solid #E4E4EC' }}>
       <div className="max-w-6xl mx-auto px-6">
 
         {/* Split header with inline stat trio */}
@@ -997,7 +997,7 @@ const testimonials = [
 
 function Testimonials() {
   return (
-    <section className="py-12 md:py-24" style={{ background: '#FFFFFF', borderTop: '1px solid #E4E4EC' }}>
+    <section id="testimonials" className="py-12 md:py-24" style={{ background: '#FFFFFF', borderTop: '1px solid #E4E4EC' }}>
       <div className="max-w-6xl mx-auto px-6">
 
         {/* Header */}
