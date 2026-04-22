@@ -201,7 +201,8 @@ MagneticButton.displayName = "MagneticButton";
 const pageConfigs = {
     '/': {
         bg: '#6406cf',
-        headline: "Turn your next release\ninto a campaign.",
+        headline: "Turn your next release
+into a campaign.",
         subtext: "No DMs. No guesswork. Just performance.",
         cta1: { label: 'Run a Campaign', href: '/sponsors' },
         cta2: { label: 'Join as Creator', href: '/creators' },
@@ -210,7 +211,8 @@ const pageConfigs = {
     },
     '/sponsors': {
         bg: '#1A40B8',
-        headline: "Run campaigns\nwith full accountability.",
+        headline: "Run campaigns
+with full accountability.",
         subtext: "Set your rules, protect your budget, and pay for verified results only. Varmply handles the rest.",
         cta1: { label: 'Launch a Campaign', href: '#' },
         cta2: { label: 'See How It Works', href: '#how-it-works' },
@@ -220,7 +222,8 @@ const pageConfigs = {
     },
     '/creators': {
         bg: '#006B35',
-        headline: "Start earning from\nmusic campaigns.",
+        headline: "Start earning from
+music campaigns.",
         subtext: "Apply to campaigns you qualify for, deliver the work, get paid automatically. No chasing required.",
         cta1: { label: 'Create Creator Account', href: '#' },
         cta2: { label: 'Browse Campaigns', href: '#campaigns' },
@@ -316,6 +319,7 @@ export function MotionFooter() {
         are ONLY visible within its bounding box. 
       */}
             <div
+                id="site-footer"
                 ref={wrapperRef}
                 className="relative h-[100dvh] w-full"
                 style={{ clipPath: "polygon(0% 0, 100% 0%, 100% 100%, 0 100%)" }}
@@ -385,7 +389,8 @@ export function MotionFooter() {
                                 className="text-4xl md:text-5xl lg:text-7xl font-black footer-text-glow tracking-tighter mb-6 text-center max-w-4xl"
                                 style={{ lineHeight: 1.05 }}
                             >
-                                {config.headline.split('\n').map((line, i, arr) => (
+                                {config.headline.split('
+').map((line, i, arr) => (
                                     <React.Fragment key={i}>
                                         {line}{i < arr.length - 1 && <br />}
                                     </React.Fragment>
