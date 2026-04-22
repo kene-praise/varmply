@@ -352,3 +352,11 @@ h1, h2, h3, h4, h5, h6 {
   from { height: var(--radix-accordion-content-height); opacity: 1; }
   to { height: 0; opacity: 0; }
 }
+
+/* ── Embed mode (?embed=1) — hides site chrome before first paint ── */
+html.embed header,
+html.embed footer,
+html.embed [data-audience-switcher] {
+  display: none !important;
+}
+
