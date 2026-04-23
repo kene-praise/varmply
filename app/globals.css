@@ -366,4 +366,8 @@ html.embed body {
   overflow-y: hidden !important;
   overflow-x: hidden !important;
 }
+html.embed #site-footer > footer {
+  position: relative !important;
+  bottom: auto !important;
+}
 

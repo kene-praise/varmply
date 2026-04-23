@@ -260,6 +260,12 @@ export function MotionFooter() {
         if (typeof window === "undefined") return;
         if (!wrapperRef.current) return;
 
+        if (document.documentElement.classList.contains('embed')) {
+            gsap.set(giantTextRef.current, { y: 0, scale: 1, opacity: 1 });
+            gsap.set([headingRef.current, linksRef.current], { y: 0, opacity: 1 });
+            return;
+        }
+
         // React strict mode compatible GSAP context cleanup
         const ctx = gsap.context(() => {
             // Background Parallax
