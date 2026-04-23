@@ -201,8 +201,7 @@ MagneticButton.displayName = "MagneticButton";
 const pageConfigs = {
     '/': {
         bg: '#6406cf',
-        headline: "Turn your next release
-into a campaign.",
+        headline: "Turn your next release into a campaign.",
         subtext: "No DMs. No guesswork. Just performance.",
         cta1: { label: 'Run a Campaign', href: '/sponsors' },
         cta2: { label: 'Join as Creator', href: '/creators' },
