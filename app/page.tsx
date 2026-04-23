@@ -1076,7 +1076,7 @@ function HomeContent() {
   useEffect(() => {
     if (!section) return;
     const id = requestAnimationFrame(() => {
-      window.parent.postMessage({ type: 'varmply-section-height', height: document.documentElement.scrollHeight }, '*');
+      window.parent.postMessage({ type: 'varmply-section-height', height: document.querySelector('main')?.getBoundingClientRect().height ?? 0 }, '*');
     });
     return () => cancelAnimationFrame(id);
   }, [section]);
