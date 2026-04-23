@@ -1075,7 +1075,10 @@ function HomeContent() {
 
   useEffect(() => {
     if (!section) return;
-    const el = document.querySelector('main');
+    // The footer lives outside <main> in the layout, so measure the right element
+    const el = section === 'site-footer'
+      ? document.querySelector('#site-footer') ?? document.body
+      : document.querySelector('main');
     if (!el) return;
     const report = () => window.parent.postMessage({ type: 'varmply-section-height', height: el.scrollHeight }, '*');
     report();
