@@ -210,8 +210,7 @@ const pageConfigs = {
     },
     '/sponsors': {
         bg: '#1A40B8',
-        headline: "Run campaigns
-with full accountability.",
+        headline: "Run campaigns with full accountability.",
         subtext: "Set your rules, protect your budget, and pay for verified results only. Varmply handles the rest.",
         cta1: { label: 'Launch a Campaign', href: '#' },
         cta2: { label: 'See How It Works', href: '#how-it-works' },
@@ -221,8 +220,7 @@ with full accountability.",
     },
     '/creators': {
         bg: '#006B35',
-        headline: "Start earning from
-music campaigns.",
+        headline: "Start earning from music campaigns.",
         subtext: "Apply to campaigns you qualify for, deliver the work, get paid automatically. No chasing required.",
         cta1: { label: 'Create Creator Account', href: '#' },
         cta2: { label: 'Browse Campaigns', href: '#campaigns' },
