@@ -12,9 +12,13 @@ import FAQAccordion from '@/components/FAQAccordion';
 import { BrowserChrome, DashboardSkeleton } from '@/components/MockupSkeletons';
 import { VideoCard } from '@/components/ui/VideoCard';
 import { PhoneFrame } from '@/components/ui/PhoneFrame';
+import { LiquidGlass } from '@/components/ui/LiquidGlass';
 import CampaignBuilderMockup from '@/components/UIComponents/CampaignBuilderMockup';
 import SponsorHeroScreens from '@/components/UIComponents/SponsorHeroScreens';
 import SponsorCampaignPrototype from '@/components/UIComponents/SponsorCampaignPrototype';
+
+const HeroBackground3D = dynamic(() => import('@/components/HeroBackground3D'), { ssr: false });
+const HeroForeground3D = dynamic(() => import('@/components/HeroForeground3D'), { ssr: false });
 
 // ─── Animation helpers ────────────────────────────────────────────────────────
 
