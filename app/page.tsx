@@ -1,5 +1,6 @@
 'use client';
 
+import { useSearchParams } from 'next/navigation';
 import HeroSection from '@/components/HeroSection';
 import { PhoneFrame } from '@/components/ui/PhoneFrame';
 import Image from 'next/image';
@@ -1068,6 +1069,16 @@ function Testimonials() {
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
 export default function HomePage() {
+  const searchParams = useSearchParams();
+  const section = searchParams.get('section');
+
+  if (section === 'hero') return <HeroSection />;
+  if (section === 'how-it-works') return <HowItWorks />;
+  if (section === 'why-varmply') return <WhyVarmply />;
+  if (section === 'phone-showcase') return <PhoneShowcase />;
+  if (section === 'creator-community') return <CreatorReel />;
+  if (section === 'testimonials') return <Testimonials />;
+
   return (
     <>
       <HeroSection />

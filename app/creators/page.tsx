@@ -1,5 +1,7 @@
 'use client';
 
+import { useSearchParams } from 'next/navigation';
+import { useLayoutEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect, useRef } from 'react';
 import { ScrollCarousel } from '@/components/ui/ScrollCarousel';
@@ -289,11 +291,21 @@ const faqItems = [
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
 export default function CreatorsPage() {
+  const searchParams = useSearchParams();
+  const section = searchParams.get('section');
+
+  useLayoutEffect(() => {
+    if (!section) return;
+    document.querySelectorAll<HTMLElement>('[data-section]').forEach(el => {
+      el.style.display = el.dataset.section === section ? '' : 'none';
+    });
+  }, [section]);
+
   return (
     <div style={{ background: '#FFFFFF' }}>
 
       {/* 1. HERO ─────────────────────────────────────────────────────────────── */}
-      <section id="creator-hero" className="relative overflow-hidden"
+      <section data-section="creator-hero" id="creator-hero" className="relative overflow-hidden"
         style={{ minHeight: '100dvh', background: '#006B35' }}>
         <CreatorBalloons3D />
         {/* Aurora bloom */}
@@ -434,7 +446,7 @@ export default function CreatorsPage() {
       </section>
 
       {/* 2. HOW IT WORKS ─────────────────────────────────────────────────────── */}
-      <section id="how-it-works" className="py-12 md:py-24" style={{ background: '#FFFFFF', borderTop: '1px solid #E4E4EC' }}>
+      <section data-section="how-it-works" id="how-it-works" className="py-12 md:py-24" style={{ background: '#FFFFFF', borderTop: '1px solid #E4E4EC' }}>
         <div className="max-w-6xl mx-auto px-6">
 
           {/* Header */}
@@ -521,7 +533,7 @@ export default function CreatorsPage() {
       </section>
 
       {/* 3. CREATOR COMMUNITY ────────────────────────────────────────────────── */}
-      <section className="py-12 md:py-24" style={{ background: '#FFFFFF', borderTop: '1px solid #E4E4EC' }}>
+      <section data-section="creator-community" className="py-12 md:py-24" style={{ background: '#FFFFFF', borderTop: '1px solid #E4E4EC' }}>
         <div className="max-w-6xl mx-auto px-6">
 
           {/* Split header */}
@@ -572,7 +584,7 @@ export default function CreatorsPage() {
       </section>
 
       {/* 4. WALLET & EARNINGS ────────────────────────────────────────────────── */}
-      <section className="py-12 md:py-24" style={{ background: '#FFFFFF', borderTop: '1px solid #E4E4EC' }}>
+      <section data-section="creator-wallet" className="py-12 md:py-24" style={{ background: '#FFFFFF', borderTop: '1px solid #E4E4EC' }}>
         <div className="max-w-6xl mx-auto px-6">
 
           {/* Split header */}
@@ -708,7 +720,7 @@ export default function CreatorsPage() {
       </section>
 
       {/* 5. WHY VARMPLY ──────────────────────────────────────────────────────── */}
-      <section className="py-12 md:py-24" style={{ background: '#FFFFFF', borderTop: '1px solid #E4E4EC' }}>
+      <section data-section="creator-why" className="py-12 md:py-24" style={{ background: '#FFFFFF', borderTop: '1px solid #E4E4EC' }}>
         <div className="max-w-6xl mx-auto px-6">
 
           {/* Header */}

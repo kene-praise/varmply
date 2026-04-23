@@ -1,5 +1,7 @@
 'use client';
 
+import { useSearchParams } from 'next/navigation';
+import { useLayoutEffect } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
@@ -374,11 +376,21 @@ const faqItems = [
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
 export default function SponsorsPage() {
+  const searchParams = useSearchParams();
+  const section = searchParams.get('section');
+
+  useLayoutEffect(() => {
+    if (!section) return;
+    document.querySelectorAll<HTMLElement>('[data-section]').forEach(el => {
+      el.style.display = el.dataset.section === section ? '' : 'none';
+    });
+  }, [section]);
+
   return (
     <div style={{ background: '#FFFFFF' }}>
 
       {/* 1. HERO ─────────────────────────────────────────────────────────────── */}
-      <section id="sponsor-hero" className="relative overflow-hidden cursor-none"
+      <section data-section="sponsor-hero" id="sponsor-hero" className="relative overflow-hidden cursor-none"
         style={{ minHeight: '100dvh', background: '#3B82F6' }}>
 
         <LiquidGlass width={140} height={140} borderRadius={70} blur={2} tintOpacity={0.15} />
@@ -386,7 +398,6 @@ export default function SponsorsPage() {
         <HeroBackground3D backgroundColor="#0E52BE" />
         {/* Foreground 3D layer — transparent canvas, icons pass IN FRONT of box */}
         <HeroForeground3D />
-
         {/* Aurora bloom */}
         <div className="pointer-events-none absolute rounded-[50%]" style={{
           width: '80vw', height: '60vh',
@@ -527,7 +538,7 @@ export default function SponsorsPage() {
       </section>
 
       {/* 2. HOW IT WORKS ─────────────────────────────────────────────────────── */}
-      <section id="how-it-works" className="py-12 md:py-24" style={{ background: '#FFFFFF', borderTop: '1px solid #E4E4EC' }}>
+      <section data-section="sponsor-how-it-works" id="how-it-works" className="py-12 md:py-24" style={{ background: '#FFFFFF', borderTop: '1px solid #E4E4EC' }}>
         <div className="max-w-6xl mx-auto px-6">
 
           {/* Centered header */}
@@ -619,7 +630,7 @@ export default function SponsorsPage() {
       </section>
 
       {/* 3. CAMPAIGN DASHBOARD ───────────────────────────────────────────────── */}
-      <section className="py-12 md:py-24" style={{ background: '#FFFFFF', borderTop: '1px solid #E4E4EC' }}>
+      <section data-section="sponsor-dashboard" className="py-12 md:py-24" style={{ background: '#FFFFFF', borderTop: '1px solid #E4E4EC' }}>
         <div className="max-w-6xl mx-auto px-6">
 
           {/* Split header */}
@@ -767,7 +778,7 @@ export default function SponsorsPage() {
       </section>
 
       {/* 4. LIVE PERFORMANCE ─────────────────────────────────────────────────── */}
-      <section id="performance" className="py-12 md:py-24" style={{ background: '#FFFFFF', borderTop: '1px solid #E4E4EC' }}>
+      <section data-section="performance" id="performance" className="py-12 md:py-24" style={{ background: '#FFFFFF', borderTop: '1px solid #E4E4EC' }}>
         <div className="max-w-6xl mx-auto px-6">
 
           {/* Header */}
@@ -980,7 +991,7 @@ export default function SponsorsPage() {
       </section>
 
       {/* 5. ESCROW ───────────────────────────────────────────────────────────── */}
-      <section id="escrow" className="py-12 md:py-24" style={{ background: '#FFFFFF', borderTop: '1px solid #E4E4EC' }}>
+      <section data-section="escrow" id="escrow" className="py-12 md:py-24" style={{ background: '#FFFFFF', borderTop: '1px solid #E4E4EC' }}>
         <div className="max-w-6xl mx-auto px-6">
 
           {/* Split header */}
@@ -1150,7 +1161,7 @@ export default function SponsorsPage() {
       </section>
 
       {/* 6. CREATOR CONTENT REEL ─────────────────────────────────────────────── */}
-      <section className="py-12 md:py-24 overflow-hidden" style={{ background: '#FFFFFF', borderTop: '1px solid #E4E4EC' }}>
+      <section data-section="sponsor-creator-reel" className="py-12 md:py-24 overflow-hidden" style={{ background: '#FFFFFF', borderTop: '1px solid #E4E4EC' }}>
         <div className="max-w-6xl mx-auto px-6">
 
           {/* Header */}
