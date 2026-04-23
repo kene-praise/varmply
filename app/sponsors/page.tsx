@@ -386,7 +386,10 @@ function SectionIsolator() {
   }, [section]);
   useEffect(() => {
     if (!section) return;
-    const el = document.querySelector<HTMLElement>(`[data-section="${section}"]`);
+    // The footer lives outside [data-section] blocks, in the layout
+    const el = section === 'site-footer'
+      ? document.querySelector<HTMLElement>('#site-footer') ?? document.body
+      : document.querySelector<HTMLElement>(`[data-section="${section}"]`);
     if (!el) return;
     const report = () => window.parent.postMessage({ type: 'varmply-section-height', height: el.scrollHeight }, '*');
     report();
@@ -1216,7 +1219,7 @@ export default function SponsorsPage() {
       </section>
 
       {/* 7. FAQ ──────────────────────────────────────────────────────────────── */}
-      <section id="faq" className="py-12 md:py-24" style={{ background: '#FFFFFF', borderTop: '1px solid #E4E4EC' }}>
+      <section data-section="faq" id="faq" className="py-12 md:py-24" style={{ background: '#FFFFFF', borderTop: '1px solid #E4E4EC' }}>
         <div className="max-w-4xl mx-auto px-6">
           <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={vp}
             className="mb-8 md:mb-14 flex flex-col items-start text-left md:items-center md:text-center gap-4">
