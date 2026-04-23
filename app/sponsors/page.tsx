@@ -1,7 +1,5 @@
 'use client';
 
-import { useSearchParams } from 'next/navigation';
-import { useLayoutEffect } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
@@ -425,21 +423,11 @@ const faqItems = [
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
 export default function SponsorsPage() {
-  const searchParams = useSearchParams();
-  const section = searchParams.get('section');
-
-  useLayoutEffect(() => {
-    if (!section) return;
-    document.querySelectorAll<HTMLElement>('[data-section]').forEach(el => {
-      el.style.display = el.dataset.section === section ? '' : 'none';
-    });
-  }, [section]);
-
   return (
     <div style={{ background: '#FFFFFF' }}>
 
       {/* 1. HERO ─────────────────────────────────────────────────────────────── */}
-      <section data-section="sponsor-hero" className="relative overflow-hidden"
+      <section className="relative overflow-hidden"
         style={{ minHeight: '100dvh', background: '#1A40B8' }}>
         {/* Aurora bloom */}
         <div className="pointer-events-none absolute rounded-[50%]" style={{
@@ -574,7 +562,7 @@ export default function SponsorsPage() {
       </section>
 
       {/* 2. HOW IT WORKS ─────────────────────────────────────────────────────── */}
-      <section data-section="sponsor-how-it-works" id="how-it-works" className="py-12 md:py-24" style={{ background: '#FFFFFF', borderTop: '1px solid #E4E4EC' }}>
+      <section id="how-it-works" className="py-12 md:py-24" style={{ background: '#FFFFFF', borderTop: '1px solid #E4E4EC' }}>
         <div className="max-w-6xl mx-auto px-6">
 
           {/* Centered header */}
@@ -666,7 +654,7 @@ export default function SponsorsPage() {
       </section>
 
       {/* 3. CAMPAIGN DASHBOARD ───────────────────────────────────────────────── */}
-      <section data-section="sponsor-dashboard" className="py-12 md:py-24" style={{ background: '#FFFFFF', borderTop: '1px solid #E4E4EC' }}>
+      <section className="py-12 md:py-24" style={{ background: '#FFFFFF', borderTop: '1px solid #E4E4EC' }}>
         <div className="max-w-6xl mx-auto px-6">
 
           {/* Split header */}
@@ -814,7 +802,7 @@ export default function SponsorsPage() {
       </section>
 
       {/* 4. LIVE PERFORMANCE ─────────────────────────────────────────────────── */}
-      <section data-section="performance" id="performance" className="py-12 md:py-24" style={{ background: '#FFFFFF', borderTop: '1px solid #E4E4EC' }}>
+      <section id="performance" className="py-12 md:py-24" style={{ background: '#FFFFFF', borderTop: '1px solid #E4E4EC' }}>
         <div className="max-w-6xl mx-auto px-6">
 
           {/* Header */}
@@ -1027,7 +1015,7 @@ export default function SponsorsPage() {
       </section>
 
       {/* 5. ESCROW ───────────────────────────────────────────────────────────── */}
-      <section data-section="escrow" id="escrow" className="py-12 md:py-24" style={{ background: '#FFFFFF', borderTop: '1px solid #E4E4EC' }}>
+      <section id="escrow" className="py-12 md:py-24" style={{ background: '#FFFFFF', borderTop: '1px solid #E4E4EC' }}>
         <div className="max-w-6xl mx-auto px-6">
 
           {/* Split header */}
@@ -1197,7 +1185,7 @@ export default function SponsorsPage() {
       </section>
 
       {/* 6. CREATOR CONTENT REEL ─────────────────────────────────────────────── */}
-      <section data-section="sponsor-creator-reel" className="py-12 md:py-24 overflow-hidden" style={{ background: '#FFFFFF', borderTop: '1px solid #E4E4EC' }}>
+      <section className="py-12 md:py-24 overflow-hidden" style={{ background: '#FFFFFF', borderTop: '1px solid #E4E4EC' }}>
         <div className="max-w-6xl mx-auto px-6">
 
           {/* Header */}
