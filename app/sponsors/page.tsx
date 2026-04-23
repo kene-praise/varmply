@@ -12,11 +12,9 @@ import FAQAccordion from '@/components/FAQAccordion';
 import { BrowserChrome, DashboardSkeleton } from '@/components/MockupSkeletons';
 import { VideoCard } from '@/components/ui/VideoCard';
 import { PhoneFrame } from '@/components/ui/PhoneFrame';
-import { LiquidGlass } from '@/components/ui/LiquidGlass';
 import CampaignBuilderMockup from '@/components/UIComponents/CampaignBuilderMockup';
-
-const HeroBackground3D = dynamic(() => import('@/components/HeroBackground3D'), { ssr: false });
-const HeroForeground3D = dynamic(() => import('@/components/HeroForeground3D'), { ssr: false });
+import SponsorHeroScreens from '@/components/UIComponents/SponsorHeroScreens';
+import SponsorCampaignPrototype from '@/components/UIComponents/SponsorCampaignPrototype';
 
 // ─── Animation helpers ────────────────────────────────────────────────────────
 
@@ -35,7 +33,7 @@ const vp = { once: true, margin: '-80px' };
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
     <span className="inline-block rounded-full px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.18em] mb-6"
-      style={{ background: 'rgba(124,59,237,0.08)', color: '#180d2bff' }}>
+      style={{ background: 'rgba(124,59,237,0.08)', color: '#7C3BED' }}>
       {children}
     </span>
   );
@@ -43,115 +41,170 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
 
 // ─── Phone skeletons for How It Works ────────────────────────────────────────
 
-function MobileCampaignSkeleton() {
+function MobileCampaignMockup() {
   return (
-    <div className="p-4 flex flex-col gap-3">
-      <div className="h-3 w-32 bg-[#EBEBF2] rounded mb-1" />
-      <div className="h-8 w-full rounded-lg bg-[#F0F0F5] mb-1" />
-      <div className="h-3 w-24 bg-[#EBEBF2] rounded mt-2 mb-1" />
-      <div className="flex gap-2 mb-2">
-        <div className="h-8 flex-1 rounded-lg bg-[#EDE9FF]" />
-        <div className="h-8 flex-1 rounded-lg bg-[#F0F0F5]" />
+    <div className="p-4 flex flex-col gap-3 font-sans h-full bg-[#FAFAFA] rounded-[36px] overflow-hidden -mx-2 -mt-4">
+      <div className="flex justify-between items-center mb-1 px-1">
+        <span className="text-[10px] font-bold text-[#7C3BED] uppercase tracking-wider">Setup</span>
+        <span className="text-[10px] font-medium text-[#4A4A6A]">Step 1 of 4</span>
       </div>
-      <div className="h-3 w-28 bg-[#EBEBF2] rounded mb-1" />
-      <div className="h-16 w-full rounded-xl bg-[#F0F0F5]" />
-      <div className="h-3 w-20 bg-[#EBEBF2] rounded mt-2 mb-1" />
-      <div className="flex flex-wrap gap-1.5">
-        {['TikTok', 'Instagram', 'YouTube'].map(p => (
-          <div key={p} className="h-6 px-3 rounded-full bg-[#EDE9FF] flex items-center">
-            <div className="h-1.5 w-10 bg-[#C4B5FD] rounded" />
+      <div className="rounded-2xl p-4 bg-white border border-[rgba(124,59,237,0.14)] shadow-sm">
+        <p className="text-[9px] font-bold text-[#A0A0BA] uppercase mb-[2px]">Campaign Name</p>
+        <p className="text-sm font-black text-[#0F0F1A] mb-4">Summer Launch Q3</p>
+        <div className="h-px w-full bg-[#EBEBF2] mb-3" />
+        <div className="flex gap-2 mb-4">
+          <div className="flex-1 rounded-xl px-3 py-2 bg-[rgba(124,59,237,0.05)] border border-[rgba(124,59,237,0.10)]">
+            <p className="text-[8px] font-bold text-[#A0A0BA] uppercase mb-0.5">Platform</p>
+            <p className="text-[10px] font-bold text-[#7C3BED]">TikTok</p>
           </div>
-        ))}
+          <div className="flex-1 rounded-xl px-3 py-2 bg-[rgba(0,160,80,0.05)] border border-[rgba(0,160,80,0.10)]">
+            <p className="text-[8px] font-bold text-[#A0A0BA] uppercase mb-0.5">Content</p>
+            <p className="text-[10px] font-bold text-[#00A050]">Video</p>
+          </div>
+        </div>
+        <p className="text-[9px] font-bold text-[#A0A0BA] uppercase mb-1.5">Description (preview)</p>
+        <div className="rounded-xl p-3 text-[10px] text-[#4A4A6A] leading-relaxed bg-[#F9F9FB] border border-[#EBEBF2]">
+          We are looking for creators to make 15s videos demonstrating our new summer collection...
+        </div>
       </div>
-      <div className="mt-3 h-10 w-full rounded-full bg-[#7C3BED]" />
+      <div className="rounded-2xl p-4 bg-white border border-[rgba(217,119,6,0.14)] shadow-sm mt-1">
+        <p className="text-[9px] font-bold text-[#A0A0BA] uppercase mb-[2px]">Target Reach</p>
+        <p className="text-sm font-black text-[#0F0F1A] mb-1">500,000+ views</p>
+        <div className="w-full bg-[#FEF3C7] rounded-full h-1.5 mt-2 overflow-hidden">
+          <div className="bg-[#D97706] w-1/3 h-full rounded-full" />
+        </div>
+      </div>
+      <div className="mt-auto h-12 w-full rounded-full flex items-center justify-center text-white text-[12px] font-bold shadow-md bg-[#7C3BED]">
+        Preview & Save
+      </div>
     </div>
   );
 }
 
-function MobileEscrowSkeleton() {
+function MobileEscrowMockup() {
   return (
-    <div className="p-4 flex flex-col gap-4">
-      <div className="flex flex-col items-center gap-2 py-4">
-        <div className="w-14 h-14 rounded-2xl bg-[#DBEAFE] flex items-center justify-center mb-1">
-          <div className="w-6 h-6 rounded bg-[#93C5FD]" />
+    <div className="p-4 flex flex-col gap-3 font-sans h-full bg-[#FAFAFA] rounded-[36px] overflow-hidden -mx-2 -mt-4">
+      <div className="flex flex-col items-center gap-2 py-4 mb-2">
+        <div className="w-16 h-16 rounded-2xl bg-[rgba(37,99,235,0.08)] flex items-center justify-center mb-1 border border-[rgba(37,99,235,0.15)] shadow-sm">
+          <div className="w-8 h-8 rounded-lg bg-[#2563EB] flex items-center justify-center text-white text-[14px]">🔒</div>
         </div>
-        <div className="h-3 w-28 bg-[#EBEBF2] rounded" />
-        <div className="h-5 w-20 bg-[#DBEAFE] rounded-full" />
+        <p className="text-[11px] font-bold text-[#A0A0BA] uppercase tracking-wider">Campaign Locked</p>
+        <p className="text-2xl font-black text-[#0F0F1A]">₦500,000</p>
       </div>
-      <div className="rounded-xl border border-[#DBEAFE] bg-[#EFF6FF] p-4 flex flex-col gap-2">
-        <div className="flex justify-between">
-          <div className="h-2 w-16 bg-[#BFDBFE] rounded" />
-          <div className="h-2 w-12 bg-[#BFDBFE] rounded" />
+      
+      <div className="rounded-2xl border border-[rgba(37,99,235,0.14)] bg-white p-5 flex flex-col gap-3 shadow-sm mb-2 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-24 h-24 bg-[rgba(37,99,235,0.05)] rounded-full -mr-10 -mt-10 pointer-events-none" />
+        <div className="flex justify-between items-center mb-1">
+          <span className="text-[10px] font-bold text-[#A0A0BA] uppercase">Allocated Budget</span>
+          <span className="text-[11px] font-black text-[#2563EB]">85%</span>
         </div>
-        <div className="h-1.5 w-full rounded-full bg-[#BFDBFE]">
-          <div className="h-full w-3/4 rounded-full bg-[#2563EB]" />
+        <div className="h-2 w-full rounded-full bg-[#EFF6FF] overflow-hidden">
+          <div className="h-full w-[85%] rounded-full bg-[#2563EB]" />
         </div>
-        <div className="h-2 w-20 bg-[#BFDBFE] rounded self-end" />
+        <div className="flex justify-between mt-1">
+          <span className="text-[9px] font-bold text-[#4A4A6A]">₦425,000 committed</span>
+          <span className="text-[9px] font-bold text-[#A0A0BA]">₦75,000 remaining</span>
+        </div>
       </div>
+      
       <div className="flex gap-2">
-        {['Locked', 'Pending', 'Released'].map((l, i) => (
-          <div key={l} className="flex-1 rounded-lg p-2 flex flex-col items-center gap-1"
-            style={{ background: i === 0 ? '#DBEAFE' : '#F0F0F5' }}>
-            <div className="h-3 w-3 rounded-full" style={{ background: i === 0 ? '#2563EB' : '#D1D5DB' }} />
-            <div className="h-1.5 w-8 rounded bg-[#BFDBFE]" />
+        {[
+          { icon: '🛡️', label: 'Secured', val: '₦500K' },
+          { icon: '💸', label: 'Pending', val: '₦125K' },
+          { icon: '✅', label: 'Released', val: '₦300K' }
+        ].map((item, i) => (
+          <div key={i} className={`flex-1 rounded-2xl p-3 flex flex-col items-center gap-1.5 shadow-sm border ${i === 0 ? 'bg-[rgba(37,99,235,0.05)] border-[rgba(37,99,235,0.12)]' : 'bg-white border-[#EBEBF2]'}`}>
+            <span className="text-[14px]">{item.icon}</span>
+            <span className={`text-[8px] font-bold uppercase tracking-wide ${i === 0 ? 'text-[#2563EB]' : 'text-[#A0A0BA]'}`}>{item.label}</span>
+            <span className="text-[10px] font-black text-[#0F0F1A]">{item.val}</span>
           </div>
         ))}
       </div>
-      <div className="h-10 w-full rounded-full bg-[#2563EB] mt-2" />
+      
+      <div className="mt-auto h-12 w-full rounded-full flex items-center justify-center text-white text-[12px] font-bold shadow-md bg-[#2563EB]">
+        Manage Funds
+      </div>
     </div>
   );
 }
 
-function MobileAnalyticsSkeleton() {
+function MobileAnalyticsMockup() {
   return (
-    <div className="p-4 flex flex-col gap-3">
-      <div className="flex justify-between mb-1">
-        <div className="h-3 w-24 bg-[#EBEBF2] rounded" />
-        <div className="h-5 w-14 rounded-full bg-[#FEF3C7]" />
+    <div className="p-4 flex flex-col gap-3 font-sans h-full bg-[#FAFAFA] rounded-[36px] overflow-hidden -mx-2 -mt-4">
+      <div className="flex justify-between items-center mb-3 px-1">
+        <div>
+           <span className="text-[10px] font-bold text-[#00A050] uppercase tracking-wider block mb-1">Live Tracking</span>
+           <span className="text-[13px] font-black text-[#0F0F1A]">Campaign Metrics</span>
+        </div>
+        <span className="w-2 h-2 rounded-full bg-[#00A050] animate-pulse" />
       </div>
-      <div className="flex gap-2">
-        {[60, 90, 45].map((h, i) => (
-          <div key={i} className="flex-1 flex flex-col items-center gap-1">
-            <div className="w-full rounded-t-lg" style={{ height: h, background: i === 1 ? '#2563EB' : '#DBEAFE' }} />
-            <div className="h-1.5 w-6 bg-[#EBEBF2] rounded" />
+      
+      <div className="flex gap-2 items-end h-32 mb-4 px-2">
+        {[45, 60, 35, 85, 55, 95, 75].map((h, i) => (
+          <div key={i} className="flex-1 flex flex-col items-center justify-end gap-1.5 group">
+            <div className={`w-full rounded-t-lg transition-all ${i === 5 ? 'bg-[#00A050]' : 'bg-[rgba(0,160,80,0.15)]'}`} style={{ height: `${h}%` }} />
+            <span className="text-[8px] font-bold text-[#A0A0BA]">Day {i+1}</span>
           </div>
         ))}
       </div>
+      
       <div className="grid grid-cols-2 gap-2 mt-1">
-        {[['Total Reach', '148K'], ['Eng. Rate', '8.4%'], ['Creators', '18'], ['Budget Used', '90%']].map(([l]) => (
-          <div key={l} className="rounded-xl bg-[#F0F0F5] p-3">
-            <div className="h-1.5 w-12 bg-[#D1D5DB] rounded mb-1.5" />
-            <div className="h-3 w-10 bg-[#9CA3AF] rounded" />
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function MobilePayoutSkeleton() {
-  return (
-    <div className="p-4 flex flex-col gap-4">
-      <div className="flex flex-col items-center gap-2 pt-4">
-        <div className="w-14 h-14 rounded-full bg-[#F0FDF4] flex items-center justify-center mb-1">
-          <div className="w-7 h-7 rounded-full bg-[#4ADE80]" />
-        </div>
-        <div className="h-3 w-24 bg-[#EBEBF2] rounded" />
-        <div className="h-4 w-16 bg-[#BBF7D0] rounded-full" />
-      </div>
-      {[1, 2].map(i => (
-        <div key={i} className="rounded-xl border border-[#EBEBF2] p-3 flex justify-between items-center">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-full bg-[#F0F0F5]" />
-            <div>
-              <div className="h-2 w-20 bg-[#EBEBF2] rounded mb-1.5" />
-              <div className="h-1.5 w-14 bg-[#EBEBF2] rounded" />
+        {[
+          { label: 'Total Reach', val: '148K', up: '+12%' },
+          { label: 'Eng. Rate', val: '8.4%', up: '+1.2%' },
+          { label: 'Creators', val: '18 Active', none: true },
+          { label: 'Budget Used', val: '90%', alert: true }
+        ].map((item, i) => (
+          <div key={i} className="rounded-2xl bg-white border border-[#EBEBF2] shadow-sm p-3 flex flex-col">
+            <p className="text-[8px] font-bold text-[#A0A0BA] uppercase mb-1.5">{item.label}</p>
+            <div className="flex items-end justify-between mt-auto">
+               <span className="text-[14px] font-black text-[#0F0F1A]">{item.val}</span>
+               {item.up && <span className="text-[8px] font-bold text-[#00A050] bg-[rgba(0,160,80,0.1)] px-1.5 py-[1px] rounded">{item.up}</span>}
             </div>
           </div>
-          <div className="h-5 w-14 rounded-full bg-[#F0FDF4]" />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function MobilePayoutMockup() {
+  return (
+    <div className="p-4 flex flex-col gap-3 font-sans h-full bg-[#FAFAFA] rounded-[36px] overflow-hidden -mx-2 -mt-4">
+      <div className="flex flex-col items-center gap-2 pt-4 pb-2">
+        <div className="w-14 h-14 rounded-full bg-[rgba(217,119,6,0.08)] border border-[rgba(217,119,6,0.15)] flex items-center justify-center mb-1 shadow-sm">
+          <div className="w-7 h-7 rounded-full bg-[#D97706] text-white flex items-center justify-center text-[12px]">💸</div>
         </div>
-      ))}
-      <div className="h-10 w-full rounded-full bg-[#16A34A] mt-auto" />
+        <p className="text-[11px] font-bold text-[#A0A0BA] uppercase tracking-wider">Total Released</p>
+        <p className="text-2xl font-black text-[#0F0F1A]">₦2,400,000</p>
+      </div>
+      
+      <div className="flex flex-col gap-2 mt-2">
+         {[
+           { name: 'Dami Creates', handle: '@dami_creates', amt: '₦25,000' },
+           { name: 'Chuks Video', handle: '@chuka.tv', amt: '₦18,000' }
+         ].map((c, i) => (
+           <div key={i} className="rounded-2xl border border-[#EBEBF2] bg-white p-3.5 flex justify-between items-center shadow-sm">
+             <div className="flex items-center gap-3">
+               <div className="w-9 h-9 rounded-full bg-[#F5F5F7] border border-[#EBEBF2] flex items-center justify-center shrink-0 text-[10px] font-bold text-[#A0A0BA]">
+                 {c.name[0]}
+               </div>
+               <div className="flex flex-col">
+                 <span className="text-[11px] font-bold text-[#0F0F1A] leading-tight mb-[2px]">{c.name}</span>
+                 <span className="text-[9px] text-[#A0A0BA] leading-none">{c.handle}</span>
+               </div>
+             </div>
+             <div className="flex flex-col items-end gap-1.5">
+               <span className="text-[11px] font-black text-[#D97706]">{c.amt}</span>
+               <span className="text-[8px] font-bold bg-[#FEF3C7] text-[#B45309] px-2 py-0.5 rounded shadow-sm">Paid out</span>
+             </div>
+           </div>
+         ))}
+      </div>
+      
+      <div className="mt-auto h-12 w-full rounded-full flex items-center justify-center text-white text-[12px] font-bold shadow-md bg-[#D97706]">
+        Review Pending
+      </div>
     </div>
   );
 }
@@ -175,9 +228,9 @@ function HeroPhoneApp() {
   const muted = 'hsl(215.4 16.3% 46.9%)';
 
   const campaigns = [
-    { brand: 'Paystack', task: 'Instagram post', reward: '₦25,000', status: 'Active', statusColor: '#16A34A', statusBg: '#F0FDF4', avatar: '#3B82F6' },
+    { brand: 'Paystack', task: 'Instagram post', reward: '₦25,000', status: 'Active', statusColor: '#16A34A', statusBg: '#F0FDF4', avatar: '#1A40B8' },
     { brand: 'PiggyVest', task: 'TikTok video', reward: '₦18,000', status: 'Pending', statusColor: '#D97706', statusBg: '#FFFBEB', avatar: '#2563EB' },
-    { brand: 'Cowrywise', task: 'Twitter thread', reward: '₦8,000', status: 'Active', statusColor: '#16A34A', statusBg: '#F0FDF4', avatar: '#00A050' },
+    { brand: 'Cowrywise', task: 'TikTok video', reward: '₦8,000', status: 'Active', statusColor: '#16A34A', statusBg: '#F0FDF4', avatar: '#00A050' },
   ];
 
   const bars = [65, 40, 80, 55, 70, 35, 90];
@@ -208,13 +261,13 @@ function HeroPhoneApp() {
           <p style={{ fontSize: 10, color: muted, marginBottom: 1 }}>Good morning,</p>
           <p style={{ fontSize: 14, fontWeight: 700, color: 'hsl(222.2 84% 4.9%)', letterSpacing: -0.3 }}>Dami Adeyemi</p>
         </div>
-        <div style={{ width: 34, height: 34, borderRadius: '50%', background: '#3B82F6', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div style={{ width: 34, height: 34, borderRadius: '50%', background: '#1A40B8', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <span style={{ fontSize: 10, fontWeight: 700, color: 'white' }}>DA</span>
         </div>
       </div>
 
       {/* Earnings card */}
-      <div className="shrink-0 mx-3 mt-3" style={{ background: '#3B82F6', borderRadius: 14, padding: '14px 16px 12px' }}>
+      <div className="shrink-0 mx-3 mt-3" style={{ background: '#1A40B8', borderRadius: 14, padding: '14px 16px 12px' }}>
         <p style={{ fontSize: 10, color: 'rgba(255,255,255,0.65)', marginBottom: 4 }}>Total earnings</p>
         <p style={{ fontSize: 30, fontWeight: 700, color: 'white', letterSpacing: -1, lineHeight: 1, marginBottom: 10 }}>₦47,500</p>
         <div className="flex gap-1.5 items-end" style={{ marginBottom: 6 }}>
@@ -231,7 +284,7 @@ function HeroPhoneApp() {
       {/* Quick stats row */}
       <div className="shrink-0 flex gap-2 mx-3 mt-2.5">
         {[
-          { label: 'Active', value: '3', sub: 'campaigns', color: '#3B82F6', bg: '#EFF6FF' },
+          { label: 'Active', value: '3', sub: 'campaigns', color: '#1A40B8', bg: '#DBEAFE' },
           { label: 'Pending', value: '₦18K', sub: 'payout', color: '#D97706', bg: '#FFFBEB' },
           { label: 'Reach', value: '340K', sub: 'followers', color: '#2563EB', bg: '#EFF6FF' },
         ].map(({ label, value, sub, color, bg }) => (
@@ -247,7 +300,7 @@ function HeroPhoneApp() {
       <div className="shrink-0 mx-3 mt-3">
         <div className="flex items-center justify-between" style={{ marginBottom: 8 }}>
           <p style={{ fontSize: 11, fontWeight: 600, color: 'hsl(222.2 84% 4.9%)' }}>Active campaigns</p>
-          <p style={{ fontSize: 10, color: '#3B82F6', fontWeight: 500 }}>See all</p>
+          <p style={{ fontSize: 10, color: '#1A40B8', fontWeight: 500 }}>See all</p>
         </div>
         <div style={{ background: 'white', borderRadius: 12, border, overflow: 'hidden' }}>
           {campaigns.map((c, i) => (
@@ -331,19 +384,19 @@ function OrbitChip({
 
 const performanceCampaigns = [
   {
-    name: 'Paystack Q1 Launch', status: 'Active',
+    name: 'BeatDrop Q1 Launch', status: 'Active',
     budget: '₦500,000', spent: '₦450,000', progress: 90,
     creators: 18, heroStat: '148K', heroLabel: 'TOTAL REACH', idx: '01',
     accent: '#2563EB', accentLight: '#DBEAFE', accentMuted: 'rgba(37,99,235,0.06)',
   },
   {
-    name: 'PiggyVest February Drive', status: 'Completed',
+    name: 'SoundSave February Drive', status: 'Completed',
     budget: '₦280,000', spent: '₦280,000', progress: 100,
     creators: 14, heroStat: '9.1%', heroLabel: 'ENG. RATE', idx: '02',
     accent: '#7C3BED', accentLight: '#EDE9FF', accentMuted: 'rgba(124,59,237,0.06)',
   },
   {
-    name: 'Carbon Credit Campaign', status: 'Active',
+    name: 'GreenLoop Campaign', status: 'Active',
     budget: '₦350,000', spent: '₦210,000', progress: 60,
     creators: 12, heroStat: '67K', heroLabel: 'TOTAL REACH', idx: '03',
     accent: '#D97706', accentLight: '#FEF3C7', accentMuted: 'rgba(217,119,6,0.06)',
@@ -353,7 +406,7 @@ const performanceCampaigns = [
 const faqItems = [
   {
     question: 'How does escrow protect my budget?',
-    answer: "Your campaign budget is locked in escrow when you activate a campaign. It can't be touched until performance is confirmed. If a creator fails to meet requirements, their portion isn't released. Unused funds are returned automatically after the campaign closes.",
+    answer: "Your campaign budget is locked in escrow when you activate a campaign. It can't be touched until performance is confirmed. Each creator is paid based on the engagement they generate—fully tied to verified metrics. No metrics, no payout. Unused funds are returned automatically after the campaign closes.",
   },
   {
     question: 'How are creators verified as eligible?',
@@ -362,10 +415,6 @@ const faqItems = [
   {
     question: 'What metrics are tracked?',
     answer: "Reach, impressions, engagement (likes, comments, shares), and engagement rate are tracked per creator per campaign. You get a full breakdown in your analytics dashboard, updated in real time.",
-  },
-  {
-    question: 'Can I set different payouts for different creators?',
-    answer: "Yes. You can set a flat payout per creator, or define tiers based on follower count, engagement rate, or niche. The platform calculates payouts automatically based on the rules you set.",
   },
   {
     question: "What happens if a creator doesn't deliver?",
@@ -407,7 +456,7 @@ export default function SponsorsPage() {
 
       {/* 1. HERO ─────────────────────────────────────────────────────────────── */}
       <section data-section="sponsor-hero" id="sponsor-hero" className="relative overflow-hidden cursor-none"
-        style={{ minHeight: '100dvh', background: '#3B82F6' }}>
+        style={{ minHeight: '100dvh', background: '#1A40B8' }}>
 
         <LiquidGlass width={140} height={140} borderRadius={70} blur={2} tintOpacity={0.15} />
         {/* Background 3D layer — icons fan out behind the glass box */}
@@ -426,21 +475,20 @@ export default function SponsorsPage() {
         {/* Line grid */}
         <div className="absolute inset-0 pointer-events-none" style={{
           backgroundSize: '60px 60px',
-          backgroundImage: 'linear-gradient(to right, rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.04) 1px, transparent 1px)',
-          maskImage: 'linear-gradient(to bottom, transparent, black 30%, black 70%, transparent)',
-          WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 30%, black 70%, transparent)',
-          opacity: 0.4,
+          backgroundImage: 'linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px)',
+          maskImage: 'linear-gradient(to bottom, transparent, black 20%, black 80%, transparent)',
+          WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 20%, black 80%, transparent)',
         }} />
         {/* Concentric rings */}
         <div className="pointer-events-none absolute" style={{
           width: 800, height: 800, borderRadius: '50%',
-          border: '1px solid rgba(255,255,255,0.07)',
+          border: '1px solid rgba(255,255,255,0.035)',
           top: '50%', left: '36%',
           transform: 'translate(-50%, -50%)',
         }} />
         <div className="pointer-events-none absolute" style={{
           width: 540, height: 540, borderRadius: '50%',
-          border: '1px solid rgba(255,255,255,0.06)',
+          border: '1px solid rgba(255,255,255,0.025)',
           top: '50%', left: '36%',
           transform: 'translate(-50%, -50%)',
         }} />
@@ -450,12 +498,13 @@ export default function SponsorsPage() {
 
           {/* ── Left: text ── */}
           <motion.div
-            className="w-full lg:w-1/2 lg:shrink-0 pt-20 pb-8 lg:pt-28 lg:pb-20"
+            className="w-full lg:w-1/2 lg:shrink-0 pt-20 pb-0 lg:pt-28 lg:pb-20"
             variants={stagger} initial="hidden" animate="visible"
           >
             <motion.span variants={fadeUp}
-              className="inline-block rounded-full px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.18em] mb-6 text-white"
-              style={{ background: 'rgba(255,255,255,0.15)' }}>
+              className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-[9px] font-bold uppercase tracking-[0.22em] mb-6 text-white/70 border"
+              style={{ borderColor: 'rgba(255,255,255,0.2)' }}>
+              <span className="w-1 h-1 rounded-full bg-white/60 animate-pulse" />
               For Sponsors
             </motion.span>
 
@@ -478,79 +527,72 @@ export default function SponsorsPage() {
             </motion.p>
 
             <motion.div variants={fadeUp} className="flex flex-col sm:flex-row gap-3 mb-6 md:mb-10">
-              <Link href="#"
+              <Link href="/waitlist?role=sponsor"
                 className="flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold transition-all hover:opacity-90 w-full sm:w-auto"
-                style={{ background: 'white', color: '#3B82F6', boxShadow: '0 4px 24px rgba(0,0,0,0.20)' }}>
-                Launch a Campaign <ArrowRight size={15} />
+                style={{ background: 'white', color: '#1A40B8', boxShadow: '0 4px 24px rgba(0,0,0,0.20)' }}>
+                Join the Waitlist <ArrowRight size={15} />
               </Link>
               <Link href="#how-it-works"
                 className="flex items-center justify-center rounded-full px-7 py-3.5 text-sm font-semibold w-full sm:w-auto"
                 style={{ color: 'white', border: '1.5px solid rgba(255,255,255,0.28)' }}>
-                See How It Works
+                How It Works
               </Link>
             </motion.div>
 
-            <motion.div variants={fadeUp} className="flex flex-wrap gap-3">
-              {['Budget locked in escrow', 'Paid only on performance', 'No chasing creators', 'No fake metrics'].map((b) => (
-                <span key={b} className="flex items-center gap-1.5 text-sm font-medium px-4 py-2 rounded-full text-white"
-                  style={{ background: 'rgba(255,255,255,0.12)' }}>
-                  <CheckCircle size={13} style={{ color: '#93C5FD' }} /> {b}
+            {/* Mobile hero: campaign prototype in phone */}
+            <motion.div variants={fadeUp} className="lg:hidden mt-8">
+              <div className="relative w-full overflow-hidden" style={{ height: 420 }}>
+                <div className="absolute top-0 left-1/2" style={{ transform: 'translateX(-50%)' }}>
+                  <PhoneFrame screenBg="#F7F7F9" scale={0.82}>
+                    <SponsorCampaignPrototype />
+                  </PhoneFrame>
+                </div>
+              </div>
+            </motion.div>
+
+            <motion.div variants={fadeUp} className="hidden lg:flex items-center flex-wrap gap-y-2">
+              {['Budget locked in escrow', 'Paid only on performance', 'No chasing creators', 'No fake metrics'].map((b, i) => (
+                <span key={b} className="flex items-center">
+                  <span className="flex items-center gap-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-white/50">
+                    <CheckCircle size={9} style={{ color: '#93C5FD', flexShrink: 0 }} /> {b}
+                  </span>
+                  {i < 3 && <span className="mx-3.5 text-white/20 text-xs select-none">·</span>}
                 </span>
               ))}
             </motion.div>
           </motion.div>
 
-          {/* ── Right: glass box + phone + chips ── */}
-          <div
-            className="hidden lg:flex flex-col justify-center"
-            style={{ flex: 1 }}
-          >
-            <div
-              className="relative"
-              style={{ height: 'clamp(560px, 74vh, 680px)' }}
-            >
+          {/* ── Right: campaign prototype in phone (desktop only) ── */}
+          <div className="hidden lg:flex flex-col justify-center" style={{ flex: 1 }}>
+            <div className="relative" style={{ height: 'clamp(560px, 74vh, 680px)' }}>
+              {/* Glass card */}
               <motion.div
-                className="absolute inset-0 rounded-[36px] overflow-hidden"
+                className="absolute inset-0 overflow-hidden"
                 style={{
-                  background: 'rgba(255,255,255,0.08)',
-                  backdropFilter: 'blur(24px)',
-                  WebkitBackdropFilter: 'blur(24px)',
-                  border: '1px solid rgba(255,255,255,0.16)',
+                  borderRadius: 36,
+                  background: 'rgba(255,255,255,0.07)',
+                  backdropFilter: 'blur(20px)',
+                  WebkitBackdropFilter: 'blur(20px)',
+                  border: '1px solid rgba(255,255,255,0.14)',
                 }}
                 initial={{ opacity: 0, y: 32, scale: 0.97 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 transition={{ duration: 1.0, delay: 0.5, ease: [0.16, 1, 0.3, 1] as const }}
               >
-                <div
-                  className="pointer-events-none absolute bottom-0 inset-x-0 z-10"
-                  style={{
-                    height: 110,
-                    background: 'linear-gradient(to bottom, transparent, rgba(59,130,246,0.90))',
-                  }}
-                />
-                <div
-                  className="absolute bottom-0 w-full flex justify-center"
-                  style={{ transform: 'translateY(20%) scale(1.0)', transformOrigin: 'center center' }}
-                >
-                  <PhoneFrame screenBg="#FFFFFF">
-                    <HeroPhoneApp />
+                {/* Subtle inner glow */}
+                <div className="pointer-events-none absolute inset-0" style={{ background: 'radial-gradient(ellipse 70% 50% at 50% 0%, rgba(124,59,237,0.12) 0%, transparent 70%)' }} />
+                {/* Phone centered, bottom anchored */}
+                <div className="absolute bottom-0 w-full flex justify-center" style={{ transform: 'translateY(14%)' }}>
+                  <PhoneFrame screenBg="#F7F7F9">
+                    <SponsorCampaignPrototype />
                   </PhoneFrame>
                 </div>
               </motion.div>
-
-              <OrbitChip chipStyle={{ top: 80, left: -24 }} delay={1.6} floatOffset={8}>
-                <InstagramIcon size={14} />
-                <span>840K reach</span>
-              </OrbitChip>
-
-              <OrbitChip chipStyle={{ top: 260, right: -24 }} delay={2.0} floatOffset={9}>
-                <TikTokIcon size={14} />
-                <span>2.1M views</span>
-              </OrbitChip>
             </div>
           </div>
 
         </div>
+
       </section>
 
       {/* 2. HOW IT WORKS ─────────────────────────────────────────────────────── */}
@@ -578,10 +620,10 @@ export default function SponsorsPage() {
             {[
               {
                 step: '01', accent: '#7C3BED', bgTint: 'rgba(124,59,237,0.05)', border: 'rgba(124,59,237,0.14)',
-                label: 'Define your campaign rules', tag: 'SETUP',
-                description: "Set your brief, eligibility requirements, deliverables, payout per creator, and deadline. Everything is crystal clear before any creator applies.",
+                label: 'Define your campaign rules', tag: 'DEFINE',
+                description: "Set your brief, eligibility requirements, deliverables, and deadline. Everything is crystal clear before any creator applies.",
                 pattern: 'repeating-linear-gradient(-45deg, rgba(124,59,237,0.06) 0px, rgba(124,59,237,0.06) 1px, transparent 1px, transparent 14px)',
-                phone: <MobileCampaignSkeleton />,
+                phone: <MobileCampaignMockup />,
               },
               {
                 step: '02', accent: '#2563EB', bgTint: 'rgba(37,99,235,0.05)', border: 'rgba(37,99,235,0.14)',
@@ -589,21 +631,21 @@ export default function SponsorsPage() {
                 description: "Lock your campaign budget in escrow. Creators can see funds exist before they apply. No budget = no campaign. Trust is built in from day one.",
                 pattern: 'radial-gradient(circle, rgba(37,99,235,0.13) 1px, transparent 1px)',
                 patternSize: '18px 18px',
-                phone: <MobileEscrowSkeleton />,
+                phone: <MobileEscrowMockup />,
               },
               {
                 step: '03', accent: '#00A050', bgTint: 'rgba(0,160,80,0.05)', border: 'rgba(0,160,80,0.14)',
                 label: 'Monitor in real time', tag: 'ANALYTICS',
                 description: "Watch submissions come in. Track reach, engagement, and impressions per creator as they happen. Every metric is validated automatically.",
                 pattern: 'repeating-linear-gradient(180deg, rgba(0,160,80,0.07) 0px, rgba(0,160,80,0.07) 1px, transparent 1px, transparent 22px)',
-                phone: <MobileAnalyticsSkeleton />,
+                phone: <MobileAnalyticsMockup />,
               },
               {
                 step: '04', accent: '#D97706', bgTint: 'rgba(217,119,6,0.05)', border: 'rgba(217,119,6,0.14)',
                 label: 'Pay for verified results', tag: 'PAYOUTS',
                 description: 'Funds are released only when performance is confirmed. Unused budget returns automatically. You only ever pay for what actually happened.',
                 pattern: 'repeating-linear-gradient(90deg, rgba(217,119,6,0.06) 0px, rgba(217,119,6,0.06) 1px, transparent 1px, transparent 20px)',
-                phone: <MobilePayoutSkeleton />,
+                phone: <MobilePayoutMockup />,
               },
             ].map((s, i) => (
               <motion.div key={i} variants={fadeUp} className="shrink-0 w-[82vw] snap-start md:w-auto self-stretch flex flex-col">
@@ -712,7 +754,7 @@ export default function SponsorsPage() {
                   <div className="absolute top-0 flex justify-center" style={{ transform: 'scale(0.85)', transformOrigin: 'top center', width: 320 }}>
                     <PhoneFrame screenBg="#FFFFFF">
                       <div className="w-full h-[696px] bg-white pt-6">
-                        <MobileAnalyticsSkeleton />
+                        <MobileAnalyticsMockup />
                       </div>
                     </PhoneFrame>
                   </div>
@@ -827,7 +869,7 @@ export default function SponsorsPage() {
                   <div className="flex items-center justify-between px-7 pt-6 pb-4"
                     style={{ borderBottom: '1px solid rgba(37,99,235,0.12)' }}>
                     <span className="text-[9px] font-black uppercase tracking-[0.22em]" style={{ color: '#2563EB' }}>
-                      Paystack Q1 Launch
+                      BeatDrop Q1 Launch
                     </span>
                     <span className="flex items-center gap-1.5 text-[9px] font-bold uppercase tracking-[0.14em]"
                       style={{ color: '#2563EB' }}>
@@ -890,7 +932,7 @@ export default function SponsorsPage() {
                   <div className="flex items-center justify-between px-7 pt-6 pb-4"
                     style={{ borderBottom: '1px solid rgba(124,59,237,0.12)' }}>
                     <span className="text-[9px] font-black uppercase tracking-[0.22em]" style={{ color: '#7C3BED' }}>
-                      PiggyVest Feb Drive
+                      SoundSave Feb Drive
                     </span>
                     <span className="flex items-center gap-1.5 text-[9px] font-bold uppercase tracking-[0.14em]"
                       style={{ color: '#8888AA' }}>
@@ -949,7 +991,7 @@ export default function SponsorsPage() {
                   <div className="flex items-center justify-between px-7 pt-6 pb-4"
                     style={{ borderBottom: '1px solid rgba(217,119,6,0.12)' }}>
                     <span className="text-[9px] font-black uppercase tracking-[0.22em]" style={{ color: '#D97706' }}>
-                      Carbon Credit Campaign
+                      GreenLoop Campaign
                     </span>
                     <span className="flex items-center gap-1.5 text-[9px] font-bold uppercase tracking-[0.14em]"
                       style={{ color: '#D97706' }}>
@@ -1060,7 +1102,7 @@ export default function SponsorsPage() {
                       Every naira locked <br className="max-md:hidden" />before creators apply.
                     </h3>
                     <p className="text-sm text-[#4A4A6A] leading-relaxed max-w-sm flex-1">
-                      Budget enters escrow the moment your campaign activates. Creators see funds exist before applying — no budget means no campaign. If a creator misses requirements, their portion auto-returns. You never lose money to non-performance.
+                      Budget enters escrow the moment your campaign activates. Creators see funds exist before applying — no budget means no campaign. If a creator misses requirements, the system flags their submission.
                     </p>
                   </div>
                   {/* 4-col box score */}
@@ -1108,7 +1150,7 @@ export default function SponsorsPage() {
                       <p className="text-[9px] font-black uppercase tracking-[0.2em] mb-3"
                         style={{ color: 'rgba(124,59,237,0.45)' }}>On-time payouts</p>
                       <p className="text-xs text-[#4A4A6A] leading-relaxed flex-1">
-                        Each creator's portion releases automatically when their submission clears every requirement.
+                        Each creator's payout is automatically released once the campaign ends and their metrics are validated.
                       </p>
                     </div>
                     <div className="grid grid-cols-2" style={{ borderTop: '1px solid rgba(124,59,237,0.12)' }}>
@@ -1147,7 +1189,7 @@ export default function SponsorsPage() {
                       <p className="text-[9px] font-black uppercase tracking-[0.2em] mb-3"
                         style={{ color: 'rgba(0,160,80,0.45)' }}>Returned if unused</p>
                       <p className="text-xs text-[#4A4A6A] leading-relaxed flex-1">
-                        Unfilled slots and missed deadlines auto-return funds. No disputes, no chasing.
+                        Unused or incomplete campaign funds are automatically refunded within 48 hours—no disputes, no chasing.
                       </p>
                     </div>
                     <div className="grid grid-cols-2" style={{ borderTop: '1px solid rgba(0,160,80,0.12)' }}>
@@ -1198,11 +1240,11 @@ export default function SponsorsPage() {
           <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={vp}
             className="grid grid-cols-2 md:grid-cols-5 gap-3">
             {[
-              { imageSrc: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=500&q=80', caption: '@amara.creates', subcaption: 'Paystack Q1 · TikTok', chips: [{ label: '120K views', position: 'top-left' as const, variant: 'dark' as const }] },
-              { imageSrc: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&q=80', caption: '@dayo_creates', subcaption: 'PiggyVest · Instagram', chips: [{ label: '88K views', position: 'top-left' as const, variant: 'dark' as const }] },
-              { imageSrc: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500&q=80', caption: '@layla.ng', subcaption: 'Carbon Credit · TikTok', chips: [{ label: '54K views', position: 'top-left' as const, variant: 'dark' as const }] },
-              { imageSrc: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=500&q=80', caption: '@seunvibes', subcaption: 'Paystack Q1 · YouTube', chips: [{ label: '210K views', position: 'top-left' as const, variant: 'dark' as const }] },
-              { imageSrc: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=500&q=80', caption: '@chuka.tv', subcaption: 'PiggyVest · TikTok', chips: [{ label: '67K views', position: 'top-left' as const, variant: 'dark' as const }] },
+              { imageSrc: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=500&q=80', caption: '@amara.creates', subcaption: 'BeatDrop Q1 · TikTok', chips: [{ label: '120K views', position: 'top-left' as const, variant: 'dark' as const }] },
+              { imageSrc: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&q=80', caption: '@dayo_creates', subcaption: 'SoundSave · TikTok', chips: [{ label: '88K views', position: 'top-left' as const, variant: 'dark' as const }] },
+              { imageSrc: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500&q=80', caption: '@layla.ng', subcaption: 'GreenLoop · TikTok', chips: [{ label: '54K views', position: 'top-left' as const, variant: 'dark' as const }] },
+              { imageSrc: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=500&q=80', caption: '@seunvibes', subcaption: 'BeatDrop Q1 · TikTok', chips: [{ label: '210K views', position: 'top-left' as const, variant: 'dark' as const }] },
+              { imageSrc: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=500&q=80', caption: '@chuka.tv', subcaption: 'SoundSave · TikTok', chips: [{ label: '67K views', position: 'top-left' as const, variant: 'dark' as const }] },
             ].map((reel, i) => (
               <motion.div key={i} variants={fadeUp} className={i % 2 !== 0 ? 'md:mt-8' : ''}>
                 <VideoCard

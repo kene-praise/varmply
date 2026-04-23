@@ -14,30 +14,55 @@ import {
 } from 'lucide-react';
 import { BrowserChrome, DashboardSkeleton, CreateCampaignSkeleton } from '@/components/MockupSkeletons';
 import { ScrollCarousel } from '@/components/ui/ScrollCarousel';
+import FAQAccordion from '@/components/FAQAccordion';
 
 // ─── Phone skeletons ──────────────────────────────────────────────────────────
 
-function MobileCampaignSkeleton() {
+function MobileCampaignMockup() {
   return (
-    <div className="p-4 flex flex-col gap-3">
-      <div className="h-3 w-32 bg-[#EBEBF2] rounded mb-1" />
-      <div className="h-8 w-full rounded-lg bg-[#F0F0F5] mb-1" />
-      <div className="h-3 w-24 bg-[#EBEBF2] rounded mt-2 mb-1" />
-      <div className="flex gap-2 mb-2">
-        <div className="h-8 flex-1 rounded-lg bg-[#EDE9FF]" />
-        <div className="h-8 flex-1 rounded-lg bg-[#F0F0F5]" />
+    <div className="p-4 flex flex-col gap-3 font-sans h-full bg-[#FAFAFA] rounded-[36px] overflow-hidden -mx-2 -mt-4">
+      {/* Editorial-style header */}
+      <div className="flex justify-between items-center mb-1 px-1">
+        <span className="text-[10px] font-bold text-[#7C3BED] uppercase tracking-wider">Setup</span>
+        <span className="text-[10px] font-medium text-[#4A4A6A]">Step 1 of 4</span>
       </div>
-      <div className="h-3 w-28 bg-[#EBEBF2] rounded mb-1" />
-      <div className="h-16 w-full rounded-xl bg-[#F0F0F5]" />
-      <div className="h-3 w-20 bg-[#EBEBF2] rounded mt-2 mb-1" />
-      <div className="flex flex-wrap gap-1.5">
-        {['TikTok', 'Instagram', 'YouTube'].map(p => (
-          <div key={p} className="h-6 px-3 rounded-full bg-[#EDE9FF] flex items-center">
-            <div className="h-1.5 w-10 bg-[#C4B5FD] rounded" />
+      
+      {/* Campaign card */}
+      <div className="rounded-2xl p-4 bg-white border border-[rgba(124,59,237,0.14)] shadow-sm">
+        <p className="text-[9px] font-bold text-[#A0A0BA] uppercase mb-[2px]">Campaign Name</p>
+        <p className="text-sm font-black text-[#0F0F1A] mb-4">Summer Launch Q3</p>
+        
+        <div className="h-px w-full bg-[#EBEBF2] mb-3" />
+        
+        <div className="flex gap-2 mb-4">
+          <div className="flex-1 rounded-xl px-3 py-2 bg-[rgba(124,59,237,0.05)] border border-[rgba(124,59,237,0.10)]">
+            <p className="text-[8px] font-bold text-[#A0A0BA] uppercase mb-0.5">Platform</p>
+            <p className="text-[10px] font-bold text-[#7C3BED]">TikTok</p>
           </div>
-        ))}
+          <div className="flex-1 rounded-xl px-3 py-2 bg-[rgba(0,160,80,0.05)] border border-[rgba(0,160,80,0.10)]">
+            <p className="text-[8px] font-bold text-[#A0A0BA] uppercase mb-0.5">Content</p>
+            <p className="text-[10px] font-bold text-[#00A050]">Video</p>
+          </div>
+        </div>
+        
+        <p className="text-[9px] font-bold text-[#A0A0BA] uppercase mb-1.5">Description (preview)</p>
+        <div className="rounded-xl p-3 text-[10px] text-[#4A4A6A] leading-relaxed bg-[#F9F9FB] border border-[#EBEBF2]">
+          We are looking for creators to make 15s videos demonstrating our new summer collection. Must feature the official sound.
+        </div>
       </div>
-      <div className="mt-3 h-10 w-full rounded-full bg-[#7C3BED]" />
+
+      <div className="rounded-2xl p-4 bg-white border border-[rgba(217,119,6,0.14)] shadow-sm mt-1">
+        <p className="text-[9px] font-bold text-[#A0A0BA] uppercase mb-[2px]">Target Reach</p>
+        <p className="text-sm font-black text-[#0F0F1A] mb-1">500,000+ views</p>
+        <div className="w-full bg-[#FEF3C7] rounded-full h-1.5 mt-2 overflow-hidden">
+          <div className="bg-[#D97706] w-1/3 h-full rounded-full" />
+        </div>
+      </div>
+      
+      {/* Action button */}
+      <div className="mt-auto h-12 w-full rounded-full flex items-center justify-center text-white text-[12px] font-bold shadow-md bg-[#7C3BED]">
+        Preview & Save
+      </div>
     </div>
   );
 }
@@ -69,7 +94,7 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
 
 function HowItWorks() {
   return (
-    <section className="py-12 md:py-24" style={{ background: '#FFFFFF', borderTop: '1px solid #E4E4EC' }}>
+    <section id="how-it-works" className="py-12 md:py-24" style={{ background: '#FFFFFF', borderTop: '1px solid #E4E4EC' }}>
       <div className="max-w-6xl mx-auto px-6">
 
         {/* Centered header */}
@@ -126,7 +151,7 @@ function HowItWorks() {
                     <div className="absolute top-0 flex justify-center" style={{ transform: 'scale(0.85)', transformOrigin: 'top center', width: 320 }}>
                       <PhoneFrame screenBg="#FFFFFF">
                         <div className="w-full h-[696px] bg-white pt-6">
-                          <MobileCampaignSkeleton />
+                          <MobileCampaignMockup />
                         </div>
                       </PhoneFrame>
                     </div>
@@ -304,7 +329,7 @@ function WhyVarmply() {
                       <p className="font-black leading-none mb-1"
                         style={{ fontSize: 'clamp(42px, 4.5vw, 58px)', color: '#00A050', letterSpacing: '-0.04em' }}>840K</p>
                       <p className="text-[10px] md:text-xs font-black uppercase tracking-[0.18em] mb-4" style={{ color: 'rgba(0,160,80,0.45)' }}>Reel reach</p>
-                      <p className="text-[13px] md:text-sm text-[#4A4A6A] leading-relaxed">Reels extend your campaign beyond the core audience.</p>
+                      <p className="text-[13px] md:text-sm text-[#4A4A6A] leading-relaxed">Beyond your immediate audience.</p>
                     </div>
                   </div>
                 </div>
@@ -336,7 +361,7 @@ function WhyVarmply() {
                     0% wasted budget
                   </h3>
                   <p className="text-sm text-[#4A4A6A] leading-relaxed flex-1">
-                    If performance doesn't happen, funds stay in escrow. You never pay for nothing.
+                    If performance doesn't happen, funds stay in escrow or released to you. You never pay for mere promises.
                   </p>
                 </div>
                 <div className="grid grid-cols-2" style={{ borderTop: '1px solid rgba(124,59,237,0.12)' }}>
@@ -721,8 +746,8 @@ const REELS_ROW_2 = [
 function ReelCard({ reel }: { reel: typeof REELS_ROW_1[number] }) {
   return (
     <div
-      className="relative shrink-0 overflow-hidden rounded-2xl"
-      style={{ width: 148, aspectRatio: '9/16' }}
+      className="relative shrink-0 overflow-hidden rounded-2xl w-[220px] md:w-[148px]"
+      style={{ aspectRatio: '9/16' }}
     >
       {/* Thumbnail */}
       <Image src={reel.thumb} alt="" fill className="object-cover" sizes="148px" />
@@ -804,18 +829,18 @@ function CreatorReel() {
           Real songs. <br className="max-md:hidden" />Real creators. <br className="max-md:hidden" />Real reach.
         </motion.h2>
         <motion.p variants={fadeUp} className="text-base text-[#4A4A6A] md:max-w-[420px]" style={{ lineHeight: 1.6 }}>
-          Campaigns across TikTok, Instagram, YouTube and more. All tracked and verified.
+          Campaigns across TikTok and Instagram. All tracked and verified.
         </motion.p>
         <motion.div variants={fadeUp} className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
-          <Link href="/sponsors"
+          <Link href="/waitlist"
             className="flex items-center justify-center gap-2 px-6 py-3 rounded-full font-semibold text-sm w-full sm:w-auto"
             style={{ background: '#7C3BED', color: 'white' }}>
-            Run a Campaign <ArrowRight size={14} />
+            Join the Waitlist <ArrowRight size={14} />
           </Link>
-          <Link href="/creators"
+          <Link href="#how-it-works"
             className="flex items-center justify-center gap-2 px-6 py-3 rounded-full font-semibold text-sm w-full sm:w-auto"
             style={{ background: 'rgba(124,59,237,0.10)', color: '#7C3BED', border: '1.5px solid rgba(124,59,237,0.22)' }}>
-            Join as Creator <ArrowRight size={14} />
+            How It Works <ArrowRight size={14} />
           </Link>
         </motion.div>
       </motion.div>
@@ -828,7 +853,7 @@ function CreatorReel() {
       </div>
 
       {/* Row 2 — scrolls right */}
-      <div className="relative z-10">
+      <div className="relative z-10 hidden md:block">
         <div className="flex animate-marquee-reverse gap-3" style={{ width: 'max-content' }}>
           {row2.map((r, i) => <ReelCard key={i} reel={r} />)}
         </div>
@@ -985,7 +1010,7 @@ const testimonials = [
     bgTint: 'rgba(217,119,6,0.05)', border: 'rgba(217,119,6,0.14)',
     pattern: 'repeating-linear-gradient(-45deg, rgba(217,119,6,0.05) 0px, rgba(217,119,6,0.05) 1px, transparent 1px, transparent 14px)',
     role: 'Sponsor', avatar: '/mockups/avatar-5.png',
-    text: "As a sponsor, Varmply gave us a level of accountability we never had before. We could see exactly which creators hit their targets before releasing payment.",
+    text: "As a sponsor, Varmply gave us a level of accountability we never had before. We could see exactly which creators hit their targets before payment was released.",
   },
   {
     name: 'Marcus Thorne', handle: 'marcus_t', initials: 'M', accent: '#0891B2',
@@ -1067,6 +1092,38 @@ function Testimonials() {
   );
 }
 
+// ─── FAQ ──────────────────────────────────────────────────────────────────────
+
+const homeFaqItems = [
+  { question: 'What is Varmply?', answer: 'Varmply is a performance-based music campaign platform. Artists and labels run campaigns where creators post content promoting a track — payouts are only released when real engagement is verified.' },
+  { question: 'How do payouts work?', answer: "Sponsor budgets are locked in escrow when a campaign launches. Payments are released to creators automatically after their submission is validated — typically within 24–72 hours. No manual chasing." },
+  { question: 'Is it free to sign up?', answer: 'Sign up is free for both creators and sponsors. There are also no upfront platform fees to launch a campaign as a sponsor.' },
+  { question: 'Which platforms are supported?', answer: 'TikTok alone for now. More platforms are coming up soon.' },
+  { question: 'How is engagement verified?', answer: 'Varmply connects directly to social platform APIs to pull real metrics — views, plays, engagement rate. Creators cannot self-report results.' },
+  { question: 'When will Varmply be publicly available?', answer: "We're currently in closed beta. Join the waitlist and you'll be among the first to get access when we open to the public." },
+];
+
+function FAQ() {
+  return (
+    <section id="faq" className="py-12 md:py-24" style={{ background: '#FFFFFF', borderTop: '1px solid #E4E4EC' }}>
+      <div className="max-w-4xl mx-auto px-6">
+        <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={vp}
+          className="mb-8 md:mb-14 flex flex-col items-start text-left md:items-center md:text-center gap-4">
+          <motion.div variants={fadeUp}><SectionLabel>FAQ</SectionLabel></motion.div>
+          <motion.h2 variants={fadeUp} className="font-black text-[#0F0F1A] tracking-tight"
+            style={{ fontSize: 'clamp(36px, 5vw, 56px)', lineHeight: 1.0 }}>
+            Questions, answered.
+          </motion.h2>
+        </motion.div>
+        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
+          viewport={vp} transition={{ duration: 0.5 }}>
+          <FAQAccordion items={homeFaqItems} />
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
 function HomeContent() {
@@ -1104,6 +1161,7 @@ function HomeContent() {
       <CreatorReel />
       <TrustPillars />
       <Testimonials />
+      <FAQ />
     </>
   );
 }
