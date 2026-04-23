@@ -1,7 +1,7 @@
 'use client';
 
+import { Suspense, useLayoutEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { useLayoutEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect, useRef } from 'react';
 import { ScrollCarousel } from '@/components/ui/ScrollCarousel';
@@ -290,19 +290,22 @@ const faqItems = [
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
-export default function CreatorsPage() {
+function SectionIsolator() {
   const searchParams = useSearchParams();
   const section = searchParams.get('section');
-
   useLayoutEffect(() => {
     if (!section) return;
     document.querySelectorAll<HTMLElement>('[data-section]').forEach(el => {
       el.style.display = el.dataset.section === section ? '' : 'none';
     });
   }, [section]);
+  return null;
+}
 
+export default function CreatorsPage() {
   return (
     <div style={{ background: '#FFFFFF' }}>
+      <Suspense><SectionIsolator /></Suspense>
 
       {/* 1. HERO ─────────────────────────────────────────────────────────────── */}
       <section data-section="creator-hero" id="creator-hero" className="relative overflow-hidden"

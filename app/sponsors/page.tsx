@@ -1,7 +1,7 @@
 'use client';
 
+import { Suspense, useLayoutEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { useLayoutEffect } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
@@ -375,19 +375,22 @@ const faqItems = [
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
-export default function SponsorsPage() {
+function SectionIsolator() {
   const searchParams = useSearchParams();
   const section = searchParams.get('section');
-
   useLayoutEffect(() => {
     if (!section) return;
     document.querySelectorAll<HTMLElement>('[data-section]').forEach(el => {
       el.style.display = el.dataset.section === section ? '' : 'none';
     });
   }, [section]);
+  return null;
+}
 
+export default function SponsorsPage() {
   return (
     <div style={{ background: '#FFFFFF' }}>
+      <Suspense><SectionIsolator /></Suspense>
 
       {/* 1. HERO ─────────────────────────────────────────────────────────────── */}
       <section data-section="sponsor-hero" id="sponsor-hero" className="relative overflow-hidden cursor-none"

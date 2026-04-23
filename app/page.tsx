@@ -1,5 +1,6 @@
 'use client';
 
+import { Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import HeroSection from '@/components/HeroSection';
 import { PhoneFrame } from '@/components/ui/PhoneFrame';
@@ -1068,7 +1069,7 @@ function Testimonials() {
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
-export default function HomePage() {
+function HomeContent() {
   const searchParams = useSearchParams();
   const section = searchParams.get('section');
 
@@ -1089,5 +1090,13 @@ export default function HomePage() {
       <TrustPillars />
       <Testimonials />
     </>
+  );
+}
+
+export default function HomePage() {
+  return (
+    <Suspense>
+      <HomeContent />
+    </Suspense>
   );
 }
