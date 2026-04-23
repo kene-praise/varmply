@@ -1090,6 +1090,7 @@ function HomeContent() {
   if (section === 'phone-showcase') return <PhoneShowcase />;
   if (section === 'creator-community') return <CreatorReel />;
   if (section === 'testimonials') return <Testimonials />;
+  if (section === 'site-footer') return null;
 
   return (
     <>
