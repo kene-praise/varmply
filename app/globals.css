@@ -353,12 +353,17 @@ h1, h2, h3, h4, h5, h6 {
   to { height: 0; opacity: 0; }
 }
 
-/* ── Embed mode (?embed=1) — hides site chrome before first paint ── */
+/* ── Embed mode (?embed=1) — hides site chrome, locks vertical scroll ── */
 html.embed header,
 html.embed [data-audience-switcher] {
   display: none !important;
 }
 html.embed:not(.section-site-footer) footer {
   display: none !important;
+}
+html.embed,
+html.embed body {
+  overflow-y: hidden !important;
+  overflow-x: hidden !important;
 }
 

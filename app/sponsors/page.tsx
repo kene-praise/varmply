@@ -386,10 +386,13 @@ function SectionIsolator() {
   }, [section]);
   useEffect(() => {
     if (!section) return;
-    const id = requestAnimationFrame(() => {
-      window.parent.postMessage({ type: 'varmply-section-height', height: document.querySelector(`[data-section="${section}"]`)?.getBoundingClientRect().height ?? 0 }, '*');
-    });
-    return () => cancelAnimationFrame(id);
+    const el = document.querySelector<HTMLElement>(`[data-section="${section}"]`);
+    if (!el) return;
+    const report = () => window.parent.postMessage({ type: 'varmply-section-height', height: el.scrollHeight }, '*');
+    report();
+    const ro = new ResizeObserver(report);
+    ro.observe(el);
+    return () => ro.disconnect();
   }, [section]);
   return null;
 }

@@ -1075,10 +1075,13 @@ function HomeContent() {
 
   useEffect(() => {
     if (!section) return;
-    const id = requestAnimationFrame(() => {
-      window.parent.postMessage({ type: 'varmply-section-height', height: document.querySelector('main')?.getBoundingClientRect().height ?? 0 }, '*');
-    });
-    return () => cancelAnimationFrame(id);
+    const el = document.querySelector('main');
+    if (!el) return;
+    const report = () => window.parent.postMessage({ type: 'varmply-section-height', height: el.scrollHeight }, '*');
+    report();
+    const ro = new ResizeObserver(report);
+    ro.observe(el);
+    return () => ro.disconnect();
   }, [section]);
 
   if (section === 'hero') return <HeroSection />;
