@@ -1,9 +1,8 @@
 'use client';
 
-import { Suspense, useLayoutEffect } from 'react';
+import { Suspense, useState, useEffect, useLayoutEffect, useRef } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useState, useEffect, useRef } from 'react';
 import { ScrollCarousel } from '@/components/ui/ScrollCarousel';
 import Link from 'next/link';
 import { ArrowRight, CheckCircle, Zap, DollarSign, Search, Heart, MessageCircle, Share2, Music2 } from 'lucide-react';
@@ -298,6 +297,13 @@ function SectionIsolator() {
     document.querySelectorAll<HTMLElement>('[data-section]').forEach(el => {
       el.style.display = el.dataset.section === section ? '' : 'none';
     });
+  }, [section]);
+  useEffect(() => {
+    if (!section) return;
+    const id = requestAnimationFrame(() => {
+      window.parent.postMessage({ type: 'varmply-section-height', height: document.documentElement.scrollHeight }, '*');
+    });
+    return () => cancelAnimationFrame(id);
   }, [section]);
   return null;
 }

@@ -1,6 +1,6 @@
 'use client';
 
-import { Suspense } from 'react';
+import { Suspense, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import HeroSection from '@/components/HeroSection';
 import { PhoneFrame } from '@/components/ui/PhoneFrame';
@@ -1072,6 +1072,14 @@ function Testimonials() {
 function HomeContent() {
   const searchParams = useSearchParams();
   const section = searchParams.get('section');
+
+  useEffect(() => {
+    if (!section) return;
+    const id = requestAnimationFrame(() => {
+      window.parent.postMessage({ type: 'varmply-section-height', height: document.documentElement.scrollHeight }, '*');
+    });
+    return () => cancelAnimationFrame(id);
+  }, [section]);
 
   if (section === 'hero') return <HeroSection />;
   if (section === 'how-it-works') return <HowItWorks />;

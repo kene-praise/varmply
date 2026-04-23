@@ -37,7 +37,7 @@ export default function RootLayout({
       </head>
       <body>
         {/* Detect ?embed=1 before first paint — adds .embed class, CSS hides chrome */}
-        <script dangerouslySetInnerHTML={{ __html: `(function(){var sp=new URLSearchParams(location.search);if(sp.get("embed")==="1"){document.documentElement.classList.add("embed");var s=sp.get("section");if(s){var el=document.createElement("style");el.textContent="html.embed section:not(#"+s+"){display:none!important}html.embed main:not(:has(#"+s+")){display:none!important}";document.head.appendChild(el)}}})()` }} />
+        <script dangerouslySetInnerHTML={{ __html: `(function(){var sp=new URLSearchParams(location.search);if(sp.get("embed")==="1"){document.documentElement.classList.add("embed");var s=sp.get("section");if(s){document.documentElement.classList.add("section-"+s);var el=document.createElement("style");el.textContent="html.embed section:not(#"+s+"){display:none!important}html.embed main:not(:has(#"+s+")){display:none!important}";document.head.appendChild(el)}}})()` }} />
         <SiteHeader />
         <LenisProvider>
           <NavigationScrollGuard />

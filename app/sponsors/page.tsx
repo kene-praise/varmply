@@ -1,6 +1,6 @@
 'use client';
 
-import { Suspense, useLayoutEffect } from 'react';
+import { Suspense, useEffect, useLayoutEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
@@ -383,6 +383,13 @@ function SectionIsolator() {
     document.querySelectorAll<HTMLElement>('[data-section]').forEach(el => {
       el.style.display = el.dataset.section === section ? '' : 'none';
     });
+  }, [section]);
+  useEffect(() => {
+    if (!section) return;
+    const id = requestAnimationFrame(() => {
+      window.parent.postMessage({ type: 'varmply-section-height', height: document.documentElement.scrollHeight }, '*');
+    });
+    return () => cancelAnimationFrame(id);
   }, [section]);
   return null;
 }
