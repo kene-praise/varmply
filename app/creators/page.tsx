@@ -300,7 +300,10 @@ function SectionIsolator() {
   }, [section]);
   useEffect(() => {
     if (!section) return;
-    const el = document.querySelector<HTMLElement>(`[data-section="${section}"]`);
+    // The footer lives outside [data-section] blocks, in the layout
+    const el = section === 'site-footer'
+      ? document.querySelector<HTMLElement>('#site-footer') ?? document.body
+      : document.querySelector<HTMLElement>(`[data-section="${section}"]`);
     if (!el) return;
     const report = () => window.parent.postMessage({ type: 'varmply-section-height', height: el.scrollHeight }, '*');
     report();
