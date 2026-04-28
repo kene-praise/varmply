@@ -198,7 +198,18 @@ MagneticButton.displayName = "MagneticButton";
 // 3. PER-PAGE CONFIG
 // -------------------------------------------------------------------------
 
-const pageConfigs = {
+type FooterConfig = {
+    bg: string;
+    headline: string;
+    subtext: string;
+    cta1: { label: string; href: string };
+    cta2: { label: string; href: string };
+    marquee: string[];
+    pattern?: string | null;
+    patternSize?: React.CSSProperties["backgroundSize"];
+};
+
+const pageConfigs: Record<string, FooterConfig> = {
     '/': {
         bg: '#6406cf',
         headline: "Turn your next release\ninto a campaign.",
