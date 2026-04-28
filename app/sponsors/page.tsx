@@ -4,18 +4,22 @@ import { Suspense, useEffect, useLayoutEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import dynamic from 'next/dynamic';
 import { ScrollCarousel } from '@/components/ui/ScrollCarousel';
-import Image from 'next/image';
-import { ArrowRight, CheckCircle, Lock, RotateCcw, BarChart2, Users, Shield, TrendingUp, DollarSign, Star } from 'lucide-react';
+import { ArrowRight, CheckCircle, Lock, RotateCcw, BarChart2, Users, Shield, Star } from 'lucide-react';
 import FAQAccordion from '@/components/FAQAccordion';
-import { BrowserChrome, DashboardSkeleton } from '@/components/MockupSkeletons';
+import { BrowserChrome } from '@/components/MockupSkeletons';
 import { VideoCard } from '@/components/ui/VideoCard';
 import { PhoneFrame } from '@/components/ui/PhoneFrame';
 import { LiquidGlass } from '@/components/ui/LiquidGlass';
-import CampaignBuilderMockup from '@/components/UIComponents/CampaignBuilderMockup';
-import SponsorHeroScreens from '@/components/UIComponents/SponsorHeroScreens';
-import SponsorCampaignPrototype from '@/components/UIComponents/SponsorCampaignPrototype';
+import {
+  SponsorCampaignDetailScreen,
+  SponsorDashboardScreen,
+  SponsorEscrowScreen,
+  SponsorHeroLiveScreen,
+  SponsorMonitoringScreen,
+  SponsorPayoutScreen,
+  SponsorSetupScreen,
+} from '@/components/UIComponents/AppMockScreens';
 
 
 // ─── Animation helpers ────────────────────────────────────────────────────────
@@ -41,179 +45,9 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
   );
 }
 
-// ─── Phone skeletons for How It Works ────────────────────────────────────────
-
-function MobileCampaignMockup() {
-  return (
-    <div className="p-4 flex flex-col gap-3 font-sans h-full bg-[#FAFAFA] rounded-[36px] overflow-hidden -mx-2 -mt-4">
-      <div className="flex justify-between items-center mb-1 px-1">
-        <span className="text-[10px] font-bold text-[#7C3BED] uppercase tracking-wider">Setup</span>
-        <span className="text-[10px] font-medium text-[#4A4A6A]">Step 1 of 4</span>
-      </div>
-      <div className="rounded-2xl p-4 bg-white border border-[rgba(124,59,237,0.14)] shadow-sm">
-        <p className="text-[9px] font-bold text-[#A0A0BA] uppercase mb-[2px]">Campaign Name</p>
-        <p className="text-sm font-black text-[#0F0F1A] mb-4">Summer Launch Q3</p>
-        <div className="h-px w-full bg-[#EBEBF2] mb-3" />
-        <div className="flex gap-2 mb-4">
-          <div className="flex-1 rounded-xl px-3 py-2 bg-[rgba(124,59,237,0.05)] border border-[rgba(124,59,237,0.10)]">
-            <p className="text-[8px] font-bold text-[#A0A0BA] uppercase mb-0.5">Platform</p>
-            <p className="text-[10px] font-bold text-[#7C3BED]">TikTok</p>
-          </div>
-          <div className="flex-1 rounded-xl px-3 py-2 bg-[rgba(0,160,80,0.05)] border border-[rgba(0,160,80,0.10)]">
-            <p className="text-[8px] font-bold text-[#A0A0BA] uppercase mb-0.5">Content</p>
-            <p className="text-[10px] font-bold text-[#00A050]">Video</p>
-          </div>
-        </div>
-        <p className="text-[9px] font-bold text-[#A0A0BA] uppercase mb-1.5">Description (preview)</p>
-        <div className="rounded-xl p-3 text-[10px] text-[#4A4A6A] leading-relaxed bg-[#F9F9FB] border border-[#EBEBF2]">
-          We are looking for creators to make 15s videos demonstrating our new summer collection...
-        </div>
-      </div>
-      <div className="rounded-2xl p-4 bg-white border border-[rgba(217,119,6,0.14)] shadow-sm mt-1">
-        <p className="text-[9px] font-bold text-[#A0A0BA] uppercase mb-[2px]">Target Reach</p>
-        <p className="text-sm font-black text-[#0F0F1A] mb-1">500,000+ views</p>
-        <div className="w-full bg-[#FEF3C7] rounded-full h-1.5 mt-2 overflow-hidden">
-          <div className="bg-[#D97706] w-1/3 h-full rounded-full" />
-        </div>
-      </div>
-      <div className="mt-auto h-12 w-full rounded-full flex items-center justify-center text-white text-[12px] font-bold shadow-md bg-[#7C3BED]">
-        Preview & Save
-      </div>
-    </div>
-  );
-}
-
-function MobileEscrowMockup() {
-  return (
-    <div className="p-4 flex flex-col gap-3 font-sans h-full bg-[#FAFAFA] rounded-[36px] overflow-hidden -mx-2 -mt-4">
-      <div className="flex flex-col items-center gap-2 py-4 mb-2">
-        <div className="w-16 h-16 rounded-2xl bg-[rgba(37,99,235,0.08)] flex items-center justify-center mb-1 border border-[rgba(37,99,235,0.15)] shadow-sm">
-          <div className="w-8 h-8 rounded-lg bg-[#2563EB] flex items-center justify-center text-white text-[14px]">🔒</div>
-        </div>
-        <p className="text-[11px] font-bold text-[#A0A0BA] uppercase tracking-wider">Campaign Locked</p>
-        <p className="text-2xl font-black text-[#0F0F1A]">₦500,000</p>
-      </div>
-      
-      <div className="rounded-2xl border border-[rgba(37,99,235,0.14)] bg-white p-5 flex flex-col gap-3 shadow-sm mb-2 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-24 h-24 bg-[rgba(37,99,235,0.05)] rounded-full -mr-10 -mt-10 pointer-events-none" />
-        <div className="flex justify-between items-center mb-1">
-          <span className="text-[10px] font-bold text-[#A0A0BA] uppercase">Allocated Budget</span>
-          <span className="text-[11px] font-black text-[#2563EB]">85%</span>
-        </div>
-        <div className="h-2 w-full rounded-full bg-[#EFF6FF] overflow-hidden">
-          <div className="h-full w-[85%] rounded-full bg-[#2563EB]" />
-        </div>
-        <div className="flex justify-between mt-1">
-          <span className="text-[9px] font-bold text-[#4A4A6A]">₦425,000 committed</span>
-          <span className="text-[9px] font-bold text-[#A0A0BA]">₦75,000 remaining</span>
-        </div>
-      </div>
-      
-      <div className="flex gap-2">
-        {[
-          { icon: '🛡️', label: 'Secured', val: '₦500K' },
-          { icon: '💸', label: 'Pending', val: '₦125K' },
-          { icon: '✅', label: 'Released', val: '₦300K' }
-        ].map((item, i) => (
-          <div key={i} className={`flex-1 rounded-2xl p-3 flex flex-col items-center gap-1.5 shadow-sm border ${i === 0 ? 'bg-[rgba(37,99,235,0.05)] border-[rgba(37,99,235,0.12)]' : 'bg-white border-[#EBEBF2]'}`}>
-            <span className="text-[14px]">{item.icon}</span>
-            <span className={`text-[8px] font-bold uppercase tracking-wide ${i === 0 ? 'text-[#2563EB]' : 'text-[#A0A0BA]'}`}>{item.label}</span>
-            <span className="text-[10px] font-black text-[#0F0F1A]">{item.val}</span>
-          </div>
-        ))}
-      </div>
-      
-      <div className="mt-auto h-12 w-full rounded-full flex items-center justify-center text-white text-[12px] font-bold shadow-md bg-[#2563EB]">
-        Manage Funds
-      </div>
-    </div>
-  );
-}
-
-function MobileAnalyticsMockup() {
-  return (
-    <div className="p-4 flex flex-col gap-3 font-sans h-full bg-[#FAFAFA] rounded-[36px] overflow-hidden -mx-2 -mt-4">
-      <div className="flex justify-between items-center mb-3 px-1">
-        <div>
-           <span className="text-[10px] font-bold text-[#00A050] uppercase tracking-wider block mb-1">Live Tracking</span>
-           <span className="text-[13px] font-black text-[#0F0F1A]">Campaign Metrics</span>
-        </div>
-        <span className="w-2 h-2 rounded-full bg-[#00A050] animate-pulse" />
-      </div>
-      
-      <div className="flex gap-2 items-end h-32 mb-4 px-2">
-        {[45, 60, 35, 85, 55, 95, 75].map((h, i) => (
-          <div key={i} className="flex-1 flex flex-col items-center justify-end gap-1.5 group">
-            <div className={`w-full rounded-t-lg transition-all ${i === 5 ? 'bg-[#00A050]' : 'bg-[rgba(0,160,80,0.15)]'}`} style={{ height: `${h}%` }} />
-            <span className="text-[8px] font-bold text-[#A0A0BA]">Day {i+1}</span>
-          </div>
-        ))}
-      </div>
-      
-      <div className="grid grid-cols-2 gap-2 mt-1">
-        {[
-          { label: 'Total Reach', val: '148K', up: '+12%' },
-          { label: 'Eng. Rate', val: '8.4%', up: '+1.2%' },
-          { label: 'Creators', val: '18 Active', none: true },
-          { label: 'Budget Used', val: '90%', alert: true }
-        ].map((item, i) => (
-          <div key={i} className="rounded-2xl bg-white border border-[#EBEBF2] shadow-sm p-3 flex flex-col">
-            <p className="text-[8px] font-bold text-[#A0A0BA] uppercase mb-1.5">{item.label}</p>
-            <div className="flex items-end justify-between mt-auto">
-               <span className="text-[14px] font-black text-[#0F0F1A]">{item.val}</span>
-               {item.up && <span className="text-[8px] font-bold text-[#00A050] bg-[rgba(0,160,80,0.1)] px-1.5 py-[1px] rounded">{item.up}</span>}
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function MobilePayoutMockup() {
-  return (
-    <div className="p-4 flex flex-col gap-3 font-sans h-full bg-[#FAFAFA] rounded-[36px] overflow-hidden -mx-2 -mt-4">
-      <div className="flex flex-col items-center gap-2 pt-4 pb-2">
-        <div className="w-14 h-14 rounded-full bg-[rgba(217,119,6,0.08)] border border-[rgba(217,119,6,0.15)] flex items-center justify-center mb-1 shadow-sm">
-          <div className="w-7 h-7 rounded-full bg-[#D97706] text-white flex items-center justify-center text-[12px]">💸</div>
-        </div>
-        <p className="text-[11px] font-bold text-[#A0A0BA] uppercase tracking-wider">Total Released</p>
-        <p className="text-2xl font-black text-[#0F0F1A]">₦2,400,000</p>
-      </div>
-      
-      <div className="flex flex-col gap-2 mt-2">
-         {[
-           { name: 'Dami Creates', handle: '@dami_creates', amt: '₦25,000' },
-           { name: 'Chuks Video', handle: '@chuka.tv', amt: '₦18,000' }
-         ].map((c, i) => (
-           <div key={i} className="rounded-2xl border border-[#EBEBF2] bg-white p-3.5 flex justify-between items-center shadow-sm">
-             <div className="flex items-center gap-3">
-               <div className="w-9 h-9 rounded-full bg-[#F5F5F7] border border-[#EBEBF2] flex items-center justify-center shrink-0 text-[10px] font-bold text-[#A0A0BA]">
-                 {c.name[0]}
-               </div>
-               <div className="flex flex-col">
-                 <span className="text-[11px] font-bold text-[#0F0F1A] leading-tight mb-[2px]">{c.name}</span>
-                 <span className="text-[9px] text-[#A0A0BA] leading-none">{c.handle}</span>
-               </div>
-             </div>
-             <div className="flex flex-col items-end gap-1.5">
-               <span className="text-[11px] font-black text-[#D97706]">{c.amt}</span>
-               <span className="text-[8px] font-bold bg-[#FEF3C7] text-[#B45309] px-2 py-0.5 rounded shadow-sm">Paid out</span>
-             </div>
-           </div>
-         ))}
-      </div>
-      
-      <div className="mt-auto h-12 w-full rounded-full flex items-center justify-center text-white text-[12px] font-bold shadow-md bg-[#D97706]">
-        Review Pending
-      </div>
-    </div>
-  );
-}
-
 const phoneVisual = (children: React.ReactNode) => (
-  <div className="mt-8 relative h-[200px] md:h-[250px] w-full flex justify-center overflow-hidden pointer-events-none">
-    <div className="absolute top-0 flex justify-center" style={{ transform: 'scale(0.85)', transformOrigin: 'top center', width: 320 }}>
+  <div className="mt-7 relative h-[260px] md:h-[330px] w-full flex justify-center overflow-hidden pointer-events-none">
+    <div className="absolute top-0 flex justify-center" style={{ transform: 'scale(0.7)', transformOrigin: 'top center', width: 320 }}>
       <PhoneFrame screenBg="#FFFFFF">
         <div className="w-full h-[696px] bg-white pt-10">
           {children}
@@ -223,187 +57,7 @@ const phoneVisual = (children: React.ReactNode) => (
   </div>
 );
 
-// ─── Hero Components from Main Page ──────────────────────────────────────────
-
-function HeroPhoneApp() {
-  const border = '1px solid hsl(214.3 31.8% 91.4%)';
-  const muted = 'hsl(215.4 16.3% 46.9%)';
-
-  const campaigns = [
-    { brand: 'SwiftPay', task: 'Instagram post', reward: '₦25,000', status: 'Active', statusColor: '#16A34A', statusBg: '#F0FDF4', avatar: '#1A40B8' },
-    { brand: 'SaveNow', task: 'TikTok video', reward: '₦18,000', status: 'Pending', statusColor: '#D97706', statusBg: '#FFFBEB', avatar: '#2563EB' },
-    { brand: 'WealthPal', task: 'TikTok video', reward: '₦8,000', status: 'Active', statusColor: '#16A34A', statusBg: '#F0FDF4', avatar: '#00A050' },
-  ];
-
-  const bars = [65, 40, 80, 55, 70, 35, 90];
-
-  return (
-    <div className="w-full max-md:h-full max-md:flex max-md:flex-col overflow-hidden" style={{ background: 'hsl(210 40% 98%)', fontFamily: 'system-ui,-apple-system,sans-serif' }}>
-      {/* Status bar */}
-      <div className="flex items-center justify-between shrink-0 bg-white" style={{ height: 40, padding: '10px 16px 0' }}>
-        <span style={{ fontSize: 10.5, fontWeight: 600, letterSpacing: -0.2 }}>9:41</span>
-        <div className="flex items-center gap-1.5">
-          <svg width="13" height="9" viewBox="0 0 13 9" fill="currentColor" className="text-foreground">
-            <rect x="0" y="4.5" width="2.5" height="4.5" rx="0.5" opacity="0.3" />
-            <rect x="3.5" y="3" width="2.5" height="6" rx="0.5" opacity="0.55" />
-            <rect x="7" y="1.5" width="2.5" height="7.5" rx="0.5" opacity="0.8" />
-            <rect x="10.5" y="0" width="2.5" height="9" rx="0.5" />
-          </svg>
-          <svg width="19" height="9" viewBox="0 0 19 9" fill="none">
-            <rect x="0.5" y="0.5" width="15.5" height="8" rx="2" stroke="black" strokeOpacity="0.3" strokeWidth="0.8" />
-            <rect x="1.5" y="1.5" width="11" height="6" rx="1.5" fill="black" />
-            <path d="M17 3v3c.7-.2 1.2-.8 1.2-1.5S17.7 3.2 17 3z" fill="black" fillOpacity="0.35" />
-          </svg>
-        </div>
-      </div>
-
-      {/* App header */}
-      <div className="flex items-center justify-between shrink-0 bg-white" style={{ padding: '8px 16px 10px', borderBottom: border }}>
-        <div>
-          <p style={{ fontSize: 10, color: muted, marginBottom: 1 }}>Good morning,</p>
-          <p style={{ fontSize: 14, fontWeight: 700, color: 'hsl(222.2 84% 4.9%)', letterSpacing: -0.3 }}>Dami Adeyemi</p>
-        </div>
-        <div style={{ width: 34, height: 34, borderRadius: '50%', background: '#1A40B8', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <span style={{ fontSize: 10, fontWeight: 700, color: 'white' }}>DA</span>
-        </div>
-      </div>
-
-      {/* Earnings card */}
-      <div className="shrink-0 mx-3 mt-3" style={{ background: '#1A40B8', borderRadius: 14, padding: '14px 16px 12px' }}>
-        <p style={{ fontSize: 10, color: 'rgba(255,255,255,0.65)', marginBottom: 4 }}>Total earnings</p>
-        <p style={{ fontSize: 30, fontWeight: 700, color: 'white', letterSpacing: -1, lineHeight: 1, marginBottom: 10 }}>₦47,500</p>
-        <div className="flex gap-1.5 items-end" style={{ marginBottom: 6 }}>
-          {bars.map((h, i) => (
-            <div key={i} style={{ flex: 1, height: h * 0.3, borderRadius: 3, background: i === 6 ? 'white' : 'rgba(255,255,255,0.35)' }} />
-          ))}
-        </div>
-        <div className="flex items-center justify-between">
-          <span style={{ fontSize: 9, color: 'rgba(255,255,255,0.6)' }}>Last 7 days</span>
-          <span style={{ fontSize: 9, fontWeight: 600, color: '#86EFAC', background: 'rgba(255,255,255,0.12)', borderRadius: 20, padding: '2px 7px' }}>+₦12,000</span>
-        </div>
-      </div>
-
-      {/* Quick stats row */}
-      <div className="shrink-0 flex gap-2 mx-3 mt-2.5">
-        {[
-          { label: 'Active', value: '3', sub: 'campaigns', color: '#1A40B8', bg: '#DBEAFE' },
-          { label: 'Pending', value: '₦18K', sub: 'payout', color: '#D97706', bg: '#FFFBEB' },
-          { label: 'Reach', value: '340K', sub: 'followers', color: '#2563EB', bg: '#EFF6FF' },
-        ].map(({ label, value, sub, color, bg }) => (
-          <div key={label} style={{ flex: 1, background: 'white', borderRadius: 10, border, padding: '8px 8px 7px' }}>
-            <p style={{ fontSize: 7.5, color: muted, marginBottom: 3 }}>{label}</p>
-            <p style={{ fontSize: 15, fontWeight: 700, color, letterSpacing: -0.5, lineHeight: 1, marginBottom: 1 }}>{value}</p>
-            <p style={{ fontSize: 7, color: muted }}>{sub}</p>
-          </div>
-        ))}
-      </div>
-
-      {/* Campaigns section */}
-      <div className="shrink-0 mx-3 mt-3">
-        <div className="flex items-center justify-between" style={{ marginBottom: 8 }}>
-          <p style={{ fontSize: 11, fontWeight: 600, color: 'hsl(222.2 84% 4.9%)' }}>Active campaigns</p>
-          <p style={{ fontSize: 10, color: '#1A40B8', fontWeight: 500 }}>See all</p>
-        </div>
-        <div style={{ background: 'white', borderRadius: 12, border, overflow: 'hidden' }}>
-          {campaigns.map((c, i) => (
-            <div
-              key={i}
-              className="flex items-center gap-2.5"
-              style={{ padding: '9px 12px', borderBottom: i < campaigns.length - 1 ? border : 'none' }}
-            >
-              <div style={{ width: 32, height: 32, borderRadius: 8, background: c.avatar + '18', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, border: `1px solid ${c.avatar}22` }}>
-                <span style={{ fontSize: 10, fontWeight: 700, color: c.avatar }}>{c.brand[0]}</span>
-              </div>
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <p style={{ fontSize: 10.5, fontWeight: 600, color: 'hsl(222.2 84% 4.9%)', marginBottom: 1.5 }}>{c.brand}</p>
-                <p style={{ fontSize: 9, color: muted, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{c.task}</p>
-              </div>
-              <div className="flex flex-col items-end gap-1">
-                <span style={{ fontSize: 10, fontWeight: 600, color: 'hsl(222.2 84% 4.9%)' }}>{c.reward}</span>
-                <span style={{ fontSize: 8, fontWeight: 500, color: c.statusColor, background: c.statusBg, borderRadius: 20, padding: '1px 6px' }}>{c.status}</span>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function TikTokIcon({ size = 12 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="white">
-      <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V9a8.17 8.17 0 0 0 4.78 1.52V7.06a4.85 4.85 0 0 1-1.01-.37z" />
-    </svg>
-  );
-}
-
-function InstagramIcon({ size = 12 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="#E1306C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="2" y="2" width="20" height="20" rx="5" ry="5" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
-    </svg>
-  );
-}
-
-function OrbitChip({
-  children,
-  chipStyle,
-  delay,
-  floatOffset = 7,
-}: {
-  children: React.ReactNode;
-  chipStyle: React.CSSProperties;
-  delay: number;
-  floatOffset?: number;
-}) {
-  return (
-    <motion.div
-      className="absolute flex items-center gap-2 rounded-2xl px-4 py-2.5 text-[11px] font-semibold text-white whitespace-nowrap z-30"
-      style={{
-        background: 'rgba(255,255,255,0.12)',
-        border: '1px solid rgba(255,255,255,0.22)',
-        backdropFilter: 'blur(16px)',
-        WebkitBackdropFilter: 'blur(16px)',
-        boxShadow: '0 4px 24px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.15)',
-        ...chipStyle,
-      }}
-      initial={{ opacity: 0, scale: 0.8 }}
-      animate={{ opacity: 1, scale: 1, y: [0, -floatOffset, 0] }}
-      transition={{
-        opacity: { duration: 0.45, delay },
-        scale: { duration: 0.55, delay, ease: [0.16, 1, 0.3, 1] as const },
-        y: { duration: 4 + delay * 0.3, delay, repeat: Infinity, ease: 'easeInOut' },
-      }}
-    >
-      {children}
-    </motion.div>
-  );
-}
-
 // ─── Data ─────────────────────────────────────────────────────────────────────
-
-
-const performanceCampaigns = [
-  {
-    name: 'BeatDrop Q1 Launch', status: 'Active',
-    budget: '₦500,000', spent: '₦450,000', progress: 90,
-    creators: 18, heroStat: '148K', heroLabel: 'TOTAL REACH', idx: '01',
-    accent: '#2563EB', accentLight: '#DBEAFE', accentMuted: 'rgba(37,99,235,0.06)',
-  },
-  {
-    name: 'SoundSave February Drive', status: 'Completed',
-    budget: '₦280,000', spent: '₦280,000', progress: 100,
-    creators: 14, heroStat: '9.1%', heroLabel: 'ENG. RATE', idx: '02',
-    accent: '#7C3BED', accentLight: '#EDE9FF', accentMuted: 'rgba(124,59,237,0.06)',
-  },
-  {
-    name: 'GreenLoop Campaign', status: 'Active',
-    budget: '₦350,000', spent: '₦210,000', progress: 60,
-    creators: 12, heroStat: '67K', heroLabel: 'TOTAL REACH', idx: '03',
-    accent: '#D97706', accentLight: '#FEF3C7', accentMuted: 'rgba(217,119,6,0.06)',
-  },
-];
 
 const faqItems = [
   {
@@ -542,7 +196,7 @@ export default function SponsorsPage() {
               <div className="relative w-full overflow-hidden" style={{ height: 420 }}>
                 <div className="absolute top-0 left-1/2" style={{ transform: 'translateX(-50%)' }}>
                   <PhoneFrame screenBg="#F7F7F9" scale={0.82}>
-                    <SponsorCampaignPrototype />
+                    <SponsorHeroLiveScreen />
                   </PhoneFrame>
                 </div>
               </div>
@@ -582,7 +236,7 @@ export default function SponsorsPage() {
                 {/* Phone centered, bottom anchored */}
                 <div className="sponsor-hero-phone absolute bottom-0 w-full flex justify-center">
                   <PhoneFrame screenBg="#F7F7F9">
-                    <SponsorCampaignPrototype />
+                    <SponsorHeroLiveScreen />
                   </PhoneFrame>
                 </div>
               </motion.div>
@@ -620,30 +274,30 @@ export default function SponsorsPage() {
                 step: '01', accent: '#7C3BED', bgTint: 'rgba(124,59,237,0.05)', border: 'rgba(124,59,237,0.14)',
                 label: 'Define your campaign rules', tag: 'DEFINE',
                 description: "Set your brief, eligibility requirements, deliverables, and deadline. Everything is crystal clear before any creator applies.",
-                phone: <MobileCampaignMockup />,
+                phone: <SponsorSetupScreen compact />,
               },
               {
                 step: '02', accent: '#2563EB', bgTint: 'rgba(37,99,235,0.05)', border: 'rgba(37,99,235,0.14)',
                 label: 'Activate with escrow', tag: 'FUNDING',
                 description: "Lock your campaign budget in escrow. Creators can see funds exist before they apply. No budget = no campaign. Trust is built in from day one.",
-                phone: <MobileEscrowMockup />,
+                phone: <SponsorEscrowScreen compact />,
               },
               {
                 step: '03', accent: '#00A050', bgTint: 'rgba(0,160,80,0.05)', border: 'rgba(0,160,80,0.14)',
                 label: 'Monitor in real time', tag: 'ANALYTICS',
                 description: "Watch submissions come in. Track reach, engagement, and impressions per creator as they happen. Every metric is validated automatically.",
-                phone: <MobileAnalyticsMockup />,
+                phone: <SponsorMonitoringScreen compact />,
               },
               {
                 step: '04', accent: '#D97706', bgTint: 'rgba(217,119,6,0.05)', border: 'rgba(217,119,6,0.14)',
                 label: 'Pay for verified results', tag: 'PAYOUTS',
                 description: 'Funds are released only when performance is confirmed. Unused budget returns automatically. You only ever pay for what actually happened.',
-                phone: <MobilePayoutMockup />,
+                phone: <SponsorPayoutScreen compact />,
               },
             ].map((s, i) => (
               <motion.div key={i} variants={fadeUp} className="shrink-0 w-[82vw] snap-start md:w-auto self-stretch flex flex-col">
                 <div className="relative overflow-hidden rounded-[32px] flex flex-col flex-1"
-                  style={{ background: s.bgTint, border: `1px solid ${s.border}`, minHeight: 380 }}>
+                  style={{ background: s.bgTint, border: `1px solid ${s.border}`, minHeight: 520 }}>
                   {/* Ghost step number */}
                   <span className="absolute -bottom-6 -right-2 font-black select-none pointer-events-none leading-none"
                     style={{ fontSize: '13rem', color: s.accent, opacity: 0.055, letterSpacing: '-0.06em' }}>
@@ -731,7 +385,7 @@ export default function SponsorsPage() {
                   style={{ border: '1px solid rgba(37,99,235,0.10)', boxShadow: '0 4px 24px rgba(37,99,235,0.08)' }}>
                   <BrowserChrome url="app.varmply.com/campaigns" />
                   <div className="bg-[#FAFAFA] overflow-hidden" style={{ height: 340 }}>
-                    <DashboardSkeleton />
+                    <SponsorDashboardScreen />
                   </div>
                 </div>
                 {/* Mobile version (Phone visual) */}
@@ -739,7 +393,7 @@ export default function SponsorsPage() {
                   <div className="absolute top-0 flex justify-center" style={{ transform: 'scale(0.85)', transformOrigin: 'top center', width: 320 }}>
                     <PhoneFrame screenBg="#FFFFFF">
                       <div className="w-full h-[696px] bg-white pt-6">
-                        <MobileAnalyticsMockup />
+                        <SponsorCampaignDetailScreen compact />
                       </div>
                     </PhoneFrame>
                   </div>
@@ -1107,7 +761,7 @@ export default function SponsorsPage() {
                       <p className="text-[13px] font-black uppercase tracking-[0.12em] mb-3"
                         style={{ color: '#7C3BED' }}>On-time payouts</p>
                       <p className="text-xs text-[#4A4A6A] leading-relaxed flex-1">
-                        Each creator's payout is automatically released once the campaign ends and their metrics are validated.
+                        Each creator&apos;s payout is automatically released once the campaign ends and their metrics are validated.
                       </p>
                     </div>
                     <div className="grid grid-cols-2" style={{ borderTop: '1px solid rgba(124,59,237,0.12)' }}>
