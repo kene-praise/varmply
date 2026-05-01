@@ -209,24 +209,22 @@ const pageConfigs = {
         pattern: null,
     },
     '/sponsors': {
-        bg: '#1A40B8',
+        bg: '#6406CF',
         headline: "Run campaigns\nwith full accountability.",
         subtext: "Set your rules, protect your budget, and pay for verified results only. Varmply handles the rest.",
         cta1: { label: 'Join the Waitlist', href: '/waitlist' },
         cta2: { label: 'How It Works', href: '#how-it-works' },
         marquee: ['Escrow Protected Budget', 'Auto-Validated Submissions', 'Pay for Results Only', '₦1.13M Managed', '44 Active Creators'],
-        pattern: 'linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px)',
-        patternSize: '48px 48px',
+        pattern: null,
     },
     '/creators': {
-        bg: '#006B35',
+        bg: '#1A40B8',
         headline: "Start earning from\nmusic campaigns.",
         subtext: "Apply to campaigns you qualify for, deliver the work, get paid automatically. No chasing required.",
         cta1: { label: 'Join the Waitlist', href: '/waitlist' },
         cta2: { label: 'How It Works', href: '#how-it-works' },
         marquee: ['847+ Active Creators', '₦2.4M Distributed', '98% On-time Payouts', '0 Hidden Terms', 'Verified Automatically'],
-        pattern: 'repeating-linear-gradient(180deg, rgba(255,255,255,0.04) 0px, rgba(255,255,255,0.04) 1px, transparent 1px, transparent 28px)',
-        patternSize: undefined,
+        pattern: null,
     },
 };
 

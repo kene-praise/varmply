@@ -7,12 +7,12 @@ import LenisProvider from '@/components/LenisProvider';
 import NavigationScrollGuard from '@/components/NavigationScrollGuard';
 
 export const metadata: Metadata = {
-  title: 'Varmply — Creator-Sponsor Campaign Platform',
+  title: 'Varmply - Music Campaigns That Pay for Performance',
   description:
     'Structured campaigns, verified performance, transparent payments. Varmply connects creators and sponsors across Nigeria.',
   keywords: ['creator platform', 'sponsor campaigns', 'influencer marketing', 'Nigeria creators'],
   openGraph: {
-    title: 'Varmply — Creator-Sponsor Campaign Platform',
+    title: 'Varmply - Music Campaigns That Pay for Performance',
     description:
       'No scattered DMs. No vague agreements. Structured campaigns, verified performance, transparent payments.',
     type: 'website',

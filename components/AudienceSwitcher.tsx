@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { clsx } from 'clsx';
-import BrandLogo from '@/components/BrandLogo';
 import { motion, useScroll, useMotionValueEvent } from 'framer-motion';
 import { useState } from 'react';
 
@@ -49,9 +48,6 @@ export default function AudienceSwitcher() {
         }}
       >
         <div className="flex items-center rounded-full bg-[#0F0F1A]/[0.05] p-1" role="group" aria-label="Choose audience">
-          <Link href="/" className="hidden sm:block px-4">
-            <BrandLogo className="h-8 sm:h-9 w-auto" white />
-          </Link>
           <Link
             href="/sponsors"
             className={clsx(

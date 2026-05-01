@@ -34,7 +34,7 @@ function WaitlistContent() {
   const [infoOpen, setInfoOpen] = useState(false);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [intent, setIntent] = useState('');
+
   const [submitted, setSubmitted] = useState(false);
 
   const accentColor = role ? ROLE_COLOR[role] : '#6406CF';
@@ -373,29 +373,7 @@ function WaitlistContent() {
                 </Field>
               </div>
 
-              <Field label="How do you intend to use the platform?">
-                <textarea
-                  value={intent}
-                  onChange={e => setIntent(e.target.value)}
-                  rows={4}
-                  autoComplete="off"
-                  placeholder={
-                    role === 'sponsor'
-                      ? 'e.g. I want to run TikTok campaigns for my new single release…'
-                      : role === 'creator'
-                      ? 'e.g. I post music content on TikTok and want to earn from campaigns…'
-                      : 'Tell us a bit about your plans…'
-                  }
-                  className="w-full px-4 py-3 rounded-xl border text-sm text-[#0F0F1A] placeholder:text-[#CCCCDA] outline-none resize-none leading-relaxed"
-                  style={{
-                    borderColor: intent && role ? `${accentColor}55` : '#E4E4EC',
-                    background: '#FAFAFA',
-                    transition: 'border-color 0.18s ease',
-                  }}
-                />
-              </Field>
-
-              <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 pt-1">
+<div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 pt-1">
                 <button
                   type="submit"
                   disabled={!role || !name || !email}

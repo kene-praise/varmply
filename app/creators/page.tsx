@@ -5,7 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ScrollCarousel } from '@/components/ui/ScrollCarousel';
 import Link from 'next/link';
-import { ArrowRight, CheckCircle, Zap, DollarSign, Search, Heart, MessageCircle, Share2, Music2 } from 'lucide-react';
+import { ArrowRight, CheckCircle, Zap, DollarSign, Search, Heart, MessageCircle, Share2, Music2, Star } from 'lucide-react';
 import { VideoCard } from '@/components/ui/VideoCard';
 import FAQAccordion from '@/components/FAQAccordion';
 import WalletMockup from '@/components/UIComponents/WalletMockup';
@@ -115,9 +115,9 @@ function VideoCarouselScreen() {
       <div className="absolute right-3 z-20 flex flex-col items-center gap-4" style={{ bottom: 80 }}>
         <div className="flex flex-col items-center">
           <div className="w-9 h-9 rounded-full flex items-center justify-center text-[11px] font-bold text-white"
-            style={{ background: '#00A050', border: '2px solid white' }}>DA</div>
+            style={{ background: '#1A40B8', border: '2px solid white' }}>DA</div>
           <div className="w-4 h-4 rounded-full flex items-center justify-center -mt-2 z-10"
-            style={{ background: '#00A050', border: '1.5px solid white', fontSize: 10, color: 'white', fontWeight: 700 }}>+</div>
+            style={{ background: '#1A40B8', border: '1.5px solid white', fontSize: 10, color: 'white', fontWeight: 700 }}>+</div>
         </div>
         <div className="flex flex-col items-center gap-0.5">
           <div className="w-9 h-9 rounded-full flex items-center justify-center"
@@ -399,7 +399,7 @@ export default function CreatorsPage() {
 
       {/* 1. HERO ─────────────────────────────────────────────────────────────── */}
       <section data-section="creator-hero" id="creator-hero" className="relative overflow-hidden"
-        style={{ minHeight: '100dvh', background: '#006B35' }}>
+        style={{ minHeight: '100dvh', background: '#1A40B8' }}>
         {/* Aurora bloom */}
         <div className="pointer-events-none absolute rounded-[50%]" style={{
           width: '80vw', height: '60vh',
@@ -434,13 +434,13 @@ export default function CreatorsPage() {
               className="font-black tracking-tight mb-6"
               style={{
                 fontSize: 'clamp(40px, 4.4vw, 64px)', lineHeight: 1.04,
-                background: 'linear-gradient(160deg, #ffffff 0%, #c8ffd8 35%, #ffffff 60%, rgba(255,255,255,0.65) 100%)',
+                background: 'linear-gradient(160deg, #ffffff 0%, #93C5FD 35%, #ffffff 60%, rgba(255,255,255,0.65) 100%)',
                 WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
                 backgroundClip: 'text',
-                filter: 'drop-shadow(0px 0px 40px rgba(200,255,216,0.45))',
+                filter: 'drop-shadow(0px 0px 40px rgba(147,197,253,0.45))',
                 paddingBottom: '0.15em',
               }}>
-              Earn from promoting <br className="max-md:hidden" />music. Get paid <br className="max-md:hidden" />automatically.
+              Get Paid for the Content <br className="max-md:hidden" />You Already Make.
             </motion.h1>
             <motion.p variants={fadeUp}
               className="text-base leading-relaxed mb-6 md:mb-10 md:max-w-[420px]"
@@ -450,7 +450,7 @@ export default function CreatorsPage() {
             <motion.div variants={fadeUp} className="flex flex-col sm:flex-row gap-3 mb-6 md:mb-10">
               <Link href="/waitlist?role=creator"
                 className="flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold transition-all hover:opacity-90 w-full sm:w-auto"
-                style={{ background: 'white', color: '#006B35', boxShadow: '0 4px 24px rgba(0,0,0,0.20)' }}>
+                style={{ background: 'white', color: '#1A40B8', boxShadow: '0 4px 24px rgba(0,0,0,0.20)' }}>
                 Join the Waitlist <ArrowRight size={15} />
               </Link>
               <Link href="#how-it-works"
@@ -474,7 +474,7 @@ export default function CreatorsPage() {
               {['Guaranteed payouts', 'No scattered DMs', 'Top-tier brands', 'Free to join'].map((b, i) => (
                 <span key={b} className="flex items-center">
                   <span className="flex items-center gap-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-white/50">
-                    <CheckCircle size={9} style={{ color: '#BBF7D0', flexShrink: 0 }} /> {b}
+                    <CheckCircle size={9} style={{ color: '#93C5FD', flexShrink: 0 }} /> {b}
                   </span>
                   {i < 3 && <span className="mx-3.5 text-white/20 text-xs select-none">·</span>}
                 </span>
@@ -501,7 +501,7 @@ export default function CreatorsPage() {
                 <CreatorHeroRisingIcons />
                 <div
                   className="pointer-events-none absolute bottom-0 inset-x-0 z-10"
-                  style={{ height: 110, background: 'linear-gradient(to bottom, transparent, rgba(2,40,18,0.90))' }}
+                  style={{ height: 110, background: 'linear-gradient(to bottom, transparent, rgba(10,20,80,0.90))' }}
                 />
                 <div className="absolute bottom-0 w-full flex justify-center"
                   style={{ transform: 'translateY(20%) scale(1.0)', transformOrigin: 'center center' }}>
@@ -525,7 +525,7 @@ export default function CreatorsPage() {
                 animate={{ opacity: 1, scale: 1, y: [0, -7, 0] }}
                 transition={{ opacity: { duration: 0.45, delay: 1.6 }, scale: { duration: 0.55, delay: 1.6 }, y: { duration: 4, delay: 1.6, repeat: Infinity, ease: 'easeInOut' } }}
               >
-                <span className="w-1.5 h-1.5 rounded-full bg-[#4ADE80] animate-pulse" />
+                <span className="w-1.5 h-1.5 rounded-full bg-[#60A5FA] animate-pulse" />
                 <span>847+ creators earning</span>
               </motion.div>
 
@@ -577,40 +577,30 @@ export default function CreatorsPage() {
                 step: '01', accent: '#7C3BED', bgTint: 'rgba(124,59,237,0.05)', border: 'rgba(124,59,237,0.14)',
                 label: 'Browse the marketplace', tag: 'DISCOVERY',
                 description: 'Discover campaigns curated for you, all in one place. Every campaign shows full requirements before you apply.',
-                pattern: 'repeating-linear-gradient(-45deg, rgba(124,59,237,0.06) 0px, rgba(124,59,237,0.06) 1px, transparent 1px, transparent 14px)',
                 phone: <MobileMarketplaceMockup />,
               },
               {
                 step: '02', accent: '#00A050', bgTint: 'rgba(0,160,80,0.05)', border: 'rgba(0,160,80,0.14)',
                 label: 'Connect & apply', tag: 'APPLICATION',
                 description: 'Link your social accounts to unlock your access to campaign feed and enable performance tracking. Varmply handles the reporting, you do the chilling.',
-                pattern: 'radial-gradient(circle, rgba(0,160,80,0.13) 1px, transparent 1px)',
-                patternSize: '18px 18px',
                 phone: <MobileProfileMockup />,
               },
               {
                 step: '03', accent: '#D97706', bgTint: 'rgba(217,119,6,0.05)', border: 'rgba(217,119,6,0.14)',
                 label: 'Submit your content', tag: 'DELIVERY',
                 description: 'Create content that matches the campaign brief, post it, then drop your link. From there, Varmply handles the heavy lifting—tracking, verification, and everything in between.',
-                pattern: 'repeating-linear-gradient(180deg, rgba(217,119,6,0.07) 0px, rgba(217,119,6,0.07) 1px, transparent 1px, transparent 22px)',
                 phone: <MobileSubmitMockup />,
               },
               {
                 step: '04', accent: '#2563EB', bgTint: 'rgba(37,99,235,0.05)', border: 'rgba(37,99,235,0.14)',
                 label: 'Result-backed earnings', tag: 'EARNINGS',
                 description: 'Your earnings are tied directly to the results you generate. At the end of each campaign, you receive payment based on the total value of engagement you delivered.',
-                pattern: 'repeating-linear-gradient(90deg, rgba(37,99,235,0.06) 0px, rgba(37,99,235,0.06) 1px, transparent 1px, transparent 20px)',
                 phone: <MobileWalletMockup />,
               },
             ].map((s, i) => (
               <motion.div key={i} variants={fadeUp} className="shrink-0 w-[82vw] snap-start md:w-auto self-stretch flex flex-col">
                 <div className="relative overflow-hidden rounded-[32px] flex flex-col flex-1"
                   style={{ background: s.bgTint, border: `1px solid ${s.border}`, minHeight: 380 }}>
-                  {/* Pattern */}
-                  <div className="absolute inset-0 pointer-events-none" style={{
-                    backgroundImage: s.pattern,
-                    backgroundSize: (s as any).patternSize,
-                  }} />
                   {/* Ghost step number */}
                   <span className="absolute -bottom-6 -right-2 font-black select-none pointer-events-none leading-none"
                     style={{ fontSize: '13rem', color: s.accent, opacity: 0.055, letterSpacing: '-0.06em' }}>
@@ -690,7 +680,75 @@ export default function CreatorsPage() {
         </div>
       </section>
 
-      {/* 4. WALLET & EARNINGS ────────────────────────────────────────────────── */}
+      {/* 4. CREATOR REEL ─────────────────────────────────────────────────────── */}
+      <section data-section="creator-reel" className="py-12 md:py-24 overflow-hidden relative" style={{ background: '#EEF3FF', borderTop: '1px solid rgba(37,99,235,0.12)' }}>
+        <div className="absolute inset-0 pointer-events-none" style={{
+          background: 'radial-gradient(ellipse 70% 60% at 50% 50%, rgba(37,99,235,0.06) 0%, transparent 70%)',
+        }} />
+
+        <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={vp}
+          className="relative z-10 max-w-6xl mx-auto px-6 mb-8 md:mb-14 flex flex-col items-start text-left md:items-center md:text-center gap-4">
+          <motion.div variants={fadeUp}><SectionLabel>Creator community</SectionLabel></motion.div>
+          <motion.h2 variants={fadeUp} className="font-black text-[#0F0F1A] tracking-tight"
+            style={{ fontSize: 'clamp(36px, 5vw, 56px)', lineHeight: 1.0 }}>
+            Real creators. <br className="max-md:hidden" />Real reach.
+          </motion.h2>
+          <motion.p variants={fadeUp} className="text-base text-[#4A4A6A] md:max-w-[420px]" style={{ lineHeight: 1.6 }}>
+            Campaigns running across TikTok and Instagram — all tracked and verified.
+          </motion.p>
+        </motion.div>
+
+        {(() => {
+          const reels = [
+            { thumb: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=400&q=80', name: 'Tolu Adeyemi', handle: '@toluade', campaign: 'Jazzy Song — Ayra Starr', platform: 'TikTok', likes: '14.2K' },
+            { thumb: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80', name: 'Chidi Ezike', handle: '@chidi.e', campaign: 'With You — Davido', platform: 'Instagram', likes: '22.1K' },
+            { thumb: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&q=80', name: 'Kemi Ade', handle: '@keminade', campaign: 'Jazzy Song — Ayra Starr', platform: 'TikTok', likes: '31.4K' },
+            { thumb: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=400&q=80', name: 'Sola Babs', handle: '@solababs', campaign: 'Q2 Promo — Paystack', platform: 'Instagram', likes: '8.5K' },
+            { thumb: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&q=80', name: 'Femi Lagos', handle: '@femilagos', campaign: 'With You — Davido', platform: 'TikTok', likes: '12.3K' },
+            { thumb: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&q=80', name: 'Dami Okon', handle: '@damiokon', campaign: 'Ozeba — Rema', platform: 'TikTok', likes: '18.7K' },
+            { thumb: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&q=80', name: 'Temi Coker', handle: '@temicoker', campaign: 'Q2 Promo — Paystack', platform: 'Instagram', likes: '27.0K' },
+            { thumb: 'https://images.unsplash.com/photo-1552058544-f2b08422138a?w=400&q=80', name: 'Seun Kuti', handle: '@seunkuti_', campaign: 'Ozeba — Rema', platform: 'TikTok', likes: '11.1K' },
+          ];
+          const doubled = [...reels, ...reels];
+          return (
+            <div className="relative z-10">
+              <div className="flex animate-marquee gap-3" style={{ width: 'max-content' }}>
+                {doubled.map((r, i) => (
+                  <div key={i} className="relative shrink-0 overflow-hidden rounded-2xl w-[220px] md:w-[148px]" style={{ aspectRatio: '9/16' }}>
+                    <img src={r.thumb} alt="" className="w-full h-full object-cover" />
+                    <div className="absolute inset-0" style={{
+                      background: 'linear-gradient(180deg, rgba(0,0,0,0.22) 0%, transparent 35%, rgba(0,0,0,0.65) 70%, rgba(0,0,0,0.88) 100%)',
+                    }} />
+                    <div className="absolute top-3 left-3 z-10">
+                      <span className="text-[9px] font-black uppercase tracking-[0.12em] text-white px-2 py-0.5 rounded-full"
+                        style={{ background: r.platform === 'TikTok' ? 'rgba(0,0,0,0.55)' : 'rgba(180,0,90,0.55)', backdropFilter: 'blur(6px)', border: '1px solid rgba(255,255,255,0.18)' }}>
+                        {r.platform}
+                      </span>
+                    </div>
+                    <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
+                      <div className="rounded-full flex items-center justify-center"
+                        style={{ width: 36, height: 36, background: 'rgba(255,255,255,0.18)', backdropFilter: 'blur(4px)', border: '1px solid rgba(255,255,255,0.25)' }}>
+                        <svg width="12" height="14" viewBox="0 0 12 14" fill="white"><path d="M1 1.5l10 5-10 5V1.5z" /></svg>
+                      </div>
+                    </div>
+                    <div className="absolute bottom-0 left-0 right-0 z-10 px-3 pb-3">
+                      <p className="text-white/70 font-medium leading-tight mb-1.5" style={{ fontSize: 9 }}>{r.campaign}</p>
+                      <p className="text-white font-bold truncate" style={{ fontSize: 10 }}>{r.name}</p>
+                      <p className="text-white/55 truncate" style={{ fontSize: 8.5 }}>{r.handle}</p>
+                      <div className="flex items-center gap-1 mt-1">
+                        <svg width="9" height="9" viewBox="0 0 24 24" fill="rgba(255,255,255,0.5)"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" /></svg>
+                        <span className="font-semibold text-white/50" style={{ fontSize: 8.5 }}>{r.likes}</span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          );
+        })()}
+      </section>
+
+      {/* 5 (was 4). WALLET & EARNINGS ──────────────────────────────────────────── */}
       <section data-section="creator-wallet" className="py-12 md:py-24" style={{ background: '#FFFFFF', borderTop: '1px solid #E4E4EC' }}>
         <div className="max-w-6xl mx-auto px-6">
 
@@ -715,10 +773,6 @@ export default function CreatorsPage() {
           <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={vp}
             className="relative overflow-hidden rounded-[28px] mb-4"
             style={{ background: 'rgba(0,160,80,0.05)', border: '1.5px solid rgba(0,160,80,0.14)' }}>
-            {/* Horizontal rules pattern */}
-            <div className="absolute inset-0 pointer-events-none" style={{
-              backgroundImage: 'repeating-linear-gradient(180deg, rgba(0,160,80,0.06) 0px, rgba(0,160,80,0.06) 1px, transparent 1px, transparent 22px)',
-            }} />
             <div className="relative z-10">
               {/* Top rule bar */}
               <div className="flex items-center justify-between px-8 md:px-10 pt-6 pb-4"
@@ -766,8 +820,6 @@ export default function CreatorsPage() {
                 Icon: DollarSign, label: 'Instant Payouts',
                 title: "Paid the moment you're validated.",
                 desc: 'Funds release from escrow automatically. No chasing, no waiting on a sponsor to log in.',
-                pattern: 'radial-gradient(circle, rgba(0,160,80,0.13) 1px, transparent 1px)',
-                patternSize: '18px 18px',
                 stats: [{ val: '24–72h', label: 'Avg. payout' }, { val: '100%', label: 'Automated' }],
               },
               {
@@ -775,7 +827,6 @@ export default function CreatorsPage() {
                 Icon: Zap, label: 'Escrow Guarantee',
                 title: 'Budget locked before you apply.',
                 desc: 'Sponsor funds are in escrow before the campaign goes live. If you deliver, you get paid. Full stop.',
-                pattern: 'repeating-linear-gradient(-45deg, rgba(124,59,237,0.06) 0px, rgba(124,59,237,0.06) 1px, transparent 1px, transparent 14px)',
                 stats: [{ val: '₦0', label: 'Ghosted payouts' }, { val: '100%', label: 'Pre-secured' }],
               },
               {
@@ -783,16 +834,12 @@ export default function CreatorsPage() {
                 Icon: Search, label: 'Full Transparency',
                 title: 'Every naira tracked.',
                 desc: 'See your pending earnings, released funds, and full transaction history. Nothing hidden.',
-                pattern: 'repeating-linear-gradient(90deg, rgba(217,119,6,0.06) 0px, rgba(217,119,6,0.06) 1px, transparent 1px, transparent 20px)',
                 stats: [{ val: '0', label: 'Hidden fees' }, { val: 'Live', label: 'Balance' }],
               },
             ].map((f, i) => (
               <motion.div key={i} variants={fadeUp} className="shrink-0 w-[82vw] snap-start md:w-auto self-stretch flex flex-col">
                 <div className="relative overflow-hidden rounded-[28px] flex flex-col flex-1"
                   style={{ background: f.bgTint, border: `1.5px solid ${f.border}`, minHeight: 260 }}>
-                  <div className="absolute inset-0 pointer-events-none" style={{
-                    backgroundImage: f.pattern, backgroundSize: f.patternSize,
-                  }} />
                   <div className="relative z-10 flex flex-col h-full">
                     <div className="flex items-center justify-between px-7 pt-5 pb-4"
                       style={{ borderBottom: `1px solid ${f.border}` }}>
@@ -851,9 +898,6 @@ export default function CreatorsPage() {
             <motion.div variants={fadeUp} className="shrink-0 w-[82vw] snap-start md:w-auto self-stretch flex flex-col">
               <div className="relative overflow-hidden rounded-[28px] flex flex-col flex-1"
                 style={{ background: 'rgba(124,59,237,0.05)', border: '1.5px solid rgba(124,59,237,0.14)', minHeight: 380 }}>
-                <div className="absolute inset-0 pointer-events-none" style={{
-                  backgroundImage: 'repeating-linear-gradient(-45deg, rgba(124,59,237,0.06) 0px, rgba(124,59,237,0.06) 1px, transparent 1px, transparent 14px)',
-                }} />
                 <div className="relative z-10 flex flex-col h-full">
                   <div className="flex items-center justify-between px-7 pt-6 pb-4"
                     style={{ borderBottom: '1px solid rgba(124,59,237,0.12)' }}>
@@ -863,8 +907,8 @@ export default function CreatorsPage() {
                   <div className="flex-1 px-7 pt-8 pb-4 flex flex-col">
                     <p className="font-black leading-none mb-1"
                       style={{ fontSize: 'clamp(52px, 6vw, 72px)', color: '#7C3BED', letterSpacing: '-0.04em' }}>100%</p>
-                    <p className="text-[9px] font-black uppercase tracking-[0.22em] mb-8"
-                      style={{ color: 'rgba(124,59,237,0.45)' }}>Clear upfront</p>
+                    <p className="text-[13px] font-black uppercase tracking-[0.12em] mb-8"
+                      style={{ color: '#7C3BED' }}>Clear upfront</p>
                     <div className="h-px mb-6" style={{ background: 'rgba(124,59,237,0.14)' }} />
                     <h3 className="font-bold text-base mb-2 text-[#0F0F1A]">Clear rules upfront</h3>
                     <p className="text-sm text-[#4A4A6A] leading-relaxed flex-1">
@@ -888,10 +932,6 @@ export default function CreatorsPage() {
             <motion.div variants={fadeUp} className="shrink-0 w-[82vw] snap-start md:w-auto self-stretch flex flex-col">
               <div className="relative overflow-hidden rounded-[28px] flex flex-col flex-1"
                 style={{ background: 'rgba(0,160,80,0.05)', border: '1.5px solid rgba(0,160,80,0.14)', minHeight: 380 }}>
-                <div className="absolute inset-0 pointer-events-none" style={{
-                  backgroundImage: 'radial-gradient(circle, rgba(0,160,80,0.13) 1px, transparent 1px)',
-                  backgroundSize: '18px 18px',
-                }} />
                 <div className="relative z-10 flex flex-col h-full">
                   <div className="flex items-center justify-between px-7 pt-6 pb-4"
                     style={{ borderBottom: '1px solid rgba(0,160,80,0.12)' }}>
@@ -901,8 +941,8 @@ export default function CreatorsPage() {
                   <div className="flex-1 px-7 pt-8 pb-4 flex flex-col">
                     <p className="font-black leading-none mb-1"
                       style={{ fontSize: 'clamp(52px, 6vw, 72px)', color: '#00A050', letterSpacing: '-0.04em' }}>98%</p>
-                    <p className="text-[9px] font-black uppercase tracking-[0.22em] mb-8"
-                      style={{ color: 'rgba(0,160,80,0.45)' }}>On-time payouts</p>
+                    <p className="text-[13px] font-black uppercase tracking-[0.12em] mb-8"
+                      style={{ color: '#00A050' }}>On-time payouts</p>
                     <div className="h-px mb-6" style={{ background: 'rgba(0,160,80,0.14)' }} />
                     <h3 className="font-bold text-base mb-2 text-[#0F0F1A]">Verified payouts</h3>
                     <p className="text-sm text-[#4A4A6A] leading-relaxed flex-1">
@@ -926,9 +966,6 @@ export default function CreatorsPage() {
             <motion.div variants={fadeUp} className="shrink-0 w-[82vw] snap-start md:w-auto self-stretch flex flex-col">
               <div className="relative overflow-hidden rounded-[28px] flex flex-col flex-1"
                 style={{ background: 'rgba(217,119,6,0.05)', border: '1.5px solid rgba(217,119,6,0.14)', minHeight: 380 }}>
-                <div className="absolute inset-0 pointer-events-none" style={{
-                  backgroundImage: 'repeating-linear-gradient(180deg, rgba(217,119,6,0.07) 0px, rgba(217,119,6,0.07) 1px, transparent 1px, transparent 22px)',
-                }} />
                 <div className="relative z-10 flex flex-col h-full">
                   <div className="flex items-center justify-between px-7 pt-6 pb-4"
                     style={{ borderBottom: '1px solid rgba(217,119,6,0.12)' }}>
@@ -938,8 +975,8 @@ export default function CreatorsPage() {
                   <div className="flex-1 px-7 pt-8 pb-4 flex flex-col">
                     <p className="font-black leading-none mb-1"
                       style={{ fontSize: 'clamp(52px, 6vw, 72px)', color: '#D97706', letterSpacing: '-0.04em' }}>1</p>
-                    <p className="text-[9px] font-black uppercase tracking-[0.22em] mb-8"
-                      style={{ color: 'rgba(217,119,6,0.45)' }}>Place for everything</p>
+                    <p className="text-[13px] font-black uppercase tracking-[0.12em] mb-8"
+                      style={{ color: '#D97706' }}>Place for everything</p>
                     <div className="h-px mb-6" style={{ background: 'rgba(217,119,6,0.14)' }} />
                     <h3 className="font-bold text-base mb-2 text-[#0F0F1A]">One place for all</h3>
                     <p className="text-sm text-[#4A4A6A] leading-relaxed flex-1">
@@ -969,7 +1006,92 @@ export default function CreatorsPage() {
         </div>
       </section>
 
-      {/* 6. FAQ ──────────────────────────────────────────────────────────────── */}
+      {/* 7. TESTIMONIALS ─────────────────────────────────────────────────────── */}
+      <section data-section="creator-testimonials" className="py-12 md:py-24" style={{ background: '#FFFFFF', borderTop: '1px solid #E4E4EC' }}>
+        <div className="max-w-6xl mx-auto px-6">
+          <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={vp}
+            className="flex flex-col items-start text-left md:items-center md:text-center mb-8 md:mb-14 gap-4">
+            <motion.div variants={fadeUp}><SectionLabel>Testimonials</SectionLabel></motion.div>
+            <motion.h2 variants={fadeUp} className="font-black text-[#0F0F1A] tracking-tight"
+              style={{ fontSize: 'clamp(36px, 5vw, 56px)', lineHeight: 1.0 }}>
+              Creators who <br />get paid on time.
+            </motion.h2>
+            <motion.p variants={fadeUp} className="text-base text-[#4A4A6A] md:max-w-[420px]" style={{ lineHeight: 1.6 }}>
+              Real experiences from verified creators on Varmply.
+            </motion.p>
+          </motion.div>
+
+          <ScrollCarousel count={3} gridClass="md:grid-cols-3">
+            {[
+              {
+                name: 'Tolu Adeyemi', handle: 'toluade_', initials: 'T', accent: '#7C3BED',
+                bgTint: 'rgba(124,59,237,0.05)', border: 'rgba(124,59,237,0.14)',
+                role: 'Content Creator',
+                text: "Finally a platform that actually pays. I used to get ghosted after posting. With Varmply, there's an escrow — my ₦25K was in my wallet within 48 hours.",
+              },
+              {
+                name: 'Dami Oluwole', handle: 'dami.creates', initials: 'D', accent: '#00A050',
+                bgTint: 'rgba(0,160,80,0.05)', border: 'rgba(0,160,80,0.14)',
+                role: 'UGC Creator',
+                text: "The eligibility system is underrated. I don't waste time applying for campaigns I won't get. Varmply only shows me what I qualify for.",
+              },
+              {
+                name: 'Sarah Jenkins', handle: 'sarah.j', initials: 'S', accent: '#E11D48',
+                bgTint: 'rgba(225,29,72,0.05)', border: 'rgba(225,29,72,0.14)',
+                role: 'Lifestyle Creator',
+                text: "Finally a platform that treats creators like professionals. The brief was clear, the timeline was fair, and the payment came through exactly as promised.",
+              },
+              {
+                name: 'Chidi Eze', handle: 'chidieze_', initials: 'C', accent: '#2563EB',
+                bgTint: 'rgba(37,99,235,0.05)', border: 'rgba(37,99,235,0.14)',
+                role: 'Brand Creator',
+                text: "I was skeptical at first. But the campaign requirements were so clear — no back-and-forth with the brand. I posted, hit the metrics, got validated. Done.",
+              },
+              {
+                name: 'Marcus Thorne', handle: 'marcus_t', initials: 'M', accent: '#0891B2',
+                bgTint: 'rgba(8,145,178,0.05)', border: 'rgba(8,145,178,0.14)',
+                role: 'Creator',
+                text: "The escrow system removed so much anxiety from the process. I knew from day one that if I delivered the work, the money would be there. No chasing required.",
+              },
+              {
+                name: 'Kemi Ade', handle: 'keminade_', initials: 'K', accent: '#D97706',
+                bgTint: 'rgba(217,119,6,0.05)', border: 'rgba(217,119,6,0.14)',
+                role: 'UGC Creator',
+                text: "Every campaign I've done on Varmply paid exactly what was promised. The verified metrics mean I can't be shorted — the numbers are right there for everyone to see.",
+              },
+            ].map((t, i) => (
+              <motion.div key={i} variants={fadeUp} className="shrink-0 w-[82vw] snap-start md:w-auto h-full">
+                <div className="relative overflow-hidden rounded-[28px] flex flex-col h-full"
+                  style={{ background: t.bgTint, border: `1.5px solid ${t.border}`, minHeight: 280 }}>
+                  <div className="relative z-10 flex flex-col h-full">
+                    <div className="flex items-center justify-between px-7 pt-5 pb-4" style={{ borderBottom: `1px solid ${t.border}` }}>
+                      <span className="text-[9px] font-black uppercase tracking-[0.22em]" style={{ color: t.accent }}>@{t.handle}</span>
+                      <div className="flex items-center gap-0.5">
+                        {Array(5).fill(0).map((_, s) => <Star key={s} size={9} fill={t.accent} color={t.accent} />)}
+                      </div>
+                    </div>
+                    <div className="flex-1 px-7 pt-6 pb-4">
+                      <p className="text-sm font-semibold leading-relaxed text-[#0F0F1A]">&ldquo;{t.text}&rdquo;</p>
+                    </div>
+                    <div className="flex items-center gap-3 px-7 py-4" style={{ borderTop: `1px solid ${t.border}` }}>
+                      <div className="h-8 w-8 rounded-lg shrink-0 flex items-center justify-center font-black text-xs text-white"
+                        style={{ background: t.accent }}>
+                        {t.initials}
+                      </div>
+                      <div>
+                        <p className="text-xs font-black tracking-tight text-[#0F0F1A]">{t.name}</p>
+                        <p className="text-[9px] font-bold uppercase tracking-[0.14em] mt-0.5" style={{ color: t.accent }}>{t.role}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </ScrollCarousel>
+        </div>
+      </section>
+
+      {/* 8. FAQ ──────────────────────────────────────────────────────────────── */}
       <section id="faq" className="py-12 md:py-24" style={{ background: '#FFFFFF', borderTop: '1px solid #E4E4EC' }}>
         <div className="max-w-4xl mx-auto px-6">
           <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={vp}

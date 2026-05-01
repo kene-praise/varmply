@@ -2,440 +2,249 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import {
-  ChevronLeft, Eye, Heart, Users, ThumbsUp,
-  Play, Share2, MessageCircle, Music2,
-} from 'lucide-react';
+import { Play, Eye, Heart, Music2, TrendingUp, Users } from 'lucide-react';
 
-// ─── Tokens ──────────────────────────────────────────────────────────────────
-
-const T = {
-  purple:      '#7C3BED',
-  purpleLight: '#F0EBFF',
-  blue:        '#1A40B8',
-  green:       '#00A050',
-  greenLight:  '#E6F8EF',
-  amber:       '#D97706',
-  amberLight:  '#FEF3C7',
-  rose:        '#E11D48',
-  roseLight:   '#FFF1F2',
-  text:        '#0F0F1A',
-  muted:       '#4A4A6A',
-  hint:        '#A0A0BA',
-  border:      '#E4E4EC',
-  borderSoft:  '#F0F0F5',
-  surface:     '#FFFFFF',
-  surface2:    '#F7F7F9',
-} as const;
-
-const CARD = {
-  background:  T.surface,
-  border:      `1px solid ${T.border}`,
-  borderRadius: 10,
-  boxShadow:   '0 1px 3px rgba(0,0,0,0.05)',
-} as const;
-
-// ─── Campaigns ───────────────────────────────────────────────────────────────
+const PURPLE      = '#6406CF';
+const PURPLE_DARK = '#4A0DAD';
 
 interface CampaignVideo {
-  creator: string;
-  handle:  string;
-  views:   string;
-  likes:   string;
-  thumb:   string;
+  views: string;
+  thumb: string;
+  video?: string;
 }
 
 interface Campaign {
-  name:       string;
-  artist:     string;
-  platform:   string;
-  accent:     string;
-  accentBg:   string;
-  headerImg:  string;
-  stats:      { impressions: string; engagement: string; creators: string; approved: string };
-  videos:     CampaignVideo[];
-  featured:   number;
+  artist:    string;
+  song:      string;
+  platform:  string;
+  chartData: number[];
+  stats:     { views: string; likes: string; creators: string };
+  videos:    CampaignVideo[];
 }
 
 const CAMPAIGNS: Campaign[] = [
   {
-    name:      'With You Album',
     artist:    'HEIS',
+    song:      'With You',
     platform:  'TikTok',
-    accent:    '#7C3BED',
-    accentBg:  '#F0EBFF',
-    headerImg: 'https://picsum.photos/seed/concert77/400/180',
-    stats:     { impressions: '890K', engagement: '46K', creators: '24', approved: '20' },
+    chartData: [12, 28, 45, 38, 67, 89, 112],
+    stats:     { views: '890K', likes: '46K', creators: '24' },
     videos: [
-      { creator: 'Tunde Bakare',   handle: '@tunde_b',   views: '89.1K', likes: '7.2K', thumb: 'https://picsum.photos/seed/creator03/300/500' },
-      { creator: 'Adeola Grace',   handle: '@adeola_g',  views: '44.2K', likes: '3.1K', thumb: 'https://picsum.photos/seed/creator01/300/500' },
-      { creator: 'David Okonkwo',  handle: '@david_ok',  views: '31.8K', likes: '2.4K', thumb: 'https://picsum.photos/seed/creator02/300/500' },
+      { views: '89.1K', thumb: 'https://picsum.photos/seed/creator03/300/500', video: '/videos/creator-1.mp4' },
+      { views: '44.2K', thumb: 'https://picsum.photos/seed/creator01/300/500', video: '/videos/creator-4.mp4' },
+      { views: '31.8K', thumb: 'https://picsum.photos/seed/creator02/300/500' },
+      { views: '28.5K', thumb: 'https://picsum.photos/seed/creator10/300/500' },
+      { views: '21.0K', thumb: 'https://picsum.photos/seed/creator13/300/500' },
+      { views: '18.4K', thumb: 'https://picsum.photos/seed/creator14/300/500' },
     ],
-    featured: 0,
   },
   {
-    name:      'Lagos Summer',
     artist:    'Rema',
+    song:      'Lagos Summer',
     platform:  'Instagram',
-    accent:    '#E11D48',
-    accentBg:  '#FFF1F2',
-    headerImg: 'https://picsum.photos/seed/stage55/400/180',
-    stats:     { impressions: '1.2M', engagement: '91K', creators: '38', approved: '31' },
+    chartData: [34, 56, 78, 92, 140, 168, 195],
+    stats:     { views: '1.2M', likes: '91K', creators: '38' },
     videos: [
-      { creator: 'Chioma Eze',     handle: '@chioma_ez', views: '55.0K', likes: '5.1K', thumb: 'https://picsum.photos/seed/creator04/300/500' },
-      { creator: 'Femi Adeyemi',   handle: '@femi_ade',  views: '38.4K', likes: '3.8K', thumb: 'https://picsum.photos/seed/creator05/300/500' },
-      { creator: 'Ngozi Obi',      handle: '@ngozi_obi', views: '27.1K', likes: '2.0K', thumb: 'https://picsum.photos/seed/creator06/300/500' },
+      { views: '55.0K', thumb: 'https://picsum.photos/seed/creator04/300/500', video: '/videos/creator-3.mp4' },
+      { views: '38.4K', thumb: 'https://picsum.photos/seed/creator05/300/500', video: '/videos/creator-5.mp4' },
+      { views: '27.1K', thumb: 'https://picsum.photos/seed/creator06/300/500' },
+      { views: '22.3K', thumb: 'https://picsum.photos/seed/creator11/300/500' },
+      { views: '19.8K', thumb: 'https://picsum.photos/seed/creator15/300/500' },
+      { views: '14.6K', thumb: 'https://picsum.photos/seed/creator16/300/500' },
     ],
-    featured: 0,
   },
   {
-    name:      'Afrobeats Nights',
     artist:    'Burna Boy',
+    song:      'Afrobeats Nights',
     platform:  'TikTok',
-    accent:    '#059669',
-    accentBg:  '#ECFDF5',
-    headerImg: 'https://picsum.photos/seed/nightstage9/400/180',
-    stats:     { impressions: '2.1M', engagement: '158K', creators: '61', approved: '47' },
+    chartData: [80, 120, 175, 210, 280, 340, 420],
+    stats:     { views: '2.1M', likes: '158K', creators: '61' },
     videos: [
-      { creator: 'Kola Martins',   handle: '@kola_m',    views: '112K',  likes: '11K',  thumb: 'https://picsum.photos/seed/creator07/300/500' },
-      { creator: 'Amaka Uzor',     handle: '@amaka_uz',  views: '84.0K', likes: '7.8K', thumb: 'https://picsum.photos/seed/creator08/300/500' },
-      { creator: 'Bayo Williams',  handle: '@bayo_w',    views: '63.2K', likes: '5.5K', thumb: 'https://picsum.photos/seed/creator09/300/500' },
+      { views: '112K',  thumb: 'https://picsum.photos/seed/creator07/300/500', video: '/videos/creator-6.mp4' },
+      { views: '84.0K', thumb: 'https://picsum.photos/seed/creator08/300/500', video: '/videos/creator-7.mp4' },
+      { views: '63.2K', thumb: 'https://picsum.photos/seed/creator09/300/500' },
+      { views: '51.0K', thumb: 'https://picsum.photos/seed/creator12/300/500' },
+      { views: '44.7K', thumb: 'https://picsum.photos/seed/creator17/300/500' },
+      { views: '38.1K', thumb: 'https://picsum.photos/seed/creator18/300/500' },
     ],
-    featured: 0,
   },
 ];
 
-// ─── Sequence ─────────────────────────────────────────────────────────────────
+const CAMPAIGN_DURATION = 4000;
 
-type Step = 'overview' | 'submissions' | 'video' | 'skeleton';
+function MiniBarChart({ data }: { data: number[] }) {
+  const max = Math.max(...data);
+  return (
+    <div style={{ display: 'flex', alignItems: 'flex-end', gap: 2, height: 30, width: 54 }}>
+      {data.map((v, i) => (
+        <div
+          key={i}
+          style={{
+            flex: 1,
+            height: `${Math.round((v / max) * 100)}%`,
+            minHeight: 3,
+            background: i === data.length - 1 ? 'rgba(255,255,255,0.95)' : 'rgba(255,255,255,0.30)',
+            borderRadius: 2,
+          }}
+        />
+      ))}
+    </div>
+  );
+}
 
-const SEQUENCE: Step[] = ['overview', 'skeleton', 'submissions', 'skeleton', 'video', 'skeleton'];
+function CampaignScreen({ c }: { c: Campaign }) {
+  const statsRow = [
+    { Icon: Eye,     val: c.stats.views,    label: 'Views'    },
+    { Icon: Heart,   val: c.stats.likes,    label: 'Likes'    },
+    { Icon: Users,   val: c.stats.creators, label: 'Creators' },
+  ];
 
-const STEP_DURATION: Record<Step, number> = {
-  overview:    2900,
-  submissions: 2700,
-  video:       2700,
-  skeleton:    460,
-};
-
-// ─── Skeleton screen ──────────────────────────────────────────────────────────
-
-function Shimmer({ style }: { style: React.CSSProperties }) {
   return (
     <div style={{
-      borderRadius: 8,
-      background: 'linear-gradient(90deg, #EAEAF2 0%, #F5F5FA 50%, #EAEAF2 100%)',
-      backgroundSize: '200% 100%',
-      animation: 'proto-shimmer 1.1s ease-in-out infinite',
-      ...style,
-    }} />
-  );
-}
-
-function SkeletonScreen() {
-  return (
-    <div style={{ width: '100%', height: '100%', background: T.surface2, padding: '52px 10px 10px', display: 'flex', flexDirection: 'column', gap: 7, overflow: 'hidden' }}>
-      <style>{`@keyframes proto-shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}`}</style>
-      {/* Nav row */}
-      <Shimmer style={{ height: 28, width: 160, borderRadius: 8 }} />
-      {/* Hero banner */}
-      <Shimmer style={{ height: 88, borderRadius: 10 }} />
-      {/* Stats 2×2 */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 5 }}>
-        {[0, 1, 2, 3].map(i => <Shimmer key={i} style={{ height: 48, borderRadius: 10 }} />)}
-      </div>
-      {/* Tabs */}
-      <Shimmer style={{ height: 32, borderRadius: 8 }} />
-      {/* Content rows */}
-      <Shimmer style={{ height: 68, borderRadius: 10 }} />
-      <Shimmer style={{ height: 52, borderRadius: 10 }} />
-      <Shimmer style={{ height: 52, borderRadius: 10 }} />
-    </div>
-  );
-}
-
-// ─── Shared sub-components ────────────────────────────────────────────────────
-
-function HeroBanner({ c, compact = false }: { c: Campaign; compact?: boolean }) {
-  return (
-    <div style={{ height: compact ? 76 : 92, borderRadius: 10, overflow: 'hidden', position: 'relative', flexShrink: 0 }}>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={c.headerImg} alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 30%' }} />
-      <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, rgba(8,4,20,0.90) 0%, rgba(8,4,20,0.4) 65%, rgba(8,4,20,0.15) 100%)' }} />
-      <div style={{ position: 'absolute', bottom: compact ? 8 : 10, left: 12 }}>
-        <div style={{ display: 'flex', gap: 6, alignItems: 'center', marginBottom: 5 }}>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 3, background: 'rgba(0,160,80,0.28)', border: '1px solid rgba(0,160,80,0.5)', borderRadius: 5, paddingInline: 5, paddingBlock: 2 }}>
-            <span style={{ width: 4, height: 4, borderRadius: 9999, background: '#4ADE80', display: 'inline-block' }} />
-            <span style={{ fontSize: 7, fontWeight: 800, color: '#4ADE80', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Live</span>
-          </div>
-          <span style={{ fontSize: 9, color: 'rgba(255,255,255,0.7)', fontWeight: 500 }}>{c.platform}</span>
-        </div>
-        <p style={{ fontSize: compact ? 13 : 15, fontWeight: 900, color: 'white', letterSpacing: '-0.03em', lineHeight: 1 }}>{c.name}</p>
-      </div>
-    </div>
-  );
-}
-
-function StatsGrid({ c }: { c: Campaign }) {
-  const items = [
-    { Icon: Eye,      color: '#EC4899', bg: '#FDF2F8', val: c.stats.impressions, label: 'Impressions' },
-    { Icon: Heart,    color: '#EF4444', bg: '#FEF2F2', val: c.stats.engagement,  label: 'Engagement'  },
-    { Icon: Users,    color: c.accent,  bg: c.accentBg, val: c.stats.creators,  label: 'Creators'    },
-    { Icon: ThumbsUp, color: T.green,   bg: T.greenLight, val: c.stats.approved, label: 'Approved'   },
-  ];
-  return (
-    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 5, flexShrink: 0 }}>
-      {items.map(({ Icon, color, bg, val, label }) => (
-        <div key={label} style={{ ...CARD, padding: '8px 10px', display: 'flex', alignItems: 'center', gap: 8 }}>
-          <div style={{ width: 22, height: 22, borderRadius: 6, background: bg, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-            <Icon size={10} strokeWidth={2} style={{ color }} />
-          </div>
-          <div>
-            <p style={{ fontSize: 13, fontWeight: 900, color: T.text, letterSpacing: '-0.03em', lineHeight: 1, fontVariantNumeric: 'tabular-nums' }}>{val}</p>
-            <p style={{ fontSize: 8, color: T.hint, fontWeight: 500, marginTop: 1 }}>{label}</p>
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-function TabBar({ active }: { active: 0 | 1 | 2 }) {
-  return (
-    <div style={{ display: 'flex', borderBottom: `1px solid ${T.border}`, flexShrink: 0, background: T.surface }}>
-      {['Overview', 'Submissions', 'Creators'].map((t, i) => (
-        <div key={t} style={{
-          flex: 1, textAlign: 'center', paddingBlock: 9, fontSize: 10,
-          fontWeight: i === active ? 700 : 500,
-          color: i === active ? T.purple : T.hint,
-          borderBottom: i === active ? `2px solid ${T.purple}` : '2px solid transparent',
-        }}>{t}</div>
-      ))}
-    </div>
-  );
-}
-
-// ─── Overview scene ───────────────────────────────────────────────────────────
-
-function OverviewScene({ c }: { c: Campaign }) {
-  return (
-    <div style={{ width: '100%', height: '100%', background: T.surface2, display: 'flex', flexDirection: 'column', overflow: 'hidden', fontFamily: 'system-ui,-apple-system,sans-serif' }}>
+      width: '100%', height: '100%',
+      display: 'flex', flexDirection: 'column',
+      background: '#F7F7F9',
+      fontFamily: 'system-ui,-apple-system,sans-serif',
+      overflow: 'hidden',
+    }}>
       {/* Dynamic island clearance */}
-      <div style={{ flexShrink: 0, height: 52 }} />
-      <div style={{ flex: 1, overflow: 'hidden', padding: '0 10px', display: 'flex', flexDirection: 'column', gap: 6 }}>
-        {/* Back nav */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 6, height: 30, flexShrink: 0 }}>
-          <div style={{ width: 22, height: 22, borderRadius: 6, border: `1px solid ${T.border}`, display: 'flex', alignItems: 'center', justifyContent: 'center', background: T.surface }}>
-            <ChevronLeft size={11} strokeWidth={2.5} style={{ color: T.text }} />
+      <div style={{ height: 48, flexShrink: 0 }} />
+
+      {/* Purple analytics card */}
+      <div style={{
+        margin: '0 10px',
+        background: PURPLE,
+        borderRadius: 14,
+        padding: '11px 13px 12px',
+        flexShrink: 0,
+      }}>
+        {/* Top row: platform badge + live indicator */}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 9 }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 3, background: 'rgba(255,255,255,0.14)', borderRadius: 5, paddingInline: 6, paddingBlock: 2.5 }}>
+            <span style={{ width: 4, height: 4, borderRadius: 9999, background: '#4ADE80', display: 'inline-block' }} />
+            <span style={{ fontSize: 7, fontWeight: 800, color: 'white', textTransform: 'uppercase', letterSpacing: '0.08em' }}>{c.platform}</span>
           </div>
-          <span style={{ fontSize: 12, fontWeight: 800, color: T.text }}>{c.name}</span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 3 }}>
+            <TrendingUp size={8} style={{ color: 'rgba(255,255,255,0.6)' }} strokeWidth={2.5} />
+            <span style={{ fontSize: 7.5, color: 'rgba(255,255,255,0.6)', fontWeight: 600 }}>Live Campaign</span>
+          </div>
         </div>
 
-        <HeroBanner c={c} />
-        <StatsGrid c={c} />
-        <TabBar active={0} />
-
-        {/* Submissions preview list */}
-        <div style={{ ...CARD, overflow: 'hidden', flexShrink: 0 }}>
-          <div style={{ padding: '9px 12px', borderBottom: `1px solid ${T.border}`, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <span style={{ fontSize: 11, fontWeight: 800, color: T.text }}>Latest Submissions</span>
-            <span style={{ fontSize: 9, color: T.purple, fontWeight: 700 }}>View All</span>
-          </div>
-          {c.videos.map((v, i) => (
-            <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 12px', borderBottom: i < c.videos.length - 1 ? `1px solid ${T.borderSoft}` : 'none' }}>
-              <div style={{ width: 26, height: 26, borderRadius: 9999, flexShrink: 0, background: `linear-gradient(135deg, ${c.accent}, ${T.blue})`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 8, fontWeight: 700, color: 'white' }}>
-                {v.creator.split(' ').map(n => n[0]).join('')}
-              </div>
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <p style={{ fontSize: 10, fontWeight: 700, color: T.text }}>{v.creator}</p>
-                <p style={{ fontSize: 8, color: T.hint }}>{c.platform} · {v.views} views</p>
-              </div>
-              <span style={{ fontSize: 8, fontWeight: 700, color: T.amber, background: T.amberLight, borderRadius: 5, paddingInline: 5, paddingBlock: 2 }}>Pending</span>
+        {/* Artist name + song + chart */}
+        <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 8 }}>
+          <div style={{ flex: 1 }}>
+            <p style={{ fontSize: 20, fontWeight: 900, color: 'white', letterSpacing: '-0.04em', lineHeight: 1, marginBottom: 4 }}>
+              {c.artist}
+            </p>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+              <Music2 size={8} style={{ color: 'rgba(255,255,255,0.55)' }} strokeWidth={2} />
+              <p style={{ fontSize: 9.5, color: 'rgba(255,255,255,0.7)', fontWeight: 500 }}>{c.song}</p>
             </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// ─── Submissions scene ────────────────────────────────────────────────────────
-
-function SubmissionsScene({ c }: { c: Campaign }) {
-  const allVids = [...c.videos, ...c.videos].slice(0, 4); // show 4 cards in 2×2
-
-  return (
-    <div style={{ width: '100%', height: '100%', background: T.surface2, display: 'flex', flexDirection: 'column', overflow: 'hidden', fontFamily: 'system-ui,-apple-system,sans-serif' }}>
-      <div style={{ flexShrink: 0, height: 52 }} />
-      <div style={{ flex: 1, overflow: 'hidden', padding: '0 10px', display: 'flex', flexDirection: 'column', gap: 6 }}>
-        {/* Back nav */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 6, height: 30, flexShrink: 0 }}>
-          <div style={{ width: 22, height: 22, borderRadius: 6, border: `1px solid ${T.border}`, display: 'flex', alignItems: 'center', justifyContent: 'center', background: T.surface }}>
-            <ChevronLeft size={11} strokeWidth={2.5} style={{ color: T.text }} />
           </div>
-          <span style={{ fontSize: 12, fontWeight: 800, color: T.text }}>{c.name}</span>
+          <MiniBarChart data={c.chartData} />
         </div>
 
-        <HeroBanner c={c} compact />
-        <StatsGrid c={c} />
-        <TabBar active={1} />
-
-        {/* 2×2 video thumbnail grid */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 5, flex: 1, overflow: 'hidden' }}>
-          {allVids.map((v, i) => (
-            <div key={i} style={{ ...CARD, overflow: 'hidden', display: 'flex', flexDirection: 'column', minHeight: 0 }}>
-              {/* Thumbnail */}
-              <div style={{ position: 'relative', paddingTop: '115%', flexShrink: 0 }}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={v.thumb} alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
-                <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.28)' }} />
-                {/* Play */}
-                <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <div style={{ width: 24, height: 24, borderRadius: 9999, background: 'rgba(255,255,255,0.22)', border: '1px solid rgba(255,255,255,0.35)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <Play size={10} fill="white" style={{ color: 'white', marginLeft: 1 }} />
-                  </div>
-                </div>
-                {/* Views */}
-                <div style={{ position: 'absolute', bottom: 5, left: 6, display: 'flex', alignItems: 'center', gap: 2 }}>
-                  <Eye size={8} style={{ color: 'rgba(255,255,255,0.9)' }} strokeWidth={2} />
-                  <span style={{ fontSize: 8, fontWeight: 700, color: 'white' }}>{v.views}</span>
-                </div>
-              </div>
-              {/* Creator info */}
-              <div style={{ padding: '5px 7px' }}>
-                <p style={{ fontSize: 9, fontWeight: 700, color: T.text, lineHeight: 1, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{v.creator}</p>
-                <p style={{ fontSize: 7.5, color: T.hint, marginTop: 1 }}>{v.likes} likes</p>
+        {/* Stats row */}
+        <div style={{ display: 'flex', marginTop: 10, paddingTop: 9, borderTop: '1px solid rgba(255,255,255,0.14)' }}>
+          {statsRow.map(({ Icon, val, label }, i) => (
+            <div key={label} style={{ flex: 1, textAlign: i === 0 ? 'left' : i === 1 ? 'center' : 'right' }}>
+              <p style={{ fontSize: 13, fontWeight: 900, color: 'white', letterSpacing: '-0.02em', lineHeight: 1, fontVariantNumeric: 'tabular-nums' }}>{val}</p>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 2, justifyContent: i === 0 ? 'flex-start' : i === 1 ? 'center' : 'flex-end', marginTop: 2 }}>
+                <Icon size={7} style={{ color: 'rgba(255,255,255,0.45)' }} strokeWidth={2} />
+                <p style={{ fontSize: 7, color: 'rgba(255,255,255,0.45)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em' }}>{label}</p>
               </div>
             </div>
           ))}
         </div>
       </div>
+
+      {/* Gallery header + grid — flex:1 so it fills remaining height and clips */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden', minHeight: 0 }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 10px 4px', flexShrink: 0 }}>
+          <span style={{ fontSize: 10, fontWeight: 800, color: '#0F0F1A', letterSpacing: '-0.01em' }}>Creator Videos</span>
+          <span style={{ fontSize: 8.5, color: PURPLE, fontWeight: 700 }}>View all →</span>
+        </div>
+
+      {/* 2-column portrait (9:16) video grid */}
+      <div style={{ padding: '0 10px 10px', display: 'grid', gridTemplateColumns: '1fr 1fr', columnGap: 10, rowGap: 20, overflow: 'hidden', flex: 1 }}>
+        {c.videos.slice(0, 4).map((v, i) => (
+          <div key={i} style={{ borderRadius: 10, overflow: 'hidden', position: 'relative', paddingTop: '177.78%' }}>
+            {v.video ? (
+              <video
+                src={v.video}
+                autoPlay
+                muted
+                loop
+                playsInline
+                style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+              />
+            ) : (
+              /* eslint-disable-next-line @next/next/no-img-element */
+              <img
+                src={v.thumb}
+                alt=""
+                style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+              />
+            )}
+            <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(0,0,0,0.06) 0%, rgba(0,0,0,0.6) 100%)' }} />
+            {/* Play */}
+            <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <div style={{ width: 22, height: 22, borderRadius: 9999, background: 'rgba(255,255,255,0.22)', border: '1px solid rgba(255,255,255,0.40)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <Play size={9} fill="white" style={{ color: 'white', marginLeft: 1 }} />
+              </div>
+            </div>
+            {/* View count */}
+            <div style={{ position: 'absolute', bottom: 6, left: 6 }}>
+              <p style={{ fontSize: 7.5, fontWeight: 700, color: 'white', lineHeight: 1 }}>{v.views}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+      </div>{/* end gallery flex wrapper */}
     </div>
   );
 }
-
-// ─── Video player scene ───────────────────────────────────────────────────────
-
-function VideoScene({ c }: { c: Campaign }) {
-  const v = c.videos[c.featured];
-  const ini = v.creator.split(' ').map(n => n[0]).join('');
-
-  return (
-    <div style={{ width: '100%', height: '100%', position: 'relative', background: '#000', overflow: 'hidden', fontFamily: 'system-ui,-apple-system,sans-serif' }}>
-      {/* Full-screen thumbnail */}
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={v.thumb} alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
-
-      {/* Gradient overlays */}
-      <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(0,0,0,0.52) 0%, transparent 22%, transparent 55%, rgba(0,0,0,0.80) 100%)' }} />
-
-      {/* Top bar */}
-      <div style={{ position: 'absolute', top: 52, left: 0, right: 0, display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 14px' }}>
-        <div style={{ width: 28, height: 28, borderRadius: 8, background: 'rgba(0,0,0,0.36)', border: '1px solid rgba(255,255,255,0.18)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <ChevronLeft size={13} strokeWidth={2.5} style={{ color: 'white' }} />
-        </div>
-        {/* Campaign badge */}
-        <div style={{ display: 'inline-flex', alignItems: 'center', gap: 4, background: 'rgba(0,0,0,0.4)', border: '1px solid rgba(255,255,255,0.18)', borderRadius: 9999, paddingInline: 10, paddingBlock: 4 }}>
-          <span style={{ width: 5, height: 5, borderRadius: 9999, background: '#4ADE80', display: 'inline-block' }} />
-          <span style={{ fontSize: 9, fontWeight: 700, color: 'white', letterSpacing: '0.02em' }}>{c.name}</span>
-        </div>
-        <div style={{ width: 28 }} />
-      </div>
-
-      {/* Right: action buttons */}
-      <div style={{ position: 'absolute', right: 12, bottom: 110, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}>
-        {/* Avatar */}
-        <div style={{ position: 'relative' }}>
-          <div style={{ width: 36, height: 36, borderRadius: 9999, background: `linear-gradient(135deg, ${c.accent}, ${T.blue})`, border: '2px solid white', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 10, fontWeight: 700, color: 'white' }}>{ini}</div>
-          <div style={{ position: 'absolute', bottom: -6, left: '50%', transform: 'translateX(-50%)', width: 16, height: 16, borderRadius: 9999, background: c.accent, border: '1.5px solid white', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, color: 'white', fontWeight: 700 }}>+</div>
-        </div>
-        {/* Heart */}
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 3 }}>
-          <div style={{ width: 36, height: 36, borderRadius: 9999, background: 'rgba(255,255,255,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <Heart size={16} fill="white" style={{ color: 'white' }} />
-          </div>
-          <span style={{ fontSize: 9, color: 'white', fontWeight: 600 }}>{v.likes}</span>
-        </div>
-        {/* Comment */}
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 3 }}>
-          <div style={{ width: 36, height: 36, borderRadius: 9999, background: 'rgba(255,255,255,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <MessageCircle size={16} fill="white" style={{ color: 'white' }} />
-          </div>
-          <span style={{ fontSize: 9, color: 'white', fontWeight: 600 }}>1.2K</span>
-        </div>
-        {/* Share */}
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 3 }}>
-          <div style={{ width: 36, height: 36, borderRadius: 9999, background: 'rgba(255,255,255,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <Share2 size={15} style={{ color: 'white' }} />
-          </div>
-          <span style={{ fontSize: 9, color: 'white', fontWeight: 600 }}>Share</span>
-        </div>
-        {/* Spinning disc */}
-        <div style={{ width: 36, height: 36, borderRadius: 9999, background: `linear-gradient(135deg, #1a1a2e, #2d2d44)`, border: '2px solid rgba(255,255,255,0.22)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <Music2 size={14} style={{ color: 'white' }} />
-        </div>
-      </div>
-
-      {/* Bottom: creator info */}
-      <div style={{ position: 'absolute', bottom: 28, left: 14, right: 60 }}>
-        {/* Views badge */}
-        <div style={{ marginBottom: 8 }}>
-          <span style={{ fontSize: 9, fontWeight: 700, color: 'rgba(255,255,255,0.85)', background: 'rgba(255,255,255,0.12)', borderRadius: 9999, paddingInline: 8, paddingBlock: 3 }}>
-            👁 {v.views} views
-          </span>
-        </div>
-        <p style={{ fontSize: 13, fontWeight: 700, color: 'white', marginBottom: 4, letterSpacing: '-0.01em' }}>{v.handle}</p>
-        <p style={{ fontSize: 10, color: 'rgba(255,255,255,0.80)', lineHeight: 1.4, marginBottom: 10 }}>
-          Promoting {c.name} 🎵 #{c.artist.replace(' ', '')}
-        </p>
-        {/* Song pill */}
-        <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: 'rgba(255,255,255,0.12)', borderRadius: 9999, paddingInline: 10, paddingBlock: 5 }}>
-          <Music2 size={9} style={{ color: 'white' }} />
-          <span style={{ fontSize: 9, color: 'white', fontWeight: 500 }}>{c.name} — {c.artist}</span>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// ─── Main export ──────────────────────────────────────────────────────────────
 
 export default function SponsorCampaignPrototype() {
-  const [campaignIdx, setCampaignIdx] = useState(0);
-  const [stepIdx, setStepIdx] = useState(0);
+  const [idx, setIdx] = useState(0);
 
   useEffect(() => {
-    const step = SEQUENCE[stepIdx];
     const timer = setTimeout(() => {
-      const nextIdx = (stepIdx + 1) % SEQUENCE.length;
-      setStepIdx(nextIdx);
-      if (nextIdx === 0) {
-        setCampaignIdx(prev => (prev + 1) % CAMPAIGNS.length);
-      }
-    }, STEP_DURATION[step]);
+      setIdx(prev => (prev + 1) % CAMPAIGNS.length);
+    }, CAMPAIGN_DURATION);
     return () => clearTimeout(timer);
-  }, [stepIdx]);
-
-  const campaign = CAMPAIGNS[campaignIdx];
-  const step = SEQUENCE[stepIdx];
+  }, [idx]);
 
   return (
-    <div style={{ width: '100%', height: '100%', overflow: 'hidden', position: 'relative', background: T.surface2 }}>
+    <div style={{ width: '100%', height: '100%', overflow: 'hidden', position: 'relative' }}>
       <AnimatePresence mode="wait">
         <motion.div
-          key={`${campaignIdx}-${stepIdx}`}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.18, ease: 'easeInOut' }}
+          key={idx}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -10 }}
+          transition={{ duration: 0.28, ease: 'easeInOut' }}
           style={{ position: 'absolute', inset: 0 }}
         >
-          {step === 'skeleton'    && <SkeletonScreen />}
-          {step === 'overview'    && <OverviewScene    c={campaign} />}
-          {step === 'submissions' && <SubmissionsScene c={campaign} />}
-          {step === 'video'       && <VideoScene       c={campaign} />}
+          <CampaignScreen c={CAMPAIGNS[idx]} />
         </motion.div>
       </AnimatePresence>
+
+      {/* Progress dots */}
+      <div style={{ position: 'absolute', bottom: 8, left: 0, right: 0, display: 'flex', justifyContent: 'center', gap: 4, zIndex: 10 }}>
+        {CAMPAIGNS.map((_, i) => (
+          <div
+            key={i}
+            style={{
+              width: i === idx ? 14 : 4,
+              height: 4,
+              borderRadius: 2,
+              background: i === idx ? PURPLE : 'rgba(15,15,26,0.18)',
+              transition: 'all 0.35s ease',
+            }}
+          />
+        ))}
+      </div>
     </div>
   );
 }
