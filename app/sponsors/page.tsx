@@ -17,8 +17,6 @@ import CampaignBuilderMockup from '@/components/UIComponents/CampaignBuilderMock
 import SponsorHeroScreens from '@/components/UIComponents/SponsorHeroScreens';
 import SponsorCampaignPrototype from '@/components/UIComponents/SponsorCampaignPrototype';
 
-const HeroBackground3D = dynamic(() => import('@/components/HeroBackground3D'), { ssr: false });
-const HeroForeground3D = dynamic(() => import('@/components/HeroForeground3D'), { ssr: false });
 
 // ─── Animation helpers ────────────────────────────────────────────────────────
 
@@ -232,9 +230,9 @@ function HeroPhoneApp() {
   const muted = 'hsl(215.4 16.3% 46.9%)';
 
   const campaigns = [
-    { brand: 'Paystack', task: 'Instagram post', reward: '₦25,000', status: 'Active', statusColor: '#16A34A', statusBg: '#F0FDF4', avatar: '#1A40B8' },
-    { brand: 'PiggyVest', task: 'TikTok video', reward: '₦18,000', status: 'Pending', statusColor: '#D97706', statusBg: '#FFFBEB', avatar: '#2563EB' },
-    { brand: 'Cowrywise', task: 'TikTok video', reward: '₦8,000', status: 'Active', statusColor: '#16A34A', statusBg: '#F0FDF4', avatar: '#00A050' },
+    { brand: 'SwiftPay', task: 'Instagram post', reward: '₦25,000', status: 'Active', statusColor: '#16A34A', statusBg: '#F0FDF4', avatar: '#1A40B8' },
+    { brand: 'SaveNow', task: 'TikTok video', reward: '₦18,000', status: 'Pending', statusColor: '#D97706', statusBg: '#FFFBEB', avatar: '#2563EB' },
+    { brand: 'WealthPal', task: 'TikTok video', reward: '₦8,000', status: 'Active', statusColor: '#16A34A', statusBg: '#F0FDF4', avatar: '#00A050' },
   ];
 
   const bars = [65, 40, 80, 55, 70, 35, 90];
@@ -463,10 +461,6 @@ export default function SponsorsPage() {
         style={{ minHeight: '100dvh', background: '#6406CF' }}>
 
         <LiquidGlass width={140} height={140} borderRadius={70} blur={2} tintOpacity={0.15} />
-        {/* Background 3D layer — icons fan out behind the glass box */}
-        <HeroBackground3D backgroundColor="#4A0DAD" />
-        {/* Foreground 3D layer — transparent canvas, icons pass IN FRONT of box */}
-        <HeroForeground3D />
         {/* Aurora bloom */}
         <div className="pointer-events-none absolute rounded-[50%]" style={{
           width: '80vw', height: '60vh',
@@ -586,7 +580,7 @@ export default function SponsorsPage() {
                 {/* Subtle inner glow */}
                 <div className="pointer-events-none absolute inset-0" style={{ background: 'radial-gradient(ellipse 70% 50% at 50% 0%, rgba(124,59,237,0.12) 0%, transparent 70%)' }} />
                 {/* Phone centered, bottom anchored */}
-                <div className="absolute bottom-0 w-full flex justify-center" style={{ transform: 'translateY(14%)' }}>
+                <div className="sponsor-hero-phone absolute bottom-0 w-full flex justify-center">
                   <PhoneFrame screenBg="#F7F7F9">
                     <SponsorCampaignPrototype />
                   </PhoneFrame>
@@ -769,7 +763,7 @@ export default function SponsorsPage() {
                 Icon: Users, label: 'Creator Insights',
                 title: 'Per-creator breakdown.',
                 desc: 'See exactly how each creator performed. Who drove the most reach? Make data-driven decisions.',
-                stats: [{ val: '847+', label: 'Creators' }, { val: 'Live', label: 'Updates' }],
+                stats: [{ val: 'Early', label: 'Access open' }, { val: 'Live', label: 'Updates' }],
               },
               {
                 accent: '#D97706', bgTint: 'rgba(217,119,6,0.05)', border: 'rgba(217,119,6,0.14)',
@@ -839,7 +833,7 @@ export default function SponsorsPage() {
           {/* Editorial poster cards */}
           <ScrollCarousel count={3} gridClass="md:grid-cols-3">
 
-            {/* Card 1 — Paystack · diagonal crosshatch */}
+            {/* Card 1 — SwiftPay · diagonal crosshatch */}
             <motion.div variants={fadeUp} className="shrink-0 w-[82vw] snap-start md:w-auto">
               <div className="relative overflow-hidden rounded-[28px] flex flex-col"
                 style={{ background: 'rgba(37,99,235,0.05)', border: '1.5px solid rgba(37,99,235,0.14)', minHeight: 420 }}>
@@ -898,7 +892,7 @@ export default function SponsorsPage() {
               </div>
             </motion.div>
 
-            {/* Card 2 — PiggyVest · fine dot grid */}
+            {/* Card 2 — SaveNow · fine dot grid */}
             <motion.div variants={fadeUp} className="shrink-0 w-[82vw] snap-start md:w-auto self-stretch flex flex-col">
               <div className="relative overflow-hidden rounded-[28px] flex flex-col flex-1"
                 style={{ background: 'rgba(124,59,237,0.05)', border: '1.5px solid rgba(124,59,237,0.14)', minHeight: 420 }}>

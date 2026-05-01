@@ -11,7 +11,6 @@ import FAQAccordion from '@/components/FAQAccordion';
 import WalletMockup from '@/components/UIComponents/WalletMockup';
 import { PhoneFrame } from '@/components/ui/PhoneFrame';
 import { BrowserChrome } from '@/components/MockupSkeletons';
-import CreatorHeroRisingIcons from '@/components/CreatorHeroRisingIcons';
 
 // ─── Animation helpers ────────────────────────────────────────────────────────
 
@@ -97,18 +96,6 @@ function VideoCarouselScreen() {
         background: 'linear-gradient(180deg, rgba(0,0,0,0.55) 0%, transparent 22%, transparent 60%, rgba(0,0,0,0.80) 100%)',
       }} />
 
-      {/* ── Status bar ── */}
-      <div className="absolute top-0 left-0 right-0 flex items-center justify-between px-4 pt-10 pb-2 z-20">
-        <span style={{ fontSize: 10, fontWeight: 600, color: 'white' }}>9:41</span>
-        <div className="flex items-center gap-1.5">
-          <svg width="13" height="9" viewBox="0 0 13 9" fill="white">
-            <rect x="0" y="4.5" width="2.5" height="4.5" rx="0.5" opacity="0.4" />
-            <rect x="3.5" y="3" width="2.5" height="6" rx="0.5" opacity="0.6" />
-            <rect x="7" y="1.5" width="2.5" height="7.5" rx="0.5" opacity="0.8" />
-            <rect x="10.5" y="0" width="2.5" height="9" rx="0.5" />
-          </svg>
-        </div>
-      </div>
 
 
       {/* ── Right: action buttons ── */}
@@ -184,8 +171,8 @@ function MobileMarketplaceMockup() {
       
       <div className="flex flex-col gap-2 flex-1 overflow-hidden pb-4">
         {[
-          { icon: '🎵', brand: 'Universal Music', title: 'Viral Dance Challenge', reward: '₦45K', tags: ['TikTok', 'Music'] },
-          { icon: '🏦', brand: 'PiggyVest', title: 'Q3 Promo Drive', reward: '₦20K', tags: ['Instagram', 'Finance'] },
+          { icon: '🎵', brand: 'Rythm Records', title: 'Viral Dance Challenge', reward: '₦45K', tags: ['TikTok', 'Music'] },
+          { icon: '🏦', brand: 'SaveNow', title: 'Q3 Promo Drive', reward: '₦20K', tags: ['Instagram', 'Finance'] },
           { icon: '🍔', brand: 'Foodie Deliveries', title: 'Lunch Hour Push', reward: '₦15K', tags: ['Both', 'Lifestyle'] }
         ].map((c, i) => (
           <div key={i} className="bg-white border border-[#EBEBF2] rounded-2xl p-3.5 flex gap-3 shadow-sm items-center">
@@ -322,9 +309,9 @@ function MobileWalletMockup() {
            <span className="text-[9px] font-bold text-[#2563EB]">View all</span>
         </div>
         {[
-          { icon: '💸', title: 'Campaign Payout', desc: 'Universal Music — TikTok', amt: '+₦45,000' },
-          { icon: '🏦', title: 'Withdrawal', desc: 'To GTBank **** 4492', amt: '-₦120,000' },
-          { icon: '🔒', title: 'Escrow Locked', desc: 'PiggyVest Q3 Promo', amt: '+₦25,000' }
+          { icon: '💸', title: 'Campaign Payout', desc: 'Rythm Records — TikTok', amt: '+₦45,000' },
+          { icon: '🏦', title: 'Withdrawal', desc: 'To NovaBank **** 4492', amt: '-₦120,000' },
+          { icon: '🔒', title: 'Escrow Locked', desc: 'SaveNow Q3 Promo', amt: '+₦25,000' }
         ].map((item, i) => (
           <div key={i} className="flex justify-between items-center py-2.5 border-b border-[#F0F0F5] border-dashed last:border-0">
             <div className="flex gap-3 items-center">
@@ -498,53 +485,17 @@ export default function CreatorsPage() {
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 transition={{ duration: 1.0, delay: 0.5, ease: [0.16, 1, 0.3, 1] as const }}
               >
-                <CreatorHeroRisingIcons />
                 <div
                   className="pointer-events-none absolute bottom-0 inset-x-0 z-10"
                   style={{ height: 110, background: 'linear-gradient(to bottom, transparent, rgba(10,20,80,0.90))' }}
                 />
-                <div className="absolute bottom-0 w-full flex justify-center"
-                  style={{ transform: 'translateY(20%) scale(1.0)', transformOrigin: 'center center' }}>
+                <div className="creator-hero-phone absolute bottom-0 w-full flex justify-center">
                   <PhoneFrame screenBg="#000">
                     <VideoCarouselScreen />
                   </PhoneFrame>
                 </div>
               </motion.div>
 
-              {/* Floating stat chips */}
-              <motion.div
-                className="absolute flex items-center gap-2 rounded-2xl px-4 py-2.5 text-[11px] font-semibold text-white whitespace-nowrap z-30"
-                style={{
-                  top: 80, left: -24,
-                  background: 'rgba(255,255,255,0.12)',
-                  border: '1px solid rgba(255,255,255,0.22)',
-                  backdropFilter: 'blur(16px)',
-                  boxShadow: '0 4px 24px rgba(0,0,0,0.15)',
-                }}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1, y: [0, -7, 0] }}
-                transition={{ opacity: { duration: 0.45, delay: 1.6 }, scale: { duration: 0.55, delay: 1.6 }, y: { duration: 4, delay: 1.6, repeat: Infinity, ease: 'easeInOut' } }}
-              >
-                <span className="w-1.5 h-1.5 rounded-full bg-[#60A5FA] animate-pulse" />
-                <span>847+ creators earning</span>
-              </motion.div>
-
-              <motion.div
-                className="absolute flex items-center gap-2 rounded-2xl px-4 py-2.5 text-[11px] font-semibold text-white whitespace-nowrap z-30"
-                style={{
-                  top: 260, right: -24,
-                  background: 'rgba(255,255,255,0.12)',
-                  border: '1px solid rgba(255,255,255,0.22)',
-                  backdropFilter: 'blur(16px)',
-                  boxShadow: '0 4px 24px rgba(0,0,0,0.15)',
-                }}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1, y: [0, -9, 0] }}
-                transition={{ opacity: { duration: 0.45, delay: 2.0 }, scale: { duration: 0.55, delay: 2.0 }, y: { duration: 4.3, delay: 2.0, repeat: Infinity, ease: 'easeInOut' } }}
-              >
-                <DollarSign size={12} />
-                <span>₦2.4M paid out</span>
-              </motion.div>
             </div>
           </div>
 
@@ -645,9 +596,9 @@ export default function CreatorsPage() {
             </div>
             <motion.div variants={fadeUp} className="flex gap-8 md:gap-10 md:pb-1 shrink-0">
               {[
-                { value: '847+', label: 'Active creators' },
-                { value: '₦2.4M', label: 'Distributed' },
-                { value: '98%', label: 'On-time payouts' },
+                { value: 'Early', label: 'Access open' },
+                { value: '100%', label: 'Escrow-backed' },
+                { value: '48h', label: 'Payout target' },
               ].map((s) => (
                 <div key={s.label}>
                   <p className="font-black leading-none"
@@ -662,9 +613,9 @@ export default function CreatorsPage() {
           {/* Video grid */}
           <ScrollCarousel count={3} gridClass="md:grid-cols-3">
             {[
-              { imageSrc: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=600&q=80', caption: '@dami.creates', subcaption: '₦140K earned · TikTok', chips: [{ label: '120K followers', position: 'top-left' as const, variant: 'dark' as const }] },
-              { imageSrc: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80', caption: '@chuka.tv', subcaption: '₦95K earned · Instagram', chips: [{ label: '88K followers', position: 'top-left' as const, variant: 'dark' as const }] },
-              { imageSrc: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=600&q=80', caption: '@amara.creates', subcaption: '₦85K earned · TikTok', chips: [{ label: '54K followers', position: 'top-left' as const, variant: 'dark' as const }] },
+              { imageSrc: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=600&q=80', caption: '@dami.creates', subcaption: 'Joining early · TikTok', chips: [{ label: '120K followers', position: 'top-left' as const, variant: 'dark' as const }] },
+              { imageSrc: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80', caption: '@chuka.tv', subcaption: 'Joining early · Instagram', chips: [{ label: '88K followers', position: 'top-left' as const, variant: 'dark' as const }] },
+              { imageSrc: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=600&q=80', caption: '@amara.creates', subcaption: 'Joining early · TikTok', chips: [{ label: '54K followers', position: 'top-left' as const, variant: 'dark' as const }] },
             ].map((item, i) => (
               <motion.div key={i} variants={fadeUp} className="shrink-0 w-[72vw] snap-start md:w-auto">
                 <VideoCard {...item} aspectRatio="4/5" surface="light" showGradient hoverable />
@@ -700,14 +651,14 @@ export default function CreatorsPage() {
 
         {(() => {
           const reels = [
-            { thumb: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=400&q=80', name: 'Tolu Adeyemi', handle: '@toluade', campaign: 'Jazzy Song — Ayra Starr', platform: 'TikTok', likes: '14.2K' },
-            { thumb: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80', name: 'Chidi Ezike', handle: '@chidi.e', campaign: 'With You — Davido', platform: 'Instagram', likes: '22.1K' },
-            { thumb: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&q=80', name: 'Kemi Ade', handle: '@keminade', campaign: 'Jazzy Song — Ayra Starr', platform: 'TikTok', likes: '31.4K' },
-            { thumb: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=400&q=80', name: 'Sola Babs', handle: '@solababs', campaign: 'Q2 Promo — Paystack', platform: 'Instagram', likes: '8.5K' },
-            { thumb: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&q=80', name: 'Femi Lagos', handle: '@femilagos', campaign: 'With You — Davido', platform: 'TikTok', likes: '12.3K' },
-            { thumb: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&q=80', name: 'Dami Okon', handle: '@damiokon', campaign: 'Ozeba — Rema', platform: 'TikTok', likes: '18.7K' },
-            { thumb: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&q=80', name: 'Temi Coker', handle: '@temicoker', campaign: 'Q2 Promo — Paystack', platform: 'Instagram', likes: '27.0K' },
-            { thumb: 'https://images.unsplash.com/photo-1552058544-f2b08422138a?w=400&q=80', name: 'Seun Kuti', handle: '@seunkuti_', campaign: 'Ozeba — Rema', platform: 'TikTok', likes: '11.1K' },
+            { thumb: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=400&q=80', name: 'Tolu Adeyemi', handle: '@toluade', campaign: 'Jazzy Song — Zara Beats', platform: 'TikTok', likes: '14.2K' },
+            { thumb: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80', name: 'Chidi Ezike', handle: '@chidi.e', campaign: 'With You — Kelvin Wave', platform: 'Instagram', likes: '22.1K' },
+            { thumb: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&q=80', name: 'Kemi Ade', handle: '@keminade', campaign: 'Jazzy Song — Zara Beats', platform: 'TikTok', likes: '31.4K' },
+            { thumb: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=400&q=80', name: 'Sola Babs', handle: '@solababs', campaign: 'Q2 Promo — SwiftPay', platform: 'Instagram', likes: '8.5K' },
+            { thumb: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&q=80', name: 'Femi Lagos', handle: '@femilagos', campaign: 'With You — Kelvin Wave', platform: 'TikTok', likes: '12.3K' },
+            { thumb: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&q=80', name: 'Dami Okon', handle: '@damiokon', campaign: 'Odara — Olu Fire', platform: 'TikTok', likes: '18.7K' },
+            { thumb: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&q=80', name: 'Temi Coker', handle: '@temicoker', campaign: 'Q2 Promo — SwiftPay', platform: 'Instagram', likes: '27.0K' },
+            { thumb: 'https://images.unsplash.com/photo-1552058544-f2b08422138a?w=400&q=80', name: 'Seun Bello', handle: '@seun.creates', campaign: 'Odara — Olu Fire', platform: 'TikTok', likes: '11.1K' },
           ];
           const doubled = [...reels, ...reels];
           return (
@@ -950,7 +901,7 @@ export default function CreatorsPage() {
                     </p>
                   </div>
                   <div className="grid grid-cols-2" style={{ borderTop: '1px solid rgba(0,160,80,0.12)' }}>
-                    {[{ val: '₦2.4M', label: 'Distributed' }, { val: '48h', label: 'Avg. release' }].map((s, j) => (
+                    {[{ val: '100%', label: 'Escrow-backed' }, { val: '48h', label: 'Payout target' }].map((s, j) => (
                       <div key={j} className="py-4 text-center"
                         style={{ borderRight: j === 0 ? '1px solid rgba(0,160,80,0.10)' : 'none' }}>
                         <p className="font-black text-sm leading-none" style={{ color: '#00A050' }}>{s.val}</p>

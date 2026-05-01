@@ -39,7 +39,7 @@ const CAMPAIGNS: Campaign[] = [
     ],
   },
   {
-    artist:    'Rema',
+    artist:    'Olu Fire',
     song:      'Lagos Summer',
     platform:  'Instagram',
     chartData: [34, 56, 78, 92, 140, 168, 195],
@@ -108,7 +108,7 @@ function CampaignScreen({ c }: { c: Campaign }) {
       overflow: 'hidden',
     }}>
       {/* Dynamic island clearance */}
-      <div style={{ height: 48, flexShrink: 0 }} />
+      <div style={{ height: 56, flexShrink: 0 }} />
 
       {/* Purple analytics card */}
       <div style={{

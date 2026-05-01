@@ -11,7 +11,7 @@
 //
 // Shadow is intentionally omitted — use the card background to give depth.
 
-import { useId } from 'react';
+import { useId, useState, useEffect } from 'react';
 import { clsx } from 'clsx';
 
 interface PhoneFrameProps {
@@ -39,6 +39,68 @@ const CAM_R = Math.round(35.785 * (W / 999)); // ≈ 11px
 // normalised to objectBoundingBox (all coords ÷ 999 for x, ÷ 2173 for y).
 const SCREEN_CLIP =
   'M0 0.05325C0 0.02382 0.05156 0 0.11516 0H0.88484C0.94844 0 1 0.02382 1 0.05325V0.94675C1 0.97618 0.94844 1 0.88484 1H0.11516C0.05156 1 0 0.97618 0 0.94675V0.05325Z';
+
+// Derive a readable foreground colour from the screen background hex
+function fgFromBg(bg: string): string {
+  const hex = bg.replace('#', '');
+  if (hex.length < 6) return '#ffffff';
+  const r = parseInt(hex.slice(0, 2), 16);
+  const g = parseInt(hex.slice(2, 4), 16);
+  const b = parseInt(hex.slice(4, 6), 16);
+  // perceived luminance
+  const lum = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+  return lum > 0.55 ? '#0F0F1A' : '#ffffff';
+}
+
+function StatusBar({ screenBg }: { screenBg: string }) {
+  const [time, setTime] = useState('');
+  const color = fgFromBg(screenBg);
+
+  useEffect(() => {
+    const fmt = () =>
+      new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
+    setTime(fmt());
+    const id = setInterval(() => setTime(fmt()), 1000);
+    return () => clearInterval(id);
+  }, []);
+
+  return (
+    <div
+      className="pointer-events-none absolute inset-x-0 top-0 z-30 flex items-center justify-between"
+      style={{ height: 60, paddingLeft: 22, paddingRight: 18 }}
+    >
+      {/* Time — left of dynamic island */}
+      <span style={{ fontSize: 11.5, fontWeight: 700, color, letterSpacing: '-0.2px', fontVariantNumeric: 'tabular-nums' }}>
+        {time}
+      </span>
+
+      {/* Network indicators — right of dynamic island */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 5.5 }}>
+        {/* Signal bars */}
+        <svg width="16" height="12" viewBox="0 0 16 12" fill="none">
+          <rect x="0"  y="8"  width="3" height="4"  rx="0.8" fill={color} opacity="1"   />
+          <rect x="4.5" y="5.5" width="3" height="6.5" rx="0.8" fill={color} opacity="1"   />
+          <rect x="9"  y="3"  width="3" height="9"  rx="0.8" fill={color} opacity="1"   />
+          <rect x="13.5" y="0" width="2.5" height="12" rx="0.8" fill={color} opacity="0.3" />
+        </svg>
+
+        {/* WiFi */}
+        <svg width="15" height="11" viewBox="0 0 15 11" fill="none">
+          <path d="M7.5 8.5a1 1 0 1 1 0 2 1 1 0 0 1 0-2Z"            fill={color} />
+          <path d="M4.7 6.5a4.0 4.0 0 0 1 5.6 0"                       stroke={color} strokeWidth="1.4" strokeLinecap="round" fill="none"/>
+          <path d="M2.2 4.1a7.2 7.2 0 0 1 10.6 0"                      stroke={color} strokeWidth="1.4" strokeLinecap="round" fill="none" opacity="0.5"/>
+        </svg>
+
+        {/* Battery */}
+        <svg width="22" height="11" viewBox="0 0 22 11" fill="none">
+          <rect x="0.5" y="0.5" width="18" height="10" rx="2.5" stroke={color} strokeWidth="1" opacity="0.35"/>
+          <rect x="1.5" y="1.5" width="14" height="8"  rx="1.8" fill={color} />
+          <path d="M19.5 3.5v4a1.5 1.5 0 0 0 0-4Z"                    fill={color} opacity="0.4"/>
+        </svg>
+      </div>
+    </div>
+  );
+}
 
 export function PhoneFrame({
   children,
@@ -99,6 +161,7 @@ export function PhoneFrame({
           background: screenBg,
         }}
       >
+        <StatusBar screenBg={screenBg} />
         {children}
       </div>
 
