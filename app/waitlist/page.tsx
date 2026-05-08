@@ -131,7 +131,7 @@ function WaitlistContent() {
           </motion.h1>
 
           <motion.p variants={fadeUp} className="text-white/55 text-sm leading-relaxed mb-10 max-w-xs mx-auto">
-            We&apos;ll reach out when Varmply opens to {isCreator ? 'creators' : 'sponsors'} like you. In the meantime, explore what&apos;s coming.
+            We&apos;re sending your welcome email now. Access opens in private waves, and we&apos;ll email your invite when {isCreator ? 'creator' : 'sponsor'} access is ready.
           </motion.p>
 
           <motion.div variants={fadeUp} className="flex flex-col gap-3 w-full">
