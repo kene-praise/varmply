@@ -24,8 +24,7 @@ const ROLE_COLOR: Record<Role, string> = {
 
 type WaitlistSubmitState = 'idle' | 'submitting' | 'submitted';
 
-const WAITLIST_API_BASE_URL =
-  process.env.NEXT_PUBLIC_VARMPLY_API_BASE_URL ?? 'https://api-staging.varmply.com';
+const WAITLIST_API_BASE_URL = process.env.NEXT_PUBLIC_VARMPLY_API_BASE_URL;
 
 // ─── Inner component (needs useSearchParams) ──────────────────────────────────
 
@@ -42,13 +41,19 @@ function WaitlistContent() {
 
   const [submitState, setSubmitState] = useState<WaitlistSubmitState>('idle');
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const [submittedRole, setSubmittedRole] = useState<Role | null>(null);
 
   const accentColor = role ? ROLE_COLOR[role] : '#6406CF';
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!role || !name.trim() || !email.trim() || submitState === 'submitting') return;
+    if (!WAITLIST_API_BASE_URL) {
+      setSubmitError('Waitlist signup is not configured yet. Please try again later.');
+      return;
+    }
 
+    const roleAtSubmit = role;
     setSubmitState('submitting');
     setSubmitError(null);
 
@@ -59,7 +64,7 @@ function WaitlistContent() {
         body: JSON.stringify({
           fullName: name.trim(),
           emailAddress: email.trim(),
-          roleIntent: role === 'creator' ? 'CREATOR' : 'SPONSOR',
+          roleIntent: roleAtSubmit === 'creator' ? 'CREATOR' : 'SPONSOR',
           source: 'varmply-landing-waitlist',
           utm: getUtmParams(searchParams),
         }),
@@ -69,6 +74,7 @@ function WaitlistContent() {
         throw new Error('Waitlist submission failed');
       }
 
+      setSubmittedRole(roleAtSubmit);
       setSubmitState('submitted');
     } catch {
       setSubmitState('idle');
@@ -78,7 +84,7 @@ function WaitlistContent() {
 
   // ── Success screen ──────────────────────────────────────────────────────────
   if (submitState === 'submitted') {
-    const isCreator = role === 'creator';
+    const isCreator = submittedRole === 'creator';
     const heroBg = isCreator ? '#006B35' : '#1A40B8';
     const pattern = isCreator
       ? 'radial-gradient(circle, rgba(255,255,255,0.13) 1px, transparent 1px)'
