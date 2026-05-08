@@ -24,8 +24,6 @@ const ROLE_COLOR: Record<Role, string> = {
 
 type WaitlistSubmitState = 'idle' | 'submitting' | 'submitted';
 
-const WAITLIST_API_BASE_URL = process.env.NEXT_PUBLIC_VARMPLY_API_BASE_URL;
-
 // ─── Inner component (needs useSearchParams) ──────────────────────────────────
 
 function WaitlistContent() {
@@ -48,17 +46,13 @@ function WaitlistContent() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!role || !name.trim() || !email.trim() || submitState === 'submitting') return;
-    if (!WAITLIST_API_BASE_URL) {
-      setSubmitError('Waitlist signup is not configured yet. Please try again later.');
-      return;
-    }
 
     const roleAtSubmit = role;
     setSubmitState('submitting');
     setSubmitError(null);
 
     try {
-      const response = await fetch(`${WAITLIST_API_BASE_URL}/waitlist/entries`, {
+      const response = await fetch('/api/waitlist/entries', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
