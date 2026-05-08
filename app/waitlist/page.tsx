@@ -22,6 +22,11 @@ const ROLE_COLOR: Record<Role, string> = {
   creator: '#006B35',
 };
 
+type WaitlistSubmitState = 'idle' | 'submitting' | 'submitted';
+
+const WAITLIST_API_BASE_URL =
+  process.env.NEXT_PUBLIC_VARMPLY_API_BASE_URL ?? 'https://api-staging.varmply.com';
+
 // ─── Inner component (needs useSearchParams) ──────────────────────────────────
 
 function WaitlistContent() {
@@ -35,21 +40,46 @@ function WaitlistContent() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
 
-  const [submitted, setSubmitted] = useState(false);
+  const [submitState, setSubmitState] = useState<WaitlistSubmitState>('idle');
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const accentColor = role ? ROLE_COLOR[role] : '#6406CF';
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!role || !name || !email) return;
-    setSubmitted(true);
+    if (!role || !name.trim() || !email.trim() || submitState === 'submitting') return;
+
+    setSubmitState('submitting');
+    setSubmitError(null);
+
+    try {
+      const response = await fetch(`${WAITLIST_API_BASE_URL}/waitlist/entries`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          fullName: name.trim(),
+          emailAddress: email.trim(),
+          roleIntent: role === 'creator' ? 'CREATOR' : 'SPONSOR',
+          source: 'varmply-landing-waitlist',
+          utm: getUtmParams(searchParams),
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Waitlist submission failed');
+      }
+
+      setSubmitState('submitted');
+    } catch {
+      setSubmitState('idle');
+      setSubmitError('We could not add you to the waitlist. Please try again.');
+    }
   };
 
   // ── Success screen ──────────────────────────────────────────────────────────
-  if (submitted) {
+  if (submitState === 'submitted') {
     const isCreator = role === 'creator';
     const heroBg = isCreator ? '#006B35' : '#1A40B8';
-    const color = ROLE_COLOR[role!];
     const pattern = isCreator
       ? 'radial-gradient(circle, rgba(255,255,255,0.13) 1px, transparent 1px)'
       : 'repeating-linear-gradient(-45deg, rgba(255,255,255,0.055) 0px, rgba(255,255,255,0.055) 1px, transparent 1px, transparent 18px)';
@@ -91,11 +121,11 @@ function WaitlistContent() {
           <motion.h1 variants={fadeUp}
             className="font-black tracking-tight text-white mb-3"
             style={{ fontSize: 'clamp(32px, 4vw, 52px)', lineHeight: 1.05, paddingBottom: '0.1em' }}>
-            You're on the list.
+            You&apos;re on the list.
           </motion.h1>
 
           <motion.p variants={fadeUp} className="text-white/55 text-sm leading-relaxed mb-10 max-w-xs mx-auto">
-            We'll reach out when Varmply opens to {isCreator ? 'creators' : 'sponsors'} like you. In the meantime, explore what's coming.
+            We&apos;ll reach out when Varmply opens to {isCreator ? 'creators' : 'sponsors'} like you. In the meantime, explore what&apos;s coming.
           </motion.p>
 
           <motion.div variants={fadeUp} className="flex flex-col gap-3 w-full">
@@ -155,7 +185,7 @@ function WaitlistContent() {
             Get early access.
           </motion.h1>
           <motion.p variants={fadeUp} className="text-white/45 text-base leading-relaxed max-w-xs">
-            Tell us who you are. We'll get you in.
+            Tell us who you are. We&apos;ll get you in.
           </motion.p>
         </motion.div>
       </section>
@@ -376,11 +406,11 @@ function WaitlistContent() {
 <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 pt-1">
                 <button
                   type="submit"
-                  disabled={!role || !name || !email}
+                  disabled={!role || !name.trim() || !email.trim() || submitState === 'submitting'}
                   className="flex items-center justify-center gap-2 px-8 py-3.5 rounded-full text-sm font-semibold text-white transition-all disabled:opacity-30 disabled:cursor-not-allowed hover:opacity-90 w-full sm:w-auto"
                   style={{ background: accentColor }}
                 >
-                  Join the Waitlist <ArrowRight size={14} />
+                  {submitState === 'submitting' ? 'Joining...' : 'Join the Waitlist'} <ArrowRight size={14} />
                 </button>
                 <AnimatePresence>
                   {!role && (
@@ -394,6 +424,18 @@ function WaitlistContent() {
                   )}
                 </AnimatePresence>
               </div>
+              <AnimatePresence>
+                {submitError && (
+                  <motion.p
+                    initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                    className="text-[12px]"
+                    style={{ color: '#B91C1C' }}
+                    role="alert"
+                  >
+                    {submitError}
+                  </motion.p>
+                )}
+              </AnimatePresence>
             </form>
           </motion.div>
 
@@ -430,6 +472,17 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
       {children}
     </div>
   );
+}
+
+function getUtmParams(searchParams: URLSearchParams): Record<string, string> | undefined {
+  const utm: Record<string, string> = {};
+  searchParams.forEach((value, key) => {
+    if (key.startsWith('utm_') && value) {
+      utm[key] = value;
+    }
+  });
+
+  return Object.keys(utm).length > 0 ? utm : undefined;
 }
 
 // ─── Page export with Suspense boundary ───────────────────────────────────────
