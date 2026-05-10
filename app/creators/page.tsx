@@ -1,16 +1,22 @@
 'use client';
 
-import { Suspense, useState, useEffect, useLayoutEffect, useRef } from 'react';
+import { Suspense, useEffect, useLayoutEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { ScrollCarousel } from '@/components/ui/ScrollCarousel';
 import Link from 'next/link';
-import { ArrowRight, CheckCircle, Zap, DollarSign, Search, Heart, MessageCircle, Share2, Music2, Star } from 'lucide-react';
+import { ArrowRight, CheckCircle, Zap, DollarSign, Search, Star } from 'lucide-react';
 import { VideoCard } from '@/components/ui/VideoCard';
 import FAQAccordion from '@/components/FAQAccordion';
-import WalletMockup from '@/components/UIComponents/WalletMockup';
 import { PhoneFrame } from '@/components/ui/PhoneFrame';
 import { BrowserChrome } from '@/components/MockupSkeletons';
+import {
+  CreatorEarningsScreen,
+  CreatorHeroSocialScreen,
+  CreatorMarketplaceScreen,
+  CreatorSubmitScreen,
+  CreatorSocialConnectScreen,
+} from '@/components/UIComponents/AppMockScreens';
 
 // ─── Animation helpers ────────────────────────────────────────────────────────
 
@@ -35,303 +41,9 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
   );
 }
 
-// ─── Video carousel for hero phone ──────────────────────────────────────────
-
-const CREATOR_VIDEOS = [
-  '/videos/demo-1.mp4',
-  '/videos/demo-2.mp4',
-  '/videos/demo-3.mp4',
-];
-
-function VideoCarouselScreen() {
-  const [index, setIndex] = useState(0);
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  // Advance every 4 seconds
-  useEffect(() => {
-    const id = setInterval(() => {
-      setIndex(prev => (prev + 1) % CREATOR_VIDEOS.length);
-    }, 4000);
-    return () => clearInterval(id);
-  }, []);
-
-  // Auto-play whenever the video element mounts / src changes
-  useEffect(() => {
-    const el = videoRef.current;
-    if (!el) return;
-    el.play().catch(() => {/* autoplay blocked — silent */});
-  }, [index]);
-
-  return (
-    <div className="h-full w-full relative overflow-hidden" style={{ background: '#000' }}>
-
-      {/* ── Video layer with slide-up transition ── */}
-      <AnimatePresence initial={false}>
-        <motion.div
-          key={index}
-          initial={{ y: '100%' }}
-          animate={{ y: 0 }}
-          exit={{ y: '-100%' }}
-          transition={{ duration: 0.52, ease: [0.32, 0, 0.67, 0] }}
-          className="absolute inset-0"
-        >
-          <video
-            ref={videoRef}
-            src={CREATOR_VIDEOS[index]}
-            autoPlay
-            muted
-            playsInline
-            onLoadedMetadata={(e) => {
-              if (index === 2) {
-                e.currentTarget.currentTime = 4;
-              }
-            }}
-            className="w-full h-full object-cover"
-          />
-        </motion.div>
-      </AnimatePresence>
-
-      {/* ── Dark vignette top + bottom ── */}
-      <div className="absolute inset-0 pointer-events-none z-10" style={{
-        background: 'linear-gradient(180deg, rgba(0,0,0,0.55) 0%, transparent 22%, transparent 60%, rgba(0,0,0,0.80) 100%)',
-      }} />
-
-
-
-      {/* ── Right: action buttons ── */}
-      <div className="absolute right-3 z-20 flex flex-col items-center gap-4" style={{ bottom: 80 }}>
-        <div className="flex flex-col items-center">
-          <div className="w-9 h-9 rounded-full flex items-center justify-center text-[11px] font-bold text-white"
-            style={{ background: '#1A40B8', border: '2px solid white' }}>DA</div>
-          <div className="w-4 h-4 rounded-full flex items-center justify-center -mt-2 z-10"
-            style={{ background: '#1A40B8', border: '1.5px solid white', fontSize: 10, color: 'white', fontWeight: 700 }}>+</div>
-        </div>
-        <div className="flex flex-col items-center gap-0.5">
-          <div className="w-9 h-9 rounded-full flex items-center justify-center"
-            style={{ background: 'rgba(255,255,255,0.18)' }}>
-            <Heart size={16} fill="white" color="white" />
-          </div>
-          <span style={{ fontSize: 9, color: 'white', fontWeight: 600 }}>34.2K</span>
-        </div>
-        <div className="flex flex-col items-center gap-0.5">
-          <div className="w-9 h-9 rounded-full flex items-center justify-center"
-            style={{ background: 'rgba(255,255,255,0.18)' }}>
-            <MessageCircle size={16} fill="white" color="white" />
-          </div>
-          <span style={{ fontSize: 9, color: 'white', fontWeight: 600 }}>1.2K</span>
-        </div>
-        <div className="flex flex-col items-center gap-0.5">
-          <div className="w-9 h-9 rounded-full flex items-center justify-center"
-            style={{ background: 'rgba(255,255,255,0.18)' }}>
-            <Share2 size={15} color="white" />
-          </div>
-          <span style={{ fontSize: 9, color: 'white', fontWeight: 600 }}>Share</span>
-        </div>
-        <div className="w-9 h-9 rounded-full flex items-center justify-center"
-          style={{ background: 'linear-gradient(135deg, #1a1a2e 0%, #2d2d44 100%)', border: '2px solid rgba(255,255,255,0.25)' }}>
-          <Music2 size={14} color="white" />
-        </div>
-      </div>
-
-      {/* ── Bottom: creator info + song ── */}
-      <div className="absolute bottom-0 left-0 z-20 px-4 pb-5" style={{ right: 52 }}>
-        <p style={{ fontSize: 12, fontWeight: 700, color: 'white', marginBottom: 3 }}>@dami_creates</p>
-        <p style={{ fontSize: 10, color: 'rgba(255,255,255,0.80)', marginBottom: 10, lineHeight: 1.4 }}>
-          This drop is different 🔥 #WavyVibes #fyp
-        </p>
-        <div className="flex items-center gap-2 rounded-full px-3 py-1.5"
-          style={{ background: 'rgba(255,255,255,0.12)', backdropFilter: 'blur(8px)', display: 'inline-flex' }}>
-          <Music2 size={10} color="white" />
-          <span style={{ fontSize: 9, color: 'white', fontWeight: 500, whiteSpace: 'nowrap' }}>
-            Wavy Vibes — Burna Boy
-          </span>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// ─── Phone skeletons ──────────────────────────────────────────────────────────
-
-function MobileMarketplaceMockup() {
-  return (
-    <div className="p-4 flex flex-col gap-3 font-sans h-full bg-[#FAFAFA] rounded-[36px] overflow-hidden -mx-2 -mt-4">
-      <div className="flex gap-2 items-center mb-2 px-1">
-        <div className="flex-1 bg-white border border-[#EBEBF2] rounded-full px-3 py-2 text-[11px] text-[#A0A0BA] flex items-center gap-2 shadow-sm">
-           <span className="text-[14px]">🔍</span> Find campaigns...
-        </div>
-        <div className="w-8 h-8 bg-white border border-[#EBEBF2] rounded-full flex items-center justify-center shadow-sm text-[14px]">⚙️</div>
-      </div>
-      
-      <div className="flex gap-2 mb-2 px-1 overflow-hidden shrink-0">
-        {['All', 'Music', 'Tech'].map((t, i) => (
-           <span key={i} className={`px-4 py-1.5 rounded-full text-[10px] font-bold whitespace-nowrap shadow-sm ${i === 0 ? 'bg-[#7C3BED] text-white' : 'bg-white border border-[#EBEBF2] text-[#4A4A6A]'}`}>{t}</span>
-        ))}
-      </div>
-      
-      <div className="flex flex-col gap-2 flex-1 overflow-hidden pb-4">
-        {[
-          { icon: '🎵', brand: 'Rythm Records', title: 'Viral Dance Challenge', reward: '₦45K', tags: ['TikTok', 'Music'] },
-          { icon: '🏦', brand: 'SaveNow', title: 'Q3 Promo Drive', reward: '₦20K', tags: ['Instagram', 'Finance'] },
-          { icon: '🍔', brand: 'Foodie Deliveries', title: 'Lunch Hour Push', reward: '₦15K', tags: ['Both', 'Lifestyle'] }
-        ].map((c, i) => (
-          <div key={i} className="bg-white border border-[#EBEBF2] rounded-2xl p-3.5 flex gap-3 shadow-sm items-center">
-            <div className="w-12 h-12 rounded-xl flex items-center justify-center text-[20px] bg-[#F5F5F7] border border-[#EAEAF0] shrink-0">{c.icon}</div>
-            <div className="flex-1 min-w-0">
-               <p className="text-[9px] font-black text-[#A0A0BA] uppercase mb-0.5">{c.brand}</p>
-               <p className="text-[12px] font-bold text-[#0F0F1A] truncate mb-1.5">{c.title}</p>
-               <div className="flex items-center gap-1.5">
-                 {c.tags.map(t => <span key={t} className="text-[8px] font-bold px-1.5 py-0.5 bg-[rgba(124,59,237,0.06)] border border-[rgba(124,59,237,0.12)] text-[#7C3BED] rounded">{t}</span>)}
-               </div>
-            </div>
-            <div className="flex flex-col items-end gap-1.5 shrink-0">
-               <span className="text-[12px] font-black text-[#00A050] bg-[rgba(0,160,80,0.08)] px-1.5 py-0.5 rounded">{c.reward}</span>
-               <span className="text-[9px] font-bold text-white bg-[#0F0F1A] px-3 py-1 rounded-md shadow-sm">Apply</span>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function MobileProfileMockup() {
-  return (
-    <div className="p-5 flex flex-col items-center gap-4 font-sans h-full bg-[#FAFAFA] rounded-[36px] overflow-hidden -mx-2 -mt-4">
-      <div className="relative mb-2">
-         <div className="w-20 h-20 rounded-full border-[3px] border-[#0F0F1A] p-1 bg-white relative z-10">
-            <div className="w-full h-full rounded-full bg-[#F5F5F7] border border-[#EBEBF2] flex items-center justify-center text-[24px]">👤</div>
-         </div>
-         <div className="absolute -bottom-2 -right-2 w-8 h-8 rounded-full bg-[#00A050] border-2 border-white flex items-center justify-center text-[12px] text-white z-20 shadow-sm">✓</div>
-      </div>
-      
-      <div className="text-center">
-         <p className="text-[16px] font-black text-[#0F0F1A] mb-0.5">Dami Adeyemi</p>
-         <p className="text-[11px] font-bold text-[#A0A0BA]">@dami_creates</p>
-      </div>
-      
-      <div className="w-full flex gap-2 mb-2">
-        <div className="flex-1 rounded-2xl bg-white border border-[rgba(0,160,80,0.2)] shadow-sm flex flex-col items-center justify-center py-3 gap-0.5">
-            <span className="text-[10px] font-bold text-[#A0A0BA] uppercase">Followers</span>
-            <span className="text-[16px] font-black text-[#0F0F1A]">148K</span>
-        </div>
-        <div className="flex-1 rounded-2xl bg-white border border-[rgba(0,160,80,0.2)] shadow-sm flex flex-col items-center justify-center py-3 gap-0.5">
-            <span className="text-[10px] font-bold text-[#A0A0BA] uppercase">Eng. Rate</span>
-            <span className="text-[16px] font-black text-[#00A050]">12.4%</span>
-        </div>
-      </div>
-      
-      <div className="w-full flex flex-col gap-2 mt-4">
-         <span className="text-[10px] font-bold text-[#4A4A6A] uppercase px-1">Linked Profiles</span>
-         <div className="w-full rounded-2xl bg-white border border-[#EBEBF2] p-3 flex justify-between items-center shadow-sm">
-            <div className="flex items-center gap-3">
-               <div className="text-[18px]">📱</div>
-               <div className="flex flex-col">
-                  <span className="text-[11px] font-black text-[#0F0F1A]">TikTok</span>
-                  <span className="text-[9px] text-[#A0A0BA] font-medium">@dami_creates • 120K</span>
-               </div>
-            </div>
-            <span className="text-[9px] font-bold text-[#00A050] bg-[rgba(0,160,80,0.1)] px-2 py-1 rounded">Verified</span>
-         </div>
-         <div className="w-full rounded-2xl bg-white border border-[#EBEBF2] p-3 flex justify-between items-center shadow-sm">
-            <div className="flex items-center gap-3">
-               <div className="text-[18px]">📸</div>
-               <div className="flex flex-col">
-                  <span className="text-[11px] font-black text-[#0F0F1A]">Instagram</span>
-                  <span className="text-[9px] text-[#A0A0BA] font-medium">@dami_creates • 28K</span>
-               </div>
-            </div>
-            <span className="text-[9px] font-bold text-[#00A050] bg-[rgba(0,160,80,0.1)] px-2 py-1 rounded">Verified</span>
-         </div>
-      </div>
-    </div>
-  );
-}
-
-function MobileSubmitMockup() {
-  return (
-    <div className="p-4 flex flex-col gap-4 font-sans h-full bg-[#FAFAFA] rounded-[36px] overflow-hidden -mx-2 -mt-4">
-      <div className="rounded-2xl bg-[rgba(217,119,6,0.05)] border border-[rgba(217,119,6,0.15)] flex flex-col items-center justify-center py-6 px-4 mb-2 shadow-sm relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-24 h-24 bg-[rgba(217,119,6,0.08)] rounded-full -mr-6 -mt-6 pointer-events-none" />
-        <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm text-[16px] mb-2 border border-[#EBEBF2]">🔗</div>
-        <p className="text-[12px] font-black text-[#0F0F1A] text-center mb-1">Submit your link</p>
-        <p className="text-[10px] text-[#A0A0BA] text-center px-4">Paste the link to your live content for verification.</p>
-      </div>
-      
-      <div>
-        <span className="text-[10px] font-bold text-[#4A4A6A] mb-1.5 block px-1">Content Link *</span>
-        <div className="h-11 w-full rounded-xl border border-[#EBEBF2] bg-white flex items-center px-3 shadow-sm">
-           <span className="text-[11px] text-[#D1D1DE] font-semibold">https://tiktok.com/@your_handle/...</span>
-        </div>
-      </div>
-      
-      <div>
-        <span className="text-[10px] font-bold text-[#4A4A6A] mb-1.5 block px-1">Proof / Screenshot (Optional)</span>
-        <div className="w-full rounded-xl border-2 border-dashed border-[#EBEBF2] bg-[#F9F9FB] flex flex-col items-center justify-center py-5">
-           <span className="text-[18px]">📷</span>
-           <span className="text-[9px] font-bold text-[#A0A0BA] mt-2">Tap to upload proof</span>
-        </div>
-      </div>
-      
-      <div className="mt-auto h-12 w-full rounded-full bg-[#D97706] shadow-md flex items-center justify-center text-white text-[12px] font-bold">
-         Submit for Validation
-      </div>
-    </div>
-  );
-}
-
-function MobileWalletMockup() {
-  return (
-    <div className="p-4 flex flex-col gap-3 font-sans h-full bg-[#FAFAFA] rounded-[36px] overflow-hidden -mx-2 -mt-4">
-      <div className="rounded-[24px] p-5 shadow-md relative overflow-hidden shrink-0 border border-[#1E1940]" style={{ background: '#0F0A2E' }}>
-        <div className="absolute right-0 top-0 w-32 h-32 bg-[rgba(37,99,235,0.2)] blur-2xl rounded-full" />
-        <div className="relative z-10">
-           <p className="text-[10px] font-bold text-white/50 uppercase tracking-widest mb-1">Available Balance</p>
-           <p className="text-[28px] font-black text-white mb-4 leading-none mix-blend-plus-lighter">₦145,200</p>
-           <div className="bg-white/10 px-4 py-1.5 rounded-full text-[11px] font-bold text-white border border-white/20 shadow-sm backdrop-blur-md w-max">Withdraw Funds</div>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-2 gap-3 mt-2 shrink-0">
-        <div className="rounded-2xl p-4 bg-white border border-[#EBEBF2] shadow-sm flex flex-col">
-           <span className="text-[9px] font-bold text-[#A0A0BA] uppercase mb-2">Pending Escrow</span>
-           <span className="text-[16px] font-black text-[#0F0F1A]">₦45,000</span>
-        </div>
-        <div className="rounded-2xl p-4 bg-white border border-[#EBEBF2] shadow-sm flex flex-col">
-           <span className="text-[9px] font-bold text-[#A0A0BA] uppercase mb-2">Total Earned</span>
-           <span className="text-[16px] font-black text-[#00A050]">₦390,200</span>
-        </div>
-      </div>
-
-      <div className="flex flex-col gap-0 mt-3 flex-1 overflow-hidden">
-        <div className="flex justify-between items-center mb-1 px-1">
-           <span className="text-[11px] font-bold text-[#4A4A6A] px-1 block">Recent Activity</span>
-           <span className="text-[9px] font-bold text-[#2563EB]">View all</span>
-        </div>
-        {[
-          { icon: '💸', title: 'Campaign Payout', desc: 'Rythm Records — TikTok', amt: '+₦45,000' },
-          { icon: '🏦', title: 'Withdrawal', desc: 'To NovaBank **** 4492', amt: '-₦120,000' },
-          { icon: '🔒', title: 'Escrow Locked', desc: 'SaveNow Q3 Promo', amt: '+₦25,000' }
-        ].map((item, i) => (
-          <div key={i} className="flex justify-between items-center py-2.5 border-b border-[#F0F0F5] border-dashed last:border-0">
-            <div className="flex gap-3 items-center">
-              <div className="h-9 w-9 rounded-xl bg-[#F5F5F7] text-[14px] flex items-center justify-center border border-[#EBEBF2]">{item.icon}</div>
-              <div className="flex flex-col justify-center">
-                <p className="text-[11px] font-bold text-[#0F0F1A] leading-tight mb-[1px]">{item.title}</p>
-                <p className="text-[9px] text-[#A0A0BA] leading-none">{item.desc}</p>
-              </div>
-            </div>
-            <span className={`text-[11px] font-black ${item.amt.startsWith('+') ? 'text-[#00A050]' : 'text-[#0F0F1A]'}`}>{item.amt}</span>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
 const phoneVisual = (children: React.ReactNode) => (
-  <div className="mt-8 relative h-[200px] md:h-[250px] w-full flex justify-center overflow-hidden pointer-events-none">
-    <div className="absolute top-0 flex justify-center" style={{ transform: 'scale(0.85)', transformOrigin: 'top center', width: 320 }}>
+  <div className="mt-7 relative h-[260px] md:h-[330px] w-full flex justify-center overflow-hidden pointer-events-none">
+    <div className="absolute top-0 flex justify-center" style={{ transform: 'scale(0.7)', transformOrigin: 'top center', width: 320 }}>
       <PhoneFrame screenBg="#FFFFFF">
         <div className="w-full h-[696px] bg-white pt-10">
           {children}
@@ -450,8 +162,8 @@ export default function CreatorsPage() {
             <motion.div variants={fadeUp} className="lg:hidden mt-8">
               <div className="relative w-full overflow-hidden h-[420px]">
                 <div className="absolute top-0 left-1/2" style={{ transform: 'translateX(-50%)' }}>
-                  <PhoneFrame screenBg="#000">
-                    <VideoCarouselScreen />
+                  <PhoneFrame screenBg="#F7F8FA">
+                    <CreatorHeroSocialScreen />
                   </PhoneFrame>
                 </div>
               </div>
@@ -490,8 +202,8 @@ export default function CreatorsPage() {
                   style={{ height: 110, background: 'linear-gradient(to bottom, transparent, rgba(10,20,80,0.90))' }}
                 />
                 <div className="creator-hero-phone absolute bottom-0 w-full flex justify-center">
-                  <PhoneFrame screenBg="#000">
-                    <VideoCarouselScreen />
+                  <PhoneFrame screenBg="#F7F8FA">
+                    <CreatorHeroSocialScreen />
                   </PhoneFrame>
                 </div>
               </motion.div>
@@ -528,30 +240,30 @@ export default function CreatorsPage() {
                 step: '01', accent: '#7C3BED', bgTint: 'rgba(124,59,237,0.05)', border: 'rgba(124,59,237,0.14)',
                 label: 'Browse the marketplace', tag: 'DISCOVERY',
                 description: 'Discover campaigns curated for you, all in one place. Every campaign shows full requirements before you apply.',
-                phone: <MobileMarketplaceMockup />,
+                phone: <CreatorMarketplaceScreen compact />,
               },
               {
                 step: '02', accent: '#00A050', bgTint: 'rgba(0,160,80,0.05)', border: 'rgba(0,160,80,0.14)',
                 label: 'Connect & apply', tag: 'APPLICATION',
                 description: 'Link your social accounts to unlock your access to campaign feed and enable performance tracking. Varmply handles the reporting, you do the chilling.',
-                phone: <MobileProfileMockup />,
+                phone: <CreatorSocialConnectScreen compact />,
               },
               {
                 step: '03', accent: '#D97706', bgTint: 'rgba(217,119,6,0.05)', border: 'rgba(217,119,6,0.14)',
                 label: 'Submit your content', tag: 'DELIVERY',
                 description: 'Create content that matches the campaign brief, post it, then drop your link. From there, Varmply handles the heavy lifting—tracking, verification, and everything in between.',
-                phone: <MobileSubmitMockup />,
+                phone: <CreatorSubmitScreen compact />,
               },
               {
                 step: '04', accent: '#2563EB', bgTint: 'rgba(37,99,235,0.05)', border: 'rgba(37,99,235,0.14)',
                 label: 'Result-backed earnings', tag: 'EARNINGS',
                 description: 'Your earnings are tied directly to the results you generate. At the end of each campaign, you receive payment based on the total value of engagement you delivered.',
-                phone: <MobileWalletMockup />,
+                phone: <CreatorEarningsScreen compact />,
               },
             ].map((s, i) => (
               <motion.div key={i} variants={fadeUp} className="shrink-0 w-[82vw] snap-start md:w-auto self-stretch flex flex-col">
                 <div className="relative overflow-hidden rounded-[32px] flex flex-col flex-1"
-                  style={{ background: s.bgTint, border: `1px solid ${s.border}`, minHeight: 380 }}>
+                  style={{ background: s.bgTint, border: `1px solid ${s.border}`, minHeight: 520 }}>
                   {/* Ghost step number */}
                   <span className="absolute -bottom-6 -right-2 font-black select-none pointer-events-none leading-none"
                     style={{ fontSize: '13rem', color: s.accent, opacity: 0.055, letterSpacing: '-0.06em' }}>
@@ -746,7 +458,7 @@ export default function CreatorsPage() {
                   style={{ border: '1px solid rgba(0,160,80,0.10)', boxShadow: '0 4px 24px rgba(0,160,80,0.08)' }}>
                   <BrowserChrome url="app.varmply.com/wallet" />
                   <div className="bg-[#FAFAFA] overflow-hidden" style={{ height: 340 }}>
-                    <WalletMockup />
+                    <CreatorEarningsScreen />
                   </div>
                 </div>
                 {/* Mobile version (Phone visual) */}
@@ -754,7 +466,7 @@ export default function CreatorsPage() {
                   <div className="absolute top-0 flex justify-center" style={{ transform: 'scale(0.85)', transformOrigin: 'top center', width: 320 }}>
                     <PhoneFrame screenBg="#FFFFFF">
                       <div className="w-full h-[696px] bg-white pt-6">
-                        <MobileWalletMockup />
+                        <CreatorEarningsScreen compact />
                       </div>
                     </PhoneFrame>
                   </div>
@@ -863,7 +575,7 @@ export default function CreatorsPage() {
                     <div className="h-px mb-6" style={{ background: 'rgba(124,59,237,0.14)' }} />
                     <h3 className="font-bold text-base mb-2 text-[#0F0F1A]">Clear rules upfront</h3>
                     <p className="text-sm text-[#4A4A6A] leading-relaxed flex-1">
-                      Every campaign shows exactly what's required before you commit. No hidden clauses, no last-minute surprises.
+                      Every campaign shows exactly what&apos;s required before you commit. No hidden clauses, no last-minute surprises.
                     </p>
                   </div>
                   <div className="grid grid-cols-2" style={{ borderTop: '1px solid rgba(124,59,237,0.12)' }}>

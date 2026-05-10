@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: 'Privacy Policy — Varmply',
-  description: 'Learn how Varmply collects, uses, and protects your personal data. Aligned with the Nigeria Data Protection Act 2023.',
+  description: 'Learn how Varmply collects, uses, and protects account data, campaign evidence, social metrics, and payment information.',
 };
 
 // ─── Section label chip ───────────────────────────────────────────────────────
@@ -142,8 +142,8 @@ export default function PrivacyPage() {
           {/* Quick links */}
           <div className="mt-8 flex flex-wrap gap-3">
             {[
-              'Data We Collect', 'How We Use It', 'Sharing', 'Data Retention',
-              'Your Rights', 'Security', 'Contact Us',
+              'Data We Collect', 'Social Metrics', 'Payment Data', 'How We Use It',
+              'Sharing', 'Retention', 'Your Rights', 'Security',
             ].map((label) => (
               <span
                 key={label}
@@ -167,9 +167,9 @@ export default function PrivacyPage() {
 
           <Clause number="01" title="Who We Are">
             <p>
-              Varmply is a digital platform that connects creators, influencers, musicians, and
-              brands to collaborate on campaigns and sponsorship opportunities. For the purposes
-              of data protection laws, Varmply acts as the{' '}
+              Varmply is a platform for structured creator campaigns, funded sponsor briefs,
+              campaign verification, and creator payouts. For the purposes of data protection
+              laws, Varmply acts as the{' '}
               <span className="font-semibold" style={{ color: '#0F0F1A' }}>Data Controller</span>{' '}
               of personal data collected through the platform.
             </p>
@@ -190,12 +190,13 @@ export default function PrivacyPage() {
 
           <Clause number="02" title="Information We Collect">
             <p>
-              We collect personal information necessary to operate and improve the Varmply
+              We collect information necessary to operate funded creator campaigns, verify
+              deliverables, process payouts, protect against fraud, and improve the Varmply
               platform. This includes:
             </p>
             <div className="space-y-3 pt-1">
               <DataCategory
-                label="Information You Provide"
+                label="Account and Profile Data"
                 items={[
                   'Full name',
                   'Email address',
@@ -208,20 +209,39 @@ export default function PrivacyPage() {
                 ]}
               />
               <DataCategory
-                label="Campaign and Collaboration Data"
+                label="Campaign Evidence and Collaboration Data"
                 items={[
                   'Campaign details',
                   'Creator deliverables',
-                  'Engagement and performance metrics',
+                  'Submission links, screenshots, captions, timestamps, and review notes',
                   'Sponsorship agreements',
                 ]}
               />
               <DataCategory
-                label="Payment and Financial Information"
+                label="Public Social Metrics"
+                items={[
+                  'Public profile data',
+                  'Follower counts',
+                  'Likes, comments, shares, views, reach, impressions, and engagement rates',
+                  'Public post URLs and publicly visible campaign activity',
+                ]}
+              />
+              <DataCategory
+                label="Authorized Integration Data"
+                items={[
+                  'Social account identifiers and handles',
+                  'Permitted metrics returned by connected social platforms',
+                  'Connection status and integration logs',
+                  'Data needed to confirm campaign participation and performance',
+                ]}
+              />
+              <DataCategory
+                label="Payment, Identity, and Transaction Data"
                 items={[
                   'Payment account details',
                   'Transaction history',
                   'Campaign payout records',
+                  'Refund, chargeback, tax, compliance, and fraud-review records',
                 ]}
               />
               <DataCategory
@@ -243,8 +263,10 @@ export default function PrivacyPage() {
           <Clause number="03" title="Cookies and Tracking Technologies">
             <p>
               Varmply uses cookies and similar technologies to maintain login sessions, analyze
-              usage patterns, improve website performance, and personalize user experience.
-              Users can control cookies through their browser settings.
+              usage patterns, improve website performance, remember preferences, detect fraud,
+              and personalize user experience. Users can control cookies through their browser
+              settings, although some cookies may be required for login, security, or platform
+              operation.
             </p>
           </Clause>
 
@@ -252,15 +274,19 @@ export default function PrivacyPage() {
             <div className="space-y-3">
               <div>
                 <p className="font-semibold mb-1" style={{ color: '#0F0F1A' }}>Platform Operations</p>
-                <p>Account creation, connecting creators with brands, managing campaigns, processing payments.</p>
+                <p>Account creation, matching creators and sponsors, managing campaigns, verifying deliverables, and processing payments.</p>
               </div>
               <div>
-                <p className="font-semibold mb-1" style={{ color: '#0F0F1A' }}>Platform Improvement</p>
-                <p>Monitoring usage patterns, improving features, detecting fraud.</p>
+                <p className="font-semibold mb-1" style={{ color: '#0F0F1A' }}>Verification and Trust</p>
+                <p>Reviewing campaign evidence, validating public or authorized metrics, handling disputes, preventing fraud, and protecting payment flows.</p>
               </div>
               <div>
                 <p className="font-semibold mb-1" style={{ color: '#0F0F1A' }}>Communication</p>
-                <p>Platform updates, customer support, and marketing communications where permitted.</p>
+                <p>Platform updates, campaign notices, customer support, and marketing communications where permitted.</p>
+              </div>
+              <div>
+                <p className="font-semibold mb-1" style={{ color: '#0F0F1A' }}>Platform Improvement</p>
+                <p>Monitoring usage patterns, improving features, debugging errors, and measuring platform performance.</p>
               </div>
             </div>
           </Clause>
@@ -278,8 +304,9 @@ export default function PrivacyPage() {
               Varmply does not sell personal information. Information may be shared with:
             </p>
             <BulletList items={[
-              'Other platform users for campaign collaboration',
-              'Service providers such as payment processors, hosting providers, and analytics services',
+              'Other platform users where needed for campaign collaboration, review, verification, or dispute handling',
+              'Service providers such as payment processors, hosting providers, analytics services, fraud-prevention tools, and customer-support tools',
+              'Connected social platforms when users authorize an integration or request a connection',
               'Relevant authorities where required by law',
             ]} />
           </Clause>
@@ -287,8 +314,20 @@ export default function PrivacyPage() {
           <Clause number="07" title="Data Retention">
             <p>
               Personal data is retained only as long as necessary to provide services, comply
-              with legal obligations, resolve disputes, and enforce agreements. Users may request
-              deletion of their data at any time.
+              with legal obligations, resolve disputes, verify campaigns, prevent fraud, process
+              payments, and enforce agreements.
+            </p>
+            <p>In practice, retention may vary by category:</p>
+            <BulletList items={[
+              'Account and profile records are retained while an account remains active',
+              'Campaign evidence, verification records, and dispute history may be retained after a campaign closes to preserve audit history',
+              'Payment, refund, chargeback, tax, accounting, and compliance records may be retained where required by law or payment-provider rules',
+              'Security logs and fraud signals may be retained for platform integrity and abuse prevention',
+            ]} />
+            <p>
+              Users may request deletion of their data, but deletion may be limited where records
+              must be kept for legal, payment, accounting, fraud-prevention, dispute, or platform
+              integrity reasons.
             </p>
           </Clause>
 
@@ -311,8 +350,9 @@ export default function PrivacyPage() {
           <Clause number="09" title="International Data Transfers">
             <p>
               Because Varmply may operate globally, data may be transferred to countries outside
-              the user's country of residence. Appropriate safeguards are implemented to protect
-              personal data during such transfers.
+              the user&apos;s country of residence. Varmply uses appropriate safeguards, service-provider
+              contracts, access controls, and security measures to protect personal data during
+              such transfers.
             </p>
           </Clause>
 
@@ -337,6 +377,12 @@ export default function PrivacyPage() {
                 privacy@varmply.com
               </a>
               .
+            </p>
+            <p>
+              Varmply will review privacy requests within a reasonable period and may need to
+              verify the requester&apos;s identity before acting. Some requests may be limited where
+              Varmply must retain records for campaign verification, disputes, fraud prevention,
+              legal compliance, tax, accounting, or payment-provider requirements.
             </p>
           </Clause>
 
@@ -366,7 +412,7 @@ export default function PrivacyPage() {
           <Clause number="14" title="Updates to This Privacy Policy">
             <p>
               This Privacy Policy may be updated periodically. Updates will be reflected by
-              revising the "Last Updated" date at the top of this page. Continued use of the
+              revising the &quot;Last Updated&quot; date at the top of this page. Continued use of the
               platform after updates constitutes acceptance of the revised policy.
             </p>
           </Clause>
