@@ -6,11 +6,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ScrollCarousel } from '@/components/ui/ScrollCarousel';
 import Link from 'next/link';
 import { ArrowRight, CheckCircle, Zap, DollarSign, Search, Heart, MessageCircle, Share2, Music2, Star } from 'lucide-react';
+import Image from 'next/image';
 import { VideoCard } from '@/components/ui/VideoCard';
 import FAQAccordion from '@/components/FAQAccordion';
-import WalletMockup from '@/components/UIComponents/WalletMockup';
 import { PhoneFrame } from '@/components/ui/PhoneFrame';
-import { BrowserChrome } from '@/components/MockupSkeletons';
 
 // ─── Animation helpers ────────────────────────────────────────────────────────
 
@@ -37,309 +36,196 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
 
 // ─── Video carousel for hero phone ──────────────────────────────────────────
 
-const CREATOR_VIDEOS = [
-  '/videos/demo-1.mp4',
-  '/videos/demo-2.mp4',
-  '/videos/demo-3.mp4',
+const CREATOR_FEED = [
+  {
+    src: '/videos/demo-1.mp4#t=4',
+    handle: '@dami_creates',
+    caption: 'This drop is different 🔥 #WavyVibes #fyp',
+    song: 'Wavy Vibes — Burna Boy',
+    likes: '34.2K',
+    comments: '1.2K',
+    avatar: 'DA',
+    avatarColor: '#1A40B8',
+  },
+  {
+    src: '/videos/demo-2.mp4',
+    handle: '@temi_vibes',
+    caption: 'Campaign secured 💸 #Varmply #fyp',
+    song: 'Lagos Summer — Olu Fire',
+    likes: '89.1K',
+    comments: '3.4K',
+    avatar: 'TV',
+    avatarColor: '#6406CF',
+  },
+  {
+    src: '/videos/demo-3.mp4',
+    handle: '@chuka.tv',
+    caption: 'When the metrics hit different 📊 #fyp',
+    song: 'Afrobeats Nights — Burna Boy',
+    likes: '210K',
+    comments: '8.7K',
+    avatar: 'CT',
+    avatarColor: '#00A050',
+  },
 ];
 
 function VideoCarouselScreen() {
   const [index, setIndex] = useState(0);
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  // Advance every 4 seconds
   useEffect(() => {
     const id = setInterval(() => {
-      setIndex(prev => (prev + 1) % CREATOR_VIDEOS.length);
-    }, 4000);
+      setIndex(prev => (prev + 1) % CREATOR_FEED.length);
+    }, 4500);
     return () => clearInterval(id);
   }, []);
 
-  // Auto-play whenever the video element mounts / src changes
   useEffect(() => {
     const el = videoRef.current;
     if (!el) return;
-    el.play().catch(() => {/* autoplay blocked — silent */});
+    el.play().catch(() => {});
   }, [index]);
 
   return (
     <div className="h-full w-full relative overflow-hidden" style={{ background: '#000' }}>
 
-      {/* ── Video layer with slide-up transition ── */}
+      {/* ── Slide-up transition: video + all overlays move together ── */}
       <AnimatePresence initial={false}>
-        <motion.div
-          key={index}
-          initial={{ y: '100%' }}
-          animate={{ y: 0 }}
-          exit={{ y: '-100%' }}
-          transition={{ duration: 0.52, ease: [0.32, 0, 0.67, 0] }}
-          className="absolute inset-0"
-        >
-          <video
-            ref={videoRef}
-            src={CREATOR_VIDEOS[index]}
-            autoPlay
-            muted
-            playsInline
-            onLoadedMetadata={(e) => {
-              if (index === 2) {
-                e.currentTarget.currentTime = 4;
-              }
-            }}
-            className="w-full h-full object-cover"
-          />
-        </motion.div>
-      </AnimatePresence>
+        {CREATOR_FEED.map((item, i) => i === index && (
+          <motion.div
+            key={i}
+            initial={{ y: '100%' }}
+            animate={{ y: 0 }}
+            exit={{ y: '-100%' }}
+            transition={{ duration: 0.52, ease: [0.32, 0, 0.67, 0] }}
+            className="absolute inset-0"
+          >
+            {/* Video */}
+            <video
+              ref={videoRef}
+              src={item.src}
+              autoPlay
+              muted
+              playsInline
+              className="w-full h-full object-cover"
+            />
 
-      {/* ── Dark vignette top + bottom ── */}
-      <div className="absolute inset-0 pointer-events-none z-10" style={{
-        background: 'linear-gradient(180deg, rgba(0,0,0,0.55) 0%, transparent 22%, transparent 60%, rgba(0,0,0,0.80) 100%)',
-      }} />
+            {/* Vignette */}
+            <div className="absolute inset-0 pointer-events-none" style={{
+              background: 'linear-gradient(180deg, rgba(0,0,0,0.5) 0%, transparent 22%, transparent 55%, rgba(0,0,0,0.82) 100%)',
+            }} />
 
-
-
-      {/* ── Right: action buttons ── */}
-      <div className="absolute right-3 z-20 flex flex-col items-center gap-4" style={{ bottom: 80 }}>
-        <div className="flex flex-col items-center">
-          <div className="w-9 h-9 rounded-full flex items-center justify-center text-[11px] font-bold text-white"
-            style={{ background: '#1A40B8', border: '2px solid white' }}>DA</div>
-          <div className="w-4 h-4 rounded-full flex items-center justify-center -mt-2 z-10"
-            style={{ background: '#1A40B8', border: '1.5px solid white', fontSize: 10, color: 'white', fontWeight: 700 }}>+</div>
-        </div>
-        <div className="flex flex-col items-center gap-0.5">
-          <div className="w-9 h-9 rounded-full flex items-center justify-center"
-            style={{ background: 'rgba(255,255,255,0.18)' }}>
-            <Heart size={16} fill="white" color="white" />
-          </div>
-          <span style={{ fontSize: 9, color: 'white', fontWeight: 600 }}>34.2K</span>
-        </div>
-        <div className="flex flex-col items-center gap-0.5">
-          <div className="w-9 h-9 rounded-full flex items-center justify-center"
-            style={{ background: 'rgba(255,255,255,0.18)' }}>
-            <MessageCircle size={16} fill="white" color="white" />
-          </div>
-          <span style={{ fontSize: 9, color: 'white', fontWeight: 600 }}>1.2K</span>
-        </div>
-        <div className="flex flex-col items-center gap-0.5">
-          <div className="w-9 h-9 rounded-full flex items-center justify-center"
-            style={{ background: 'rgba(255,255,255,0.18)' }}>
-            <Share2 size={15} color="white" />
-          </div>
-          <span style={{ fontSize: 9, color: 'white', fontWeight: 600 }}>Share</span>
-        </div>
-        <div className="w-9 h-9 rounded-full flex items-center justify-center"
-          style={{ background: 'linear-gradient(135deg, #1a1a2e 0%, #2d2d44 100%)', border: '2px solid rgba(255,255,255,0.25)' }}>
-          <Music2 size={14} color="white" />
-        </div>
-      </div>
-
-      {/* ── Bottom: creator info + song ── */}
-      <div className="absolute bottom-0 left-0 z-20 px-4 pb-5" style={{ right: 52 }}>
-        <p style={{ fontSize: 12, fontWeight: 700, color: 'white', marginBottom: 3 }}>@dami_creates</p>
-        <p style={{ fontSize: 10, color: 'rgba(255,255,255,0.80)', marginBottom: 10, lineHeight: 1.4 }}>
-          This drop is different 🔥 #WavyVibes #fyp
-        </p>
-        <div className="flex items-center gap-2 rounded-full px-3 py-1.5"
-          style={{ background: 'rgba(255,255,255,0.12)', backdropFilter: 'blur(8px)', display: 'inline-flex' }}>
-          <Music2 size={10} color="white" />
-          <span style={{ fontSize: 9, color: 'white', fontWeight: 500, whiteSpace: 'nowrap' }}>
-            Wavy Vibes — Burna Boy
-          </span>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// ─── Phone skeletons ──────────────────────────────────────────────────────────
-
-function MobileMarketplaceMockup() {
-  return (
-    <div className="p-4 flex flex-col gap-3 font-sans h-full bg-[#FAFAFA] rounded-[36px] overflow-hidden -mx-2 -mt-4">
-      <div className="flex gap-2 items-center mb-2 px-1">
-        <div className="flex-1 bg-white border border-[#EBEBF2] rounded-full px-3 py-2 text-[11px] text-[#A0A0BA] flex items-center gap-2 shadow-sm">
-           <span className="text-[14px]">🔍</span> Find campaigns...
-        </div>
-        <div className="w-8 h-8 bg-white border border-[#EBEBF2] rounded-full flex items-center justify-center shadow-sm text-[14px]">⚙️</div>
-      </div>
-      
-      <div className="flex gap-2 mb-2 px-1 overflow-hidden shrink-0">
-        {['All', 'Music', 'Tech'].map((t, i) => (
-           <span key={i} className={`px-4 py-1.5 rounded-full text-[10px] font-bold whitespace-nowrap shadow-sm ${i === 0 ? 'bg-[#7C3BED] text-white' : 'bg-white border border-[#EBEBF2] text-[#4A4A6A]'}`}>{t}</span>
-        ))}
-      </div>
-      
-      <div className="flex flex-col gap-2 flex-1 overflow-hidden pb-4">
-        {[
-          { icon: '🎵', brand: 'Rythm Records', title: 'Viral Dance Challenge', reward: '₦45K', tags: ['TikTok', 'Music'] },
-          { icon: '🏦', brand: 'SaveNow', title: 'Q3 Promo Drive', reward: '₦20K', tags: ['Instagram', 'Finance'] },
-          { icon: '🍔', brand: 'Foodie Deliveries', title: 'Lunch Hour Push', reward: '₦15K', tags: ['Both', 'Lifestyle'] }
-        ].map((c, i) => (
-          <div key={i} className="bg-white border border-[#EBEBF2] rounded-2xl p-3.5 flex gap-3 shadow-sm items-center">
-            <div className="w-12 h-12 rounded-xl flex items-center justify-center text-[20px] bg-[#F5F5F7] border border-[#EAEAF0] shrink-0">{c.icon}</div>
-            <div className="flex-1 min-w-0">
-               <p className="text-[9px] font-black text-[#A0A0BA] uppercase mb-0.5">{c.brand}</p>
-               <p className="text-[12px] font-bold text-[#0F0F1A] truncate mb-1.5">{c.title}</p>
-               <div className="flex items-center gap-1.5">
-                 {c.tags.map(t => <span key={t} className="text-[8px] font-bold px-1.5 py-0.5 bg-[rgba(124,59,237,0.06)] border border-[rgba(124,59,237,0.12)] text-[#7C3BED] rounded">{t}</span>)}
-               </div>
-            </div>
-            <div className="flex flex-col items-end gap-1.5 shrink-0">
-               <span className="text-[12px] font-black text-[#00A050] bg-[rgba(0,160,80,0.08)] px-1.5 py-0.5 rounded">{c.reward}</span>
-               <span className="text-[9px] font-bold text-white bg-[#0F0F1A] px-3 py-1 rounded-md shadow-sm">Apply</span>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function MobileProfileMockup() {
-  return (
-    <div className="p-5 flex flex-col items-center gap-4 font-sans h-full bg-[#FAFAFA] rounded-[36px] overflow-hidden -mx-2 -mt-4">
-      <div className="relative mb-2">
-         <div className="w-20 h-20 rounded-full border-[3px] border-[#0F0F1A] p-1 bg-white relative z-10">
-            <div className="w-full h-full rounded-full bg-[#F5F5F7] border border-[#EBEBF2] flex items-center justify-center text-[24px]">👤</div>
-         </div>
-         <div className="absolute -bottom-2 -right-2 w-8 h-8 rounded-full bg-[#00A050] border-2 border-white flex items-center justify-center text-[12px] text-white z-20 shadow-sm">✓</div>
-      </div>
-      
-      <div className="text-center">
-         <p className="text-[16px] font-black text-[#0F0F1A] mb-0.5">Dami Adeyemi</p>
-         <p className="text-[11px] font-bold text-[#A0A0BA]">@dami_creates</p>
-      </div>
-      
-      <div className="w-full flex gap-2 mb-2">
-        <div className="flex-1 rounded-2xl bg-white border border-[rgba(0,160,80,0.2)] shadow-sm flex flex-col items-center justify-center py-3 gap-0.5">
-            <span className="text-[10px] font-bold text-[#A0A0BA] uppercase">Followers</span>
-            <span className="text-[16px] font-black text-[#0F0F1A]">148K</span>
-        </div>
-        <div className="flex-1 rounded-2xl bg-white border border-[rgba(0,160,80,0.2)] shadow-sm flex flex-col items-center justify-center py-3 gap-0.5">
-            <span className="text-[10px] font-bold text-[#A0A0BA] uppercase">Eng. Rate</span>
-            <span className="text-[16px] font-black text-[#00A050]">12.4%</span>
-        </div>
-      </div>
-      
-      <div className="w-full flex flex-col gap-2 mt-4">
-         <span className="text-[10px] font-bold text-[#4A4A6A] uppercase px-1">Linked Profiles</span>
-         <div className="w-full rounded-2xl bg-white border border-[#EBEBF2] p-3 flex justify-between items-center shadow-sm">
-            <div className="flex items-center gap-3">
-               <div className="text-[18px]">📱</div>
-               <div className="flex flex-col">
-                  <span className="text-[11px] font-black text-[#0F0F1A]">TikTok</span>
-                  <span className="text-[9px] text-[#A0A0BA] font-medium">@dami_creates • 120K</span>
-               </div>
-            </div>
-            <span className="text-[9px] font-bold text-[#00A050] bg-[rgba(0,160,80,0.1)] px-2 py-1 rounded">Verified</span>
-         </div>
-         <div className="w-full rounded-2xl bg-white border border-[#EBEBF2] p-3 flex justify-between items-center shadow-sm">
-            <div className="flex items-center gap-3">
-               <div className="text-[18px]">📸</div>
-               <div className="flex flex-col">
-                  <span className="text-[11px] font-black text-[#0F0F1A]">Instagram</span>
-                  <span className="text-[9px] text-[#A0A0BA] font-medium">@dami_creates • 28K</span>
-               </div>
-            </div>
-            <span className="text-[9px] font-bold text-[#00A050] bg-[rgba(0,160,80,0.1)] px-2 py-1 rounded">Verified</span>
-         </div>
-      </div>
-    </div>
-  );
-}
-
-function MobileSubmitMockup() {
-  return (
-    <div className="p-4 flex flex-col gap-4 font-sans h-full bg-[#FAFAFA] rounded-[36px] overflow-hidden -mx-2 -mt-4">
-      <div className="rounded-2xl bg-[rgba(217,119,6,0.05)] border border-[rgba(217,119,6,0.15)] flex flex-col items-center justify-center py-6 px-4 mb-2 shadow-sm relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-24 h-24 bg-[rgba(217,119,6,0.08)] rounded-full -mr-6 -mt-6 pointer-events-none" />
-        <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm text-[16px] mb-2 border border-[#EBEBF2]">🔗</div>
-        <p className="text-[12px] font-black text-[#0F0F1A] text-center mb-1">Submit your link</p>
-        <p className="text-[10px] text-[#A0A0BA] text-center px-4">Paste the link to your live content for verification.</p>
-      </div>
-      
-      <div>
-        <span className="text-[10px] font-bold text-[#4A4A6A] mb-1.5 block px-1">Content Link *</span>
-        <div className="h-11 w-full rounded-xl border border-[#EBEBF2] bg-white flex items-center px-3 shadow-sm">
-           <span className="text-[11px] text-[#D1D1DE] font-semibold">https://tiktok.com/@your_handle/...</span>
-        </div>
-      </div>
-      
-      <div>
-        <span className="text-[10px] font-bold text-[#4A4A6A] mb-1.5 block px-1">Proof / Screenshot (Optional)</span>
-        <div className="w-full rounded-xl border-2 border-dashed border-[#EBEBF2] bg-[#F9F9FB] flex flex-col items-center justify-center py-5">
-           <span className="text-[18px]">📷</span>
-           <span className="text-[9px] font-bold text-[#A0A0BA] mt-2">Tap to upload proof</span>
-        </div>
-      </div>
-      
-      <div className="mt-auto h-12 w-full rounded-full bg-[#D97706] shadow-md flex items-center justify-center text-white text-[12px] font-bold">
-         Submit for Validation
-      </div>
-    </div>
-  );
-}
-
-function MobileWalletMockup() {
-  return (
-    <div className="p-4 flex flex-col gap-3 font-sans h-full bg-[#FAFAFA] rounded-[36px] overflow-hidden -mx-2 -mt-4">
-      <div className="rounded-[24px] p-5 shadow-md relative overflow-hidden shrink-0 border border-[#1E1940]" style={{ background: '#0F0A2E' }}>
-        <div className="absolute right-0 top-0 w-32 h-32 bg-[rgba(37,99,235,0.2)] blur-2xl rounded-full" />
-        <div className="relative z-10">
-           <p className="text-[10px] font-bold text-white/50 uppercase tracking-widest mb-1">Available Balance</p>
-           <p className="text-[28px] font-black text-white mb-4 leading-none mix-blend-plus-lighter">₦145,200</p>
-           <div className="bg-white/10 px-4 py-1.5 rounded-full text-[11px] font-bold text-white border border-white/20 shadow-sm backdrop-blur-md w-max">Withdraw Funds</div>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-2 gap-3 mt-2 shrink-0">
-        <div className="rounded-2xl p-4 bg-white border border-[#EBEBF2] shadow-sm flex flex-col">
-           <span className="text-[9px] font-bold text-[#A0A0BA] uppercase mb-2">Pending Escrow</span>
-           <span className="text-[16px] font-black text-[#0F0F1A]">₦45,000</span>
-        </div>
-        <div className="rounded-2xl p-4 bg-white border border-[#EBEBF2] shadow-sm flex flex-col">
-           <span className="text-[9px] font-bold text-[#A0A0BA] uppercase mb-2">Total Earned</span>
-           <span className="text-[16px] font-black text-[#00A050]">₦390,200</span>
-        </div>
-      </div>
-
-      <div className="flex flex-col gap-0 mt-3 flex-1 overflow-hidden">
-        <div className="flex justify-between items-center mb-1 px-1">
-           <span className="text-[11px] font-bold text-[#4A4A6A] px-1 block">Recent Activity</span>
-           <span className="text-[9px] font-bold text-[#2563EB]">View all</span>
-        </div>
-        {[
-          { icon: '💸', title: 'Campaign Payout', desc: 'Rythm Records — TikTok', amt: '+₦45,000' },
-          { icon: '🏦', title: 'Withdrawal', desc: 'To NovaBank **** 4492', amt: '-₦120,000' },
-          { icon: '🔒', title: 'Escrow Locked', desc: 'SaveNow Q3 Promo', amt: '+₦25,000' }
-        ].map((item, i) => (
-          <div key={i} className="flex justify-between items-center py-2.5 border-b border-[#F0F0F5] border-dashed last:border-0">
-            <div className="flex gap-3 items-center">
-              <div className="h-9 w-9 rounded-xl bg-[#F5F5F7] text-[14px] flex items-center justify-center border border-[#EBEBF2]">{item.icon}</div>
-              <div className="flex flex-col justify-center">
-                <p className="text-[11px] font-bold text-[#0F0F1A] leading-tight mb-[1px]">{item.title}</p>
-                <p className="text-[9px] text-[#A0A0BA] leading-none">{item.desc}</p>
+            {/* Right: action buttons */}
+            <div className="absolute right-3 flex flex-col items-center gap-4" style={{ bottom: 80 }}>
+              <div className="flex flex-col items-center">
+                <div className="w-9 h-9 rounded-full flex items-center justify-center text-[11px] font-bold text-white"
+                  style={{ background: item.avatarColor, border: '2px solid white' }}>
+                  {item.avatar}
+                </div>
+                <div className="w-4 h-4 rounded-full flex items-center justify-center -mt-2 z-10"
+                  style={{ background: item.avatarColor, border: '1.5px solid white', fontSize: 10, color: 'white', fontWeight: 700 }}>+</div>
+              </div>
+              <div className="flex flex-col items-center gap-0.5">
+                <div className="w-9 h-9 rounded-full flex items-center justify-center"
+                  style={{ background: 'rgba(255,255,255,0.18)' }}>
+                  <Heart size={16} fill="white" color="white" />
+                </div>
+                <span style={{ fontSize: 9, color: 'white', fontWeight: 600 }}>{item.likes}</span>
+              </div>
+              <div className="flex flex-col items-center gap-0.5">
+                <div className="w-9 h-9 rounded-full flex items-center justify-center"
+                  style={{ background: 'rgba(255,255,255,0.18)' }}>
+                  <MessageCircle size={16} fill="white" color="white" />
+                </div>
+                <span style={{ fontSize: 9, color: 'white', fontWeight: 600 }}>{item.comments}</span>
+              </div>
+              <div className="flex flex-col items-center gap-0.5">
+                <div className="w-9 h-9 rounded-full flex items-center justify-center"
+                  style={{ background: 'rgba(255,255,255,0.18)' }}>
+                  <Share2 size={15} color="white" />
+                </div>
+                <span style={{ fontSize: 9, color: 'white', fontWeight: 600 }}>Share</span>
+              </div>
+              <div className="w-9 h-9 rounded-full flex items-center justify-center"
+                style={{ background: 'linear-gradient(135deg, #1a1a2e 0%, #2d2d44 100%)', border: '2px solid rgba(255,255,255,0.25)' }}>
+                <Music2 size={14} color="white" />
               </div>
             </div>
-            <span className={`text-[11px] font-black ${item.amt.startsWith('+') ? 'text-[#00A050]' : 'text-[#0F0F1A]'}`}>{item.amt}</span>
-          </div>
+
+            {/* Bottom: creator info + song */}
+            <div className="absolute bottom-0 left-0 px-4 pb-5" style={{ right: 52 }}>
+              <p style={{ fontSize: 12, fontWeight: 700, color: 'white', marginBottom: 3 }}>{item.handle}</p>
+              <p style={{ fontSize: 10, color: 'rgba(255,255,255,0.80)', marginBottom: 10, lineHeight: 1.4 }}>
+                {item.caption}
+              </p>
+              <div className="flex items-center gap-2 rounded-full px-3 py-1.5"
+                style={{ background: 'rgba(255,255,255,0.12)', backdropFilter: 'blur(8px)', display: 'inline-flex' }}>
+                <Music2 size={10} color="white" />
+                <span style={{ fontSize: 9, color: 'white', fontWeight: 500, whiteSpace: 'nowrap' }}>
+                  {item.song}
+                </span>
+              </div>
+            </div>
+          </motion.div>
         ))}
-      </div>
+      </AnimatePresence>
     </div>
   );
 }
 
-const phoneVisual = (children: React.ReactNode) => (
-  <div className="mt-8 relative h-[200px] md:h-[250px] w-full flex justify-center overflow-hidden pointer-events-none">
-    <div className="absolute top-0 flex justify-center" style={{ transform: 'scale(0.85)', transformOrigin: 'top center', width: 320 }}>
-      <PhoneFrame screenBg="#FFFFFF">
-        <div className="w-full h-[696px] bg-white pt-10">
-          {children}
+// ─── Tunable phone (temporary dev tool) ──────────────────────────────────────
+
+type PhoneCfg = { top: number; left: number; right: number; bottom: number; scale: number; x: number; y: number };
+
+function TunablePhone({ imgSrc, alt, init, frameWidth = 280, wrapClass = 'w-full' }: {
+  imgSrc: string; alt: string; init: PhoneCfg; frameWidth?: number; wrapClass?: string;
+}) {
+  const [cfg, setCfg] = useState<PhoneCfg>(init);
+  const [open, setOpen] = useState(false);
+  const set = (k: keyof PhoneCfg, v: number) => setCfg(p => ({ ...p, [k]: v }));
+
+  return (
+    <div className={wrapClass}>
+      <div className="relative h-[420px] flex justify-center overflow-hidden pointer-events-none">
+        <div className="absolute top-0 flex justify-center">
+          <PhoneFrame screenBg="#FFFFFF" frameWidth={frameWidth}>
+            <div className="absolute overflow-hidden" style={{ top: cfg.top, left: cfg.left, right: cfg.right, bottom: cfg.bottom }}>
+              <div style={{ transform: `scale(${cfg.scale}) translate(${cfg.x}px, ${cfg.y}px)`, transformOrigin: 'top center', width: '100%' }}>
+                <Image src={imgSrc} alt={alt} width={390} height={844} className="w-full h-auto" />
+              </div>
+            </div>
+          </PhoneFrame>
         </div>
-      </PhoneFrame>
+      </div>
+      <div className="flex justify-center mt-1.5 pointer-events-auto">
+        <button onClick={() => setOpen(o => !o)} style={{ fontSize: 8, fontFamily: 'monospace', fontWeight: 700, padding: '2px 10px', borderRadius: 4, background: open ? '#7C3BED' : 'rgba(124,59,237,0.1)', color: open ? '#fff' : '#7C3BED', border: '1px solid rgba(124,59,237,0.3)', cursor: 'pointer' }}>
+          {open ? '✕ close' : '⚙ tune'}
+        </button>
+      </div>
+      {open && (
+        <div style={{ pointerEvents: 'auto', margin: '6px 8px 0', borderRadius: 10, background: '#0D0D1A', border: '1px solid rgba(124,59,237,0.3)', padding: '10px 12px' }}>
+          {([
+            { k: 'top', min: 0, max: 120, step: 1 }, { k: 'left', min: 0, max: 60, step: 1 }, { k: 'right', min: 0, max: 60, step: 1 },
+            { k: 'scale', min: 0.5, max: 2, step: 0.01 }, { k: 'x', min: -150, max: 150, step: 1 }, { k: 'y', min: -150, max: 150, step: 1 },
+          ] as { k: keyof PhoneCfg; min: number; max: number; step: number }[]).map(({ k, min, max, step }) => (
+            <div key={k} style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 5 }}>
+              <span style={{ width: 42, fontSize: 9, color: '#A78BFA', fontFamily: 'monospace', flexShrink: 0 }}>{k}</span>
+              <input type="range" min={min} max={max} step={step} value={cfg[k]}
+                onChange={e => set(k, Number(e.target.value))}
+                style={{ flex: 1, accentColor: '#7C3BED' }} />
+              <span style={{ width: 36, fontSize: 9, fontFamily: 'monospace', color: '#E2E8F0', textAlign: 'right' }}>
+                {cfg[k].toFixed(k === 'scale' ? 2 : 0)}
+              </span>
+            </div>
+          ))}
+          <button onClick={() => navigator.clipboard.writeText(JSON.stringify(cfg))} style={{ fontSize: 8, fontFamily: 'monospace', padding: '2px 8px', borderRadius: 4, background: 'rgba(255,255,255,0.06)', color: '#94A3B8', border: '1px solid rgba(255,255,255,0.1)', cursor: 'pointer', marginTop: 4 }}>
+            📋 copy config
+          </button>
+        </div>
+      )}
     </div>
-  </div>
-);
+  );
+}
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 
@@ -471,7 +357,7 @@ export default function CreatorsPage() {
 
           {/* ── Right: phone with video ── */}
           <div className="hidden lg:flex flex-col justify-center" style={{ flex: 1 }}>
-            <div className="relative" style={{ height: 'clamp(560px, 74vh, 680px)' }}>
+            <div className="relative" style={{ height: 'clamp(640px, 84vh, 800px)' }}>
               {/* Glass card */}
               <motion.div
                 className="absolute inset-0 rounded-[36px] overflow-hidden"
@@ -528,30 +414,34 @@ export default function CreatorsPage() {
                 step: '01', accent: '#7C3BED', bgTint: 'rgba(124,59,237,0.05)', border: 'rgba(124,59,237,0.14)',
                 label: 'Browse the marketplace', tag: 'DISCOVERY',
                 description: 'Discover campaigns curated for you, all in one place. Every campaign shows full requirements before you apply.',
-                phone: <MobileMarketplaceMockup />,
+                imgSrc: '/images/creators/app-campaign-detail.png',
+                cfg: { top: 60, left: 0, right: 0, bottom: 0, scale: 105, x: 4, y: -7 },
               },
               {
                 step: '02', accent: '#00A050', bgTint: 'rgba(0,160,80,0.05)', border: 'rgba(0,160,80,0.14)',
                 label: 'Connect & apply', tag: 'APPLICATION',
                 description: 'Link your social accounts to unlock your access to campaign feed and enable performance tracking. Varmply handles the reporting, you do the chilling.',
-                phone: <MobileProfileMockup />,
+                imgSrc: '/images/creators/app-connect-platforms.png',
+                cfg: { top: 60, left: 6, right: 6, bottom: 0, scale: 100, x: -7, y: 0 },
               },
               {
                 step: '03', accent: '#D97706', bgTint: 'rgba(217,119,6,0.05)', border: 'rgba(217,119,6,0.14)',
                 label: 'Submit your content', tag: 'DELIVERY',
                 description: 'Create content that matches the campaign brief, post it, then drop your link. From there, Varmply handles the heavy lifting—tracking, verification, and everything in between.',
-                phone: <MobileSubmitMockup />,
+                imgSrc: '/images/creators/app-submit-post.png',
+                cfg: { top: 60, left: 0, right: 0, bottom: 0, scale: 103, x: 0, y: 0 },
               },
               {
                 step: '04', accent: '#2563EB', bgTint: 'rgba(37,99,235,0.05)', border: 'rgba(37,99,235,0.14)',
                 label: 'Result-backed earnings', tag: 'EARNINGS',
                 description: 'Your earnings are tied directly to the results you generate. At the end of each campaign, you receive payment based on the total value of engagement you delivered.',
-                phone: <MobileWalletMockup />,
+                imgSrc: '/images/creators/app-earnings-mobile.png',
+                cfg: { top: 60, left: 0, right: 0, bottom: 0, scale: 100, x: 0, y: -7 },
               },
             ].map((s, i) => (
               <motion.div key={i} variants={fadeUp} className="shrink-0 w-[82vw] snap-start md:w-auto self-stretch flex flex-col">
                 <div className="relative overflow-hidden rounded-[32px] flex flex-col flex-1"
-                  style={{ background: s.bgTint, border: `1px solid ${s.border}`, minHeight: 380 }}>
+                  style={{ background: s.bgTint, border: `1px solid ${s.border}`, minHeight: 700 }}>
                   {/* Ghost step number */}
                   <span className="absolute -bottom-6 -right-2 font-black select-none pointer-events-none leading-none"
                     style={{ fontSize: '13rem', color: s.accent, opacity: 0.055, letterSpacing: '-0.06em' }}>
@@ -571,7 +461,33 @@ export default function CreatorsPage() {
                         style={{ fontSize: 'clamp(18px, 2vw, 22px)', lineHeight: 1.15 }}>{s.label}</h3>
                       <p className="text-sm text-[#4A4A6A] leading-relaxed" style={{ maxWidth: 340 }}>{s.description}</p>
                     </div>
-                    {phoneVisual(s.phone)}
+                    {/* Baked phone visual — physical resize, not CSS scale */}
+                    {/* Mobile — keep existing dimensions */}
+                    <div className="md:hidden mt-8 relative h-[420px] w-full flex justify-center overflow-hidden pointer-events-none">
+                      <div className="absolute top-0 flex justify-center">
+                        <PhoneFrame screenBg="#FFFFFF" frameWidth={260}>
+                          <div className="absolute overflow-hidden"
+                            style={{ top: s.cfg.top, left: s.cfg.left, right: s.cfg.right, bottom: s.cfg.bottom }}>
+                            <div style={{ transform: `scale(${s.cfg.scale / 100}) translate(${s.cfg.x}px, ${s.cfg.y}px)`, transformOrigin: 'top center', width: '100%' }}>
+                              <Image src={s.imgSrc} alt={s.label} width={390} height={844} className="w-full h-auto" />
+                            </div>
+                          </div>
+                        </PhoneFrame>
+                      </div>
+                    </div>
+                    {/* Desktop — larger phone, shorter container */}
+                    <div className="hidden md:flex mt-8 -mx-8 relative h-[440px] w-[calc(100%+64px)] justify-center overflow-hidden pointer-events-none">
+                      <div className="absolute top-0 flex justify-center">
+                        <PhoneFrame screenBg="#FFFFFF" frameWidth={310}>
+                          <div className="absolute overflow-hidden"
+                            style={{ top: s.cfg.top, left: s.cfg.left, right: s.cfg.right, bottom: s.cfg.bottom }}>
+                            <div style={{ transform: `scale(${s.cfg.scale / 100}) translate(${s.cfg.x}px, ${s.cfg.y}px)`, transformOrigin: 'top center', width: '100%' }}>
+                              <Image src={s.imgSrc} alt={s.label} width={390} height={844} className="w-full h-auto" />
+                            </div>
+                          </div>
+                        </PhoneFrame>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </motion.div>
@@ -613,9 +529,9 @@ export default function CreatorsPage() {
           {/* Video grid */}
           <ScrollCarousel count={3} gridClass="md:grid-cols-3">
             {[
-              { imageSrc: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=600&q=80', caption: '@dami.creates', subcaption: 'Joining early · TikTok', chips: [{ label: '120K followers', position: 'top-left' as const, variant: 'dark' as const }] },
-              { imageSrc: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80', caption: '@chuka.tv', subcaption: 'Joining early · Instagram', chips: [{ label: '88K followers', position: 'top-left' as const, variant: 'dark' as const }] },
-              { imageSrc: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=600&q=80', caption: '@amara.creates', subcaption: 'Joining early · TikTok', chips: [{ label: '54K followers', position: 'top-left' as const, variant: 'dark' as const }] },
+              { imageSrc: '/images/creators/creator-1.jpg', caption: '@dami.creates', subcaption: 'Joining early · TikTok', chips: [{ label: '120K followers', position: 'top-left' as const, variant: 'dark' as const }] },
+              { imageSrc: '/images/creators/creator-2.jpg', caption: '@chuka.tv', subcaption: 'Joining early · Instagram', chips: [{ label: '88K followers', position: 'top-left' as const, variant: 'dark' as const }] },
+              { imageSrc: '/images/creators/creator-3.jpg', caption: '@amara.creates', subcaption: 'Joining early · TikTok', chips: [{ label: '54K followers', position: 'top-left' as const, variant: 'dark' as const }] },
             ].map((item, i) => (
               <motion.div key={i} variants={fadeUp} className="shrink-0 w-[72vw] snap-start md:w-auto">
                 <VideoCard {...item} aspectRatio="4/5" surface="light" showGradient hoverable />
@@ -651,14 +567,14 @@ export default function CreatorsPage() {
 
         {(() => {
           const reels = [
-            { thumb: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=400&q=80', name: 'Tolu Adeyemi', handle: '@toluade', campaign: 'Jazzy Song — Zara Beats', platform: 'TikTok', likes: '14.2K' },
-            { thumb: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80', name: 'Chidi Ezike', handle: '@chidi.e', campaign: 'With You — Kelvin Wave', platform: 'Instagram', likes: '22.1K' },
-            { thumb: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&q=80', name: 'Kemi Ade', handle: '@keminade', campaign: 'Jazzy Song — Zara Beats', platform: 'TikTok', likes: '31.4K' },
-            { thumb: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=400&q=80', name: 'Sola Babs', handle: '@solababs', campaign: 'Q2 Promo — SwiftPay', platform: 'Instagram', likes: '8.5K' },
-            { thumb: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&q=80', name: 'Femi Lagos', handle: '@femilagos', campaign: 'With You — Kelvin Wave', platform: 'TikTok', likes: '12.3K' },
-            { thumb: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&q=80', name: 'Dami Okon', handle: '@damiokon', campaign: 'Odara — Olu Fire', platform: 'TikTok', likes: '18.7K' },
-            { thumb: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&q=80', name: 'Temi Coker', handle: '@temicoker', campaign: 'Q2 Promo — SwiftPay', platform: 'Instagram', likes: '27.0K' },
-            { thumb: 'https://images.unsplash.com/photo-1552058544-f2b08422138a?w=400&q=80', name: 'Seun Bello', handle: '@seun.creates', campaign: 'Odara — Olu Fire', platform: 'TikTok', likes: '11.1K' },
+            { thumb: '/images/creators/creator-4.jpg', name: 'Tolu Adeyemi', handle: '@toluade', campaign: 'Jazzy Song — Zara Beats', platform: 'TikTok', likes: '14.2K' },
+            { thumb: '/images/creators/creator-5.jpg', name: 'Chidi Ezike', handle: '@chidi.e', campaign: 'With You — Kelvin Wave', platform: 'Instagram', likes: '22.1K' },
+            { thumb: '/images/creators/creator-6.jpg', name: 'Kemi Ade', handle: '@keminade', campaign: 'Jazzy Song — Zara Beats', platform: 'TikTok', likes: '31.4K' },
+            { thumb: '/images/creators/creator-7.jpg', name: 'Sola Babs', handle: '@solababs', campaign: 'Q2 Promo — SwiftPay', platform: 'Instagram', likes: '8.5K' },
+            { thumb: '/images/creators/creator-8.jpg', name: 'Femi Lagos', handle: '@femilagos', campaign: 'With You — Kelvin Wave', platform: 'TikTok', likes: '12.3K' },
+            { thumb: '/images/creators/creator-9.jpg', name: 'Dami Okon', handle: '@damiokon', campaign: 'Odara — Olu Fire', platform: 'TikTok', likes: '18.7K' },
+            { thumb: '/images/creators/creator-10.jpg', name: 'Temi Coker', handle: '@temicoker', campaign: 'Q2 Promo — SwiftPay', platform: 'Instagram', likes: '27.0K' },
+            { thumb: '/images/creators/creator-11.jpg', name: 'Seun Bello', handle: '@seun.creates', campaign: 'Odara — Olu Fire', platform: 'TikTok', likes: '11.1K' },
           ];
           const doubled = [...reels, ...reels];
           return (
@@ -723,40 +639,96 @@ export default function CreatorsPage() {
           {/* Big browser card — green editorial */}
           <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={vp}
             className="relative overflow-hidden rounded-[28px] mb-4"
-            style={{ background: 'rgba(0,160,80,0.05)', border: '1.5px solid rgba(0,160,80,0.14)' }}>
+            style={{ background: 'rgba(124,59,237,0.05)', border: '1.5px solid rgba(124,59,237,0.14)' }}>
             <div className="relative z-10">
               {/* Top rule bar */}
               <div className="flex items-center justify-between px-8 md:px-10 pt-6 pb-4"
-                style={{ borderBottom: '1px solid rgba(0,160,80,0.12)' }}>
-                <span className="text-[9px] font-black uppercase tracking-[0.22em]" style={{ color: '#00A050' }}>
+                style={{ borderBottom: '1px solid rgba(124,59,237,0.12)' }}>
+                <span className="text-[9px] font-black uppercase tracking-[0.22em]" style={{ color: '#7C3BED' }}>
                   Creator Wallet
                 </span>
                 <span className="flex items-center gap-1.5 text-[9px] font-bold uppercase tracking-[0.14em]"
-                  style={{ color: '#00A050' }}>
-                  <span className="w-1.5 h-1.5 rounded-full inline-block animate-pulse" style={{ background: '#00A050' }} />
+                  style={{ color: '#7C3BED' }}>
+                  <span className="w-1.5 h-1.5 rounded-full inline-block animate-pulse" style={{ background: '#7C3BED' }} />
                   Live balance
                 </span>
               </div>
-              <div className="p-6 md:p-10 pt-7">
-                <p className="font-black text-[#0F0F1A] tracking-tight mb-6"
+              <div className="px-6 md:px-10 pt-7 pb-6 md:pb-8">
+                <p className="font-black text-[#0F0F1A] tracking-tight mb-0"
                   style={{ fontSize: 'clamp(18px, 2vw, 22px)', lineHeight: 1.15 }}>
                   Automatic payouts the moment <br className="max-md:hidden" /> your content is validated.
                 </p>
-                <div className="hidden md:block relative rounded-xl overflow-hidden"
-                  style={{ border: '1px solid rgba(0,160,80,0.10)', boxShadow: '0 4px 24px rgba(0,160,80,0.08)' }}>
-                  <BrowserChrome url="app.varmply.com/wallet" />
-                  <div className="bg-[#FAFAFA] overflow-hidden" style={{ height: 340 }}>
-                    <WalletMockup />
+              </div>
+              {/* Mobile version — tunable */}
+              <div className="md:hidden -mb-8 mt-2">
+                <TunablePhone
+                  imgSrc="/images/creators/app-earnings-mobile.png"
+                  alt="Earnings"
+                  frameWidth={280}
+                  init={{ top: 60, left: 6, right: 6, bottom: 0, scale: 0.96, x: 0, y: -50 }}
+                />
+              </div>
+              {/* Desktop image — left padding only, bleeds off right edge */}
+              <div className="hidden md:block pl-6 md:pl-10">
+                <div className="relative overflow-hidden rounded-tl-xl">
+                  {/* Styled browser chrome */}
+                  <div style={{
+                    background: 'linear-gradient(180deg, #1C1528 0%, #160F22 100%)',
+                    borderBottom: '1px solid rgba(124,59,237,0.25)',
+                    padding: '10px 14px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 10,
+                  }}>
+                    {/* Traffic lights */}
+                    <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
+                      {[
+                        { color: '#FF5F57', glow: 'rgba(255,95,87,0.5)' },
+                        { color: '#FFBD2E', glow: 'rgba(255,189,46,0.5)' },
+                        { color: '#28C840', glow: 'rgba(40,200,64,0.5)' },
+                      ].map(({ color, glow }) => (
+                        <span key={color} style={{
+                          display: 'block', width: 11, height: 11, borderRadius: '50%',
+                          background: color,
+                          boxShadow: `0 0 6px 1px ${glow}`,
+                        }} />
+                      ))}
+                    </div>
+                    {/* Nav arrows */}
+                    <div style={{ display: 'flex', gap: 4 }}>
+                      {['‹', '›'].map((a, i) => (
+                        <span key={i} style={{ fontSize: 14, lineHeight: 1, color: i === 0 ? 'rgba(255,255,255,0.25)' : 'rgba(255,255,255,0.5)', fontWeight: 600, userSelect: 'none' }}>{a}</span>
+                      ))}
+                    </div>
+                    {/* URL pill */}
+                    <div style={{
+                      flex: 1,
+                      display: 'flex', alignItems: 'center', gap: 6,
+                      background: 'rgba(255,255,255,0.06)',
+                      border: '1px solid rgba(124,59,237,0.3)',
+                      borderRadius: 8,
+                      padding: '5px 10px',
+                    }}>
+                      {/* Lock */}
+                      <svg width="10" height="11" viewBox="0 0 10 11" fill="none">
+                        <rect x="1.5" y="4.5" width="7" height="6" rx="1.5" stroke="rgba(124,59,237,0.9)" strokeWidth="1.2"/>
+                        <path d="M3 4.5V3a2 2 0 1 1 4 0v1.5" stroke="rgba(124,59,237,0.9)" strokeWidth="1.2" strokeLinecap="round"/>
+                      </svg>
+                      {/* Favicon */}
+                      <img src="/images/logo-symbol.png" alt="" style={{ width: 14, height: 14, flexShrink: 0, mixBlendMode: 'screen' }} />
+                      <span style={{ fontSize: 10, color: 'rgba(255,255,255,0.65)', fontFamily: 'monospace', letterSpacing: '0.02em', flex: 1 }}>
+                        app.varmply.com<span style={{ color: 'rgba(255,255,255,0.9)', fontWeight: 700 }}>/wallet</span>
+                      </span>
+                    </div>
+                    {/* Spacer for symmetry */}
+                    <div style={{ width: 40 }} />
                   </div>
-                </div>
-                {/* Mobile version (Phone visual) */}
-                <div className="md:hidden mt-4 relative h-[280px] w-full flex justify-center overflow-hidden pointer-events-none -mb-8">
-                  <div className="absolute top-0 flex justify-center" style={{ transform: 'scale(0.85)', transformOrigin: 'top center', width: 320 }}>
-                    <PhoneFrame screenBg="#FFFFFF">
-                      <div className="w-full h-[696px] bg-white pt-6">
-                        <MobileWalletMockup />
+                  <div className="bg-[#FAFAFA] overflow-hidden relative" style={{ height: 340 }}>
+                    <div className="absolute inset-0 flex items-start justify-center overflow-hidden">
+                      <div style={{ width: '100%' }}>
+                        <Image src="/images/creators/app-earnings-desktop.png" alt="Earnings dashboard" width={1440} height={900} className="w-full h-auto" />
                       </div>
-                    </PhoneFrame>
+                    </div>
                   </div>
                 </div>
               </div>
