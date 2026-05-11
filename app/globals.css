@@ -373,21 +373,21 @@ html.embed #site-footer > footer {
 
 /* ── Creator hero phone: Chrome scales up slightly; Safari stays as-is ── */
 .creator-hero-phone {
-  transform: translateY(36%);
+  transform: translateY(12%);
 }
 @supports (-webkit-appearance: none) and (not (-webkit-touch-callout: none)) {
   .creator-hero-phone {
-    transform: translateY(28%) scale(1.1);
+    transform: translateY(8%) scale(1.1);
   }
 }
 
 /* ── Sponsor hero phone: Chrome scales up slightly; Safari stays as-is ── */
 .sponsor-hero-phone {
-  transform: translateY(36%);
+  transform: translateY(12%);
 }
 @supports (-webkit-appearance: none) and (not (-webkit-touch-callout: none)) {
   .sponsor-hero-phone {
-    transform: translateY(28%) scale(1.1);
+    transform: translateY(8%) scale(1.1);
   }
 }
 
