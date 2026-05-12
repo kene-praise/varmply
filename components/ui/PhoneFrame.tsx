@@ -18,6 +18,8 @@ interface PhoneFrameProps {
   children?: React.ReactNode;
   /** Scale via CSS transform — natural canvas stays at W×H */
   scale?: number;
+  /** Override the natural canvas width — all derived values recompute from this */
+  frameWidth?: number;
   /** Background visible before / behind children (default #000) */
   screenBg?: string;
   className?: string;
@@ -26,14 +28,6 @@ interface PhoneFrameProps {
 
 // Natural canvas — matches the Figma SVG aspect ratio 999:2173
 const W = 320;
-const H = Math.round(W * (2173 / 999)); // ≈ 696
-
-// Body border-radius: tuned down from Figma's 172 units so the outer curve
-// visually matches the inner screen clip radius (~33px) + bezel gap.
-const BODY_R = Math.round(130 * (W / 999)); // ≈ 42px
-
-// Front-camera border-radius: 35.785 figma units → scaled
-const CAM_R = Math.round(35.785 * (W / 999)); // ≈ 11px
 
 // Screen clip-path: the exact rounded-rect from the Figma mask path,
 // normalised to objectBoundingBox (all coords ÷ 999 for x, ÷ 2173 for y).
@@ -53,13 +47,14 @@ function fgFromBg(bg: string): string {
 }
 
 function StatusBar({ screenBg }: { screenBg: string }) {
-  const [time, setTime] = useState('');
+  const [time, setTime] = useState(() =>
+    new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false })
+  );
   const color = fgFromBg(screenBg);
 
   useEffect(() => {
     const fmt = () =>
       new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
-    setTime(fmt());
     const id = setInterval(() => setTime(fmt()), 1000);
     return () => clearInterval(id);
   }, []);
@@ -105,6 +100,7 @@ function StatusBar({ screenBg }: { screenBg: string }) {
 export function PhoneFrame({
   children,
   scale,
+  frameWidth,
   screenBg = '#000',
   className,
   style,
@@ -112,12 +108,17 @@ export function PhoneFrame({
   const uid = useId();
   const clipId = `iphone-clip-${uid.replace(/:/g, '')}`;
 
+  const fw = frameWidth ?? W;
+  const fh = Math.round(fw * (2173 / 999));
+  const bodyR = Math.round(130 * (fw / 999));
+  const camR = Math.round(35.785 * (fw / 999));
+
   return (
     <div
       className={clsx('relative shrink-0 select-none', className)}
       style={{
-        width: W,
-        height: H,
+        width: fw,
+        height: fh,
         ...(scale !== undefined && {
           transform: `scale(${scale})`,
           transformOrigin: 'top center',
@@ -143,7 +144,7 @@ export function PhoneFrame({
         className="pointer-events-none absolute"
         style={{
           inset: '0 0.98%',
-          borderRadius: BODY_R,
+          borderRadius: bodyR,
           background: '#050505',
           boxShadow: 'inset 0px -5px 20px 0px #000, inset -10px 0px 24px -15px #000',
         }}
@@ -201,7 +202,7 @@ export function PhoneFrame({
           left: '36.18%',
           right: '38.49%',
           bottom: '92.15%',
-          borderRadius: CAM_R,
+          borderRadius: camR,
           background: '#000',
         }}
       />
