@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
@@ -14,10 +14,6 @@ export default function SiteHeader() {
   const isDarkHero = pathname === '/' || pathname === '/creators' || pathname === '/sponsors' || pathname === '/waitlist';
   const isLightHeader = !isDarkHero;
   const isWaitlist = pathname === '/waitlist';
-
-  useEffect(() => {
-    setMobileOpen(false);
-  }, [pathname]);
 
   const navLinks = [
     { href: '#how-it-works', label: 'How It Works' },

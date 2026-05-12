@@ -2,6 +2,7 @@
 
 import { Suspense, useEffect, useLayoutEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { ScrollCarousel } from '@/components/ui/ScrollCarousel';
 import Link from 'next/link';
@@ -121,7 +122,7 @@ export default function CreatorsPage() {
           {/* ── Left: text ── */}
           <motion.div
             className="w-full lg:w-1/2 lg:shrink-0 pt-20 pb-0 lg:pt-28 lg:pb-20"
-            variants={stagger} initial="hidden" animate="visible"
+            variants={stagger} initial={false} animate="visible"
           >
             <motion.span variants={fadeUp}
               className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-[9px] font-bold uppercase tracking-[0.22em] mb-6 text-white/70 border"
@@ -193,7 +194,7 @@ export default function CreatorsPage() {
                   WebkitBackdropFilter: 'blur(24px)',
                   border: '1px solid rgba(255,255,255,0.16)',
                 }}
-                initial={{ opacity: 0, y: 32, scale: 0.97 }}
+                initial={false}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 transition={{ duration: 1.0, delay: 0.5, ease: [0.16, 1, 0.3, 1] as const }}
               >
@@ -325,9 +326,9 @@ export default function CreatorsPage() {
           {/* Video grid */}
           <ScrollCarousel count={3} gridClass="md:grid-cols-3">
             {[
-              { imageSrc: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=600&q=80', caption: '@dami.creates', subcaption: 'Joining early · TikTok', chips: [{ label: '120K followers', position: 'top-left' as const, variant: 'dark' as const }] },
-              { imageSrc: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80', caption: '@chuka.tv', subcaption: 'Joining early · Instagram', chips: [{ label: '88K followers', position: 'top-left' as const, variant: 'dark' as const }] },
-              { imageSrc: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=600&q=80', caption: '@amara.creates', subcaption: 'Joining early · TikTok', chips: [{ label: '54K followers', position: 'top-left' as const, variant: 'dark' as const }] },
+              { imageSrc: '/images/creators/creator-3.jpg', caption: '@dami.creates', subcaption: 'Joining early · TikTok', chips: [{ label: '120K followers', position: 'top-left' as const, variant: 'dark' as const }] },
+              { imageSrc: '/images/creators/creator-9.jpg', caption: '@chuka.tv', subcaption: 'Joining early · Instagram', chips: [{ label: '88K followers', position: 'top-left' as const, variant: 'dark' as const }] },
+              { imageSrc: '/images/creators/creator-10.jpg', caption: '@amara.creates', subcaption: 'Joining early · TikTok', chips: [{ label: '54K followers', position: 'top-left' as const, variant: 'dark' as const }] },
             ].map((item, i) => (
               <motion.div key={i} variants={fadeUp} className="shrink-0 w-[72vw] snap-start md:w-auto">
                 <VideoCard {...item} aspectRatio="4/5" surface="light" showGradient hoverable />
@@ -363,14 +364,14 @@ export default function CreatorsPage() {
 
         {(() => {
           const reels = [
-            { thumb: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=400&q=80', name: 'Tolu Adeyemi', handle: '@toluade', campaign: 'Jazzy Song — Zara Beats', platform: 'TikTok', likes: '14.2K' },
-            { thumb: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80', name: 'Chidi Ezike', handle: '@chidi.e', campaign: 'With You — Kelvin Wave', platform: 'Instagram', likes: '22.1K' },
-            { thumb: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&q=80', name: 'Kemi Ade', handle: '@keminade', campaign: 'Jazzy Song — Zara Beats', platform: 'TikTok', likes: '31.4K' },
-            { thumb: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=400&q=80', name: 'Sola Babs', handle: '@solababs', campaign: 'Q2 Promo — SwiftPay', platform: 'Instagram', likes: '8.5K' },
-            { thumb: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&q=80', name: 'Femi Lagos', handle: '@femilagos', campaign: 'With You — Kelvin Wave', platform: 'TikTok', likes: '12.3K' },
-            { thumb: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&q=80', name: 'Dami Okon', handle: '@damiokon', campaign: 'Odara — Olu Fire', platform: 'TikTok', likes: '18.7K' },
-            { thumb: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&q=80', name: 'Temi Coker', handle: '@temicoker', campaign: 'Q2 Promo — SwiftPay', platform: 'Instagram', likes: '27.0K' },
-            { thumb: 'https://images.unsplash.com/photo-1552058544-f2b08422138a?w=400&q=80', name: 'Seun Bello', handle: '@seun.creates', campaign: 'Odara — Olu Fire', platform: 'TikTok', likes: '11.1K' },
+            { thumb: '/images/creators/creator-10.jpg', name: 'Tolu Adeyemi', handle: '@toluade', campaign: 'Jazzy Song — Zara Beats', platform: 'TikTok', likes: '14.2K' },
+            { thumb: '/images/creators/creator-9.jpg', name: 'Chidi Ezike', handle: '@chidi.e', campaign: 'With You — Kelvin Wave', platform: 'Instagram', likes: '22.1K' },
+            { thumb: '/images/creators/creator-3.jpg', name: 'Kemi Ade', handle: '@keminade', campaign: 'Jazzy Song — Zara Beats', platform: 'TikTok', likes: '31.4K' },
+            { thumb: '/images/creators/creator-4.jpg', name: 'Sola Babs', handle: '@solababs', campaign: 'Q2 Promo — SwiftPay', platform: 'Instagram', likes: '8.5K' },
+            { thumb: '/images/creators/creator-1.jpg', name: 'Femi Lagos', handle: '@femilagos', campaign: 'With You — Kelvin Wave', platform: 'TikTok', likes: '12.3K' },
+            { thumb: '/images/creators/creator-6.jpg', name: 'Dami Okon', handle: '@damiokon', campaign: 'Odara — Olu Fire', platform: 'TikTok', likes: '18.7K' },
+            { thumb: '/images/creators/creator-8.jpg', name: 'Temi Coker', handle: '@temicoker', campaign: 'Q2 Promo — SwiftPay', platform: 'Instagram', likes: '27.0K' },
+            { thumb: '/images/creators/creator-7.jpg', name: 'Seun Bello', handle: '@seun.creates', campaign: 'Odara — Olu Fire', platform: 'TikTok', likes: '11.1K' },
           ];
           const doubled = [...reels, ...reels];
           return (
@@ -378,7 +379,7 @@ export default function CreatorsPage() {
               <div className="flex animate-marquee gap-3" style={{ width: 'max-content' }}>
                 {doubled.map((r, i) => (
                   <div key={i} className="relative shrink-0 overflow-hidden rounded-2xl w-[220px] md:w-[148px]" style={{ aspectRatio: '9/16' }}>
-                    <img src={r.thumb} alt="" className="w-full h-full object-cover" />
+                    <Image src={r.thumb} alt="" fill sizes="(min-width: 768px) 148px, 220px" className="object-cover" />
                     <div className="absolute inset-0" style={{
                       background: 'linear-gradient(180deg, rgba(0,0,0,0.22) 0%, transparent 35%, rgba(0,0,0,0.65) 70%, rgba(0,0,0,0.88) 100%)',
                     }} />

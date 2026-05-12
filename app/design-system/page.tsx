@@ -106,7 +106,7 @@ export default function DesignSystemPage() {
           <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-white/40">Varmply</p>
           <h1 className="text-4xl font-bold text-white md:text-5xl">Design System</h1>
           <p className="mt-3 text-base text-white/50">
-            All primitives, tokens, and patterns — built before they're applied.
+            All primitives, tokens, and patterns — built before they&apos;re applied.
           </p>
         </div>
       </div>

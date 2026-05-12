@@ -11,9 +11,6 @@ export default function AudienceSwitcher() {
   const pathname = usePathname();
   const creatorsActive = pathname === '/creators';
   const sponsorsActive = pathname === '/sponsors';
-  const isHomePage = pathname === '/';
-  if (pathname === '/waitlist') return null;
-
   const [hidden, setHidden] = useState(false);
   const { scrollYProgress } = useScroll();
 
@@ -21,6 +18,8 @@ export default function AudienceSwitcher() {
     // Hide earlier to avoid covering footer links
     setHidden(latest > 0.88);
   });
+
+  if (pathname === '/waitlist') return null;
 
   return (
     <motion.nav
