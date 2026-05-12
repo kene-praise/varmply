@@ -1,19 +1,16 @@
 'use client';
 
-import { ArrowRight, Zap, Users, BarChart2, Wallet, Star, Shield, CheckCircle } from 'lucide-react';
+import { ArrowRight, Zap, Wallet, Shield, CheckCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
-import CampaignMockup from '@/components/UIComponents/CampaignMockup';
-import WalletMockup from '@/components/UIComponents/WalletMockup';
-import AnalyticsMockup from '@/components/UIComponents/AnalyticsMockup';
 import Image from 'next/image';
 
 import { Button } from '@/components/ui/Button';
 import { StatusBadge, CategoryBadge, DarkBadge, HighlightBadge } from '@/components/ui/Badge';
 import { Card } from '@/components/ui/Card';
-import { SectionWrap, SectionLabel, SectionHeading } from '@/components/ui/Section';
+import { SectionLabel, SectionHeading } from '@/components/ui/Section';
 import { VideoCard, MediaGrid, FloatingChip } from '@/components/ui/VideoCard';
 import { PhoneFrame } from '@/components/ui/PhoneFrame';
-import { BrowserWindow, BrowserFrame } from '@/components/ui/ScreenshotFrame';
+import { BrowserFrame } from '@/components/ui/ScreenshotFrame';
 import { WorkHistory } from '@/components/ui/WorkHistory';
 import { GlassHeader } from '@/components/ui/GlassHeader';
 import { colors } from '@/lib/tokens';

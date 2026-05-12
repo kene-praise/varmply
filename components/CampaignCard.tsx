@@ -32,7 +32,6 @@ export default function CampaignCard({
   amount,
   status,
   deadline,
-  applicants,
   engagement = '240K',
   budgetTotal,
   progressPct = 71,
@@ -47,7 +46,7 @@ export default function CampaignCard({
       {/* Campaign image */}
       <div className="relative w-full overflow-hidden" style={{ height: '160px' }}>
         <Image
-          src={`https://picsum.photos/seed/${seed}/400/200`}
+          src={`/images/creators/creator-${(seed.length % 11) + 1}.jpg`}
           alt={brand}
           fill
           className="object-cover"

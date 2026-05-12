@@ -20,10 +20,8 @@ if (typeof window !== "undefined") {
 
 // bg: #07071A  |  fg: rgba(255,255,255,0.92)  |  accent: #7C3BED
 const STYLES = `
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap');
-
 .cinematic-footer-wrapper {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
 }
 

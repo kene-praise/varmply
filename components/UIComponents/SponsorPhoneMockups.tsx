@@ -1,7 +1,7 @@
 'use client';
 
 import {
-  Bell, ChevronLeft, SlidersHorizontal, Play,
+  ChevronLeft, SlidersHorizontal, Play,
   LayoutGrid, Megaphone, Wallet, Settings,
   Music2, CheckCircle2, BarChart3, Lock,
   ArrowDownLeft, ArrowUpRight,
@@ -68,14 +68,6 @@ function Avatar({ initials, size = 32, bg = T.blue, color = 'white' }: { initial
     <div style={{ width: size, height: size, borderRadius: 9999, background: bg, color, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: size * 0.36, fontWeight: 700, flexShrink: 0 }}>
       {initials}
     </div>
-  );
-}
-
-function Badge({ label, color, bg }: { label: string; color: string; bg: string }) {
-  return (
-    <span style={{ fontSize: 9, fontWeight: 700, color, background: bg, borderRadius: 4, paddingInline: 6, paddingBlock: 2, letterSpacing: '0.04em' }}>
-      {label}
-    </span>
   );
 }
 

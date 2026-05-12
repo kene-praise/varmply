@@ -218,7 +218,7 @@ export default function HomeHeroBackground3D({ backgroundColor = '#6406cf' }: { 
       allMaterials.forEach(m => m.dispose());
       if (el.contains(renderer.domElement)) el.removeChild(renderer.domElement);
     };
-  }, []);
+  }, [backgroundColor]);
 
   return <div ref={mountRef} className="absolute inset-0" />;
 }

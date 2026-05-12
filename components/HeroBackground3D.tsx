@@ -233,7 +233,7 @@ export default function HeroBackground3D({ backgroundColor = '#6406cf' }: { back
       commentGeom.dispose(); tailGeom.dispose();
       if (el.contains(renderer.domElement)) el.removeChild(renderer.domElement);
     };
-  }, []);
+  }, [backgroundColor]);
 
   return <div ref={mountRef} className="absolute inset-0" />;
 }

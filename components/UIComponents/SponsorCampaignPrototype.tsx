@@ -1,11 +1,11 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Play, Eye, Heart, Music2, TrendingUp, Users } from 'lucide-react';
 
 const PURPLE      = '#6406CF';
-const PURPLE_DARK = '#4A0DAD';
 
 interface CampaignVideo {
   views: string;
@@ -30,12 +30,12 @@ const CAMPAIGNS: Campaign[] = [
     chartData: [12, 28, 45, 38, 67, 89, 112],
     stats:     { views: '890K', likes: '46K', creators: '24' },
     videos: [
-      { views: '89.1K', thumb: 'https://picsum.photos/seed/creator03/300/500', video: '/videos/creator-1.mp4' },
-      { views: '44.2K', thumb: 'https://picsum.photos/seed/creator01/300/500', video: '/videos/creator-4.mp4' },
-      { views: '31.8K', thumb: 'https://picsum.photos/seed/creator02/300/500' },
-      { views: '28.5K', thumb: 'https://picsum.photos/seed/creator10/300/500' },
-      { views: '21.0K', thumb: 'https://picsum.photos/seed/creator13/300/500' },
-      { views: '18.4K', thumb: 'https://picsum.photos/seed/creator14/300/500' },
+      { views: '89.1K', thumb: '/images/creators/creator-3.jpg', video: '/videos/creator-1.mp4' },
+      { views: '44.2K', thumb: '/images/creators/creator-1.jpg', video: '/videos/creator-4.mp4' },
+      { views: '31.8K', thumb: '/images/creators/creator-2.jpg' },
+      { views: '28.5K', thumb: '/images/creators/creator-10.jpg' },
+      { views: '21.0K', thumb: '/images/creators/creator-4.jpg' },
+      { views: '18.4K', thumb: '/images/creators/creator-6.jpg' },
     ],
   },
   {
@@ -45,12 +45,12 @@ const CAMPAIGNS: Campaign[] = [
     chartData: [34, 56, 78, 92, 140, 168, 195],
     stats:     { views: '1.2M', likes: '91K', creators: '38' },
     videos: [
-      { views: '55.0K', thumb: 'https://picsum.photos/seed/creator04/300/500', video: '/videos/creator-3.mp4' },
-      { views: '38.4K', thumb: 'https://picsum.photos/seed/creator05/300/500', video: '/videos/creator-5.mp4' },
-      { views: '27.1K', thumb: 'https://picsum.photos/seed/creator06/300/500' },
-      { views: '22.3K', thumb: 'https://picsum.photos/seed/creator11/300/500' },
-      { views: '19.8K', thumb: 'https://picsum.photos/seed/creator15/300/500' },
-      { views: '14.6K', thumb: 'https://picsum.photos/seed/creator16/300/500' },
+      { views: '55.0K', thumb: '/images/creators/creator-4.jpg', video: '/videos/creator-3.mp4' },
+      { views: '38.4K', thumb: '/images/creators/creator-5.jpg', video: '/videos/creator-5.mp4' },
+      { views: '27.1K', thumb: '/images/creators/creator-6.jpg' },
+      { views: '22.3K', thumb: '/images/creators/creator-11.jpg' },
+      { views: '19.8K', thumb: '/images/creators/creator-7.jpg' },
+      { views: '14.6K', thumb: '/images/creators/creator-8.jpg' },
     ],
   },
   {
@@ -60,12 +60,12 @@ const CAMPAIGNS: Campaign[] = [
     chartData: [80, 120, 175, 210, 280, 340, 420],
     stats:     { views: '2.1M', likes: '158K', creators: '61' },
     videos: [
-      { views: '112K',  thumb: 'https://picsum.photos/seed/creator07/300/500', video: '/videos/creator-6.mp4' },
-      { views: '84.0K', thumb: 'https://picsum.photos/seed/creator08/300/500', video: '/videos/creator-7.mp4' },
-      { views: '63.2K', thumb: 'https://picsum.photos/seed/creator09/300/500' },
-      { views: '51.0K', thumb: 'https://picsum.photos/seed/creator12/300/500' },
-      { views: '44.7K', thumb: 'https://picsum.photos/seed/creator17/300/500' },
-      { views: '38.1K', thumb: 'https://picsum.photos/seed/creator18/300/500' },
+      { views: '112K',  thumb: '/images/creators/creator-7.jpg', video: '/videos/creator-6.mp4' },
+      { views: '84.0K', thumb: '/images/creators/creator-8.jpg', video: '/videos/creator-7.mp4' },
+      { views: '63.2K', thumb: '/images/creators/creator-9.jpg' },
+      { views: '51.0K', thumb: '/images/creators/creator-10.jpg' },
+      { views: '44.7K', thumb: '/images/creators/creator-11.jpg' },
+      { views: '38.1K', thumb: '/images/creators/creator-1.jpg' },
     ],
   },
 ];
@@ -179,12 +179,7 @@ function CampaignScreen({ c }: { c: Campaign }) {
                 style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
               />
             ) : (
-              /* eslint-disable-next-line @next/next/no-img-element */
-              <img
-                src={v.thumb}
-                alt=""
-                style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-              />
+              <Image src={v.thumb} alt="" fill sizes="84px" style={{ objectFit: 'cover' }} />
             )}
             <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(0,0,0,0.06) 0%, rgba(0,0,0,0.6) 100%)' }} />
             {/* Play */}
