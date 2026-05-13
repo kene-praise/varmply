@@ -20,10 +20,8 @@ if (typeof window !== "undefined") {
 
 // bg: #07071A  |  fg: rgba(255,255,255,0.92)  |  accent: #7C3BED
 const STYLES = `
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap');
-
 .cinematic-footer-wrapper {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
 }
 
@@ -165,11 +163,11 @@ const MagneticButton = React.forwardRef<HTMLElement, MagneticButtonProps>(
                     });
                 };
 
-                element.addEventListener("mousemove", handleMouseMove as any);
+                element.addEventListener("mousemove", handleMouseMove);
                 element.addEventListener("mouseleave", handleMouseLeave);
 
                 return () => {
-                    element.removeEventListener("mousemove", handleMouseMove as any);
+                    element.removeEventListener("mousemove", handleMouseMove);
                     element.removeEventListener("mouseleave", handleMouseLeave);
                 };
             }, element);
@@ -180,9 +178,9 @@ const MagneticButton = React.forwardRef<HTMLElement, MagneticButtonProps>(
         return (
             <Component
                 ref={(node: HTMLElement) => {
-                    (localRef as any).current = node;
+                    (localRef as React.MutableRefObject<HTMLElement | null>).current = node;
                     if (typeof forwardedRef === "function") forwardedRef(node);
-                    else if (forwardedRef) (forwardedRef as any).current = node;
+                    else if (forwardedRef) forwardedRef.current = node;
                 }}
                 className={cn("cursor-pointer", className)}
                 {...props}

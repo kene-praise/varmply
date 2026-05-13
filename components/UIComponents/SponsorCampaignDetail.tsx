@@ -8,6 +8,7 @@
 // Elevation: cards use border + shadow, not shadow alone
 
 import { useState } from 'react';
+import Image from 'next/image';
 import {
   LayoutGrid, Gift, Wallet, BarChart2, Settings,
   Search, Bell, ChevronLeft, Share2, Pencil, MoreHorizontal,
@@ -152,12 +153,12 @@ function CampaignHeroCard({ mobile = false }: { mobile?: boolean }) {
       borderRadius: mobile ? 10 : 12,
       flexShrink: 0, background: '#0a0414',
     }}>
-      {/* Real photo */}
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src="https://picsum.photos/seed/concert77/900/300"
+      <Image
+        src="/images/hero-mockup-3.jpg"
         alt=""
-        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 30%' }}
+        fill
+        sizes={mobile ? '320px' : '900px'}
+        style={{ objectFit: 'cover', objectPosition: 'center 30%' }}
       />
       {/* Directional overlay */}
       <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, rgba(10,4,24,0.88) 0%, rgba(10,4,24,0.4) 60%, rgba(10,4,24,0.15) 100%)' }} />
@@ -416,15 +417,15 @@ function OverviewContent({ mobile = false }: { mobile?: boolean }) {
 // ─── Video data ───────────────────────────────────────────────────────────────
 
 const VIDEOS = [
-  { creator: 'Adeola Grace',   handle: '@adeola_g',  views: '44.2K', likes: '3.1K', dur: '0:18', status: 'Submitted', sc: T.amber, sb: T.amberLight, time: '2h ago',  thumb: 'https://picsum.photos/seed/creator01/300/500' },
-  { creator: 'David Okonkwo',  handle: '@david_ok',  views: '31.8K', likes: '2.4K', dur: '0:24', status: 'Approved',  sc: T.green, sb: T.greenLight,  time: '4h ago',  thumb: 'https://picsum.photos/seed/creator02/300/500' },
-  { creator: 'Tunde Bakare',   handle: '@tunde_b',   views: '89.1K', likes: '7.2K', dur: '0:15', status: 'Submitted', sc: T.amber, sb: T.amberLight, time: '1d ago',  thumb: 'https://picsum.photos/seed/creator03/300/500' },
-  { creator: 'Chioma Eze',     handle: '@chioma_ez', views: '12.5K', likes: '980',  dur: '0:30', status: 'Submitted', sc: T.amber, sb: T.amberLight, time: '8h ago',  thumb: 'https://picsum.photos/seed/creator04/300/500' },
-  { creator: 'Femi Adeyemi',   handle: '@femi_ade',  views: '55.3K', likes: '4.8K', dur: '0:21', status: 'Approved',  sc: T.green, sb: T.greenLight,  time: '6h ago',  thumb: 'https://picsum.photos/seed/creator05/300/500' },
-  { creator: 'Ngozi Obi',      handle: '@ngozi_obi', views: '28.7K', likes: '2.1K', dur: '0:19', status: 'Submitted', sc: T.amber, sb: T.amberLight, time: '12h ago', thumb: 'https://picsum.photos/seed/creator06/300/500' },
-  { creator: 'Kola Martins',   handle: '@kola_m',    views: '19.4K', likes: '1.5K', dur: '0:27', status: 'Submitted', sc: T.amber, sb: T.amberLight, time: '15h ago', thumb: 'https://picsum.photos/seed/creator07/300/500' },
-  { creator: 'Amaka Uzor',     handle: '@amaka_uz',  views: '63.0K', likes: '5.1K', dur: '0:16', status: 'Approved',  sc: T.green, sb: T.greenLight,  time: '20h ago', thumb: 'https://picsum.photos/seed/creator08/300/500' },
-  { creator: 'Bayo Williams',  handle: '@bayo_w',    views: '41.2K', likes: '3.3K', dur: '0:22', status: 'Submitted', sc: T.amber, sb: T.amberLight, time: '1d ago',  thumb: 'https://picsum.photos/seed/creator09/300/500' },
+  { creator: 'Adeola Grace',   handle: '@adeola_g',  views: '44.2K', likes: '3.1K', dur: '0:18', status: 'Submitted', sc: T.amber, sb: T.amberLight, time: '2h ago',  thumb: '/images/creators/creator-1.jpg' },
+  { creator: 'David Okonkwo',  handle: '@david_ok',  views: '31.8K', likes: '2.4K', dur: '0:24', status: 'Approved',  sc: T.green, sb: T.greenLight,  time: '4h ago',  thumb: '/images/creators/creator-2.jpg' },
+  { creator: 'Tunde Bakare',   handle: '@tunde_b',   views: '89.1K', likes: '7.2K', dur: '0:15', status: 'Submitted', sc: T.amber, sb: T.amberLight, time: '1d ago',  thumb: '/images/creators/creator-3.jpg' },
+  { creator: 'Chioma Eze',     handle: '@chioma_ez', views: '12.5K', likes: '980',  dur: '0:30', status: 'Submitted', sc: T.amber, sb: T.amberLight, time: '8h ago',  thumb: '/images/creators/creator-4.jpg' },
+  { creator: 'Femi Adeyemi',   handle: '@femi_ade',  views: '55.3K', likes: '4.8K', dur: '0:21', status: 'Approved',  sc: T.green, sb: T.greenLight,  time: '6h ago',  thumb: '/images/creators/creator-5.jpg' },
+  { creator: 'Ngozi Obi',      handle: '@ngozi_obi', views: '28.7K', likes: '2.1K', dur: '0:19', status: 'Submitted', sc: T.amber, sb: T.amberLight, time: '12h ago', thumb: '/images/creators/creator-6.jpg' },
+  { creator: 'Kola Martins',   handle: '@kola_m',    views: '19.4K', likes: '1.5K', dur: '0:27', status: 'Submitted', sc: T.amber, sb: T.amberLight, time: '15h ago', thumb: '/images/creators/creator-7.jpg' },
+  { creator: 'Amaka Uzor',     handle: '@amaka_uz',  views: '63.0K', likes: '5.1K', dur: '0:16', status: 'Approved',  sc: T.green, sb: T.greenLight,  time: '20h ago', thumb: '/images/creators/creator-8.jpg' },
+  { creator: 'Bayo Williams',  handle: '@bayo_w',    views: '41.2K', likes: '3.3K', dur: '0:22', status: 'Submitted', sc: T.amber, sb: T.amberLight, time: '1d ago',  thumb: '/images/creators/creator-9.jpg' },
 ];
 
 function VideoCard({ v, mobile }: { v: typeof VIDEOS[0]; mobile: boolean }) {
@@ -433,8 +434,7 @@ function VideoCard({ v, mobile }: { v: typeof VIDEOS[0]; mobile: boolean }) {
     <div style={{ ...CARD, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
       {/* Thumbnail */}
       <div style={{ position: 'relative', paddingTop: mobile ? '120%' : '145%' }}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={v.thumb} alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
+        <Image src={v.thumb} alt="" fill sizes={mobile ? '120px' : '180px'} style={{ objectFit: 'cover' }} />
         {/* Dark overlay */}
         <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.32)' }} />
         {/* Play button */}

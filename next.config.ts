@@ -1,5 +1,7 @@
 import type { NextConfig } from "next";
 
+const varmplyApiBaseUrl = process.env.NEXT_PUBLIC_VARMPLY_API_BASE_URL;
+
 const nextConfig: NextConfig = {
   async headers() {
     return [
@@ -14,17 +16,20 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  async rewrites() {
+    if (!varmplyApiBaseUrl) {
+      return [];
+    }
+
+    return [
+      {
+        source: "/api/waitlist/entries",
+        destination: `${varmplyApiBaseUrl}/waitlist/entries`,
+      },
+    ];
+  },
   images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "picsum.photos",
-      },
-      {
-        protocol: "https",
-        hostname: "images.unsplash.com",
-      },
-    ],
+    qualities: [75, 90],
   },
 };
 

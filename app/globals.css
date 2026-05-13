@@ -97,8 +97,8 @@
 
 
 @theme inline {
-  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), monospace;
 
   /* Colors → Tailwind utilities (bg-accent, text-accent, etc.) */
   --color-accent: var(--accent);

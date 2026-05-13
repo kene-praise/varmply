@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: 'Terms of Service — Varmply',
-  description: 'Read the Varmply Terms of Service. Understand your rights and responsibilities when using the platform.',
+  description: 'Read the Varmply Terms of Service for funded creator campaigns, verification, payouts, and platform responsibilities.',
 };
 
 // ─── Section label chip ───────────────────────────────────────────────────────
@@ -126,8 +126,8 @@ export default function TermsPage() {
           {/* Quick links */}
           <div className="mt-8 flex flex-wrap gap-3">
             {[
-              'About Varmply', 'Eligibility', 'User Accounts', 'Payments & Escrow',
-              'Content', 'Prohibited Activities', 'Limitation of Liability',
+              'About Varmply', 'Eligibility', 'User Accounts', 'Funded Campaigns',
+              'Verification', 'Content', 'Disputes', 'Limitation of Liability',
             ].map((label) => (
               <span
                 key={label}
@@ -151,15 +151,16 @@ export default function TermsPage() {
 
           <Clause number="01" title="About Varmply">
             <p>
-              Varmply is a digital platform designed to connect creators, influencers, artists,
-              and brands for collaboration, sponsorship, and campaign opportunities.
+              Varmply is a platform for structured creator campaigns. Sponsors define campaign
+              briefs and fund campaign budgets; creators complete approved deliverables; Varmply
+              helps verify campaign evidence before payouts are released.
             </p>
             <p>Varmply provides tools that enable users to:</p>
             <BulletList items={[
-              'Discover collaboration opportunities',
-              'Create campaigns',
-              'Track campaign performance',
-              'Facilitate campaign payments',
+              'Create and discover campaign opportunities',
+              'Define deliverables, eligibility rules, timelines, and payout terms',
+              'Track campaign submissions and performance evidence',
+              'Facilitate payment protection and creator payouts',
             ]} />
             <p>
               Varmply acts solely as a technology platform and does not act as an employer,
@@ -206,17 +207,27 @@ export default function TermsPage() {
 
           <Clause number="05" title="Campaign Agreements">
             <p>
-              Campaigns represent agreements between creators and sponsors. Varmply provides tools
-              to facilitate collaborations but does not guarantee the performance of either party.
+              Campaigns represent agreements between creators and sponsors based on the campaign
+              brief, accepted deliverables, payout terms, and any platform rules shown before a
+              creator joins the campaign. Varmply provides tools to facilitate those agreements
+              but does not guarantee viral reach, audience response, or the performance of either
+              party.
             </p>
           </Clause>
 
-          <Clause number="06" title="Payments and Escrow">
-            <p>Varmply may facilitate payments between sponsors and creators, including:</p>
+          <Clause number="06" title="Funded Campaigns and Payment Protection">
+            <p>
+              Varmply may facilitate payments between sponsors and creators through supported
+              payment providers. Unless a formal escrow arrangement is expressly identified,
+              references to payment protection mean that sponsor funds are collected or reserved
+              for a campaign before creators begin work, then handled according to the campaign
+              terms and these Terms.
+            </p>
             <BulletList items={[
-              'Campaign deposits',
-              'Escrow holding periods',
-              'Creator payouts after metrics are validated',
+              'Campaign deposits or funded campaign balances',
+              'Payment review or holding periods',
+              'Creator payouts after campaign evidence is verified',
+              'Sponsor refunds for unused campaign funds where applicable',
             ]} />
           </Clause>
 
@@ -241,9 +252,16 @@ export default function TermsPage() {
 
           <Clause number="09" title="Content Ownership">
             <p>
-              Creators retain ownership of content published on third-party platforms. Varmply does
-              not host or store creator content but may analyze publicly available campaign
-              performance data.
+              Creators retain ownership of content they publish on third-party platforms. By
+              submitting campaign content or linking campaign posts to Varmply, creators grant
+              Varmply a limited license to host, display, store, analyze, and share that content
+              and related evidence as needed to operate campaigns, verify performance, resolve
+              disputes, maintain audit history, and show sponsors campaign results.
+            </p>
+            <p>
+              Varmply may also use anonymized or public campaign outcomes to explain or promote
+              the platform, provided such use does not transfer ownership of creator content to
+              Varmply.
             </p>
           </Clause>
 
@@ -261,13 +279,14 @@ export default function TermsPage() {
 
           <Clause number="11" title="Campaign Performance Tracking">
             <p>
-              Campaign performance is tracked using publicly available data or authorized
-              integrations including:
+              Campaign performance is tracked using publicly available data, creator-submitted
+              evidence, sponsor review, and authorized integrations including:
             </p>
             <BulletList items={[
               'Engagement metrics',
               'Impressions and reach',
               'Views or video plays',
+              'Post URLs, screenshots, timestamps, captions, tags, and other campaign evidence',
             ]} />
           </Clause>
 
@@ -283,9 +302,9 @@ export default function TermsPage() {
           <Clause number="13" title="Sponsor Payment Protection">
             <p>
               Sponsors creating campaigns on Varmply agree to fund campaign payments in accordance
-              with the campaign terms. Sponsors are required to deposit campaign funds into an
-              escrow system before a campaign begins — ensuring that creators who successfully
-              complete their deliverables are able to receive payment.
+              with the campaign terms. Sponsors may be required to deposit or reserve campaign
+              funds before a campaign begins, helping ensure that creators who successfully
+              complete and verify their deliverables can receive payment.
             </p>
             <p>Sponsors are responsible for ensuring that:</p>
             <BulletList items={[
@@ -295,7 +314,27 @@ export default function TermsPage() {
             ]} />
           </Clause>
 
-          <Clause number="14" title="Fraud Prevention and Platform Integrity">
+          <Clause number="14" title="Verification and Payout Decisions">
+            <p>
+              Varmply may administer campaign verification using submitted content, connected
+              social data, public metrics, timestamps, campaign requirements, sponsor feedback,
+              and fraud signals. Varmply may approve, reject, request more evidence, withhold,
+              reverse, or review a payout where campaign evidence is missing, manipulated,
+              non-compliant, or disputed.
+            </p>
+            <p>
+              Sponsors may receive a defined challenge window after verification or submission
+              review. If no challenge is raised within that window, or once Varmply resolves a
+              challenge in the creator&apos;s favor, the approved payout may be released.
+            </p>
+            <p>
+              After the challenge and review process closes, creator payouts are treated as final
+              except for fraud, chargebacks, legal or payment-provider requirements, or clear
+              platform error.
+            </p>
+          </Clause>
+
+          <Clause number="15" title="Fraud Prevention and Platform Integrity">
             <p>Users must not:</p>
             <BulletList items={[
               'Inflate engagement metrics',
@@ -305,7 +344,7 @@ export default function TermsPage() {
             ]} />
           </Clause>
 
-          <Clause number="15" title="Prohibited Activities">
+          <Clause number="16" title="Prohibited Activities">
             <p>Users must not:</p>
             <BulletList items={[
               'Provide false information',
@@ -315,14 +354,14 @@ export default function TermsPage() {
             ]} />
           </Clause>
 
-          <Clause number="16" title="Advertising Compliance">
+          <Clause number="17" title="Advertising Compliance">
             <p>
               Creators and sponsors must comply with applicable advertising laws and disclosure
               regulations in all jurisdictions where their content is distributed.
             </p>
           </Clause>
 
-          <Clause number="17" title="Intellectual Property">
+          <Clause number="18" title="Intellectual Property">
             <p>
               All intellectual property related to the Varmply platform — including the name,
               logo, design, and technology — belongs to Varmply or its licensors. Unauthorized
@@ -330,7 +369,7 @@ export default function TermsPage() {
             </p>
           </Clause>
 
-          <Clause number="18" title="No Agency or Guarantee">
+          <Clause number="19" title="No Agency or Guarantee">
             <p>
               Varmply acts solely as a technology platform facilitating connections between users.
               Varmply does not guarantee campaign outcomes, creator performance, or sponsor
@@ -338,35 +377,41 @@ export default function TermsPage() {
             </p>
           </Clause>
 
-          <Clause number="19" title="Account Suspension or Termination">
+          <Clause number="20" title="Account Suspension or Termination">
             <p>
               Varmply may suspend or terminate accounts that violate these Terms, engage in
               fraudulent activities, or otherwise compromise platform integrity.
             </p>
           </Clause>
 
-          <Clause number="20" title="Limitation of Liability">
+          <Clause number="21" title="Limitation of Liability">
             <p>
               To the fullest extent permitted by law, Varmply is not liable for disputes between
               users, loss of profits, or indirect damages arising from use of the platform.
             </p>
           </Clause>
 
-          <Clause number="21" title="Indemnification">
+          <Clause number="22" title="Indemnification">
             <p>
               Users agree to indemnify and hold Varmply harmless from any claims, damages, or
               expenses arising from misuse of the platform or violations of these Terms.
             </p>
           </Clause>
 
-          <Clause number="22" title="Dispute Resolution">
+          <Clause number="23" title="Dispute Resolution">
             <p>
-              Users are encouraged to resolve disputes directly. Varmply may provide tools to
-              assist but is not obligated to mediate disputes between parties.
+              Users are encouraged to resolve disputes directly where possible. For campaign
+              payment or deliverable disputes, Varmply may review campaign evidence, sponsor
+              challenges, creator responses, connected metrics, and platform records before
+              deciding whether to approve, withhold, refund, or release payment.
+            </p>
+            <p>
+              Varmply&apos;s platform review process does not prevent either party from pursuing any
+              rights available under applicable law after the platform process is complete.
             </p>
           </Clause>
 
-          <Clause number="23" title="Third-Party Services">
+          <Clause number="24" title="Third-Party Services">
             <p>
               The platform may integrate with third-party services such as payment processors or
               social media platforms. Varmply is not responsible for the practices or availability
@@ -374,7 +419,7 @@ export default function TermsPage() {
             </p>
           </Clause>
 
-          <Clause number="24" title="Privacy">
+          <Clause number="25" title="Privacy">
             <p>
               Use of the platform is governed by the{' '}
               <Link
@@ -388,21 +433,21 @@ export default function TermsPage() {
             </p>
           </Clause>
 
-          <Clause number="25" title="Changes to the Terms">
+          <Clause number="26" title="Changes to the Terms">
             <p>
               Varmply may update these Terms periodically. Continued use of the platform after
               updates are published constitutes acceptance of the revised Terms.
             </p>
           </Clause>
 
-          <Clause number="26" title="Governing Law">
+          <Clause number="27" title="Governing Law">
             <p>
               These Terms are governed by the laws of the Federal Republic of Nigeria. Any
               disputes shall be subject to the jurisdiction of Nigerian courts.
             </p>
           </Clause>
 
-          <Clause number="27" title="Contact Information">
+          <Clause number="28" title="Contact Information">
             <p>For questions regarding these Terms, contact us at:</p>
             <p>
               <a

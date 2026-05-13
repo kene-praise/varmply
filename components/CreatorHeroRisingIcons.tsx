@@ -101,7 +101,7 @@ export default function CreatorHeroRisingIcons() {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            ...({ '--drift': item.drift } as any),
+            ...({ '--drift': item.drift } as React.CSSProperties),
           }}
         >
           <IconSvg type={item.type} size={item.sz} />
@@ -123,4 +123,3 @@ export default function CreatorHeroRisingIcons() {
     </div>
   );
 }
-

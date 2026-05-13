@@ -28,7 +28,6 @@ interface PhoneFrameProps {
 
 // Natural canvas — matches the Figma SVG aspect ratio 999:2173
 const W = 320;
-const H = Math.round(W * (2173 / 999)); // ≈ 696
 
 // Screen clip-path: the exact rounded-rect from the Figma mask path,
 // normalised to objectBoundingBox (all coords ÷ 999 for x, ÷ 2173 for y).
@@ -48,13 +47,14 @@ function fgFromBg(bg: string): string {
 }
 
 function StatusBar({ screenBg }: { screenBg: string }) {
-  const [time, setTime] = useState('');
+  const [time, setTime] = useState(() =>
+    new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false })
+  );
   const color = fgFromBg(screenBg);
 
   useEffect(() => {
     const fmt = () =>
       new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
-    setTime(fmt());
     const id = setInterval(() => setTime(fmt()), 1000);
     return () => clearInterval(id);
   }, []);

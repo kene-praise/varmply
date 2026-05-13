@@ -1,6 +1,6 @@
 'use client';
 
-import { Link, Image, FileText, CheckCircle } from 'lucide-react';
+import { Link, Image as ImageIcon, CheckCircle } from 'lucide-react';
 
 export default function SubmissionForm() {
   return (
@@ -44,7 +44,7 @@ export default function SubmissionForm() {
             <div
               className="border-2 border-dashed border-[#E4E4EC] rounded-lg p-3 flex flex-col items-center gap-1 cursor-pointer hover:border-[#7C3BED] hover:bg-[#EDE9FF]/30 transition-all"
             >
-              <Image size={16} className="text-[#8888AA]" />
+              <ImageIcon size={16} className="text-[#8888AA]" />
               <p className="text-[10px] text-[#8888AA]">Drop or click to upload</p>
             </div>
           </div>

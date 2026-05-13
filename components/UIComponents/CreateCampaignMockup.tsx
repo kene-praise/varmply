@@ -132,7 +132,7 @@ export default function CreateCampaignMockup() {
             {/* Left: Campaign Basics */}
             <div className="flex-1 bg-white border border-[#e5e7eb] rounded-2xl p-5 flex flex-col">
               <p className="text-[13px] font-bold text-[#101828] mb-0.5">Campaign Basics</p>
-              <p className="text-[10px] text-[#6a7282] mb-4">Give your campaign a name and tell creators what it's about.</p>
+              <p className="text-[10px] text-[#6a7282] mb-4">Give your campaign a name and tell creators what it&apos;s about.</p>
 
               <div className="mb-3">
                 <p className="text-[11px] font-semibold text-[#101828] mb-1.5">Campaign Name <span className="text-[#9810fa]">*</span></p>

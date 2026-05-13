@@ -1,6 +1,6 @@
 'use client';
 
-import { CheckCircle, XCircle, Clock, Users, TrendingUp } from 'lucide-react';
+import { Clock, Users } from 'lucide-react';
 
 interface CampaignItem {
   brand: string;

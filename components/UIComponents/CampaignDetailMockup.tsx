@@ -172,7 +172,7 @@ export default function CampaignDetailMockup() {
                 <p className="text-[11px] font-bold text-[#101828] mb-3">About this campaign</p>
                 <p className="text-[10px] uppercase font-bold text-[#6a7282] tracking-wide mb-1">Artiste Intro</p>
                 <p className="text-[11px] text-[#4a5565] leading-relaxed mb-3">
-                  Ayra Starr is a rising Afrobeats sensation known for her unique sound and powerful vocals. Join this campaign to promote her latest single "Jazzy".
+                  Ayra Starr is a rising Afrobeats sensation known for her unique sound and powerful vocals. Join this campaign to promote her latest single &quot;Jazzy&quot;.
                 </p>
 
                 <div className="border-t border-[#f3f4f6] pt-3 mb-3">

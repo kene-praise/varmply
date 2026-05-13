@@ -34,7 +34,7 @@ function StatusBar() {
   );
 }
 
-function NavBar({ onBack }: { onBack?: boolean }) {
+function NavBar() {
   return (
     <div className="flex items-center justify-between px-3.5 shrink-0 bg-white border-b border-gray-100" style={{ paddingTop: 8, paddingBottom: 8 }}>
       <div className="flex items-center gap-1.5">
@@ -387,7 +387,7 @@ function CreatorsScreen() {
 
         <div style={{ background: '#f9f9f9', borderRadius: 10, padding: '4px 0' }}>
           <p style={{ fontSize: 8.5, fontWeight: 600, color: '#838383', padding: '6px 10px 4px', letterSpacing: 0.5 }}>ALL CAMPAIGNS</p>
-          {creators.map((c, i) => (
+          {creators.map((c) => (
             <div
               key={c.name}
               style={{
