@@ -1,6 +1,6 @@
 'use client';
 
-import { Suspense, useEffect, useLayoutEffect } from 'react';
+import { Suspense, useState, useEffect, useLayoutEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
@@ -9,7 +9,6 @@ import { ScrollCarousel } from '@/components/ui/ScrollCarousel';
 import Image from 'next/image';
 import { ArrowRight, CheckCircle, Lock, RotateCcw, BarChart2, Users, Shield, TrendingUp, DollarSign, Star } from 'lucide-react';
 import FAQAccordion from '@/components/FAQAccordion';
-import { BrowserChrome, DashboardSkeleton } from '@/components/MockupSkeletons';
 import { VideoCard } from '@/components/ui/VideoCard';
 import { PhoneFrame } from '@/components/ui/PhoneFrame';
 import { LiquidGlass } from '@/components/ui/LiquidGlass';
@@ -41,187 +40,107 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
   );
 }
 
-// ─── Phone skeletons for How It Works ────────────────────────────────────────
 
-function MobileCampaignMockup() {
+
+
+type PhoneVisCfg = { top?: number; left?: number; right?: number; bottom?: number; scale?: number; x?: number; y?: number };
+const phoneVisual = (imgSrc: string, alt: string, cfg: PhoneVisCfg = {}) => {
+  const { top = 60, left = 0, right = 0, bottom = 0, scale = 1, x = 0, y = 0 } = cfg;
+  const inner = (fw: number) => (
+    <PhoneFrame screenBg="#FFFFFF" frameWidth={fw}>
+      <div className="absolute overflow-hidden" style={{ top, left, right, bottom }}>
+        <div style={{ transform: `scale(${scale}) translate(${x}px, ${y}px)`, transformOrigin: 'top center', width: '100%' }}>
+          <Image src={imgSrc} alt={alt} width={390} height={844} className="w-full h-auto" />
+        </div>
+      </div>
+    </PhoneFrame>
+  );
   return (
-    <div className="p-4 flex flex-col gap-3 font-sans h-full bg-[#FAFAFA] rounded-[36px] overflow-hidden -mx-2 -mt-4">
-      <div className="flex justify-between items-center mb-1 px-1">
-        <span className="text-[10px] font-bold text-[#7C3BED] uppercase tracking-wider">Setup</span>
-        <span className="text-[10px] font-medium text-[#4A4A6A]">Step 1 of 4</span>
+    <>
+      {/* Mobile — keep existing dimensions */}
+      <div className="md:hidden mt-8 px-4 relative h-[420px] w-full flex justify-center overflow-hidden pointer-events-none">
+        <div className="absolute top-0 flex justify-center">{inner(260)}</div>
       </div>
-      <div className="rounded-2xl p-4 bg-white border border-[rgba(124,59,237,0.14)] shadow-sm">
-        <p className="text-[9px] font-bold text-[#A0A0BA] uppercase mb-[2px]">Campaign Name</p>
-        <p className="text-sm font-black text-[#0F0F1A] mb-4">Summer Launch Q3</p>
-        <div className="h-px w-full bg-[#EBEBF2] mb-3" />
-        <div className="flex gap-2 mb-4">
-          <div className="flex-1 rounded-xl px-3 py-2 bg-[rgba(124,59,237,0.05)] border border-[rgba(124,59,237,0.10)]">
-            <p className="text-[8px] font-bold text-[#A0A0BA] uppercase mb-0.5">Platform</p>
-            <p className="text-[10px] font-bold text-[#7C3BED]">TikTok</p>
-          </div>
-          <div className="flex-1 rounded-xl px-3 py-2 bg-[rgba(0,160,80,0.05)] border border-[rgba(0,160,80,0.10)]">
-            <p className="text-[8px] font-bold text-[#A0A0BA] uppercase mb-0.5">Content</p>
-            <p className="text-[10px] font-bold text-[#00A050]">Video</p>
-          </div>
+      {/* Desktop — larger phone, shorter container */}
+      <div className="hidden md:flex mt-8 -mx-8 relative h-[440px] w-[calc(100%+64px)] justify-center overflow-hidden pointer-events-none">
+        <div className="absolute top-0 flex justify-center">{inner(310)}</div>
+      </div>
+    </>
+  );
+};
+
+type PhoneCfg = { top: number; left: number; right: number; bottom: number; scale: number; x: number; y: number };
+
+function TunerSliders<T extends Record<string, number>>({ cfg, fields, set }: {
+  cfg: T;
+  fields: { k: keyof T; min: number; max: number; step: number }[];
+  set: (k: keyof T, v: number) => void;
+}) {
+  return (
+    <div style={{ pointerEvents: 'auto', borderRadius: 10, background: '#0D0D1A', border: '1px solid rgba(124,59,237,0.3)', padding: '10px 12px', marginTop: 6 }}>
+      {fields.map(({ k, min, max, step }) => (
+        <div key={String(k)} style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 5 }}>
+          <span style={{ width: 42, fontSize: 9, color: '#A78BFA', fontFamily: 'monospace', flexShrink: 0 }}>{String(k)}</span>
+          <input type="range" min={min} max={max} step={step} value={cfg[k] as number}
+            onChange={e => set(k, Number(e.target.value))}
+            style={{ flex: 1, accentColor: '#7C3BED' }} />
+          <span style={{ width: 36, fontSize: 9, fontFamily: 'monospace', color: '#E2E8F0', textAlign: 'right' }}>
+            {(cfg[k] as number).toFixed(step < 1 ? 2 : 0)}
+          </span>
         </div>
-        <p className="text-[9px] font-bold text-[#A0A0BA] uppercase mb-1.5">Description (preview)</p>
-        <div className="rounded-xl p-3 text-[10px] text-[#4A4A6A] leading-relaxed bg-[#F9F9FB] border border-[#EBEBF2]">
-          We are looking for creators to make 15s videos demonstrating our new summer collection...
-        </div>
-      </div>
-      <div className="rounded-2xl p-4 bg-white border border-[rgba(217,119,6,0.14)] shadow-sm mt-1">
-        <p className="text-[9px] font-bold text-[#A0A0BA] uppercase mb-[2px]">Target Reach</p>
-        <p className="text-sm font-black text-[#0F0F1A] mb-1">500,000+ views</p>
-        <div className="w-full bg-[#FEF3C7] rounded-full h-1.5 mt-2 overflow-hidden">
-          <div className="bg-[#D97706] w-1/3 h-full rounded-full" />
-        </div>
-      </div>
-      <div className="mt-auto h-12 w-full rounded-full flex items-center justify-center text-white text-[12px] font-bold shadow-md bg-[#7C3BED]">
-        Preview & Save
-      </div>
+      ))}
+      <button onClick={() => navigator.clipboard.writeText(JSON.stringify(cfg))}
+        style={{ fontSize: 8, fontFamily: 'monospace', padding: '2px 8px', borderRadius: 4, background: 'rgba(255,255,255,0.06)', color: '#94A3B8', border: '1px solid rgba(255,255,255,0.1)', cursor: 'pointer', marginTop: 4 }}>
+        📋 copy config
+      </button>
     </div>
   );
 }
 
-function MobileEscrowMockup() {
+function TuneBtn({ open, onClick }: { open: boolean; onClick: () => void }) {
   return (
-    <div className="p-4 flex flex-col gap-3 font-sans h-full bg-[#FAFAFA] rounded-[36px] overflow-hidden -mx-2 -mt-4">
-      <div className="flex flex-col items-center gap-2 py-4 mb-2">
-        <div className="w-16 h-16 rounded-2xl bg-[rgba(37,99,235,0.08)] flex items-center justify-center mb-1 border border-[rgba(37,99,235,0.15)] shadow-sm">
-          <div className="w-8 h-8 rounded-lg bg-[#2563EB] flex items-center justify-center text-white text-[14px]">🔒</div>
-        </div>
-        <p className="text-[11px] font-bold text-[#A0A0BA] uppercase tracking-wider">Campaign Locked</p>
-        <p className="text-2xl font-black text-[#0F0F1A]">₦500,000</p>
-      </div>
-      
-      <div className="rounded-2xl border border-[rgba(37,99,235,0.14)] bg-white p-5 flex flex-col gap-3 shadow-sm mb-2 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-24 h-24 bg-[rgba(37,99,235,0.05)] rounded-full -mr-10 -mt-10 pointer-events-none" />
-        <div className="flex justify-between items-center mb-1">
-          <span className="text-[10px] font-bold text-[#A0A0BA] uppercase">Allocated Budget</span>
-          <span className="text-[11px] font-black text-[#2563EB]">85%</span>
-        </div>
-        <div className="h-2 w-full rounded-full bg-[#EFF6FF] overflow-hidden">
-          <div className="h-full w-[85%] rounded-full bg-[#2563EB]" />
-        </div>
-        <div className="flex justify-between mt-1">
-          <span className="text-[9px] font-bold text-[#4A4A6A]">₦425,000 committed</span>
-          <span className="text-[9px] font-bold text-[#A0A0BA]">₦75,000 remaining</span>
-        </div>
-      </div>
-      
-      <div className="flex gap-2">
-        {[
-          { icon: '🛡️', label: 'Secured', val: '₦500K' },
-          { icon: '💸', label: 'Pending', val: '₦125K' },
-          { icon: '✅', label: 'Released', val: '₦300K' }
-        ].map((item, i) => (
-          <div key={i} className={`flex-1 rounded-2xl p-3 flex flex-col items-center gap-1.5 shadow-sm border ${i === 0 ? 'bg-[rgba(37,99,235,0.05)] border-[rgba(37,99,235,0.12)]' : 'bg-white border-[#EBEBF2]'}`}>
-            <span className="text-[14px]">{item.icon}</span>
-            <span className={`text-[8px] font-bold uppercase tracking-wide ${i === 0 ? 'text-[#2563EB]' : 'text-[#A0A0BA]'}`}>{item.label}</span>
-            <span className="text-[10px] font-black text-[#0F0F1A]">{item.val}</span>
-          </div>
-        ))}
-      </div>
-      
-      <div className="mt-auto h-12 w-full rounded-full flex items-center justify-center text-white text-[12px] font-bold shadow-md bg-[#2563EB]">
-        Manage Funds
-      </div>
-    </div>
+    <button onClick={onClick} style={{ pointerEvents: 'auto', fontSize: 8, fontFamily: 'monospace', fontWeight: 700, padding: '2px 10px', borderRadius: 4, background: open ? '#7C3BED' : 'rgba(124,59,237,0.1)', color: open ? '#fff' : '#7C3BED', border: '1px solid rgba(124,59,237,0.3)', cursor: 'pointer' }}>
+      {open ? '✕ close' : '⚙ tune'}
+    </button>
   );
 }
 
-function MobileAnalyticsMockup() {
+function TunablePhone({ imgSrc, alt, init, frameWidth = 300, wrapClass = 'mt-8 -mx-8 w-[calc(100%+64px)]' }: {
+  imgSrc: string; alt: string; init: PhoneCfg; frameWidth?: number; wrapClass?: string;
+}) {
+  const [cfg, setCfg] = useState<PhoneCfg>(init);
+  const [open, setOpen] = useState(false);
+
   return (
-    <div className="p-4 flex flex-col gap-3 font-sans h-full bg-[#FAFAFA] rounded-[36px] overflow-hidden -mx-2 -mt-4">
-      <div className="flex justify-between items-center mb-3 px-1">
-        <div>
-           <span className="text-[10px] font-bold text-[#00A050] uppercase tracking-wider block mb-1">Live Tracking</span>
-           <span className="text-[13px] font-black text-[#0F0F1A]">Campaign Metrics</span>
-        </div>
-        <span className="w-2 h-2 rounded-full bg-[#00A050] animate-pulse" />
-      </div>
-      
-      <div className="flex gap-2 items-end h-32 mb-4 px-2">
-        {[45, 60, 35, 85, 55, 95, 75].map((h, i) => (
-          <div key={i} className="flex-1 flex flex-col items-center justify-end gap-1.5 group">
-            <div className={`w-full rounded-t-lg transition-all ${i === 5 ? 'bg-[#00A050]' : 'bg-[rgba(0,160,80,0.15)]'}`} style={{ height: `${h}%` }} />
-            <span className="text-[8px] font-bold text-[#A0A0BA]">Day {i+1}</span>
-          </div>
-        ))}
-      </div>
-      
-      <div className="grid grid-cols-2 gap-2 mt-1">
-        {[
-          { label: 'Total Reach', val: '148K', up: '+12%' },
-          { label: 'Eng. Rate', val: '8.4%', up: '+1.2%' },
-          { label: 'Creators', val: '18 Active', none: true },
-          { label: 'Budget Used', val: '90%', alert: true }
-        ].map((item, i) => (
-          <div key={i} className="rounded-2xl bg-white border border-[#EBEBF2] shadow-sm p-3 flex flex-col">
-            <p className="text-[8px] font-bold text-[#A0A0BA] uppercase mb-1.5">{item.label}</p>
-            <div className="flex items-end justify-between mt-auto">
-               <span className="text-[14px] font-black text-[#0F0F1A]">{item.val}</span>
-               {item.up && <span className="text-[8px] font-bold text-[#00A050] bg-[rgba(0,160,80,0.1)] px-1.5 py-[1px] rounded">{item.up}</span>}
+    <div className={wrapClass}>
+      {/* tune button overlaid at bottom-center of phone area — stays inside card clip */}
+      <div className="relative h-[420px] flex justify-center overflow-hidden">
+        <div className="absolute top-0 flex justify-center pointer-events-none">
+          <PhoneFrame screenBg="#FFFFFF" frameWidth={frameWidth}>
+            <div className="absolute overflow-hidden" style={{ top: cfg.top, left: cfg.left, right: cfg.right, bottom: cfg.bottom }}>
+              <div style={{ transform: `scale(${cfg.scale}) translate(${cfg.x}px, ${cfg.y}px)`, transformOrigin: 'top center', width: '100%' }}>
+                <Image src={imgSrc} alt={alt} width={390} height={844} className="w-full h-auto" />
+              </div>
             </div>
-          </div>
-        ))}
+          </PhoneFrame>
+        </div>
+        <div className="absolute bottom-3 flex justify-center w-full z-10">
+          <TuneBtn open={open} onClick={() => setOpen(o => !o)} />
+        </div>
       </div>
+      {open && (
+        <div className="px-2">
+          <TunerSliders cfg={cfg} set={(k, v) => setCfg(p => ({ ...p, [k]: v }))}
+            fields={[
+              { k: 'top', min: 0, max: 120, step: 1 }, { k: 'left', min: 0, max: 60, step: 1 }, { k: 'right', min: 0, max: 60, step: 1 },
+              { k: 'scale', min: 0.5, max: 2, step: 0.01 }, { k: 'x', min: -150, max: 150, step: 1 }, { k: 'y', min: -150, max: 150, step: 1 },
+            ]} />
+        </div>
+      )}
     </div>
   );
 }
 
-function MobilePayoutMockup() {
-  return (
-    <div className="p-4 flex flex-col gap-3 font-sans h-full bg-[#FAFAFA] rounded-[36px] overflow-hidden -mx-2 -mt-4">
-      <div className="flex flex-col items-center gap-2 pt-4 pb-2">
-        <div className="w-14 h-14 rounded-full bg-[rgba(217,119,6,0.08)] border border-[rgba(217,119,6,0.15)] flex items-center justify-center mb-1 shadow-sm">
-          <div className="w-7 h-7 rounded-full bg-[#D97706] text-white flex items-center justify-center text-[12px]">💸</div>
-        </div>
-        <p className="text-[11px] font-bold text-[#A0A0BA] uppercase tracking-wider">Total Released</p>
-        <p className="text-2xl font-black text-[#0F0F1A]">₦2,400,000</p>
-      </div>
-      
-      <div className="flex flex-col gap-2 mt-2">
-         {[
-           { name: 'Dami Creates', handle: '@dami_creates', amt: '₦25,000' },
-           { name: 'Chuks Video', handle: '@chuka.tv', amt: '₦18,000' }
-         ].map((c, i) => (
-           <div key={i} className="rounded-2xl border border-[#EBEBF2] bg-white p-3.5 flex justify-between items-center shadow-sm">
-             <div className="flex items-center gap-3">
-               <div className="w-9 h-9 rounded-full bg-[#F5F5F7] border border-[#EBEBF2] flex items-center justify-center shrink-0 text-[10px] font-bold text-[#A0A0BA]">
-                 {c.name[0]}
-               </div>
-               <div className="flex flex-col">
-                 <span className="text-[11px] font-bold text-[#0F0F1A] leading-tight mb-[2px]">{c.name}</span>
-                 <span className="text-[9px] text-[#A0A0BA] leading-none">{c.handle}</span>
-               </div>
-             </div>
-             <div className="flex flex-col items-end gap-1.5">
-               <span className="text-[11px] font-black text-[#D97706]">{c.amt}</span>
-               <span className="text-[8px] font-bold bg-[#FEF3C7] text-[#B45309] px-2 py-0.5 rounded shadow-sm">Paid out</span>
-             </div>
-           </div>
-         ))}
-      </div>
-      
-      <div className="mt-auto h-12 w-full rounded-full flex items-center justify-center text-white text-[12px] font-bold shadow-md bg-[#D97706]">
-        Review Pending
-      </div>
-    </div>
-  );
-}
-
-const phoneVisual = (children: React.ReactNode) => (
-  <div className="mt-8 relative h-[200px] md:h-[250px] w-full flex justify-center overflow-hidden pointer-events-none">
-    <div className="absolute top-0 flex justify-center" style={{ transform: 'scale(0.85)', transformOrigin: 'top center', width: 320 }}>
-      <PhoneFrame screenBg="#FFFFFF">
-        <div className="w-full h-[696px] bg-white pt-10">
-          {children}
-        </div>
-      </PhoneFrame>
-    </div>
-  </div>
-);
 
 // ─── Hero Components from Main Page ──────────────────────────────────────────
 
@@ -538,8 +457,8 @@ export default function SponsorsPage() {
             </motion.div>
 
             {/* Mobile hero: campaign prototype in phone */}
-            <motion.div variants={fadeUp} className="lg:hidden mt-8">
-              <div className="relative w-full overflow-hidden" style={{ height: 420 }}>
+            <motion.div variants={fadeUp} className="lg:hidden mt-8 -mb-8">
+              <div className="relative w-full" style={{ height: 420 }}>
                 <div className="absolute top-0 left-1/2" style={{ transform: 'translateX(-50%)' }}>
                   <PhoneFrame screenBg="#F7F7F9" scale={0.82}>
                     <SponsorCampaignPrototype />
@@ -562,7 +481,7 @@ export default function SponsorsPage() {
 
           {/* ── Right: campaign prototype in phone (desktop only) ── */}
           <div className="hidden lg:flex flex-col justify-center" style={{ flex: 1 }}>
-            <div className="relative" style={{ height: 'clamp(560px, 74vh, 680px)' }}>
+            <div className="relative" style={{ height: 'clamp(640px, 84vh, 800px)' }}>
               {/* Glass card */}
               <motion.div
                 className="absolute inset-0 overflow-hidden"
@@ -620,25 +539,25 @@ export default function SponsorsPage() {
                 step: '01', accent: '#7C3BED', bgTint: 'rgba(124,59,237,0.05)', border: 'rgba(124,59,237,0.14)',
                 label: 'Define your campaign rules', tag: 'DEFINE',
                 description: "Set your brief, eligibility requirements, deliverables, and deadline. Everything is crystal clear before any creator applies.",
-                phone: <MobileCampaignMockup />,
+                imgSrc: '/images/sponsors/app-campaign-builder.png', cfg: { top: 53, scale: 1.04 },
               },
               {
                 step: '02', accent: '#2563EB', bgTint: 'rgba(37,99,235,0.05)', border: 'rgba(37,99,235,0.14)',
                 label: 'Activate with escrow', tag: 'FUNDING',
                 description: "Lock your campaign budget in escrow. Creators can see funds exist before they apply. No budget = no campaign. Trust is built in from day one.",
-                phone: <MobileEscrowMockup />,
+                imgSrc: '/images/sponsors/app-sponsor-wallet.png',
               },
               {
                 step: '03', accent: '#00A050', bgTint: 'rgba(0,160,80,0.05)', border: 'rgba(0,160,80,0.14)',
                 label: 'Monitor in real time', tag: 'ANALYTICS',
                 description: "Watch submissions come in. Track reach, engagement, and impressions per creator as they happen. Every metric is validated automatically.",
-                phone: <MobileAnalyticsMockup />,
+                imgSrc: '/images/sponsors/app-analytics.png',
               },
               {
                 step: '04', accent: '#D97706', bgTint: 'rgba(217,119,6,0.05)', border: 'rgba(217,119,6,0.14)',
                 label: 'Pay for verified results', tag: 'PAYOUTS',
                 description: 'Funds are released only when performance is confirmed. Unused budget returns automatically. You only ever pay for what actually happened.',
-                phone: <MobilePayoutMockup />,
+                imgSrc: '/images/sponsors/app-campaign-detail.png',
               },
             ].map((s, i) => (
               <motion.div key={i} variants={fadeUp} className="shrink-0 w-[82vw] snap-start md:w-auto self-stretch flex flex-col">
@@ -666,7 +585,7 @@ export default function SponsorsPage() {
                       <p className="text-sm text-[#4A4A6A] leading-relaxed" style={{ maxWidth: 340 }}>{s.description}</p>
                     </div>
 
-                    {phoneVisual(s.phone)}
+                    {phoneVisual(s.imgSrc, s.label, s.cfg)}
                   </div>
                 </div>
               </motion.div>
@@ -722,27 +641,54 @@ export default function SponsorsPage() {
                   Live
                 </span>
               </div>
-              <div className="p-6 md:p-10 pt-7">
-                <p className="font-black text-[#0F0F1A] tracking-tight mb-6"
+              <div className="px-6 md:px-10 pt-7 pb-6 md:pb-8">
+                <p className="font-black text-[#0F0F1A] tracking-tight mb-0"
                   style={{ fontSize: 'clamp(18px, 2vw, 22px)', lineHeight: 1.15 }}>
                   Every active campaign, submission, <br className="max-md:hidden" /> and spend tracked in real time.
                 </p>
-                <div className="hidden md:block relative rounded-xl overflow-hidden"
-                  style={{ border: '1px solid rgba(37,99,235,0.10)', boxShadow: '0 4px 24px rgba(37,99,235,0.08)' }}>
-                  <BrowserChrome url="app.varmply.com/campaigns" />
-                  <div className="bg-[#FAFAFA] overflow-hidden" style={{ height: 340 }}>
-                    <DashboardSkeleton />
+              </div>
+              {/* Desktop — left padding only, bleeds off right + bottom */}
+              <div className="hidden md:block pl-6 md:pl-10">
+                <div className="relative overflow-hidden rounded-tl-xl">
+                  <div style={{ background: 'linear-gradient(180deg, #1C1528 0%, #160F22 100%)', borderBottom: '1px solid rgba(124,59,237,0.25)', padding: '10px 14px', display: 'flex', alignItems: 'center', gap: 10 }}>
+                    <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
+                      {[{ color: '#FF5F57', glow: 'rgba(255,95,87,0.5)' }, { color: '#FFBD2E', glow: 'rgba(255,189,46,0.5)' }, { color: '#28C840', glow: 'rgba(40,200,64,0.5)' }].map(({ color, glow }) => (
+                        <span key={color} style={{ display: 'block', width: 11, height: 11, borderRadius: '50%', background: color, boxShadow: `0 0 6px 1px ${glow}` }} />
+                      ))}
+                    </div>
+                    <div style={{ display: 'flex', gap: 4 }}>
+                      {['‹', '›'].map((a, i) => (
+                        <span key={i} style={{ fontSize: 14, lineHeight: 1, color: i === 0 ? 'rgba(255,255,255,0.25)' : 'rgba(255,255,255,0.5)', fontWeight: 600, userSelect: 'none' }}>{a}</span>
+                      ))}
+                    </div>
+                    <div style={{ flex: 1, display: 'flex', alignItems: 'center', gap: 6, background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(124,59,237,0.3)', borderRadius: 8, padding: '5px 10px' }}>
+                      <svg width="10" height="11" viewBox="0 0 10 11" fill="none"><rect x="1.5" y="4.5" width="7" height="6" rx="1.5" stroke="rgba(124,59,237,0.9)" strokeWidth="1.2"/><path d="M3 4.5V3a2 2 0 1 1 4 0v1.5" stroke="rgba(124,59,237,0.9)" strokeWidth="1.2" strokeLinecap="round"/></svg>
+                      <img src="/images/logo-symbol.png" alt="" style={{ width: 14, height: 14, flexShrink: 0, mixBlendMode: 'screen' }} />
+                      <span style={{ fontSize: 10, color: 'rgba(255,255,255,0.65)', fontFamily: 'monospace', letterSpacing: '0.02em', flex: 1 }}>
+                        app.varmply.com<span style={{ color: 'rgba(255,255,255,0.9)', fontWeight: 700 }}>/dashboard</span>
+                      </span>
+                    </div>
+                    <div style={{ width: 40 }} />
+                  </div>
+                  <div className="overflow-hidden relative" style={{ height: 340 }}>
+                    <div className="absolute inset-0 flex items-start justify-center overflow-hidden">
+                      <div style={{ transform: 'scale(1) translate(-3px, 0px)', transformOrigin: 'top center', width: '100%' }}>
+                        <Image src="/images/sponsors/app-sponsor-dashboard-desktop.png" alt="Sponsor dashboard" width={1440} height={900} className="w-full h-auto" />
+                      </div>
+                    </div>
                   </div>
                 </div>
-                {/* Mobile version (Phone visual) */}
-                <div className="md:hidden mt-4 relative h-[280px] w-full flex justify-center overflow-hidden pointer-events-none -mb-8">
-                  <div className="absolute top-0 flex justify-center" style={{ transform: 'scale(0.85)', transformOrigin: 'top center', width: 320 }}>
-                    <PhoneFrame screenBg="#FFFFFF">
-                      <div className="w-full h-[696px] bg-white pt-6">
-                        <MobileAnalyticsMockup />
+              </div>
+              {/* Mobile — outside padded div, full card width */}
+              <div className="md:hidden -mb-8 mt-2 relative h-[420px] w-full flex justify-center overflow-hidden pointer-events-none">
+                <div className="absolute top-0 flex justify-center">
+                  <PhoneFrame screenBg="#FFFFFF" frameWidth={280}>
+                    <div className="absolute overflow-hidden" style={{ top: 60, left: 0, right: 0, bottom: 0 }}>
+                      <div style={{ transform: 'scale(1) translate(0px, -2px)', transformOrigin: 'top center', width: '100%' }}>
+                        <Image src="/images/sponsors/app-sponsor-dashboard-mobile.png" alt="Sponsor dashboard" width={390} height={844} className="w-full h-auto" />
                       </div>
-                    </PhoneFrame>
-                  </div>
+                    </div>
+                  </PhoneFrame>
                 </div>
               </div>
             </div>
@@ -834,8 +780,8 @@ export default function SponsorsPage() {
           <ScrollCarousel count={3} gridClass="md:grid-cols-3">
 
             {/* Card 1 — SwiftPay · diagonal crosshatch */}
-            <motion.div variants={fadeUp} className="shrink-0 w-[82vw] snap-start md:w-auto">
-              <div className="relative overflow-hidden rounded-[28px] flex flex-col"
+            <motion.div variants={fadeUp} className="shrink-0 w-[82vw] snap-start md:w-auto self-stretch flex flex-col">
+              <div className="relative overflow-hidden rounded-[28px] flex flex-col flex-1"
                 style={{ background: 'rgba(37,99,235,0.05)', border: '1.5px solid rgba(37,99,235,0.14)', minHeight: 420 }}>
                 <div className="relative z-10 flex flex-col h-full">
                   {/* Top rule bar */}
@@ -1066,7 +1012,7 @@ export default function SponsorsPage() {
                     </p>
                   </div>
                   {/* 4-col box score */}
-                  <div className="grid grid-cols-4" style={{ borderTop: '1px solid rgba(37,99,235,0.12)' }}>
+                  <div className="grid grid-cols-2 md:grid-cols-4" style={{ borderTop: '1px solid rgba(37,99,235,0.12)' }}>
                     {[
                       { val: '100%', label: 'Pre-locked' },
                       { val: '₦0', label: 'Early access' },
@@ -1074,7 +1020,7 @@ export default function SponsorsPage() {
                       { val: '0', label: 'Disputes' },
                     ].map((s, j) => (
                       <div key={j} className="py-4 text-center"
-                        style={{ borderRight: j < 3 ? '1px solid rgba(37,99,235,0.10)' : 'none' }}>
+                        style={{ borderRight: (j === 0 || j === 2) ? '1px solid rgba(37,99,235,0.10)' : 'none', borderTop: j >= 2 ? '1px solid rgba(37,99,235,0.10)' : 'none' }}>
                         <p className="font-black text-sm leading-none" style={{ color: '#2563EB' }}>{s.val}</p>
                         <p className="text-[8px] font-bold uppercase tracking-[0.18em] mt-1"
                           style={{ color: 'rgba(37,99,235,0.45)' }}>{s.label}</p>
@@ -1191,16 +1137,15 @@ export default function SponsorsPage() {
           </motion.div>
 
           {/* Reel grid */}
-          <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={vp}
-            className="grid grid-cols-2 md:grid-cols-5 gap-3">
+          <ScrollCarousel count={5} gridClass="md:grid-cols-5" className="gap-3 md:gap-3">
             {[
-              { imageSrc: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=500&q=80', caption: '@amara.creates', subcaption: 'BeatDrop Q1 · TikTok', chips: [{ label: '120K views', position: 'top-left' as const, variant: 'dark' as const }] },
-              { imageSrc: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&q=80', caption: '@dayo_creates', subcaption: 'SoundSave · TikTok', chips: [{ label: '88K views', position: 'top-left' as const, variant: 'dark' as const }] },
-              { imageSrc: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500&q=80', caption: '@layla.ng', subcaption: 'GreenLoop · TikTok', chips: [{ label: '54K views', position: 'top-left' as const, variant: 'dark' as const }] },
-              { imageSrc: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=500&q=80', caption: '@seunvibes', subcaption: 'BeatDrop Q1 · TikTok', chips: [{ label: '210K views', position: 'top-left' as const, variant: 'dark' as const }] },
-              { imageSrc: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=500&q=80', caption: '@chuka.tv', subcaption: 'SoundSave · TikTok', chips: [{ label: '67K views', position: 'top-left' as const, variant: 'dark' as const }] },
+              { imageSrc: '/images/creators/creator-1.jpg', caption: '@amara.creates', subcaption: 'BeatDrop Q1 · TikTok', chips: [{ label: '120K views', position: 'top-left' as const, variant: 'dark' as const }] },
+              { imageSrc: '/images/creators/creator-3.jpg', caption: '@dayo_creates', subcaption: 'SoundSave · TikTok', chips: [{ label: '88K views', position: 'top-left' as const, variant: 'dark' as const }] },
+              { imageSrc: '/images/creators/creator-5.jpg', caption: '@layla.ng', subcaption: 'GreenLoop · TikTok', chips: [{ label: '54K views', position: 'top-left' as const, variant: 'dark' as const }] },
+              { imageSrc: '/images/creators/creator-7.jpg', caption: '@seunvibes', subcaption: 'BeatDrop Q1 · TikTok', chips: [{ label: '210K views', position: 'top-left' as const, variant: 'dark' as const }] },
+              { imageSrc: '/images/creators/creator-9.jpg', caption: '@chuka.tv', subcaption: 'SoundSave · TikTok', chips: [{ label: '67K views', position: 'top-left' as const, variant: 'dark' as const }] },
             ].map((reel, i) => (
-              <motion.div key={i} variants={fadeUp} className={i % 2 !== 0 ? 'md:mt-8' : ''}>
+              <motion.div key={i} variants={fadeUp} className={`shrink-0 w-[58vw] md:w-auto snap-start ${i % 2 !== 0 ? 'md:mt-8' : ''}`}>
                 <VideoCard
                   {...reel}
                   aspectRatio="9/16"
@@ -1210,7 +1155,7 @@ export default function SponsorsPage() {
                 />
               </motion.div>
             ))}
-          </motion.div>
+          </ScrollCarousel>
         </div>
       </section>
 
