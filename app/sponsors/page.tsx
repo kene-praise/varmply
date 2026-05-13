@@ -1,20 +1,25 @@
 'use client';
 
-import { Suspense, useState, useEffect, useLayoutEffect } from 'react';
+import { Suspense, useEffect, useLayoutEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import dynamic from 'next/dynamic';
 import { ScrollCarousel } from '@/components/ui/ScrollCarousel';
-import Image from 'next/image';
-import { ArrowRight, CheckCircle, Lock, RotateCcw, BarChart2, Users, Shield, TrendingUp, DollarSign, Star } from 'lucide-react';
+import { ArrowRight, CheckCircle, Lock, RotateCcw, BarChart2, Users, Shield, Star } from 'lucide-react';
 import FAQAccordion from '@/components/FAQAccordion';
+import { BrowserChrome } from '@/components/MockupSkeletons';
 import { VideoCard } from '@/components/ui/VideoCard';
 import { PhoneFrame } from '@/components/ui/PhoneFrame';
 import { LiquidGlass } from '@/components/ui/LiquidGlass';
-import CampaignBuilderMockup from '@/components/UIComponents/CampaignBuilderMockup';
-import SponsorHeroScreens from '@/components/UIComponents/SponsorHeroScreens';
-import SponsorCampaignPrototype from '@/components/UIComponents/SponsorCampaignPrototype';
+import {
+  SponsorCampaignDetailScreen,
+  SponsorDashboardScreen,
+  SponsorEscrowScreen,
+  SponsorHeroLiveScreen,
+  SponsorMonitoringScreen,
+  SponsorPayoutScreen,
+  SponsorSetupScreen,
+} from '@/components/UIComponents/AppMockScreens';
 
 
 // ─── Animation helpers ────────────────────────────────────────────────────────
@@ -40,289 +45,19 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
   );
 }
 
-
-
-
-type PhoneVisCfg = { top?: number; left?: number; right?: number; bottom?: number; scale?: number; x?: number; y?: number };
-const phoneVisual = (imgSrc: string, alt: string, cfg: PhoneVisCfg = {}) => {
-  const { top = 60, left = 0, right = 0, bottom = 0, scale = 1, x = 0, y = 0 } = cfg;
-  const inner = (fw: number) => (
-    <PhoneFrame screenBg="#FFFFFF" frameWidth={fw}>
-      <div className="absolute overflow-hidden" style={{ top, left, right, bottom }}>
-        <div style={{ transform: `scale(${scale}) translate(${x}px, ${y}px)`, transformOrigin: 'top center', width: '100%' }}>
-          <Image src={imgSrc} alt={alt} width={390} height={844} className="w-full h-auto" />
+const phoneVisual = (children: React.ReactNode) => (
+  <div className="mt-7 relative h-[260px] md:h-[330px] w-full flex justify-center overflow-hidden pointer-events-none">
+    <div className="absolute top-0 flex justify-center" style={{ transform: 'scale(0.7)', transformOrigin: 'top center', width: 320 }}>
+      <PhoneFrame screenBg="#FFFFFF">
+        <div className="w-full h-[696px] bg-white pt-10">
+          {children}
         </div>
-      </div>
-    </PhoneFrame>
-  );
-  return (
-    <>
-      {/* Mobile — keep existing dimensions */}
-      <div className="md:hidden mt-8 px-4 relative h-[420px] w-full flex justify-center overflow-hidden pointer-events-none">
-        <div className="absolute top-0 flex justify-center">{inner(260)}</div>
-      </div>
-      {/* Desktop — larger phone, shorter container */}
-      <div className="hidden md:flex mt-8 -mx-8 relative h-[440px] w-[calc(100%+64px)] justify-center overflow-hidden pointer-events-none">
-        <div className="absolute top-0 flex justify-center">{inner(310)}</div>
-      </div>
-    </>
-  );
-};
-
-type PhoneCfg = { top: number; left: number; right: number; bottom: number; scale: number; x: number; y: number };
-
-function TunerSliders<T extends Record<string, number>>({ cfg, fields, set }: {
-  cfg: T;
-  fields: { k: keyof T; min: number; max: number; step: number }[];
-  set: (k: keyof T, v: number) => void;
-}) {
-  return (
-    <div style={{ pointerEvents: 'auto', borderRadius: 10, background: '#0D0D1A', border: '1px solid rgba(124,59,237,0.3)', padding: '10px 12px', marginTop: 6 }}>
-      {fields.map(({ k, min, max, step }) => (
-        <div key={String(k)} style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 5 }}>
-          <span style={{ width: 42, fontSize: 9, color: '#A78BFA', fontFamily: 'monospace', flexShrink: 0 }}>{String(k)}</span>
-          <input type="range" min={min} max={max} step={step} value={cfg[k] as number}
-            onChange={e => set(k, Number(e.target.value))}
-            style={{ flex: 1, accentColor: '#7C3BED' }} />
-          <span style={{ width: 36, fontSize: 9, fontFamily: 'monospace', color: '#E2E8F0', textAlign: 'right' }}>
-            {(cfg[k] as number).toFixed(step < 1 ? 2 : 0)}
-          </span>
-        </div>
-      ))}
-      <button onClick={() => navigator.clipboard.writeText(JSON.stringify(cfg))}
-        style={{ fontSize: 8, fontFamily: 'monospace', padding: '2px 8px', borderRadius: 4, background: 'rgba(255,255,255,0.06)', color: '#94A3B8', border: '1px solid rgba(255,255,255,0.1)', cursor: 'pointer', marginTop: 4 }}>
-        📋 copy config
-      </button>
+      </PhoneFrame>
     </div>
-  );
-}
-
-function TuneBtn({ open, onClick }: { open: boolean; onClick: () => void }) {
-  return (
-    <button onClick={onClick} style={{ pointerEvents: 'auto', fontSize: 8, fontFamily: 'monospace', fontWeight: 700, padding: '2px 10px', borderRadius: 4, background: open ? '#7C3BED' : 'rgba(124,59,237,0.1)', color: open ? '#fff' : '#7C3BED', border: '1px solid rgba(124,59,237,0.3)', cursor: 'pointer' }}>
-      {open ? '✕ close' : '⚙ tune'}
-    </button>
-  );
-}
-
-function TunablePhone({ imgSrc, alt, init, frameWidth = 300, wrapClass = 'mt-8 -mx-8 w-[calc(100%+64px)]' }: {
-  imgSrc: string; alt: string; init: PhoneCfg; frameWidth?: number; wrapClass?: string;
-}) {
-  const [cfg, setCfg] = useState<PhoneCfg>(init);
-  const [open, setOpen] = useState(false);
-
-  return (
-    <div className={wrapClass}>
-      {/* tune button overlaid at bottom-center of phone area — stays inside card clip */}
-      <div className="relative h-[420px] flex justify-center overflow-hidden">
-        <div className="absolute top-0 flex justify-center pointer-events-none">
-          <PhoneFrame screenBg="#FFFFFF" frameWidth={frameWidth}>
-            <div className="absolute overflow-hidden" style={{ top: cfg.top, left: cfg.left, right: cfg.right, bottom: cfg.bottom }}>
-              <div style={{ transform: `scale(${cfg.scale}) translate(${cfg.x}px, ${cfg.y}px)`, transformOrigin: 'top center', width: '100%' }}>
-                <Image src={imgSrc} alt={alt} width={390} height={844} className="w-full h-auto" />
-              </div>
-            </div>
-          </PhoneFrame>
-        </div>
-        <div className="absolute bottom-3 flex justify-center w-full z-10">
-          <TuneBtn open={open} onClick={() => setOpen(o => !o)} />
-        </div>
-      </div>
-      {open && (
-        <div className="px-2">
-          <TunerSliders cfg={cfg} set={(k, v) => setCfg(p => ({ ...p, [k]: v }))}
-            fields={[
-              { k: 'top', min: 0, max: 120, step: 1 }, { k: 'left', min: 0, max: 60, step: 1 }, { k: 'right', min: 0, max: 60, step: 1 },
-              { k: 'scale', min: 0.5, max: 2, step: 0.01 }, { k: 'x', min: -150, max: 150, step: 1 }, { k: 'y', min: -150, max: 150, step: 1 },
-            ]} />
-        </div>
-      )}
-    </div>
-  );
-}
-
-
-// ─── Hero Components from Main Page ──────────────────────────────────────────
-
-function HeroPhoneApp() {
-  const border = '1px solid hsl(214.3 31.8% 91.4%)';
-  const muted = 'hsl(215.4 16.3% 46.9%)';
-
-  const campaigns = [
-    { brand: 'SwiftPay', task: 'Instagram post', reward: '₦25,000', status: 'Active', statusColor: '#16A34A', statusBg: '#F0FDF4', avatar: '#1A40B8' },
-    { brand: 'SaveNow', task: 'TikTok video', reward: '₦18,000', status: 'Pending', statusColor: '#D97706', statusBg: '#FFFBEB', avatar: '#2563EB' },
-    { brand: 'WealthPal', task: 'TikTok video', reward: '₦8,000', status: 'Active', statusColor: '#16A34A', statusBg: '#F0FDF4', avatar: '#00A050' },
-  ];
-
-  const bars = [65, 40, 80, 55, 70, 35, 90];
-
-  return (
-    <div className="w-full max-md:h-full max-md:flex max-md:flex-col overflow-hidden" style={{ background: 'hsl(210 40% 98%)', fontFamily: 'system-ui,-apple-system,sans-serif' }}>
-      {/* Status bar */}
-      <div className="flex items-center justify-between shrink-0 bg-white" style={{ height: 40, padding: '10px 16px 0' }}>
-        <span style={{ fontSize: 10.5, fontWeight: 600, letterSpacing: -0.2 }}>9:41</span>
-        <div className="flex items-center gap-1.5">
-          <svg width="13" height="9" viewBox="0 0 13 9" fill="currentColor" className="text-foreground">
-            <rect x="0" y="4.5" width="2.5" height="4.5" rx="0.5" opacity="0.3" />
-            <rect x="3.5" y="3" width="2.5" height="6" rx="0.5" opacity="0.55" />
-            <rect x="7" y="1.5" width="2.5" height="7.5" rx="0.5" opacity="0.8" />
-            <rect x="10.5" y="0" width="2.5" height="9" rx="0.5" />
-          </svg>
-          <svg width="19" height="9" viewBox="0 0 19 9" fill="none">
-            <rect x="0.5" y="0.5" width="15.5" height="8" rx="2" stroke="black" strokeOpacity="0.3" strokeWidth="0.8" />
-            <rect x="1.5" y="1.5" width="11" height="6" rx="1.5" fill="black" />
-            <path d="M17 3v3c.7-.2 1.2-.8 1.2-1.5S17.7 3.2 17 3z" fill="black" fillOpacity="0.35" />
-          </svg>
-        </div>
-      </div>
-
-      {/* App header */}
-      <div className="flex items-center justify-between shrink-0 bg-white" style={{ padding: '8px 16px 10px', borderBottom: border }}>
-        <div>
-          <p style={{ fontSize: 10, color: muted, marginBottom: 1 }}>Good morning,</p>
-          <p style={{ fontSize: 14, fontWeight: 700, color: 'hsl(222.2 84% 4.9%)', letterSpacing: -0.3 }}>Dami Adeyemi</p>
-        </div>
-        <div style={{ width: 34, height: 34, borderRadius: '50%', background: '#1A40B8', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <span style={{ fontSize: 10, fontWeight: 700, color: 'white' }}>DA</span>
-        </div>
-      </div>
-
-      {/* Earnings card */}
-      <div className="shrink-0 mx-3 mt-3" style={{ background: '#1A40B8', borderRadius: 14, padding: '14px 16px 12px' }}>
-        <p style={{ fontSize: 10, color: 'rgba(255,255,255,0.65)', marginBottom: 4 }}>Total earnings</p>
-        <p style={{ fontSize: 30, fontWeight: 700, color: 'white', letterSpacing: -1, lineHeight: 1, marginBottom: 10 }}>₦47,500</p>
-        <div className="flex gap-1.5 items-end" style={{ marginBottom: 6 }}>
-          {bars.map((h, i) => (
-            <div key={i} style={{ flex: 1, height: h * 0.3, borderRadius: 3, background: i === 6 ? 'white' : 'rgba(255,255,255,0.35)' }} />
-          ))}
-        </div>
-        <div className="flex items-center justify-between">
-          <span style={{ fontSize: 9, color: 'rgba(255,255,255,0.6)' }}>Last 7 days</span>
-          <span style={{ fontSize: 9, fontWeight: 600, color: '#86EFAC', background: 'rgba(255,255,255,0.12)', borderRadius: 20, padding: '2px 7px' }}>+₦12,000</span>
-        </div>
-      </div>
-
-      {/* Quick stats row */}
-      <div className="shrink-0 flex gap-2 mx-3 mt-2.5">
-        {[
-          { label: 'Active', value: '3', sub: 'campaigns', color: '#1A40B8', bg: '#DBEAFE' },
-          { label: 'Pending', value: '₦18K', sub: 'payout', color: '#D97706', bg: '#FFFBEB' },
-          { label: 'Reach', value: '340K', sub: 'followers', color: '#2563EB', bg: '#EFF6FF' },
-        ].map(({ label, value, sub, color, bg }) => (
-          <div key={label} style={{ flex: 1, background: 'white', borderRadius: 10, border, padding: '8px 8px 7px' }}>
-            <p style={{ fontSize: 7.5, color: muted, marginBottom: 3 }}>{label}</p>
-            <p style={{ fontSize: 15, fontWeight: 700, color, letterSpacing: -0.5, lineHeight: 1, marginBottom: 1 }}>{value}</p>
-            <p style={{ fontSize: 7, color: muted }}>{sub}</p>
-          </div>
-        ))}
-      </div>
-
-      {/* Campaigns section */}
-      <div className="shrink-0 mx-3 mt-3">
-        <div className="flex items-center justify-between" style={{ marginBottom: 8 }}>
-          <p style={{ fontSize: 11, fontWeight: 600, color: 'hsl(222.2 84% 4.9%)' }}>Active campaigns</p>
-          <p style={{ fontSize: 10, color: '#1A40B8', fontWeight: 500 }}>See all</p>
-        </div>
-        <div style={{ background: 'white', borderRadius: 12, border, overflow: 'hidden' }}>
-          {campaigns.map((c, i) => (
-            <div
-              key={i}
-              className="flex items-center gap-2.5"
-              style={{ padding: '9px 12px', borderBottom: i < campaigns.length - 1 ? border : 'none' }}
-            >
-              <div style={{ width: 32, height: 32, borderRadius: 8, background: c.avatar + '18', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, border: `1px solid ${c.avatar}22` }}>
-                <span style={{ fontSize: 10, fontWeight: 700, color: c.avatar }}>{c.brand[0]}</span>
-              </div>
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <p style={{ fontSize: 10.5, fontWeight: 600, color: 'hsl(222.2 84% 4.9%)', marginBottom: 1.5 }}>{c.brand}</p>
-                <p style={{ fontSize: 9, color: muted, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{c.task}</p>
-              </div>
-              <div className="flex flex-col items-end gap-1">
-                <span style={{ fontSize: 10, fontWeight: 600, color: 'hsl(222.2 84% 4.9%)' }}>{c.reward}</span>
-                <span style={{ fontSize: 8, fontWeight: 500, color: c.statusColor, background: c.statusBg, borderRadius: 20, padding: '1px 6px' }}>{c.status}</span>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function TikTokIcon({ size = 12 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="white">
-      <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V9a8.17 8.17 0 0 0 4.78 1.52V7.06a4.85 4.85 0 0 1-1.01-.37z" />
-    </svg>
-  );
-}
-
-function InstagramIcon({ size = 12 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="#E1306C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="2" y="2" width="20" height="20" rx="5" ry="5" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
-    </svg>
-  );
-}
-
-function OrbitChip({
-  children,
-  chipStyle,
-  delay,
-  floatOffset = 7,
-}: {
-  children: React.ReactNode;
-  chipStyle: React.CSSProperties;
-  delay: number;
-  floatOffset?: number;
-}) {
-  return (
-    <motion.div
-      className="absolute flex items-center gap-2 rounded-2xl px-4 py-2.5 text-[11px] font-semibold text-white whitespace-nowrap z-30"
-      style={{
-        background: 'rgba(255,255,255,0.12)',
-        border: '1px solid rgba(255,255,255,0.22)',
-        backdropFilter: 'blur(16px)',
-        WebkitBackdropFilter: 'blur(16px)',
-        boxShadow: '0 4px 24px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.15)',
-        ...chipStyle,
-      }}
-      initial={{ opacity: 0, scale: 0.8 }}
-      animate={{ opacity: 1, scale: 1, y: [0, -floatOffset, 0] }}
-      transition={{
-        opacity: { duration: 0.45, delay },
-        scale: { duration: 0.55, delay, ease: [0.16, 1, 0.3, 1] as const },
-        y: { duration: 4 + delay * 0.3, delay, repeat: Infinity, ease: 'easeInOut' },
-      }}
-    >
-      {children}
-    </motion.div>
-  );
-}
+  </div>
+);
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
-
-
-const performanceCampaigns = [
-  {
-    name: 'BeatDrop Q1 Launch', status: 'Active',
-    budget: '₦500,000', spent: '₦450,000', progress: 90,
-    creators: 18, heroStat: '148K', heroLabel: 'TOTAL REACH', idx: '01',
-    accent: '#2563EB', accentLight: '#DBEAFE', accentMuted: 'rgba(37,99,235,0.06)',
-  },
-  {
-    name: 'SoundSave February Drive', status: 'Completed',
-    budget: '₦280,000', spent: '₦280,000', progress: 100,
-    creators: 14, heroStat: '9.1%', heroLabel: 'ENG. RATE', idx: '02',
-    accent: '#7C3BED', accentLight: '#EDE9FF', accentMuted: 'rgba(124,59,237,0.06)',
-  },
-  {
-    name: 'GreenLoop Campaign', status: 'Active',
-    budget: '₦350,000', spent: '₦210,000', progress: 60,
-    creators: 12, heroStat: '67K', heroLabel: 'TOTAL REACH', idx: '03',
-    accent: '#D97706', accentLight: '#FEF3C7', accentMuted: 'rgba(217,119,6,0.06)',
-  },
-];
 
 const faqItems = [
   {
@@ -457,11 +192,11 @@ export default function SponsorsPage() {
             </motion.div>
 
             {/* Mobile hero: campaign prototype in phone */}
-            <motion.div variants={fadeUp} className="lg:hidden mt-8 -mb-8">
-              <div className="relative w-full" style={{ height: 420 }}>
+            <motion.div variants={fadeUp} className="lg:hidden mt-8">
+              <div className="relative w-full overflow-hidden" style={{ height: 420 }}>
                 <div className="absolute top-0 left-1/2" style={{ transform: 'translateX(-50%)' }}>
                   <PhoneFrame screenBg="#F7F7F9" scale={0.82}>
-                    <SponsorCampaignPrototype />
+                    <SponsorHeroLiveScreen />
                   </PhoneFrame>
                 </div>
               </div>
@@ -481,7 +216,7 @@ export default function SponsorsPage() {
 
           {/* ── Right: campaign prototype in phone (desktop only) ── */}
           <div className="hidden lg:flex flex-col justify-center" style={{ flex: 1 }}>
-            <div className="relative" style={{ height: 'clamp(640px, 84vh, 800px)' }}>
+            <div className="relative" style={{ height: 'clamp(560px, 74vh, 680px)' }}>
               {/* Glass card */}
               <motion.div
                 className="absolute inset-0 overflow-hidden"
@@ -501,7 +236,7 @@ export default function SponsorsPage() {
                 {/* Phone centered, bottom anchored */}
                 <div className="sponsor-hero-phone absolute bottom-0 w-full flex justify-center">
                   <PhoneFrame screenBg="#F7F7F9">
-                    <SponsorCampaignPrototype />
+                    <SponsorHeroLiveScreen />
                   </PhoneFrame>
                 </div>
               </motion.div>
@@ -539,30 +274,30 @@ export default function SponsorsPage() {
                 step: '01', accent: '#7C3BED', bgTint: 'rgba(124,59,237,0.05)', border: 'rgba(124,59,237,0.14)',
                 label: 'Define your campaign rules', tag: 'DEFINE',
                 description: "Set your brief, eligibility requirements, deliverables, and deadline. Everything is crystal clear before any creator applies.",
-                imgSrc: '/images/sponsors/app-campaign-builder.png', cfg: { top: 53, scale: 1.04 },
+                phone: <SponsorSetupScreen compact />,
               },
               {
                 step: '02', accent: '#2563EB', bgTint: 'rgba(37,99,235,0.05)', border: 'rgba(37,99,235,0.14)',
                 label: 'Activate with escrow', tag: 'FUNDING',
                 description: "Lock your campaign budget in escrow. Creators can see funds exist before they apply. No budget = no campaign. Trust is built in from day one.",
-                imgSrc: '/images/sponsors/app-sponsor-wallet.png',
+                phone: <SponsorEscrowScreen compact />,
               },
               {
                 step: '03', accent: '#00A050', bgTint: 'rgba(0,160,80,0.05)', border: 'rgba(0,160,80,0.14)',
                 label: 'Monitor in real time', tag: 'ANALYTICS',
                 description: "Watch submissions come in. Track reach, engagement, and impressions per creator as they happen. Every metric is validated automatically.",
-                imgSrc: '/images/sponsors/app-analytics.png',
+                phone: <SponsorMonitoringScreen compact />,
               },
               {
                 step: '04', accent: '#D97706', bgTint: 'rgba(217,119,6,0.05)', border: 'rgba(217,119,6,0.14)',
                 label: 'Pay for verified results', tag: 'PAYOUTS',
                 description: 'Funds are released only when performance is confirmed. Unused budget returns automatically. You only ever pay for what actually happened.',
-                imgSrc: '/images/sponsors/app-campaign-detail.png',
+                phone: <SponsorPayoutScreen compact />,
               },
             ].map((s, i) => (
               <motion.div key={i} variants={fadeUp} className="shrink-0 w-[82vw] snap-start md:w-auto self-stretch flex flex-col">
                 <div className="relative overflow-hidden rounded-[32px] flex flex-col flex-1"
-                  style={{ background: s.bgTint, border: `1px solid ${s.border}`, minHeight: 380 }}>
+                  style={{ background: s.bgTint, border: `1px solid ${s.border}`, minHeight: 520 }}>
                   {/* Ghost step number */}
                   <span className="absolute -bottom-6 -right-2 font-black select-none pointer-events-none leading-none"
                     style={{ fontSize: '13rem', color: s.accent, opacity: 0.055, letterSpacing: '-0.06em' }}>
@@ -585,7 +320,7 @@ export default function SponsorsPage() {
                       <p className="text-sm text-[#4A4A6A] leading-relaxed" style={{ maxWidth: 340 }}>{s.description}</p>
                     </div>
 
-                    {phoneVisual(s.imgSrc, s.label, s.cfg)}
+                    {phoneVisual(s.phone)}
                   </div>
                 </div>
               </motion.div>
@@ -641,54 +376,27 @@ export default function SponsorsPage() {
                   Live
                 </span>
               </div>
-              <div className="px-6 md:px-10 pt-7 pb-6 md:pb-8">
-                <p className="font-black text-[#0F0F1A] tracking-tight mb-0"
+              <div className="p-6 md:p-10 pt-7">
+                <p className="font-black text-[#0F0F1A] tracking-tight mb-6"
                   style={{ fontSize: 'clamp(18px, 2vw, 22px)', lineHeight: 1.15 }}>
                   Every active campaign, submission, <br className="max-md:hidden" /> and spend tracked in real time.
                 </p>
-              </div>
-              {/* Desktop — left padding only, bleeds off right + bottom */}
-              <div className="hidden md:block pl-6 md:pl-10">
-                <div className="relative overflow-hidden rounded-tl-xl">
-                  <div style={{ background: 'linear-gradient(180deg, #1C1528 0%, #160F22 100%)', borderBottom: '1px solid rgba(124,59,237,0.25)', padding: '10px 14px', display: 'flex', alignItems: 'center', gap: 10 }}>
-                    <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
-                      {[{ color: '#FF5F57', glow: 'rgba(255,95,87,0.5)' }, { color: '#FFBD2E', glow: 'rgba(255,189,46,0.5)' }, { color: '#28C840', glow: 'rgba(40,200,64,0.5)' }].map(({ color, glow }) => (
-                        <span key={color} style={{ display: 'block', width: 11, height: 11, borderRadius: '50%', background: color, boxShadow: `0 0 6px 1px ${glow}` }} />
-                      ))}
-                    </div>
-                    <div style={{ display: 'flex', gap: 4 }}>
-                      {['‹', '›'].map((a, i) => (
-                        <span key={i} style={{ fontSize: 14, lineHeight: 1, color: i === 0 ? 'rgba(255,255,255,0.25)' : 'rgba(255,255,255,0.5)', fontWeight: 600, userSelect: 'none' }}>{a}</span>
-                      ))}
-                    </div>
-                    <div style={{ flex: 1, display: 'flex', alignItems: 'center', gap: 6, background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(124,59,237,0.3)', borderRadius: 8, padding: '5px 10px' }}>
-                      <svg width="10" height="11" viewBox="0 0 10 11" fill="none"><rect x="1.5" y="4.5" width="7" height="6" rx="1.5" stroke="rgba(124,59,237,0.9)" strokeWidth="1.2"/><path d="M3 4.5V3a2 2 0 1 1 4 0v1.5" stroke="rgba(124,59,237,0.9)" strokeWidth="1.2" strokeLinecap="round"/></svg>
-                      <img src="/images/logo-symbol.png" alt="" style={{ width: 14, height: 14, flexShrink: 0, mixBlendMode: 'screen' }} />
-                      <span style={{ fontSize: 10, color: 'rgba(255,255,255,0.65)', fontFamily: 'monospace', letterSpacing: '0.02em', flex: 1 }}>
-                        app.varmply.com<span style={{ color: 'rgba(255,255,255,0.9)', fontWeight: 700 }}>/dashboard</span>
-                      </span>
-                    </div>
-                    <div style={{ width: 40 }} />
-                  </div>
-                  <div className="overflow-hidden relative" style={{ height: 340 }}>
-                    <div className="absolute inset-0 flex items-start justify-center overflow-hidden">
-                      <div style={{ transform: 'scale(1) translate(-3px, 0px)', transformOrigin: 'top center', width: '100%' }}>
-                        <Image src="/images/sponsors/app-sponsor-dashboard-desktop.png" alt="Sponsor dashboard" width={1440} height={900} className="w-full h-auto" />
-                      </div>
-                    </div>
+                <div className="hidden md:block relative rounded-xl overflow-hidden"
+                  style={{ border: '1px solid rgba(37,99,235,0.10)', boxShadow: '0 4px 24px rgba(37,99,235,0.08)' }}>
+                  <BrowserChrome url="app.varmply.com/campaigns" />
+                  <div className="bg-[#FAFAFA] overflow-hidden" style={{ height: 340 }}>
+                    <SponsorDashboardScreen />
                   </div>
                 </div>
-              </div>
-              {/* Mobile — outside padded div, full card width */}
-              <div className="md:hidden -mb-8 mt-2 relative h-[420px] w-full flex justify-center overflow-hidden pointer-events-none">
-                <div className="absolute top-0 flex justify-center">
-                  <PhoneFrame screenBg="#FFFFFF" frameWidth={280}>
-                    <div className="absolute overflow-hidden" style={{ top: 60, left: 0, right: 0, bottom: 0 }}>
-                      <div style={{ transform: 'scale(1) translate(0px, -2px)', transformOrigin: 'top center', width: '100%' }}>
-                        <Image src="/images/sponsors/app-sponsor-dashboard-mobile.png" alt="Sponsor dashboard" width={390} height={844} className="w-full h-auto" />
+                {/* Mobile version (Phone visual) */}
+                <div className="md:hidden mt-4 relative h-[280px] w-full flex justify-center overflow-hidden pointer-events-none -mb-8">
+                  <div className="absolute top-0 flex justify-center" style={{ transform: 'scale(0.85)', transformOrigin: 'top center', width: 320 }}>
+                    <PhoneFrame screenBg="#FFFFFF">
+                      <div className="w-full h-[696px] bg-white pt-6">
+                        <SponsorCampaignDetailScreen compact />
                       </div>
-                    </div>
-                  </PhoneFrame>
+                    </PhoneFrame>
+                  </div>
                 </div>
               </div>
             </div>
@@ -780,8 +488,8 @@ export default function SponsorsPage() {
           <ScrollCarousel count={3} gridClass="md:grid-cols-3">
 
             {/* Card 1 — SwiftPay · diagonal crosshatch */}
-            <motion.div variants={fadeUp} className="shrink-0 w-[82vw] snap-start md:w-auto self-stretch flex flex-col">
-              <div className="relative overflow-hidden rounded-[28px] flex flex-col flex-1"
+            <motion.div variants={fadeUp} className="shrink-0 w-[82vw] snap-start md:w-auto">
+              <div className="relative overflow-hidden rounded-[28px] flex flex-col"
                 style={{ background: 'rgba(37,99,235,0.05)', border: '1.5px solid rgba(37,99,235,0.14)', minHeight: 420 }}>
                 <div className="relative z-10 flex flex-col h-full">
                   {/* Top rule bar */}
@@ -1012,7 +720,7 @@ export default function SponsorsPage() {
                     </p>
                   </div>
                   {/* 4-col box score */}
-                  <div className="grid grid-cols-2 md:grid-cols-4" style={{ borderTop: '1px solid rgba(37,99,235,0.12)' }}>
+                  <div className="grid grid-cols-4" style={{ borderTop: '1px solid rgba(37,99,235,0.12)' }}>
                     {[
                       { val: '100%', label: 'Pre-locked' },
                       { val: '₦0', label: 'Early access' },
@@ -1020,7 +728,7 @@ export default function SponsorsPage() {
                       { val: '0', label: 'Disputes' },
                     ].map((s, j) => (
                       <div key={j} className="py-4 text-center"
-                        style={{ borderRight: (j === 0 || j === 2) ? '1px solid rgba(37,99,235,0.10)' : 'none', borderTop: j >= 2 ? '1px solid rgba(37,99,235,0.10)' : 'none' }}>
+                        style={{ borderRight: j < 3 ? '1px solid rgba(37,99,235,0.10)' : 'none' }}>
                         <p className="font-black text-sm leading-none" style={{ color: '#2563EB' }}>{s.val}</p>
                         <p className="text-[8px] font-bold uppercase tracking-[0.18em] mt-1"
                           style={{ color: 'rgba(37,99,235,0.45)' }}>{s.label}</p>
@@ -1053,7 +761,7 @@ export default function SponsorsPage() {
                       <p className="text-[13px] font-black uppercase tracking-[0.12em] mb-3"
                         style={{ color: '#7C3BED' }}>On-time payouts</p>
                       <p className="text-xs text-[#4A4A6A] leading-relaxed flex-1">
-                        Each creator's payout is automatically released once the campaign ends and their metrics are validated.
+                        Each creator&apos;s payout is automatically released once the campaign ends and their metrics are validated.
                       </p>
                     </div>
                     <div className="grid grid-cols-2" style={{ borderTop: '1px solid rgba(124,59,237,0.12)' }}>
@@ -1137,15 +845,16 @@ export default function SponsorsPage() {
           </motion.div>
 
           {/* Reel grid */}
-          <ScrollCarousel count={5} gridClass="md:grid-cols-5" className="gap-3 md:gap-3">
+          <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={vp}
+            className="grid grid-cols-2 md:grid-cols-5 gap-3">
             {[
-              { imageSrc: '/images/creators/creator-1.jpg', caption: '@amara.creates', subcaption: 'BeatDrop Q1 · TikTok', chips: [{ label: '120K views', position: 'top-left' as const, variant: 'dark' as const }] },
-              { imageSrc: '/images/creators/creator-3.jpg', caption: '@dayo_creates', subcaption: 'SoundSave · TikTok', chips: [{ label: '88K views', position: 'top-left' as const, variant: 'dark' as const }] },
-              { imageSrc: '/images/creators/creator-5.jpg', caption: '@layla.ng', subcaption: 'GreenLoop · TikTok', chips: [{ label: '54K views', position: 'top-left' as const, variant: 'dark' as const }] },
-              { imageSrc: '/images/creators/creator-7.jpg', caption: '@seunvibes', subcaption: 'BeatDrop Q1 · TikTok', chips: [{ label: '210K views', position: 'top-left' as const, variant: 'dark' as const }] },
-              { imageSrc: '/images/creators/creator-9.jpg', caption: '@chuka.tv', subcaption: 'SoundSave · TikTok', chips: [{ label: '67K views', position: 'top-left' as const, variant: 'dark' as const }] },
+              { imageSrc: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=500&q=80', caption: '@amara.creates', subcaption: 'BeatDrop Q1 · TikTok', chips: [{ label: '120K views', position: 'top-left' as const, variant: 'dark' as const }] },
+              { imageSrc: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&q=80', caption: '@dayo_creates', subcaption: 'SoundSave · TikTok', chips: [{ label: '88K views', position: 'top-left' as const, variant: 'dark' as const }] },
+              { imageSrc: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500&q=80', caption: '@layla.ng', subcaption: 'GreenLoop · TikTok', chips: [{ label: '54K views', position: 'top-left' as const, variant: 'dark' as const }] },
+              { imageSrc: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=500&q=80', caption: '@seunvibes', subcaption: 'BeatDrop Q1 · TikTok', chips: [{ label: '210K views', position: 'top-left' as const, variant: 'dark' as const }] },
+              { imageSrc: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=500&q=80', caption: '@chuka.tv', subcaption: 'SoundSave · TikTok', chips: [{ label: '67K views', position: 'top-left' as const, variant: 'dark' as const }] },
             ].map((reel, i) => (
-              <motion.div key={i} variants={fadeUp} className={`shrink-0 w-[58vw] md:w-auto snap-start ${i % 2 !== 0 ? 'md:mt-8' : ''}`}>
+              <motion.div key={i} variants={fadeUp} className={i % 2 !== 0 ? 'md:mt-8' : ''}>
                 <VideoCard
                   {...reel}
                   aspectRatio="9/16"
@@ -1155,7 +864,7 @@ export default function SponsorsPage() {
                 />
               </motion.div>
             ))}
-          </ScrollCarousel>
+          </motion.div>
         </div>
       </section>
 

@@ -298,6 +298,75 @@ h1, h2, h3, h4, h5, h6 {
   will-change: transform;
 }
 
+/* Creator hero phone: app-like social feed motion */
+@keyframes creator-feed-cycle {
+  0%, 26% { transform: translateY(0); }
+  33%, 59% { transform: translateY(calc(var(--creator-card-shift) * -1)); }
+  66%, 92% { transform: translateY(calc(var(--creator-card-shift) * -2)); }
+  100% { transform: translateY(0); }
+}
+
+.creator-feed-cycle {
+  --creator-card-shift: 182px;
+  animation: creator-feed-cycle 9s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+  will-change: transform;
+}
+
+@keyframes creator-metric-pop {
+  0%, 100% { transform: translateY(0) scale(1); opacity: 0.72; }
+  45% { transform: translateY(-5px) scale(1.03); opacity: 1; }
+}
+
+.creator-metric-pop {
+  animation: creator-metric-pop 2.8s ease-in-out infinite;
+}
+
+/* Sponsor hero phone: live campaign motion */
+@keyframes sponsor-campaign-cycle {
+  0%, 24% { transform: translateY(0); }
+  32%, 56% { transform: translateY(calc(var(--sponsor-campaign-shift) * -1)); }
+  64%, 88% { transform: translateY(calc(var(--sponsor-campaign-shift) * -2)); }
+  100% { transform: translateY(calc(var(--sponsor-campaign-shift) * -3)); }
+}
+
+.sponsor-campaign-cycle {
+  --sponsor-campaign-shift: 54px;
+  animation: sponsor-campaign-cycle 7.2s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+  will-change: transform;
+}
+
+@keyframes sponsor-live-dot {
+  0%, 100% { transform: scale(0.72); opacity: 0.42; box-shadow: 0 0 0 0 rgba(0, 160, 80, 0.28); }
+  50% { transform: scale(1); opacity: 1; box-shadow: 0 0 0 5px rgba(0, 160, 80, 0); }
+}
+
+.sponsor-live-dot {
+  animation: sponsor-live-dot 1.4s ease-in-out infinite;
+}
+
+@keyframes sponsor-submission-cycle {
+  0%, 28% { transform: translateY(0); }
+  36%, 64% { transform: translateY(calc(var(--sponsor-submission-shift) * -1)); }
+  72%, 94% { transform: translateY(calc(var(--sponsor-submission-shift) * -2)); }
+  100% { transform: translateY(0); }
+}
+
+.sponsor-submission-cycle {
+  --sponsor-submission-shift: 94px;
+  animation: sponsor-submission-cycle 8s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+  will-change: transform;
+}
+
+@keyframes sponsor-bars-pulse {
+  0%, 100% { transform: scaleY(0.78); opacity: 0.72; }
+  48% { transform: scaleY(1); opacity: 1; }
+}
+
+.sponsor-bars-pulse {
+  transform-origin: bottom;
+  animation: sponsor-bars-pulse 2.8s ease-in-out infinite;
+}
+
 /* Noise grain texture — partyverse style */
 .noise-overlay::after {
   content: '';
@@ -390,4 +459,3 @@ html.embed #site-footer > footer {
     transform: translateY(8%) scale(1.1);
   }
 }
-

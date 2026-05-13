@@ -1,15 +1,22 @@
 'use client';
 
-import { Suspense, useState, useEffect, useLayoutEffect, useRef } from 'react';
+import { Suspense, useEffect, useLayoutEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { ScrollCarousel } from '@/components/ui/ScrollCarousel';
 import Link from 'next/link';
-import { ArrowRight, CheckCircle, Zap, DollarSign, Search, Heart, MessageCircle, Share2, Music2, Star } from 'lucide-react';
-import Image from 'next/image';
+import { ArrowRight, CheckCircle, Zap, DollarSign, Search, Star } from 'lucide-react';
 import { VideoCard } from '@/components/ui/VideoCard';
 import FAQAccordion from '@/components/FAQAccordion';
 import { PhoneFrame } from '@/components/ui/PhoneFrame';
+import { BrowserChrome } from '@/components/MockupSkeletons';
+import {
+  CreatorEarningsScreen,
+  CreatorHeroSocialScreen,
+  CreatorMarketplaceScreen,
+  CreatorSubmitScreen,
+  CreatorSocialConnectScreen,
+} from '@/components/UIComponents/AppMockScreens';
 
 // ─── Animation helpers ────────────────────────────────────────────────────────
 
@@ -34,198 +41,17 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
   );
 }
 
-// ─── Video carousel for hero phone ──────────────────────────────────────────
-
-const CREATOR_FEED = [
-  {
-    src: '/videos/demo-1.mp4#t=4',
-    handle: '@dami_creates',
-    caption: 'This drop is different 🔥 #WavyVibes #fyp',
-    song: 'Wavy Vibes — Burna Boy',
-    likes: '34.2K',
-    comments: '1.2K',
-    avatar: 'DA',
-    avatarColor: '#1A40B8',
-  },
-  {
-    src: '/videos/demo-2.mp4',
-    handle: '@temi_vibes',
-    caption: 'Campaign secured 💸 #Varmply #fyp',
-    song: 'Lagos Summer — Olu Fire',
-    likes: '89.1K',
-    comments: '3.4K',
-    avatar: 'TV',
-    avatarColor: '#6406CF',
-  },
-  {
-    src: '/videos/demo-3.mp4',
-    handle: '@chuka.tv',
-    caption: 'When the metrics hit different 📊 #fyp',
-    song: 'Afrobeats Nights — Burna Boy',
-    likes: '210K',
-    comments: '8.7K',
-    avatar: 'CT',
-    avatarColor: '#00A050',
-  },
-];
-
-function VideoCarouselScreen() {
-  const [index, setIndex] = useState(0);
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  useEffect(() => {
-    const id = setInterval(() => {
-      setIndex(prev => (prev + 1) % CREATOR_FEED.length);
-    }, 4500);
-    return () => clearInterval(id);
-  }, []);
-
-  useEffect(() => {
-    const el = videoRef.current;
-    if (!el) return;
-    el.play().catch(() => {});
-  }, [index]);
-
-  return (
-    <div className="h-full w-full relative overflow-hidden" style={{ background: '#000' }}>
-
-      {/* ── Slide-up transition: video + all overlays move together ── */}
-      <AnimatePresence initial={false}>
-        {CREATOR_FEED.map((item, i) => i === index && (
-          <motion.div
-            key={i}
-            initial={{ y: '100%' }}
-            animate={{ y: 0 }}
-            exit={{ y: '-100%' }}
-            transition={{ duration: 0.52, ease: [0.32, 0, 0.67, 0] }}
-            className="absolute inset-0"
-          >
-            {/* Video */}
-            <video
-              ref={videoRef}
-              src={item.src}
-              autoPlay
-              muted
-              playsInline
-              className="w-full h-full object-cover"
-            />
-
-            {/* Vignette */}
-            <div className="absolute inset-0 pointer-events-none" style={{
-              background: 'linear-gradient(180deg, rgba(0,0,0,0.5) 0%, transparent 22%, transparent 55%, rgba(0,0,0,0.82) 100%)',
-            }} />
-
-            {/* Right: action buttons */}
-            <div className="absolute right-3 flex flex-col items-center gap-4" style={{ bottom: 80 }}>
-              <div className="flex flex-col items-center">
-                <div className="w-9 h-9 rounded-full flex items-center justify-center text-[11px] font-bold text-white"
-                  style={{ background: item.avatarColor, border: '2px solid white' }}>
-                  {item.avatar}
-                </div>
-                <div className="w-4 h-4 rounded-full flex items-center justify-center -mt-2 z-10"
-                  style={{ background: item.avatarColor, border: '1.5px solid white', fontSize: 10, color: 'white', fontWeight: 700 }}>+</div>
-              </div>
-              <div className="flex flex-col items-center gap-0.5">
-                <div className="w-9 h-9 rounded-full flex items-center justify-center"
-                  style={{ background: 'rgba(255,255,255,0.18)' }}>
-                  <Heart size={16} fill="white" color="white" />
-                </div>
-                <span style={{ fontSize: 9, color: 'white', fontWeight: 600 }}>{item.likes}</span>
-              </div>
-              <div className="flex flex-col items-center gap-0.5">
-                <div className="w-9 h-9 rounded-full flex items-center justify-center"
-                  style={{ background: 'rgba(255,255,255,0.18)' }}>
-                  <MessageCircle size={16} fill="white" color="white" />
-                </div>
-                <span style={{ fontSize: 9, color: 'white', fontWeight: 600 }}>{item.comments}</span>
-              </div>
-              <div className="flex flex-col items-center gap-0.5">
-                <div className="w-9 h-9 rounded-full flex items-center justify-center"
-                  style={{ background: 'rgba(255,255,255,0.18)' }}>
-                  <Share2 size={15} color="white" />
-                </div>
-                <span style={{ fontSize: 9, color: 'white', fontWeight: 600 }}>Share</span>
-              </div>
-              <div className="w-9 h-9 rounded-full flex items-center justify-center"
-                style={{ background: 'linear-gradient(135deg, #1a1a2e 0%, #2d2d44 100%)', border: '2px solid rgba(255,255,255,0.25)' }}>
-                <Music2 size={14} color="white" />
-              </div>
-            </div>
-
-            {/* Bottom: creator info + song */}
-            <div className="absolute bottom-0 left-0 px-4 pb-5" style={{ right: 52 }}>
-              <p style={{ fontSize: 12, fontWeight: 700, color: 'white', marginBottom: 3 }}>{item.handle}</p>
-              <p style={{ fontSize: 10, color: 'rgba(255,255,255,0.80)', marginBottom: 10, lineHeight: 1.4 }}>
-                {item.caption}
-              </p>
-              <div className="flex items-center gap-2 rounded-full px-3 py-1.5"
-                style={{ background: 'rgba(255,255,255,0.12)', backdropFilter: 'blur(8px)', display: 'inline-flex' }}>
-                <Music2 size={10} color="white" />
-                <span style={{ fontSize: 9, color: 'white', fontWeight: 500, whiteSpace: 'nowrap' }}>
-                  {item.song}
-                </span>
-              </div>
-            </div>
-          </motion.div>
-        ))}
-      </AnimatePresence>
-    </div>
-  );
-}
-
-// ─── Tunable phone (temporary dev tool) ──────────────────────────────────────
-
-type PhoneCfg = { top: number; left: number; right: number; bottom: number; scale: number; x: number; y: number };
-
-function TunablePhone({ imgSrc, alt, init, frameWidth = 280, wrapClass = 'w-full' }: {
-  imgSrc: string; alt: string; init: PhoneCfg; frameWidth?: number; wrapClass?: string;
-}) {
-  const [cfg, setCfg] = useState<PhoneCfg>(init);
-  const [open, setOpen] = useState(false);
-  const set = (k: keyof PhoneCfg, v: number) => setCfg(p => ({ ...p, [k]: v }));
-
-  return (
-    <div className={wrapClass}>
-      <div className="relative h-[420px] flex justify-center overflow-hidden pointer-events-none">
-        <div className="absolute top-0 flex justify-center">
-          <PhoneFrame screenBg="#FFFFFF" frameWidth={frameWidth}>
-            <div className="absolute overflow-hidden" style={{ top: cfg.top, left: cfg.left, right: cfg.right, bottom: cfg.bottom }}>
-              <div style={{ transform: `scale(${cfg.scale}) translate(${cfg.x}px, ${cfg.y}px)`, transformOrigin: 'top center', width: '100%' }}>
-                <Image src={imgSrc} alt={alt} width={390} height={844} className="w-full h-auto" />
-              </div>
-            </div>
-          </PhoneFrame>
+const phoneVisual = (children: React.ReactNode) => (
+  <div className="mt-7 relative h-[260px] md:h-[330px] w-full flex justify-center overflow-hidden pointer-events-none">
+    <div className="absolute top-0 flex justify-center" style={{ transform: 'scale(0.7)', transformOrigin: 'top center', width: 320 }}>
+      <PhoneFrame screenBg="#FFFFFF">
+        <div className="w-full h-[696px] bg-white pt-10">
+          {children}
         </div>
-      </div>
-      <div className="flex justify-center mt-1.5 pointer-events-auto">
-        <button onClick={() => setOpen(o => !o)} style={{ fontSize: 8, fontFamily: 'monospace', fontWeight: 700, padding: '2px 10px', borderRadius: 4, background: open ? '#7C3BED' : 'rgba(124,59,237,0.1)', color: open ? '#fff' : '#7C3BED', border: '1px solid rgba(124,59,237,0.3)', cursor: 'pointer' }}>
-          {open ? '✕ close' : '⚙ tune'}
-        </button>
-      </div>
-      {open && (
-        <div style={{ pointerEvents: 'auto', margin: '6px 8px 0', borderRadius: 10, background: '#0D0D1A', border: '1px solid rgba(124,59,237,0.3)', padding: '10px 12px' }}>
-          {([
-            { k: 'top', min: 0, max: 120, step: 1 }, { k: 'left', min: 0, max: 60, step: 1 }, { k: 'right', min: 0, max: 60, step: 1 },
-            { k: 'scale', min: 0.5, max: 2, step: 0.01 }, { k: 'x', min: -150, max: 150, step: 1 }, { k: 'y', min: -150, max: 150, step: 1 },
-          ] as { k: keyof PhoneCfg; min: number; max: number; step: number }[]).map(({ k, min, max, step }) => (
-            <div key={k} style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 5 }}>
-              <span style={{ width: 42, fontSize: 9, color: '#A78BFA', fontFamily: 'monospace', flexShrink: 0 }}>{k}</span>
-              <input type="range" min={min} max={max} step={step} value={cfg[k]}
-                onChange={e => set(k, Number(e.target.value))}
-                style={{ flex: 1, accentColor: '#7C3BED' }} />
-              <span style={{ width: 36, fontSize: 9, fontFamily: 'monospace', color: '#E2E8F0', textAlign: 'right' }}>
-                {cfg[k].toFixed(k === 'scale' ? 2 : 0)}
-              </span>
-            </div>
-          ))}
-          <button onClick={() => navigator.clipboard.writeText(JSON.stringify(cfg))} style={{ fontSize: 8, fontFamily: 'monospace', padding: '2px 8px', borderRadius: 4, background: 'rgba(255,255,255,0.06)', color: '#94A3B8', border: '1px solid rgba(255,255,255,0.1)', cursor: 'pointer', marginTop: 4 }}>
-            📋 copy config
-          </button>
-        </div>
-      )}
+      </PhoneFrame>
     </div>
-  );
-}
+  </div>
+);
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 
@@ -336,8 +162,8 @@ export default function CreatorsPage() {
             <motion.div variants={fadeUp} className="lg:hidden mt-8">
               <div className="relative w-full overflow-hidden h-[420px]">
                 <div className="absolute top-0 left-1/2" style={{ transform: 'translateX(-50%)' }}>
-                  <PhoneFrame screenBg="#000">
-                    <VideoCarouselScreen />
+                  <PhoneFrame screenBg="#F7F8FA">
+                    <CreatorHeroSocialScreen />
                   </PhoneFrame>
                 </div>
               </div>
@@ -357,7 +183,7 @@ export default function CreatorsPage() {
 
           {/* ── Right: phone with video ── */}
           <div className="hidden lg:flex flex-col justify-center" style={{ flex: 1 }}>
-            <div className="relative" style={{ height: 'clamp(640px, 84vh, 800px)' }}>
+            <div className="relative" style={{ height: 'clamp(560px, 74vh, 680px)' }}>
               {/* Glass card */}
               <motion.div
                 className="absolute inset-0 rounded-[36px] overflow-hidden"
@@ -376,8 +202,8 @@ export default function CreatorsPage() {
                   style={{ height: 110, background: 'linear-gradient(to bottom, transparent, rgba(10,20,80,0.90))' }}
                 />
                 <div className="creator-hero-phone absolute bottom-0 w-full flex justify-center">
-                  <PhoneFrame screenBg="#000">
-                    <VideoCarouselScreen />
+                  <PhoneFrame screenBg="#F7F8FA">
+                    <CreatorHeroSocialScreen />
                   </PhoneFrame>
                 </div>
               </motion.div>
@@ -414,34 +240,30 @@ export default function CreatorsPage() {
                 step: '01', accent: '#7C3BED', bgTint: 'rgba(124,59,237,0.05)', border: 'rgba(124,59,237,0.14)',
                 label: 'Browse the marketplace', tag: 'DISCOVERY',
                 description: 'Discover campaigns curated for you, all in one place. Every campaign shows full requirements before you apply.',
-                imgSrc: '/images/creators/app-campaign-detail.png',
-                cfg: { top: 60, left: 0, right: 0, bottom: 0, scale: 105, x: 4, y: -7 },
+                phone: <CreatorMarketplaceScreen compact />,
               },
               {
                 step: '02', accent: '#00A050', bgTint: 'rgba(0,160,80,0.05)', border: 'rgba(0,160,80,0.14)',
                 label: 'Connect & apply', tag: 'APPLICATION',
                 description: 'Link your social accounts to unlock your access to campaign feed and enable performance tracking. Varmply handles the reporting, you do the chilling.',
-                imgSrc: '/images/creators/app-connect-platforms.png',
-                cfg: { top: 60, left: 6, right: 6, bottom: 0, scale: 100, x: -7, y: 0 },
+                phone: <CreatorSocialConnectScreen compact />,
               },
               {
                 step: '03', accent: '#D97706', bgTint: 'rgba(217,119,6,0.05)', border: 'rgba(217,119,6,0.14)',
                 label: 'Submit your content', tag: 'DELIVERY',
                 description: 'Create content that matches the campaign brief, post it, then drop your link. From there, Varmply handles the heavy lifting—tracking, verification, and everything in between.',
-                imgSrc: '/images/creators/app-submit-post.png',
-                cfg: { top: 60, left: 0, right: 0, bottom: 0, scale: 103, x: 0, y: 0 },
+                phone: <CreatorSubmitScreen compact />,
               },
               {
                 step: '04', accent: '#2563EB', bgTint: 'rgba(37,99,235,0.05)', border: 'rgba(37,99,235,0.14)',
                 label: 'Result-backed earnings', tag: 'EARNINGS',
                 description: 'Your earnings are tied directly to the results you generate. At the end of each campaign, you receive payment based on the total value of engagement you delivered.',
-                imgSrc: '/images/creators/app-earnings-mobile.png',
-                cfg: { top: 60, left: 0, right: 0, bottom: 0, scale: 100, x: 0, y: -7 },
+                phone: <CreatorEarningsScreen compact />,
               },
             ].map((s, i) => (
               <motion.div key={i} variants={fadeUp} className="shrink-0 w-[82vw] snap-start md:w-auto self-stretch flex flex-col">
                 <div className="relative overflow-hidden rounded-[32px] flex flex-col flex-1"
-                  style={{ background: s.bgTint, border: `1px solid ${s.border}`, minHeight: 700 }}>
+                  style={{ background: s.bgTint, border: `1px solid ${s.border}`, minHeight: 520 }}>
                   {/* Ghost step number */}
                   <span className="absolute -bottom-6 -right-2 font-black select-none pointer-events-none leading-none"
                     style={{ fontSize: '13rem', color: s.accent, opacity: 0.055, letterSpacing: '-0.06em' }}>
@@ -461,33 +283,7 @@ export default function CreatorsPage() {
                         style={{ fontSize: 'clamp(18px, 2vw, 22px)', lineHeight: 1.15 }}>{s.label}</h3>
                       <p className="text-sm text-[#4A4A6A] leading-relaxed" style={{ maxWidth: 340 }}>{s.description}</p>
                     </div>
-                    {/* Baked phone visual — physical resize, not CSS scale */}
-                    {/* Mobile — keep existing dimensions */}
-                    <div className="md:hidden mt-8 relative h-[420px] w-full flex justify-center overflow-hidden pointer-events-none">
-                      <div className="absolute top-0 flex justify-center">
-                        <PhoneFrame screenBg="#FFFFFF" frameWidth={260}>
-                          <div className="absolute overflow-hidden"
-                            style={{ top: s.cfg.top, left: s.cfg.left, right: s.cfg.right, bottom: s.cfg.bottom }}>
-                            <div style={{ transform: `scale(${s.cfg.scale / 100}) translate(${s.cfg.x}px, ${s.cfg.y}px)`, transformOrigin: 'top center', width: '100%' }}>
-                              <Image src={s.imgSrc} alt={s.label} width={390} height={844} className="w-full h-auto" />
-                            </div>
-                          </div>
-                        </PhoneFrame>
-                      </div>
-                    </div>
-                    {/* Desktop — larger phone, shorter container */}
-                    <div className="hidden md:flex mt-8 -mx-8 relative h-[440px] w-[calc(100%+64px)] justify-center overflow-hidden pointer-events-none">
-                      <div className="absolute top-0 flex justify-center">
-                        <PhoneFrame screenBg="#FFFFFF" frameWidth={310}>
-                          <div className="absolute overflow-hidden"
-                            style={{ top: s.cfg.top, left: s.cfg.left, right: s.cfg.right, bottom: s.cfg.bottom }}>
-                            <div style={{ transform: `scale(${s.cfg.scale / 100}) translate(${s.cfg.x}px, ${s.cfg.y}px)`, transformOrigin: 'top center', width: '100%' }}>
-                              <Image src={s.imgSrc} alt={s.label} width={390} height={844} className="w-full h-auto" />
-                            </div>
-                          </div>
-                        </PhoneFrame>
-                      </div>
-                    </div>
+                    {phoneVisual(s.phone)}
                   </div>
                 </div>
               </motion.div>
@@ -529,9 +325,9 @@ export default function CreatorsPage() {
           {/* Video grid */}
           <ScrollCarousel count={3} gridClass="md:grid-cols-3">
             {[
-              { imageSrc: '/images/creators/creator-1.jpg', caption: '@dami.creates', subcaption: 'Joining early · TikTok', chips: [{ label: '120K followers', position: 'top-left' as const, variant: 'dark' as const }] },
-              { imageSrc: '/images/creators/creator-2.jpg', caption: '@chuka.tv', subcaption: 'Joining early · Instagram', chips: [{ label: '88K followers', position: 'top-left' as const, variant: 'dark' as const }] },
-              { imageSrc: '/images/creators/creator-3.jpg', caption: '@amara.creates', subcaption: 'Joining early · TikTok', chips: [{ label: '54K followers', position: 'top-left' as const, variant: 'dark' as const }] },
+              { imageSrc: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=600&q=80', caption: '@dami.creates', subcaption: 'Joining early · TikTok', chips: [{ label: '120K followers', position: 'top-left' as const, variant: 'dark' as const }] },
+              { imageSrc: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80', caption: '@chuka.tv', subcaption: 'Joining early · Instagram', chips: [{ label: '88K followers', position: 'top-left' as const, variant: 'dark' as const }] },
+              { imageSrc: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=600&q=80', caption: '@amara.creates', subcaption: 'Joining early · TikTok', chips: [{ label: '54K followers', position: 'top-left' as const, variant: 'dark' as const }] },
             ].map((item, i) => (
               <motion.div key={i} variants={fadeUp} className="shrink-0 w-[72vw] snap-start md:w-auto">
                 <VideoCard {...item} aspectRatio="4/5" surface="light" showGradient hoverable />
@@ -567,14 +363,14 @@ export default function CreatorsPage() {
 
         {(() => {
           const reels = [
-            { thumb: '/images/creators/creator-4.jpg', name: 'Tolu Adeyemi', handle: '@toluade', campaign: 'Jazzy Song — Zara Beats', platform: 'TikTok', likes: '14.2K' },
-            { thumb: '/images/creators/creator-5.jpg', name: 'Chidi Ezike', handle: '@chidi.e', campaign: 'With You — Kelvin Wave', platform: 'Instagram', likes: '22.1K' },
-            { thumb: '/images/creators/creator-6.jpg', name: 'Kemi Ade', handle: '@keminade', campaign: 'Jazzy Song — Zara Beats', platform: 'TikTok', likes: '31.4K' },
-            { thumb: '/images/creators/creator-7.jpg', name: 'Sola Babs', handle: '@solababs', campaign: 'Q2 Promo — SwiftPay', platform: 'Instagram', likes: '8.5K' },
-            { thumb: '/images/creators/creator-8.jpg', name: 'Femi Lagos', handle: '@femilagos', campaign: 'With You — Kelvin Wave', platform: 'TikTok', likes: '12.3K' },
-            { thumb: '/images/creators/creator-9.jpg', name: 'Dami Okon', handle: '@damiokon', campaign: 'Odara — Olu Fire', platform: 'TikTok', likes: '18.7K' },
-            { thumb: '/images/creators/creator-10.jpg', name: 'Temi Coker', handle: '@temicoker', campaign: 'Q2 Promo — SwiftPay', platform: 'Instagram', likes: '27.0K' },
-            { thumb: '/images/creators/creator-11.jpg', name: 'Seun Bello', handle: '@seun.creates', campaign: 'Odara — Olu Fire', platform: 'TikTok', likes: '11.1K' },
+            { thumb: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=400&q=80', name: 'Tolu Adeyemi', handle: '@toluade', campaign: 'Jazzy Song — Zara Beats', platform: 'TikTok', likes: '14.2K' },
+            { thumb: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80', name: 'Chidi Ezike', handle: '@chidi.e', campaign: 'With You — Kelvin Wave', platform: 'Instagram', likes: '22.1K' },
+            { thumb: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&q=80', name: 'Kemi Ade', handle: '@keminade', campaign: 'Jazzy Song — Zara Beats', platform: 'TikTok', likes: '31.4K' },
+            { thumb: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=400&q=80', name: 'Sola Babs', handle: '@solababs', campaign: 'Q2 Promo — SwiftPay', platform: 'Instagram', likes: '8.5K' },
+            { thumb: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&q=80', name: 'Femi Lagos', handle: '@femilagos', campaign: 'With You — Kelvin Wave', platform: 'TikTok', likes: '12.3K' },
+            { thumb: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&q=80', name: 'Dami Okon', handle: '@damiokon', campaign: 'Odara — Olu Fire', platform: 'TikTok', likes: '18.7K' },
+            { thumb: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&q=80', name: 'Temi Coker', handle: '@temicoker', campaign: 'Q2 Promo — SwiftPay', platform: 'Instagram', likes: '27.0K' },
+            { thumb: 'https://images.unsplash.com/photo-1552058544-f2b08422138a?w=400&q=80', name: 'Seun Bello', handle: '@seun.creates', campaign: 'Odara — Olu Fire', platform: 'TikTok', likes: '11.1K' },
           ];
           const doubled = [...reels, ...reels];
           return (
@@ -639,96 +435,40 @@ export default function CreatorsPage() {
           {/* Big browser card — green editorial */}
           <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={vp}
             className="relative overflow-hidden rounded-[28px] mb-4"
-            style={{ background: 'rgba(124,59,237,0.05)', border: '1.5px solid rgba(124,59,237,0.14)' }}>
+            style={{ background: 'rgba(0,160,80,0.05)', border: '1.5px solid rgba(0,160,80,0.14)' }}>
             <div className="relative z-10">
               {/* Top rule bar */}
               <div className="flex items-center justify-between px-8 md:px-10 pt-6 pb-4"
-                style={{ borderBottom: '1px solid rgba(124,59,237,0.12)' }}>
-                <span className="text-[9px] font-black uppercase tracking-[0.22em]" style={{ color: '#7C3BED' }}>
+                style={{ borderBottom: '1px solid rgba(0,160,80,0.12)' }}>
+                <span className="text-[9px] font-black uppercase tracking-[0.22em]" style={{ color: '#00A050' }}>
                   Creator Wallet
                 </span>
                 <span className="flex items-center gap-1.5 text-[9px] font-bold uppercase tracking-[0.14em]"
-                  style={{ color: '#7C3BED' }}>
-                  <span className="w-1.5 h-1.5 rounded-full inline-block animate-pulse" style={{ background: '#7C3BED' }} />
+                  style={{ color: '#00A050' }}>
+                  <span className="w-1.5 h-1.5 rounded-full inline-block animate-pulse" style={{ background: '#00A050' }} />
                   Live balance
                 </span>
               </div>
-              <div className="px-6 md:px-10 pt-7 pb-6 md:pb-8">
-                <p className="font-black text-[#0F0F1A] tracking-tight mb-0"
+              <div className="p-6 md:p-10 pt-7">
+                <p className="font-black text-[#0F0F1A] tracking-tight mb-6"
                   style={{ fontSize: 'clamp(18px, 2vw, 22px)', lineHeight: 1.15 }}>
                   Automatic payouts the moment <br className="max-md:hidden" /> your content is validated.
                 </p>
-              </div>
-              {/* Mobile version — tunable */}
-              <div className="md:hidden -mb-8 mt-2">
-                <TunablePhone
-                  imgSrc="/images/creators/app-earnings-mobile.png"
-                  alt="Earnings"
-                  frameWidth={280}
-                  init={{ top: 60, left: 6, right: 6, bottom: 0, scale: 0.96, x: 0, y: -50 }}
-                />
-              </div>
-              {/* Desktop image — left padding only, bleeds off right edge */}
-              <div className="hidden md:block pl-6 md:pl-10">
-                <div className="relative overflow-hidden rounded-tl-xl">
-                  {/* Styled browser chrome */}
-                  <div style={{
-                    background: 'linear-gradient(180deg, #1C1528 0%, #160F22 100%)',
-                    borderBottom: '1px solid rgba(124,59,237,0.25)',
-                    padding: '10px 14px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 10,
-                  }}>
-                    {/* Traffic lights */}
-                    <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
-                      {[
-                        { color: '#FF5F57', glow: 'rgba(255,95,87,0.5)' },
-                        { color: '#FFBD2E', glow: 'rgba(255,189,46,0.5)' },
-                        { color: '#28C840', glow: 'rgba(40,200,64,0.5)' },
-                      ].map(({ color, glow }) => (
-                        <span key={color} style={{
-                          display: 'block', width: 11, height: 11, borderRadius: '50%',
-                          background: color,
-                          boxShadow: `0 0 6px 1px ${glow}`,
-                        }} />
-                      ))}
-                    </div>
-                    {/* Nav arrows */}
-                    <div style={{ display: 'flex', gap: 4 }}>
-                      {['‹', '›'].map((a, i) => (
-                        <span key={i} style={{ fontSize: 14, lineHeight: 1, color: i === 0 ? 'rgba(255,255,255,0.25)' : 'rgba(255,255,255,0.5)', fontWeight: 600, userSelect: 'none' }}>{a}</span>
-                      ))}
-                    </div>
-                    {/* URL pill */}
-                    <div style={{
-                      flex: 1,
-                      display: 'flex', alignItems: 'center', gap: 6,
-                      background: 'rgba(255,255,255,0.06)',
-                      border: '1px solid rgba(124,59,237,0.3)',
-                      borderRadius: 8,
-                      padding: '5px 10px',
-                    }}>
-                      {/* Lock */}
-                      <svg width="10" height="11" viewBox="0 0 10 11" fill="none">
-                        <rect x="1.5" y="4.5" width="7" height="6" rx="1.5" stroke="rgba(124,59,237,0.9)" strokeWidth="1.2"/>
-                        <path d="M3 4.5V3a2 2 0 1 1 4 0v1.5" stroke="rgba(124,59,237,0.9)" strokeWidth="1.2" strokeLinecap="round"/>
-                      </svg>
-                      {/* Favicon */}
-                      <img src="/images/logo-symbol.png" alt="" style={{ width: 14, height: 14, flexShrink: 0, mixBlendMode: 'screen' }} />
-                      <span style={{ fontSize: 10, color: 'rgba(255,255,255,0.65)', fontFamily: 'monospace', letterSpacing: '0.02em', flex: 1 }}>
-                        app.varmply.com<span style={{ color: 'rgba(255,255,255,0.9)', fontWeight: 700 }}>/wallet</span>
-                      </span>
-                    </div>
-                    {/* Spacer for symmetry */}
-                    <div style={{ width: 40 }} />
+                <div className="hidden md:block relative rounded-xl overflow-hidden"
+                  style={{ border: '1px solid rgba(0,160,80,0.10)', boxShadow: '0 4px 24px rgba(0,160,80,0.08)' }}>
+                  <BrowserChrome url="app.varmply.com/wallet" />
+                  <div className="bg-[#FAFAFA] overflow-hidden" style={{ height: 340 }}>
+                    <CreatorEarningsScreen />
                   </div>
-                  <div className="bg-[#FAFAFA] overflow-hidden relative" style={{ height: 340 }}>
-                    <div className="absolute inset-0 flex items-start justify-center overflow-hidden">
-                      <div style={{ width: '100%' }}>
-                        <Image src="/images/creators/app-earnings-desktop.png" alt="Earnings dashboard" width={1440} height={900} className="w-full h-auto" />
+                </div>
+                {/* Mobile version (Phone visual) */}
+                <div className="md:hidden mt-4 relative h-[280px] w-full flex justify-center overflow-hidden pointer-events-none -mb-8">
+                  <div className="absolute top-0 flex justify-center" style={{ transform: 'scale(0.85)', transformOrigin: 'top center', width: 320 }}>
+                    <PhoneFrame screenBg="#FFFFFF">
+                      <div className="w-full h-[696px] bg-white pt-6">
+                        <CreatorEarningsScreen compact />
                       </div>
-                    </div>
+                    </PhoneFrame>
                   </div>
                 </div>
               </div>
@@ -835,7 +575,7 @@ export default function CreatorsPage() {
                     <div className="h-px mb-6" style={{ background: 'rgba(124,59,237,0.14)' }} />
                     <h3 className="font-bold text-base mb-2 text-[#0F0F1A]">Clear rules upfront</h3>
                     <p className="text-sm text-[#4A4A6A] leading-relaxed flex-1">
-                      Every campaign shows exactly what's required before you commit. No hidden clauses, no last-minute surprises.
+                      Every campaign shows exactly what&apos;s required before you commit. No hidden clauses, no last-minute surprises.
                     </p>
                   </div>
                   <div className="grid grid-cols-2" style={{ borderTop: '1px solid rgba(124,59,237,0.12)' }}>
