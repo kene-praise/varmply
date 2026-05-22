@@ -10,7 +10,7 @@ const nextConfig: NextConfig = {
         headers: [
           {
             key: "Content-Security-Policy",
-            value: "frame-ancestors 'self' https://praize.dev https://*.praize.dev https://*.vercel.app http://localhost:3000 http://localhost:3001",
+            value: "frame-ancestors 'self' https://praize.dev https://*.praize.dev https://*.vercel.app https://kenepraise.com https://*.kenepraise.com http://localhost:3000 http://localhost:3001",
           },
         ],
       },
