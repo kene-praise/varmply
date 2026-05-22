@@ -206,7 +206,7 @@ function CampaignBanner({ campaign }: { campaign: Campaign }) {
   return (
     <div style={{
       margin: '8px 10px 0',
-      height: 195,
+      height: 165,
       borderRadius: 18,
       background: campaign.gradient,
       position: 'relative',
@@ -214,6 +214,7 @@ function CampaignBanner({ campaign }: { campaign: Campaign }) {
       boxShadow: '0 6px 24px rgba(0,0,0,0.22)',
     }}>
       {/* Cover art image */}
+      {/* eslint-disable-next-line @next/next/no-img-element -- external cover art is decorative inside a tiny animated mock. */}
       <img
         src={campaign.coverImage}
         alt=""
@@ -346,9 +347,9 @@ function SubmissionVideo({ campaign }: { campaign: Campaign }) {
   const isTikTok = campaign.submission.platform === 'TikTok';
 
   return (
-    <div style={{ marginTop: 10 }}>
+    <div style={{ marginTop: 6 }}>
       {/* Full-bleed video — no side margins, no border, no card */}
-      <div style={{ position: 'relative', height: 190, background: '#000', overflow: 'hidden' }}>
+      <div style={{ position: 'relative', height: 218, background: '#000', overflow: 'hidden' }}>
         <video
           ref={videoRef}
           src={campaign.submission.video}
@@ -471,8 +472,8 @@ export default function SponsorCampaignPrototype() {
       background: BG, fontFamily: FONT,
       position: 'relative', overflow: 'hidden', color: DARK,
     }}>
-      {/* ── Clears the PhoneFrame status bar + dynamic island ── */}
-      <div style={{ height: 60, flexShrink: 0 }} />
+      {/* ── Gap below PhoneFrame's own status bar (which is already 60px) ── */}
+      <div style={{ height: 48, flexShrink: 0 }} />
 
       <AnimatePresence mode="wait">
         <motion.div

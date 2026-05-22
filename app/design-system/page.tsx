@@ -381,10 +381,10 @@ export default function DesignSystemPage() {
               >
                 <BrowserChrome url="app.varmply.com/campaigns" />
                 <Image
-                  src="/mockups/my-campaigns.png"
+                  src="/images/sponsors/app-sponsor-dashboard-desktop.png"
                   alt=""
-                  width={1512}
-                  height={1023}
+                  width={3022}
+                  height={1714}
                   style={{ width: '100%', height: 'auto', display: 'block' }}
                 />
               </div>
@@ -429,7 +429,7 @@ export default function DesignSystemPage() {
               >
                 <BrowserChrome url="app.varmply.com/campaigns/create" />
                 <div className="relative overflow-hidden" style={{ height: 300 }}>
-                  <Image src="/mockups/create-campaign.png" alt="" width={756} height={574} style={{ position: 'absolute', top: -60, left: 0 }} />
+                  <Image src="/images/sponsors/app-campaign-builder.png" alt="" width={722} height={1534} style={{ position: 'absolute', top: -60, left: 0 }} />
                 </div>
               </div>
             </div>
@@ -445,7 +445,7 @@ export default function DesignSystemPage() {
               >
                 <BrowserChrome url="app.varmply.com/campaigns/create" />
                 <div className="relative overflow-hidden" style={{ height: 240 }}>
-                  <Image src="/mockups/create-campaign.png" alt="" width={756} height={574} style={{ position: 'absolute', top: 0, left: 0 }} />
+                  <Image src="/images/sponsors/app-campaign-builder.png" alt="" width={722} height={1534} style={{ position: 'absolute', top: 0, left: 0 }} />
                 </div>
               </div>
               <p className="absolute z-20 bottom-6 left-6 text-[10px] font-semibold text-white/50 uppercase tracking-widest">Clear requirements</p>
@@ -1010,10 +1010,10 @@ export default function DesignSystemPage() {
           {/* ── Browser frame — full view ── */}
           <p className="mb-4 text-[11px] font-medium uppercase tracking-wider text-[var(--text-muted)]">BrowserFrame — My Campaigns (full view)</p>
           <BrowserFrame
-            src="/mockups/my-campaigns.png"
+            src="/images/sponsors/app-sponsor-dashboard-desktop.png"
             alt="My Campaigns dashboard"
-            width={1512}
-            height={1023}
+            width={3022}
+            height={1714}
             url="app.varmply.com/campaigns"
           />
 
@@ -1034,10 +1034,10 @@ export default function DesignSystemPage() {
               >
                 <BrowserChrome url="app.varmply.com/campaigns" />
                 <Image
-                  src="/mockups/my-campaigns.png"
+                  src="/images/sponsors/app-sponsor-dashboard-desktop.png"
                   alt=""
-                  width={1512}
-                  height={1023}
+                  width={3022}
+                  height={1714}
                   style={{ width: '100%', height: 'auto', display: 'block' }}
                 />
               </div>
@@ -1055,7 +1055,7 @@ export default function DesignSystemPage() {
                 <BrowserChrome url="app.varmply.com/campaigns/create" />
                 {/* browser bottom: -22+32+240=250, clear zone y=250–360 (110px) */}
                 <div className="relative overflow-hidden" style={{ height: 240 }}>
-                  <Image src="/mockups/create-campaign.png" alt="" width={756} height={574} style={{ position: 'absolute', top: 0, left: 0 }} />
+                  <Image src="/images/sponsors/app-campaign-builder.png" alt="" width={722} height={1534} style={{ position: 'absolute', top: 0, left: 0 }} />
                 </div>
               </div>
               <p className="absolute z-20 bottom-6 left-6 text-[10px] font-semibold text-white/50 uppercase tracking-widest">Sponsor Tools</p>
@@ -1075,7 +1075,7 @@ export default function DesignSystemPage() {
               >
                 <BrowserChrome url="app.varmply.com/campaigns/create" />
                 <div className="relative overflow-hidden" style={{ height: 360 }}>
-                  <Image src="/mockups/create-campaign.png" alt="" width={756} height={574} style={{ position: 'absolute', top: -80, left: 0 }} />
+                  <Image src="/images/sponsors/app-campaign-builder.png" alt="" width={722} height={1534} style={{ position: 'absolute', top: -80, left: 0 }} />
                 </div>
               </div>
             </div>

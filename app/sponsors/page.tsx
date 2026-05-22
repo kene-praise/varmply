@@ -5,21 +5,13 @@ import { useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { ScrollCarousel } from '@/components/ui/ScrollCarousel';
+import Image from 'next/image';
 import { ArrowRight, CheckCircle, Lock, RotateCcw, BarChart2, Users, Shield, Star } from 'lucide-react';
 import FAQAccordion from '@/components/FAQAccordion';
-import { BrowserChrome } from '@/components/MockupSkeletons';
 import { VideoCard } from '@/components/ui/VideoCard';
 import { PhoneFrame } from '@/components/ui/PhoneFrame';
 import { LiquidGlass } from '@/components/ui/LiquidGlass';
-import {
-  SponsorCampaignDetailScreen,
-  SponsorDashboardScreen,
-  SponsorEscrowScreen,
-  SponsorHeroLiveScreen,
-  SponsorMonitoringScreen,
-  SponsorPayoutScreen,
-  SponsorSetupScreen,
-} from '@/components/UIComponents/AppMockScreens';
+import SponsorCampaignPrototype from '@/components/UIComponents/SponsorCampaignPrototype';
 
 
 // ─── Animation helpers ────────────────────────────────────────────────────────
@@ -45,17 +37,34 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
   );
 }
 
-const phoneVisual = (children: React.ReactNode) => (
-  <div className="mt-7 relative h-[260px] md:h-[330px] w-full flex justify-center overflow-hidden pointer-events-none">
-    <div className="absolute top-0 flex justify-center" style={{ transform: 'scale(0.7)', transformOrigin: 'top center', width: 320 }}>
-      <PhoneFrame screenBg="#FFFFFF">
-        <div className="w-full h-[696px] bg-white pt-10">
-          {children}
+
+
+
+type PhoneVisCfg = { top?: number; left?: number; right?: number; bottom?: number; scale?: number; x?: number; y?: number };
+const phoneVisual = (imgSrc: string, alt: string, cfg: PhoneVisCfg = {}) => {
+  const { top = 60, left = 0, right = 0, bottom = 0, scale = 1, x = 0, y = 0 } = cfg;
+  const inner = (fw: number) => (
+    <PhoneFrame screenBg="#FFFFFF" frameWidth={fw}>
+      <div className="absolute overflow-hidden" style={{ top, left, right, bottom }}>
+        <div style={{ transform: `scale(${scale}) translate(${x}px, ${y}px)`, transformOrigin: 'top center', width: '100%' }}>
+          <Image src={imgSrc} alt={alt} width={390} height={844} className="w-full h-auto" />
         </div>
-      </PhoneFrame>
-    </div>
-  </div>
-);
+      </div>
+    </PhoneFrame>
+  );
+  return (
+    <>
+      {/* Mobile — keep existing dimensions */}
+      <div className="md:hidden mt-8 px-4 relative h-[420px] w-full flex justify-center overflow-hidden pointer-events-none">
+        <div className="absolute top-0 flex justify-center">{inner(260)}</div>
+      </div>
+      {/* Desktop — larger phone, shorter container */}
+      <div className="hidden md:flex mt-8 -mx-8 relative h-[440px] w-[calc(100%+64px)] justify-center overflow-hidden pointer-events-none">
+        <div className="absolute top-0 flex justify-center">{inner(310)}</div>
+      </div>
+    </>
+  );
+};
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 
@@ -192,11 +201,11 @@ export default function SponsorsPage() {
             </motion.div>
 
             {/* Mobile hero: campaign prototype in phone */}
-            <motion.div variants={fadeUp} className="lg:hidden mt-8">
-              <div className="relative w-full overflow-hidden" style={{ height: 420 }}>
+            <motion.div variants={fadeUp} className="lg:hidden mt-8 -mb-8">
+              <div className="relative w-full" style={{ height: 420 }}>
                 <div className="absolute top-0 left-1/2" style={{ transform: 'translateX(-50%)' }}>
                   <PhoneFrame screenBg="#F7F7F9" scale={0.82}>
-                    <SponsorHeroLiveScreen />
+                    <SponsorCampaignPrototype />
                   </PhoneFrame>
                 </div>
               </div>
@@ -216,7 +225,7 @@ export default function SponsorsPage() {
 
           {/* ── Right: campaign prototype in phone (desktop only) ── */}
           <div className="hidden lg:flex flex-col justify-center" style={{ flex: 1 }}>
-            <div className="relative" style={{ height: 'clamp(560px, 74vh, 680px)' }}>
+            <div className="relative" style={{ height: 'clamp(640px, 84vh, 800px)' }}>
               {/* Glass card */}
               <motion.div
                 className="absolute inset-0 overflow-hidden"
@@ -236,7 +245,7 @@ export default function SponsorsPage() {
                 {/* Phone centered, bottom anchored */}
                 <div className="sponsor-hero-phone absolute bottom-0 w-full flex justify-center">
                   <PhoneFrame screenBg="#F7F7F9">
-                    <SponsorHeroLiveScreen />
+                    <SponsorCampaignPrototype />
                   </PhoneFrame>
                 </div>
               </motion.div>
@@ -274,30 +283,30 @@ export default function SponsorsPage() {
                 step: '01', accent: '#7C3BED', bgTint: 'rgba(124,59,237,0.05)', border: 'rgba(124,59,237,0.14)',
                 label: 'Define your campaign rules', tag: 'DEFINE',
                 description: "Set your brief, eligibility requirements, deliverables, and deadline. Everything is crystal clear before any creator applies.",
-                phone: <SponsorSetupScreen compact />,
+                imgSrc: '/images/sponsors/app-campaign-builder.png', cfg: { top: 53, scale: 1.04 },
               },
               {
                 step: '02', accent: '#2563EB', bgTint: 'rgba(37,99,235,0.05)', border: 'rgba(37,99,235,0.14)',
                 label: 'Activate with escrow', tag: 'FUNDING',
                 description: "Lock your campaign budget in escrow. Creators can see funds exist before they apply. No budget = no campaign. Trust is built in from day one.",
-                phone: <SponsorEscrowScreen compact />,
+                imgSrc: '/images/sponsors/app-sponsor-wallet.png',
               },
               {
                 step: '03', accent: '#00A050', bgTint: 'rgba(0,160,80,0.05)', border: 'rgba(0,160,80,0.14)',
                 label: 'Monitor in real time', tag: 'ANALYTICS',
                 description: "Watch submissions come in. Track reach, engagement, and impressions per creator as they happen. Every metric is validated automatically.",
-                phone: <SponsorMonitoringScreen compact />,
+                imgSrc: '/images/sponsors/app-analytics.png',
               },
               {
                 step: '04', accent: '#D97706', bgTint: 'rgba(217,119,6,0.05)', border: 'rgba(217,119,6,0.14)',
                 label: 'Pay for verified results', tag: 'PAYOUTS',
                 description: 'Funds are released only when performance is confirmed. Unused budget returns automatically. You only ever pay for what actually happened.',
-                phone: <SponsorPayoutScreen compact />,
+                imgSrc: '/images/sponsors/app-campaign-detail.png',
               },
             ].map((s, i) => (
               <motion.div key={i} variants={fadeUp} className="shrink-0 w-[82vw] snap-start md:w-auto self-stretch flex flex-col">
                 <div className="relative overflow-hidden rounded-[32px] flex flex-col flex-1"
-                  style={{ background: s.bgTint, border: `1px solid ${s.border}`, minHeight: 520 }}>
+                  style={{ background: s.bgTint, border: `1px solid ${s.border}`, minHeight: 380 }}>
                   {/* Ghost step number */}
                   <span className="absolute -bottom-6 -right-2 font-black select-none pointer-events-none leading-none"
                     style={{ fontSize: '13rem', color: s.accent, opacity: 0.055, letterSpacing: '-0.06em' }}>
@@ -320,7 +329,7 @@ export default function SponsorsPage() {
                       <p className="text-sm text-[#4A4A6A] leading-relaxed" style={{ maxWidth: 340 }}>{s.description}</p>
                     </div>
 
-                    {phoneVisual(s.phone)}
+                    {phoneVisual(s.imgSrc, s.label, s.cfg)}
                   </div>
                 </div>
               </motion.div>
@@ -376,27 +385,54 @@ export default function SponsorsPage() {
                   Live
                 </span>
               </div>
-              <div className="p-6 md:p-10 pt-7">
-                <p className="font-black text-[#0F0F1A] tracking-tight mb-6"
+              <div className="px-6 md:px-10 pt-7 pb-6 md:pb-8">
+                <p className="font-black text-[#0F0F1A] tracking-tight mb-0"
                   style={{ fontSize: 'clamp(18px, 2vw, 22px)', lineHeight: 1.15 }}>
                   Every active campaign, submission, <br className="max-md:hidden" /> and spend tracked in real time.
                 </p>
-                <div className="hidden md:block relative rounded-xl overflow-hidden"
-                  style={{ border: '1px solid rgba(37,99,235,0.10)', boxShadow: '0 4px 24px rgba(37,99,235,0.08)' }}>
-                  <BrowserChrome url="app.varmply.com/campaigns" />
-                  <div className="bg-[#FAFAFA] overflow-hidden" style={{ height: 340 }}>
-                    <SponsorDashboardScreen />
+              </div>
+              {/* Desktop — left padding only, bleeds off right + bottom */}
+              <div className="hidden md:block pl-6 md:pl-10">
+                <div className="relative overflow-hidden rounded-tl-xl">
+                  <div style={{ background: 'linear-gradient(180deg, #1C1528 0%, #160F22 100%)', borderBottom: '1px solid rgba(124,59,237,0.25)', padding: '10px 14px', display: 'flex', alignItems: 'center', gap: 10 }}>
+                    <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
+                      {[{ color: '#FF5F57', glow: 'rgba(255,95,87,0.5)' }, { color: '#FFBD2E', glow: 'rgba(255,189,46,0.5)' }, { color: '#28C840', glow: 'rgba(40,200,64,0.5)' }].map(({ color, glow }) => (
+                        <span key={color} style={{ display: 'block', width: 11, height: 11, borderRadius: '50%', background: color, boxShadow: `0 0 6px 1px ${glow}` }} />
+                      ))}
+                    </div>
+                    <div style={{ display: 'flex', gap: 4 }}>
+                      {['‹', '›'].map((a, i) => (
+                        <span key={i} style={{ fontSize: 14, lineHeight: 1, color: i === 0 ? 'rgba(255,255,255,0.25)' : 'rgba(255,255,255,0.5)', fontWeight: 600, userSelect: 'none' }}>{a}</span>
+                      ))}
+                    </div>
+                    <div style={{ flex: 1, display: 'flex', alignItems: 'center', gap: 6, background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(124,59,237,0.3)', borderRadius: 8, padding: '5px 10px' }}>
+                      <svg width="10" height="11" viewBox="0 0 10 11" fill="none"><rect x="1.5" y="4.5" width="7" height="6" rx="1.5" stroke="rgba(124,59,237,0.9)" strokeWidth="1.2"/><path d="M3 4.5V3a2 2 0 1 1 4 0v1.5" stroke="rgba(124,59,237,0.9)" strokeWidth="1.2" strokeLinecap="round"/></svg>
+                      <Image src="/images/logo-symbol.png" alt="" width={14} height={14} style={{ flexShrink: 0, mixBlendMode: 'screen' }} />
+                      <span style={{ fontSize: 10, color: 'rgba(255,255,255,0.65)', fontFamily: 'monospace', letterSpacing: '0.02em', flex: 1 }}>
+                        app.varmply.com<span style={{ color: 'rgba(255,255,255,0.9)', fontWeight: 700 }}>/dashboard</span>
+                      </span>
+                    </div>
+                    <div style={{ width: 40 }} />
+                  </div>
+                  <div className="overflow-hidden relative" style={{ height: 340 }}>
+                    <div className="absolute inset-0 flex items-start justify-center overflow-hidden">
+                      <div style={{ transform: 'scale(1) translate(-3px, 0px)', transformOrigin: 'top center', width: '100%' }}>
+                        <Image src="/images/sponsors/app-sponsor-dashboard-desktop.png" alt="Sponsor dashboard" width={1440} height={900} className="w-full h-auto" />
+                      </div>
+                    </div>
                   </div>
                 </div>
-                {/* Mobile version (Phone visual) */}
-                <div className="md:hidden mt-4 relative h-[280px] w-full flex justify-center overflow-hidden pointer-events-none -mb-8">
-                  <div className="absolute top-0 flex justify-center" style={{ transform: 'scale(0.85)', transformOrigin: 'top center', width: 320 }}>
-                    <PhoneFrame screenBg="#FFFFFF">
-                      <div className="w-full h-[696px] bg-white pt-6">
-                        <SponsorCampaignDetailScreen compact />
+              </div>
+              {/* Mobile — outside padded div, full card width */}
+              <div className="md:hidden -mb-8 mt-2 relative h-[420px] w-full flex justify-center overflow-hidden pointer-events-none">
+                <div className="absolute top-0 flex justify-center">
+                  <PhoneFrame screenBg="#FFFFFF" frameWidth={280}>
+                    <div className="absolute overflow-hidden" style={{ top: 60, left: 0, right: 0, bottom: 0 }}>
+                      <div style={{ transform: 'scale(1) translate(0px, -2px)', transformOrigin: 'top center', width: '100%' }}>
+                        <Image src="/images/sponsors/app-sponsor-dashboard-mobile.png" alt="Sponsor dashboard" width={390} height={844} className="w-full h-auto" />
                       </div>
-                    </PhoneFrame>
-                  </div>
+                    </div>
+                  </PhoneFrame>
                 </div>
               </div>
             </div>
@@ -488,8 +524,8 @@ export default function SponsorsPage() {
           <ScrollCarousel count={3} gridClass="md:grid-cols-3">
 
             {/* Card 1 — SwiftPay · diagonal crosshatch */}
-            <motion.div variants={fadeUp} className="shrink-0 w-[82vw] snap-start md:w-auto">
-              <div className="relative overflow-hidden rounded-[28px] flex flex-col"
+            <motion.div variants={fadeUp} className="shrink-0 w-[82vw] snap-start md:w-auto self-stretch flex flex-col">
+              <div className="relative overflow-hidden rounded-[28px] flex flex-col flex-1"
                 style={{ background: 'rgba(37,99,235,0.05)', border: '1.5px solid rgba(37,99,235,0.14)', minHeight: 420 }}>
                 <div className="relative z-10 flex flex-col h-full">
                   {/* Top rule bar */}
@@ -720,7 +756,7 @@ export default function SponsorsPage() {
                     </p>
                   </div>
                   {/* 4-col box score */}
-                  <div className="grid grid-cols-4" style={{ borderTop: '1px solid rgba(37,99,235,0.12)' }}>
+                  <div className="grid grid-cols-2 md:grid-cols-4" style={{ borderTop: '1px solid rgba(37,99,235,0.12)' }}>
                     {[
                       { val: '100%', label: 'Pre-locked' },
                       { val: '₦0', label: 'Early access' },
@@ -728,7 +764,7 @@ export default function SponsorsPage() {
                       { val: '0', label: 'Disputes' },
                     ].map((s, j) => (
                       <div key={j} className="py-4 text-center"
-                        style={{ borderRight: j < 3 ? '1px solid rgba(37,99,235,0.10)' : 'none' }}>
+                        style={{ borderRight: (j === 0 || j === 2) ? '1px solid rgba(37,99,235,0.10)' : 'none', borderTop: j >= 2 ? '1px solid rgba(37,99,235,0.10)' : 'none' }}>
                         <p className="font-black text-sm leading-none" style={{ color: '#2563EB' }}>{s.val}</p>
                         <p className="text-[8px] font-bold uppercase tracking-[0.18em] mt-1"
                           style={{ color: 'rgba(37,99,235,0.45)' }}>{s.label}</p>
@@ -845,16 +881,15 @@ export default function SponsorsPage() {
           </motion.div>
 
           {/* Reel grid */}
-          <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={vp}
-            className="grid grid-cols-2 md:grid-cols-5 gap-3">
+          <ScrollCarousel count={5} gridClass="md:grid-cols-5" className="gap-3 md:gap-3">
             {[
-              { imageSrc: '/images/creators/creator-4.jpg', caption: '@amara.creates', subcaption: 'BeatDrop Q1 · TikTok', chips: [{ label: '120K views', position: 'top-left' as const, variant: 'dark' as const }] },
-              { imageSrc: '/images/creators/creator-11.jpg', caption: '@dayo_creates', subcaption: 'SoundSave · TikTok', chips: [{ label: '88K views', position: 'top-left' as const, variant: 'dark' as const }] },
-              { imageSrc: '/images/creators/creator-6.jpg', caption: '@layla.ng', subcaption: 'GreenLoop · TikTok', chips: [{ label: '54K views', position: 'top-left' as const, variant: 'dark' as const }] },
-              { imageSrc: '/images/creators/creator-2.jpg', caption: '@seunvibes', subcaption: 'BeatDrop Q1 · TikTok', chips: [{ label: '210K views', position: 'top-left' as const, variant: 'dark' as const }] },
-              { imageSrc: '/images/creators/creator-5.jpg', caption: '@chuka.tv', subcaption: 'SoundSave · TikTok', chips: [{ label: '67K views', position: 'top-left' as const, variant: 'dark' as const }] },
+              { imageSrc: '/images/creators/creator-1.jpg', subcaption: 'BeatDrop Q1 · TikTok', chips: [{ label: '120K views', position: 'top-left' as const, variant: 'dark' as const }] },
+              { imageSrc: '/images/creators/creator-3.jpg', subcaption: 'SoundSave · TikTok', chips: [{ label: '88K views', position: 'top-left' as const, variant: 'dark' as const }] },
+              { imageSrc: '/images/creators/creator-5.jpg', subcaption: 'GreenLoop · TikTok', chips: [{ label: '54K views', position: 'top-left' as const, variant: 'dark' as const }] },
+              { imageSrc: '/images/creators/creator-7.jpg', subcaption: 'BeatDrop Q1 · TikTok', chips: [{ label: '210K views', position: 'top-left' as const, variant: 'dark' as const }] },
+              { imageSrc: '/images/creators/creator-9.jpg', subcaption: 'SoundSave · TikTok', chips: [{ label: '67K views', position: 'top-left' as const, variant: 'dark' as const }] },
             ].map((reel, i) => (
-              <motion.div key={i} variants={fadeUp} className={i % 2 !== 0 ? 'md:mt-8' : ''}>
+              <motion.div key={i} variants={fadeUp} className={`shrink-0 w-[58vw] md:w-auto snap-start ${i % 2 !== 0 ? 'md:mt-8' : ''}`}>
                 <VideoCard
                   {...reel}
                   aspectRatio="9/16"
@@ -864,7 +899,7 @@ export default function SponsorsPage() {
                 />
               </motion.div>
             ))}
-          </motion.div>
+          </ScrollCarousel>
         </div>
       </section>
 
